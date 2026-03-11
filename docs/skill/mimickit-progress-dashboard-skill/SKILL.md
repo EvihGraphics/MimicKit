@@ -15,6 +15,10 @@ Provide a single web page for:
 
 This avoids repeated manual terminal polling.
 
+If you are monitoring a single ASE pretraining run rather than longcycle/e2e orchestration, prefer:
+
+- `docs/skill/mimickit-ase-dashboard-skill/SKILL.md`
+
 ## Entry Script
 
 - `scripts/run_progress_dashboard.py`
@@ -79,4 +83,3 @@ Dashboard health labels:
   - `/tmp/mk_dualgpu_follow_until_high_*.log`
   - `/tmp/mk_ultralong_alloc_monitor_*.log`
   - `/tmp/mk_longcycle_monitor_*.log`
-

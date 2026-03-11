@@ -44,12 +44,19 @@ description: Build MimicKit inference visualization frame sequences from output/
 6. Force offscreen viewer path by default (`MIMICKIT_VIEWER_HEADLESS=1`) to avoid interactive event-loop blocking in headless/WSL sessions.
 7. If resolved engine config points to Isaac but `isaacgym` is unavailable, fallback to `data/engines/newton_engine.yaml`.
 8. Generate actions:
-   - policy case: deterministic actor (`eval_actor + norm`)
+   - policy case: prefer the agent test loop (`set_mode(TEST) -> _reset_envs -> _decide_action -> _step_env -> _reset_done_envs`)
+   - fallback only when the agent loop is unavailable: deterministic actor (`eval_actor + norm`)
    - dummy case: zero action clipped to action space
 9. Capture frame every `frame_stride` with `ViewerGL.get_frame(render_ui=False)` and save `frame_XXXXXX.png`.
 10. Write case meta (`render_meta.json`) and indices:
    - `output/img/<root>/infer_viz_index.tsv`
    - `output/img/render_all_roots.tsv`
+
+ASE-specific note:
+
+- Do not judge ASE quality from renders that bypass the agent test loop.
+- A static actor wrapper can skip latent reset/update behavior and produce false negatives such as “blue agent jitters in place”.
+- If an ASE render looks like idle wobble or near-frozen poses, rerender with the agent test loop before concluding the checkpoint collapsed.
 
 ## Acceptance
 
@@ -60,6 +67,7 @@ description: Build MimicKit inference visualization frame sequences from output/
   - `output/img/render_all_roots.tsv`
 - Selection contract: all indexed rows come from `final_ok=1`.
 - Visual contract: `visual_kind` is recorded as `mesh|geom|unknown` and `mesh_detected` is present.
+- ASE visual contract: for ASE policy cases, sampled frames should show pose progression across the sequence; near-identical frames are a render-path warning first, not immediate proof of bad training.
 - Resume contract: second run with same params returns `status=skipped_resume` only when prior `status=ok` and frame count reaches expected count.
 - Force contract: `--force` bypasses resume and rebuilds.
 
@@ -81,3 +89,6 @@ description: Build MimicKit inference visualization frame sequences from output/
   - Ensure config YAMLs exist in model dir or are resolvable from TSV/arg file.
 - Unexpected skips:
   - Use `--force` to rebuild and reset the render directory.
+- ASE agent only jitters or stands nearly still:
+  - Symptom: blue agent pose barely changes while the green/demo reference moves.
+  - Action: verify the render is using the agent test loop rather than a static policy wrapper; rerender with `--force` after updating `tools/ue_bridge/build_mimickit_render_sequences.py`.

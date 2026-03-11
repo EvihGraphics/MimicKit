@@ -2,6 +2,12 @@
 
 This baseline locks the first deliverable for `UE5 x MimicKit` integration.
 
+Current project-goal note:
+
+- This file remains the historical baseline for the first `UE5 x MimicKit` deliverable.
+- The current top-level training objective has moved to [`README_ASE_Dual4090_SOP.md`](README_ASE_Dual4090_SOP.md).
+- Read that SOP first if your target is `ASE` large-scale training on dual `RTX 4090`; keep this file for UE bridge/output contract constraints.
+
 ## Locked Baseline
 
 - Arg case: `args/deepmimic_humanoid_ppo_args.txt`
