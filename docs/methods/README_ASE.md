@@ -96,12 +96,47 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
 当前实现备注：
 
 - `2026-03-12` 已完成一轮 `27/27` ASE smoke validation，覆盖 `LLC/HLC/test/viz/perturb/view_motion`。
+- `2026-03-12` 已完成一轮 `24/24` ASE closure regression，汇总文件：`output/train/ase_closure_regression_20260312_145341/results_final.tsv`
+- 白骑士 sword/shield 资产已单独固化为 manifest-driven motion library parity，不和 task case 混写。
+- `2026-03-12` 已完成一轮 `87/87` 白骑士 per-clip render 验证，索引文件：`output/img/case_ase_reallusion_motion_library_smoke_20260312_143511/infer_viz_index.tsv`
 - headless 可视化与离线渲染推荐统一带：
   - `MIMICKIT_VIEWER_HEADLESS=1`
   - `MESA_GL_VERSION_OVERRIDE=3.3`
   - `MESA_GLSL_VERSION_OVERRIDE=330`
+- `view_motion` 直接走 `run.py` 时，建议显式加 `--num_envs 1 --test_episodes 1`，并保持默认设备 `cuda:0`
 
-## 4. 案例覆盖（ASE Full Chain）
+## 4. 任务案例 vs 动作素材
+
+官方 `ASE` 任务口径仍是：
+
+- `Getup`
+- `Perturb`
+- `ViewMotion`
+- `Heading`
+- `Location`
+- `Reach`
+- `Strike`
+
+官网里“白色骑士拿剑盾的很多动作”在本仓库中不解读成额外 task，而是解读成 Reallusion 动作素材库的 coverage。当前 source of truth：
+
+- manifest：`data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`
+- helper：`tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
+
+当前覆盖口径：
+
+| coverage | 说明 |
+|---|---|
+| `7` 个官方 task family | 对应本仓库 `ASE` Full Chain |
+| `87` 个白骑士动作条目 | `82` 个 train-enabled + `5` 个 fall view-only |
+
+动作来源归类：
+
+| source_pack | 作用 |
+|---|---|
+| `sword_shield_stunts` | combo / counter / kill / dodge / fall / special_attack |
+| `sword_shield_moves` | slash / stab / locomotion / idle / taunt / block / parry |
+
+## 5. 案例覆盖（ASE Full Chain）
 
 | case | env_config | agent_config | motion_file | 参数导读（意义） |
 |---|---|---|---|---|
@@ -118,8 +153,9 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
 
 - 单动作：`data/envs/view_motion_humanoid_sword_shield_env.yaml`
 - dataset yaml：`data/envs/view_motion_humanoid_sword_shield_dataset_env.yaml`
+- per-clip motion library：`tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
 
-## 5. 训练/推理/可视化模板
+## 6. 训练/推理/可视化模板
 
 ```bash
 # 训练
@@ -163,7 +199,7 @@ HLC 额外模板：
   --out_dir output/train/<hlc_run_name>
 ```
 
-## 6. 每个案例推理与可视化讲解
+## 7. 每个案例推理与可视化讲解
 
 统一命令（将 `<case_args>` 替换为下表对应案例）：
 

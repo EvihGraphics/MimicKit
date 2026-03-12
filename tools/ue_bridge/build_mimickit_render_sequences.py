@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gc
 import importlib.util
 import inspect
 import json
@@ -55,6 +56,13 @@ INDEX_FIELDS = [
     "env_config",
     "engine_config",
     "agent_config",
+    "llc_model_file",
+    "motion_id",
+    "motion_file",
+    "source_pack",
+    "category",
+    "train_enabled",
+    "view_enabled",
     "out_dir",
     "out_dir_rel",
     "render_dir",
@@ -463,6 +471,11 @@ def count_frame_images(frames_dir: Path) -> int:
     return len(list(frames_dir.glob("frame_*.png")))
 
 
+def should_retry_render_error(error_text: str) -> bool:
+    text = str(error_text)
+    return ("GLException" in text) or ("Invalid operation" in text)
+
+
 def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     render_dir = Path(job["render_dir"])
     frames_dir = render_dir / "frames"
@@ -522,98 +535,126 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
         engine_config=str(job["engine_config"]) if job["engine_config"] else "",
         agent_config=str(job["agent_config"]) if job["agent_config"] else "",
         model_file=str(job["model_file"]) if (job["model_file"] and job["case_kind"] == "policy") else "",
+        llc_model_file=str(job["llc_model_file"]) if job.get("llc_model_file") else "",
         num_envs=int(args.num_envs),
     )
 
-    try:
-        if job["case_kind"] == "policy" and not job["model_file"]:
-            raise RuntimeError("missing model file for policy case")
-        if not job["arg_file"] or not Path(job["arg_file"]).exists():
-            raise RuntimeError("arg_file not found")
-        if not job["env_config"] or not Path(job["env_config"]).exists():
-            raise RuntimeError("env_config not found")
-        if not job["engine_config"] or not Path(job["engine_config"]).exists():
-            raise RuntimeError("engine_config not found")
+    max_attempts = 2
+    attempt = 0
+    while attempt < max_attempts:
+        attempt += 1
+        ctx = None
+        viewer = None
 
-        ctx = build_runtime_context(
-            arg_file=str(job["arg_file"]),
-            overrides=overrides,
-            device=args.device,
-            visualize=True,
-            load_model=(job["case_kind"] == "policy"),
-        )
+        try:
+            if frames_dir.exists():
+                shutil.rmtree(frames_dir)
+            frames_dir.mkdir(parents=True, exist_ok=True)
 
-        action_space = ctx.env.get_action_space()
-        action_fn = build_action_fn(job["case_kind"], ctx.agent, action_space, args.device)
+            if job["case_kind"] == "policy" and not job["model_file"]:
+                raise RuntimeError("missing model file for policy case")
+            if not job["arg_file"] or not Path(job["arg_file"]).exists():
+                raise RuntimeError("arg_file not found")
+            if not job["env_config"] or not Path(job["env_config"]).exists():
+                raise RuntimeError("env_config not found")
+            if not job["engine_config"] or not Path(job["engine_config"]).exists():
+                raise RuntimeError("engine_config not found")
 
-        agent_loop = bool(job["case_kind"] == "policy" and hasattr(ctx.agent, "_decide_action") and hasattr(ctx.agent, "_step_env"))
-        if agent_loop:
-            ctx.agent.eval()
-            ctx.agent.set_mode(base_agent.AgentMode.TEST)
-            obs, info = ctx.agent._reset_envs(None)
-        else:
-            obs, info = ctx.env.reset(None)
-        viewer = getattr(ctx.env._engine, "_viewer", None)
-        if viewer is None:
-            raise RuntimeError("viewer not available (render path requires visualize=True)")
+            ctx = build_runtime_context(
+                arg_file=str(job["arg_file"]),
+                overrides=overrides,
+                device=args.device,
+                visualize=True,
+                load_model=(job["case_kind"] == "policy"),
+            )
 
-        captures: list[dict[str, Any]] = []
-        image_count = 0
+            action_space = ctx.env.get_action_space()
+            action_fn = build_action_fn(job["case_kind"], ctx.agent, action_space, args.device)
 
-        with torch.no_grad():
-            for frame_idx in range(int(args.frames)):
-                if agent_loop:
-                    action, _action_info = ctx.agent._decide_action(obs, info)
-                    _next_obs, _reward, done, _next_info = ctx.agent._step_env(action)
-                else:
-                    action = action_fn(obs)
-                    _next_obs, _reward, done, _next_info = ctx.env.step(action)
+            agent_loop = bool(job["case_kind"] == "policy" and hasattr(ctx.agent, "_decide_action") and hasattr(ctx.agent, "_step_env"))
+            if agent_loop:
+                ctx.agent.eval()
+                ctx.agent.set_mode(base_agent.AgentMode.TEST)
+                obs, info = ctx.agent._reset_envs(None)
+            else:
+                obs, info = ctx.env.reset(None)
+            viewer = getattr(ctx.env._engine, "_viewer", None)
+            if viewer is None:
+                raise RuntimeError("viewer not available (render path requires visualize=True)")
 
-                if frame_idx % int(args.frame_stride) == 0:
-                    frame_wp = viewer.get_frame(render_ui=False)
-                    frame_np = wp.to_torch(frame_wp).detach().cpu().numpy()
-                    frame_path = frames_dir / f"frame_{frame_idx:06d}.png"
-                    mpimg.imsave(frame_path, frame_np)
-                    captures.append({"frame": int(frame_idx), "file": frame_path.name})
-                    image_count += 1
+            captures: list[dict[str, Any]] = []
+            image_count = 0
 
-                if agent_loop:
-                    obs, info = ctx.agent._reset_done_envs(done)
-                else:
-                    done_ids = torch.nonzero(done != 0, as_tuple=False).flatten() if torch.is_tensor(done) else torch.tensor([], dtype=torch.long)
-                    if int(done_ids.numel()) > 0:
-                        _next_obs, _reset_info = ctx.env.reset(done_ids)
-                    obs = _next_obs
+            with torch.no_grad():
+                for frame_idx in range(int(args.frames)):
+                    if agent_loop:
+                        action, _action_info = ctx.agent._decide_action(obs, info)
+                        _next_obs, _reward, done, _next_info = ctx.agent._step_env(action)
+                    else:
+                        action = action_fn(obs)
+                        _next_obs, _reward, done, _next_info = ctx.env.step(action)
 
-        index_path = frames_dir / "index.json"
-        index_path.write_text(
-            json.dumps(
-                {
-                    "frames": int(args.frames),
-                    "frame_stride": int(args.frame_stride),
-                    "expected_image_count": int(expected),
-                    "image_count": int(image_count),
-                    "captures": captures,
-                },
-                ensure_ascii=False,
-                indent=2,
-            ),
-            encoding="utf-8",
-        )
+                    if frame_idx % int(args.frame_stride) == 0:
+                        frame_wp = viewer.get_frame(render_ui=False)
+                        frame_np = wp.to_torch(frame_wp).detach().cpu().numpy()
+                        frame_path = frames_dir / f"frame_{frame_idx:06d}.png"
+                        mpimg.imsave(frame_path, frame_np)
+                        captures.append({"frame": int(frame_idx), "file": frame_path.name})
+                        image_count += 1
 
-        row["status"] = "ok"
-        row["image_count"] = int(image_count)
-        row["resumed"] = 0
+                    if agent_loop:
+                        obs, info = ctx.agent._reset_done_envs(done)
+                    else:
+                        done_ids = torch.nonzero(done != 0, as_tuple=False).flatten() if torch.is_tensor(done) else torch.tensor([], dtype=torch.long)
+                        if int(done_ids.numel()) > 0:
+                            _next_obs, _reset_info = ctx.env.reset(done_ids)
+                        obs = _next_obs
 
-    except BaseException as err:
-        if isinstance(err, (KeyboardInterrupt, SystemExit)):
-            raise
-        row["status"] = "error"
-        row["error"] = f"{type(err).__name__}: {err}"
-        trace_path = render_dir / "render_error.log"
-        trace_path.write_text(traceback.format_exc(), encoding="utf-8")
-    finally:
-        meta_path.write_text(json.dumps(row, ensure_ascii=False, indent=2), encoding="utf-8")
+            index_path = frames_dir / "index.json"
+            index_path.write_text(
+                json.dumps(
+                    {
+                        "frames": int(args.frames),
+                        "frame_stride": int(args.frame_stride),
+                        "expected_image_count": int(expected),
+                        "image_count": int(image_count),
+                        "captures": captures,
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+
+            row["status"] = "ok"
+            row["image_count"] = int(image_count)
+            row["resumed"] = 0
+            row["error"] = ""
+            break
+
+        except BaseException as err:
+            if isinstance(err, (KeyboardInterrupt, SystemExit)):
+                raise
+
+            err_text = f"{type(err).__name__}: {err}"
+            row["status"] = "error"
+            row["error"] = err_text
+            trace_path = render_dir / ("render_error.log" if attempt == max_attempts else f"render_error_attempt_{attempt}.log")
+            trace_path.write_text(traceback.format_exc(), encoding="utf-8")
+
+            if attempt >= max_attempts or not should_retry_render_error(err_text):
+                break
+
+            print(f"[WARN] retrying render job after viewer error attempt={attempt} case={job['case']} variant={job['variant']}")
+
+        finally:
+            viewer = None
+            ctx = None
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    meta_path.write_text(json.dumps(row, ensure_ascii=False, indent=2), encoding="utf-8")
 
     return row
 
@@ -670,6 +711,13 @@ def build_jobs(args: argparse.Namespace) -> list[dict[str, Any]]:
                     "env_config": str(env_cfg.resolve()) if env_cfg is not None else "",
                     "engine_config": str(engine_cfg.resolve()) if engine_cfg is not None else "",
                     "agent_config": str(agent_cfg.resolve()) if agent_cfg is not None else "",
+                    "llc_model_file": str(row.get("llc_model_file", "")).strip(),
+                    "motion_id": str(row.get("motion_id", "")).strip(),
+                    "motion_file": str(row.get("motion_file", "")).strip(),
+                    "source_pack": str(row.get("source_pack", "")).strip(),
+                    "category": str(row.get("category", "")).strip(),
+                    "train_enabled": str(row.get("train_enabled", "")).strip(),
+                    "view_enabled": str(row.get("view_enabled", "")).strip(),
                     "out_dir": str(row.get("out_dir", "")).strip(),
                     "out_dir_rel": out_dir_rel,
                     "render_dir": str(render_dir),

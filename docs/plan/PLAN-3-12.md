@@ -130,3 +130,27 @@
   - `ASEHRL` latent action normalizer shape
   - LLC env adapter 缺失 `set_mode`
   - `ase_getup` fall-state 初始化时的张量别名写回
+- `2026-03-12` 已完成一轮 `ASE` 闭环回归：
+  - 根目录：`output/train/ase_closure_regression_20260312_145341`
+  - 最终汇总：`results_final.tsv`
+  - 结果：`24/24 ok`
+
+## White-Knight Motion Library Parity
+
+- 官方 `ASE` 官网里“白骑士拿剑盾的很多动作”，在本仓库中落为 motion-library parity，而不是更多 task family。
+- 当前唯一真源：
+  - `data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`
+  - `tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
+- 资产口径：
+  - 总数 `87`
+  - LLC train-enabled `82`
+  - fall view-only `5`
+- 渲染口径：
+  - helper 生成 synthetic `output/train/<root>/best_by_case.tsv`
+  - 再复用 `tools/ue_bridge/build_mimickit_render_sequences.py`
+  - 输出目录固定为 `output/img/<root>/runs/view_motion_humanoid_sword_shield_args/<motion_id>/render`
+- `2026-03-12` motion-library 验证结果：
+  - 训练根目录：`output/train/case_ase_reallusion_motion_library_smoke_20260312_143511`
+  - 图片根目录：`output/img/case_ase_reallusion_motion_library_smoke_20260312_143511`
+  - 渲染索引：`infer_viz_index.tsv`
+  - 结果：`87/87 ok`

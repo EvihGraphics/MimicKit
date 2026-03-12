@@ -10,6 +10,9 @@
 - 上游对照源固定为 `third_party/ase_upstream`，提交 `6f9b4f1f289603eee6a4f45d082bc6e6d83fecec`。
 - submodule 只用于对照 upstream `README / cfg / models / assets`，运行时不要直接 import。
 - 本实现已在 `2026-03-12` 完成一轮 `27/27` smoke validation，验证根目录为 `output/train/ase_validation_suite_smoke_20260312_093358`。
+- 本实现已在 `2026-03-12` 完成一轮 `24/24` ASE 闭环回归，验证根目录为 `output/train/ase_closure_regression_20260312_145341`，最终汇总见 `results_final.tsv`。
+- 白骑士动作库已在 `2026-03-12` 完成一轮 `87/87` per-clip render 验证，训练根目录为 `output/train/case_ase_reallusion_motion_library_smoke_20260312_143511`，图片根目录为 `output/img/case_ase_reallusion_motion_library_smoke_20260312_143511`。
+- 官方白骑士剑盾演示在本仓库中归类为 motion-library parity，不额外拆成几十个 ASE task；对应唯一真源是 `data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`。
 - 本文默认解释器统一使用：
 
 ```bash
@@ -291,7 +294,9 @@ ASE 专属注意：
   --engine_config data/engines/newton_engine.yaml \
   --env_config data/envs/view_motion_humanoid_sword_shield_env.yaml \
   --mode test \
-  --visualize true
+  --visualize true \
+  --num_envs 1 \
+  --test_episodes 1
 ```
 
 ### 8.2 数据集
@@ -302,24 +307,110 @@ ASE 专属注意：
   --engine_config data/engines/newton_engine.yaml \
   --env_config data/envs/view_motion_humanoid_sword_shield_dataset_env.yaml \
   --mode test \
-  --visualize true
+  --visualize true \
+  --num_envs 1 \
+  --test_episodes 1
 ```
 
 验收：
 
 - `view_motion_humanoid_sword_shield` 必须同时支持单 clip 与 dataset yaml。
 - 这一路径只验证动作资产与渲染，不代表策略质量。
+- Newton 下直接跑 `view_motion` 时，建议保持默认设备 `cuda:0`，不要强行切到 `cuda:1`；否则可能触发 Warp `copy_indexed` 的跨设备 launch 报错。
 
-## 9. 看板与排障
+## 9. 白骑士动作库全覆盖
 
-### 9.1 ASE 看板
+官方 `ASE` 官网里最显眼的白骑士剑盾展示，主要来自 Reallusion 的两套动作素材：
+
+- `Sword & Shield Stunts`
+- `Sword & Shield Moves`
+
+在 `MimicKit` 中，这部分不作为新的 task family 接入，而是作为 `view_motion_humanoid_sword_shield` 的 manifest-driven 资产覆盖：
+
+- manifest：`data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`
+- helper：`tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
+
+当前口径：
+
+- 总动作数：`87`
+- LLC 训练启用：`82`
+- fall 资产：`5`
+- fall 只进入 `view / render / index`，不回灌 `data/datasets/dataset_humanoid_sword_shield.yaml`
+- 当前已验证根目录：
+  - `output/train/case_ase_reallusion_motion_library_smoke_20260312_143511`
+  - `output/img/case_ase_reallusion_motion_library_smoke_20260312_143511`
+
+### 9.1 生成 per-clip render root
+
+```bash
+ROOT_NAME=case_ase_reallusion_motion_library_$(date +%Y%m%d_%H%M%S)
+
+/root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_ase_reallusion_motion_render_root.py \
+  --root-name "${ROOT_NAME}" \
+  --engine-config data/engines/newton_engine.yaml
+```
+
+生成结果：
+
+- `output/train/${ROOT_NAME}/best_by_case.tsv`
+- `output/train/${ROOT_NAME}/generated_envs/<motion_id>.yaml`
+
+### 9.2 dry-run 检查
+
+```bash
+/root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
+  --roots "${ROOT_NAME}" \
+  --cases view_motion_humanoid_sword_shield_args \
+  --dry-run
+```
+
+验收：
+
+- dry-run 必须发现 `87` 个 job。
+- variant 必须直接对应 `motion_id`。
+
+### 9.3 全量离线渲染
+
+```bash
+/root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
+  --roots "${ROOT_NAME}" \
+  --cases view_motion_humanoid_sword_shield_args \
+  --frames 300 \
+  --frame-stride 5 \
+  --device cuda:0 \
+  --num-envs 1
+```
+
+输出契约：
+
+- `output/img/<root>/runs/view_motion_humanoid_sword_shield_args/<motion_id>/render/frames/frame_000000.png`
+- `output/img/<root>/runs/view_motion_humanoid_sword_shield_args/<motion_id>/render/render_meta.json`
+- `output/img/<root>/infer_viz_index.tsv`
+
+索引字段至少应包含：
+
+- `motion_id`
+- `motion_file`
+- `source_pack`
+- `category`
+- `train_enabled`
+- `view_enabled`
+
+抽样验收建议：
+
+- 至少覆盖 `combo / slash / stab / locomotion / idle / taunt / block / parry / fall`。
+- `5` 个 fall 动作必须能单独 view / render，但不能被误写成 LLC 训练输入。
+
+## 10. 看板与排障
+
+### 10.1 ASE 看板
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python scripts/run_ase_dashboard.py \
   --root-out ase_humanoid_sword_shield_fullchain
 ```
 
-### 9.2 常见问题
+### 10.2 常见问题
 
 - `python: command not found`
   - 统一改用 `/root/miniconda3/envs/mimickit/bin/python`
@@ -330,5 +421,8 @@ ASE 专属注意：
 - `DISPLAY` / OpenGL / headless 报错
   - 先确认 `MIMICKIT_VIEWER_HEADLESS=1` 与 `MESA_GL_VERSION_OVERRIDE=3.3`、`MESA_GLSL_VERSION_OVERRIDE=330`
   - 再走 headless test 与离线渲染
+- `view_motion` 在 `cuda:1` 上报 `copy_indexed` device mismatch
+  - 这是当前 Newton direct-run 的已知限制
+  - 直接回到默认设备 `cuda:0`，或改走 render-sequence helper
 - `run.py --help` 不可用
   - `run.py` 不是 argparse 风格 CLI，统一从 `args/*.txt` + 显式覆写参数运行

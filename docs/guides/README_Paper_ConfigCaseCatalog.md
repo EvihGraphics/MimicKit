@@ -79,6 +79,12 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 | `ase_strike_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_strike_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
 | `ase_perturb_humanoid_sword_shield_args.txt` | nontrainable | `test` | `data/envs/ase_perturb_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
 
+补充说明：
+
+- 白骑士 sword/shield 动作库另有一套 manifest-driven 资产覆盖：`data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`
+- 总数 `87` 条，其中 `82` 条保留在 LLC 主训练集，`5` 条 fall 仅做 `view/render/index`
+- 这部分不新增 repo-tracked `args/*.txt`，统一复用 `view_motion_humanoid_sword_shield_args.txt`
+
 ## 3. ADD 论文
 
 - 论文导读：`docs/paper/README_ADD_CN.md`
@@ -205,6 +211,12 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 | `ase_reach_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | sword 末端主动追目标点 | 3D reach 目标可持续命中 | `llc_steps`、`task_reward_weight` |
 | `ase_strike_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | 能对物理 target 施加稳定击倒 | target topple / contact 结果可见 | `llc_steps`、`task_reward_weight` |
 | `ase_perturb_humanoid_sword_shield_args.txt` | perturb robustness | projectile 扰动下不应立刻退化 | test/viz 稳定触发 projectile | `perturb_interval`、`projectile_speed_*` |
+
+白骑士动作库资产覆盖：
+
+| coverage | source of truth | 验收方式 | 说明 |
+|---|---|---|---|
+| `87` motion entries | `data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv` | `view_motion` per-clip render | `82` 条 train-enabled，`5` 条 fall 仅 view-only |
 
 ### 4.4 ADD（原论文主张与案例预期）
 

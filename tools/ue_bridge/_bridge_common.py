@@ -81,10 +81,14 @@ def load_runtime_args(arg_file: str, overrides: argparse.Namespace) -> ArgParser
     _maybe_override_arg(parser, "engine_config", getattr(overrides, "engine_config", None))
     _maybe_override_arg(parser, "agent_config", getattr(overrides, "agent_config", None))
     _maybe_override_arg(parser, "model_file", getattr(overrides, "model_file", None))
+    _maybe_override_arg(parser, "llc_model_file", getattr(overrides, "llc_model_file", None))
 
     if getattr(overrides, "num_envs", None) is not None:
         _maybe_override_arg(parser, "num_envs", str(int(overrides.num_envs)))
 
+    # Match mimickit/run.py so agents that read the global parser
+    # (for example ASEHRL LLC checkpoint wiring) can resolve runtime overrides.
+    ArgParser.global_parser = parser
     return parser
 
 

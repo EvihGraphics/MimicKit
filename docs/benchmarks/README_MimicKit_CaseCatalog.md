@@ -56,3 +56,16 @@
 | `view_motion_humanoid_sword_shield_args.txt` | `view` | `test` | `tooling` | `` | `data/envs/view_motion_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `view_motion_pi_plus_args.txt` | `view` | `test` | `tooling` | `` | `data/envs/view_motion_pi_plus_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `view_motion_smpl_args.txt` | `view` | `test` | `tooling` | `` | `data/envs/view_motion_smpl_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+
+## ASE Motion Library Parity
+
+`ASE` 除了上表里的 `8` 个 args case 之外，还额外维护了一套 manifest-driven 的白骑士动作资产覆盖：
+
+- manifest：`data/motions/reallusion/ase_reallusion_sword_shield_manifest.tsv`
+- helper：`tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
+- 口径：`87` 个动作条目 = `82` 个 LLC train-enabled + `5` 个 fall view-only
+
+说明：
+
+- 这不是新增 `87` 个 repo-tracked case。
+- 它们统一复用 `view_motion_humanoid_sword_shield_args.txt`，通过 synthetic `best_by_case.tsv` 枚举成逐条 render variant。
