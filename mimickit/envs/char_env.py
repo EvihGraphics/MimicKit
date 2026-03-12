@@ -50,7 +50,8 @@ class CharEnv(sim_env.SimEnv):
 
     def _build_envs(self, env_config, num_envs):
         char_file = env_config["char_file"]
-        self._build_kin_char_model(char_file)
+        kin_char_file = env_config.get("kin_char_file", char_file)
+        self._build_kin_char_model(kin_char_file)
         
         init_pose = env_config.get("init_pose", None)
         self._parse_init_pose(init_pose, self._device)

@@ -978,7 +978,9 @@ class NewtonEngine(engine.Engine):
                     joint_ordering="dfs"
                 )
             else:
-                assert(False), "Unsupported asset format: {:s}".format(asset_ext)
+                assert(
+                    False
+                ), "Unsupported asset format: {:s}. Newton only supports .xml/.urdf here; use data/engines/isaac_lab_engine.yaml for USD mesh visualization.".format(asset_ext)
 
             if (is_visual):
                 for i in range(len(obj_builder.shape_key)):

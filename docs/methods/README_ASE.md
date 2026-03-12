@@ -104,6 +104,9 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
   - `MESA_GL_VERSION_OVERRIDE=3.3`
   - `MESA_GLSL_VERSION_OVERRIDE=330`
 - `view_motion` 直接走 `run.py` 时，建议显式加 `--num_envs 1 --test_episodes 1`，并保持默认设备 `cuda:0`
+- sword/shield 当前保留两种可视化口径：
+  - `geom`：`xml` 物理几何体，默认训练/验证口径
+  - `mesh`：`usd` 白骑士外观，可选用于 `test / visualize / render`
 
 ## 4. 任务案例 vs 动作素材
 
@@ -153,7 +156,26 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
 
 - 单动作：`data/envs/view_motion_humanoid_sword_shield_env.yaml`
 - dataset yaml：`data/envs/view_motion_humanoid_sword_shield_dataset_env.yaml`
+- 单动作白骑士 mesh：`data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml`
+- dataset 白骑士 mesh：`data/envs/view_motion_humanoid_sword_shield_dataset_mesh_env.yaml`
 - per-clip motion library：`tools/ue_bridge/build_ase_reallusion_motion_render_root.py`
+
+剑盾策略可视化如果想看白骑士外观，可把 `--env_config` 切到以下 mesh 版本：
+
+- `data/envs/ase_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_getup_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_getup_humanoid_sword_shield_test_mesh_env.yaml`
+- `data/envs/ase_heading_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_location_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_reach_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_strike_humanoid_sword_shield_mesh_env.yaml`
+- `data/envs/ase_perturb_humanoid_sword_shield_mesh_env.yaml`
+
+说明：
+
+- 这些 mesh env 会把 `char_file` 切到 `humanoid_sword_shield.usd`，同时把 `kin_char_file` 固定在 `humanoid_sword_shield.xml`，不改任务参数。
+- 训练基线与闭环验收仍以默认 `xml` env 为主，避免把外观切换和策略回归混在一起。
+- `mesh` 需要 `data/engines/isaac_lab_engine.yaml` 这类支持 `usd` 的 backend；`newton_engine.yaml` 当前不能直接加载 `.usd` 角色。
 
 ## 6. 训练/推理/可视化模板
 

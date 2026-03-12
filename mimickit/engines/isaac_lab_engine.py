@@ -653,7 +653,23 @@ class IsaacLabEngine(engine.Engine):
         return
     
     def _create_simulator(self, sim_timestep, visualize):
-        self._app_launcher = AppLauncher({"headless": not visualize, "device": self._device})
+        # Sequence rendering in WSL/headless sessions should use Isaac Lab's
+        # offscreen rendering experience instead of a viewport-backed window.
+        viewer_headless = os.getenv("MIMICKIT_VIEWER_HEADLESS", "0") == "1"
+        headless_render = visualize and viewer_headless
+        launcher_cfg = {
+            "headless": (not visualize) or headless_render,
+            "device": self._device,
+            "enable_cameras": visualize,
+            # Our MimicKit paths run a single render/sim device at a time.
+            # Explicitly disable multi-GPU so Isaac Sim does not probe all
+            # adapters in WSL dual-GPU setups and mis-detect duplicate ICDs.
+            "multi_gpu": False,
+        }
+        if headless_render:
+            launcher_cfg["experience"] = "isaaclab.python.headless.rendering.kit"
+
+        self._app_launcher = AppLauncher(launcher_cfg)
 
         import isaaclab.sim as sim_utils
         from isaacsim.core.utils.stage import get_current_stage

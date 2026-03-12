@@ -264,8 +264,10 @@ def resolve_case_configs(
     env_cfg = pick_existing([local_env, maybe_text_to_path("env_config"), maybe_arg_to_path("env_config")])
     engine_cfg = pick_existing([local_engine, maybe_text_to_path("engine_config"), maybe_arg_to_path("engine_config")])
 
-    # Fall back to Newton engine config if Isaac Gym is unavailable.
-    if engine_cfg is not None and "isaac" in engine_cfg.name.lower():
+    # Fall back to Newton only for Isaac Gym roots when isaacgym is unavailable.
+    # Isaac Lab / USD cases should keep their requested engine so missing runtime
+    # dependencies surface as an explicit error instead of silently switching to Newton.
+    if engine_cfg is not None and "isaac_gym" in engine_cfg.name.lower():
         global _HAS_ISAACGYM
         if _HAS_ISAACGYM is None:
             _HAS_ISAACGYM = importlib.util.find_spec("isaacgym") is not None
@@ -421,13 +423,22 @@ def maybe_patch_pyglet_msaa_config() -> None:
     except Exception:
         return
 
-    config_ctor = getattr(pyglet.gl, "Config", None)
+    try:
+        gl_mod = pyglet.gl
+        window_mod = pyglet.window
+    except Exception:
+        return
+
+    try:
+        config_ctor = getattr(gl_mod, "Config", None)
+    except Exception:
+        return
     if config_ctor is None:
         return
     if getattr(config_ctor, "_mimickit_msaa_patch", False):
         return
 
-    no_such_cfg = pyglet.window.NoSuchConfigException
+    no_such_cfg = window_mod.NoSuchConfigException
     orig_config_ctor = config_ctor
 
     def patched_config_ctor(*args, **kwargs):
@@ -436,11 +447,14 @@ def maybe_patch_pyglet_msaa_config() -> None:
         return orig_config_ctor(*args, **kwargs)
 
     patched_config_ctor._mimickit_msaa_patch = True
-    pyglet.gl.Config = patched_config_ctor
+    gl_mod.Config = patched_config_ctor
 
 
 def maybe_reexec_with_xvfb(args: argparse.Namespace) -> int | None:
     if args.dry_run:
+        return None
+
+    if str(os.environ.get("MIMICKIT_SKIP_XVFB", "")).strip().lower() in ("1", "true", "yes", "on"):
         return None
 
     if os.environ.get("DISPLAY"):

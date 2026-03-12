@@ -1,0 +1,33 @@
+env_name: "ase_perturb"
+
+char_file: "data/assets/sword_shield/humanoid_sword_shield.usd"
+kin_char_file: "data/assets/sword_shield/humanoid_sword_shield.xml"
+camera_mode: "track"
+
+episode_length: 10.0
+global_obs: False
+root_height_obs: True
+pose_termination: False
+enable_phase_obs: False
+enable_tar_obs: False
+num_disc_obs_steps: 10
+rand_reset: False
+
+ref_char_offset: [2.0, 0.0, 0.0]
+init_pose: [0, 0, 0.703, -0.033, 0.084, -0.857, -0.033, 0.719, -0.048, -0.271, -0.487, 0.792, 0.836, -0.401, 0.6781, 1.092, -0.208, 0.195, 0.024, -0.497, -0.201, -0.332, -1.726, -0.436, -0.573, -0.192, 1.085, 0.460, -0.460, 0.028, 0.570, -0.906, 0.413, 1.056, -0.292, -0.110, -0.037]
+
+enable_early_termination: True
+key_bodies: ["head", "right_hand", "left_hand", "right_foot", "left_foot", "sword"]
+contact_bodies: ["right_foot", "left_foot"]
+
+motion_file: "data/datasets/dataset_humanoid_sword_shield.yaml"
+
+joint_err_w: [1.0, 0.6, 0.6, 0.4, 0.4, 0.0, 0.6, 0.4, 0.0, 0.0, 1.0, 0.6, 0.4, 1.0, 0.6, 0.4]
+
+perturb_interval: 45
+projectile_speed_min: 20.0
+projectile_speed_max: 30.0
+projectile_dist_min: 3.0
+projectile_dist_max: 5.0
+projectile_height_min: 0.5
+projectile_height_max: 1.8
