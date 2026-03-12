@@ -1,0 +1,13 @@
+prettytable==3.3.0
+onnx>=1.18.0
+hidapi==0.14.0.post2
+gymnasium==1.2.1
+trimesh
+pyglet<2
+transformers
+einops
+starlette==0.45.3
+pytest
+pytest-mock
+junitparser
+flaky

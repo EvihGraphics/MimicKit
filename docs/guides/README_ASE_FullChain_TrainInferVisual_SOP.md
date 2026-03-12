@@ -211,6 +211,20 @@ HLC 验收：
   --model_file output/train/ase_humanoid_sword_shield_fullchain/model.pt
 ```
 
+白骑士 mesh 版：
+
+```bash
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
+  --arg_file args/ase_humanoid_sword_shield_args.txt \
+  --env_config data/envs/ase_humanoid_sword_shield_mesh_env.yaml \
+  --engine_config data/engines/isaac_lab_engine.yaml \
+  --mode test \
+  --visualize true \
+  --num_envs 1 \
+  --test_episodes 1 \
+  --model_file output/train/ase_humanoid_sword_shield_fullchain/model.pt
+```
+
 LLC 看：
 
 - 不同 latent 是否有可辨识差异
@@ -259,6 +273,64 @@ HLC 看：
 - `output/img/<root>/runs/<case>/<variant>/render/frames/frame_000000.png`
 - `output/img/<root>/runs/<case>/<variant>/render/render_meta.json`
 - `output/img/<root>/infer_viz_index.tsv`
+
+### 6.1 Native Windows 白骑士 mesh 闭环
+
+当 WSL 只能完成 Newton/geom 路径，而白骑士 `usd` 最终出图仍受宿主图形栈影响时，
+把 `mesh` 可视化和离线渲染迁到 native Windows。
+
+先 bootstrap 工作集：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\bootstrap_native_windows_workspace.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win
+```
+
+bootstrap 会自动做 4 件事：
+
+- 安装 Isaac Sim `4.5.0` pip 运行时
+- 安装 Isaac Lab source packages 和 MimicKit requirements
+- 写入 native-Windows 额外依赖与 `flatdict` shim
+- 通过 `tools/windows/apply_native_isaaclab_hotfixes.py` 对外部 `IsaacLab_full`
+  施加最小 hotfix
+
+交互白骑士验证：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\run_white_knight_mesh_viewmotion.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win `
+  -Device cuda:0 `
+  -MotionFile D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
+```
+
+离线序列导出：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\run_white_knight_mesh_render_sequence.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win `
+  -RootName case_white_knight_mesh_native_20260312_224041 `
+  -Frames 60 `
+  -FrameStride 10 `
+  -Device cuda:0
+```
+
+native Windows 的 render 路径要求：
+
+- `MIMICKIT_SKIP_XVFB=1`
+- `MIMICKIT_VIEWER_HEADLESS=0`
+
+本轮已验证成功的输出根：
+
+- `output/img/case_white_knight_mesh_native_20260312_224041`
+
+已验证记录：
+
+- `infer_viz_index.tsv` 中 `status=ok`
+- `visual_kind=mesh`
+- `image_count=6`
 
 ASE 专属注意：
 

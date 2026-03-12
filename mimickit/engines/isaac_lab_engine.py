@@ -1,4 +1,7 @@
-from isaaclab.app import AppLauncher
+try:
+    import isaacsim  # noqa: F401
+except ImportError:
+    pass
 
 import carb
 
@@ -18,6 +21,54 @@ ENV_PATH_TEMPLATE = "/World/envs/env_{}"
 OBJ_PATH_TEMPLATE = "/World/envs/env_{}/obj_{}"
 GROUND_PATH = "/World/ground"
 LIGHT_PATH = "/World/Light"
+
+
+class _IsaacLabViewportViewer:
+    def __init__(self, sim):
+        self._sim = sim
+
+    def get_frame(self, render_ui=False):
+        import os
+        import tempfile
+        import time
+        from matplotlib import image as mpimg
+        import omni.kit.app
+        import omni.renderer_capture
+
+        fd, frame_path = tempfile.mkstemp(prefix="mimickit_isaaclab_", suffix=".png")
+        os.close(fd)
+        if os.path.exists(frame_path):
+            os.unlink(frame_path)
+
+        capture = omni.renderer_capture.acquire_renderer_capture_interface()
+        capture.capture_next_frame_swapchain(frame_path)
+
+        app = omni.kit.app.get_app()
+        deadline = time.time() + 5.0
+        while time.time() < deadline:
+            self._sim.render()
+            app.update()
+            if os.path.exists(frame_path) and os.path.getsize(frame_path) > 0:
+                break
+            time.sleep(0.05)
+
+        if (not os.path.exists(frame_path)) or os.path.getsize(frame_path) <= 0:
+            raise RuntimeError("Isaac Lab viewport capture did not produce an image.")
+
+        try:
+            frame_np = mpimg.imread(frame_path)
+        finally:
+            try:
+                os.remove(frame_path)
+            except OSError:
+                pass
+
+        if frame_np.ndim == 2:
+            frame_np = np.stack([frame_np] * 3, axis=-1)
+        elif frame_np.ndim == 3 and frame_np.shape[-1] == 4:
+            frame_np = frame_np[..., :3]
+
+        return frame_np
 
 def str_to_key_code(key_str):
     key_name = key_str.upper()
@@ -63,6 +114,7 @@ class IsaacLabEngine(engine.Engine):
         super().__init__()
 
         self._device = device
+        self._viewer = None
         sim_freq = config.get("sim_freq", 60)
         control_freq = config.get("control_freq", 10)
         assert(sim_freq >= control_freq and sim_freq % control_freq == 0), \
@@ -635,6 +687,7 @@ class IsaacLabEngine(engine.Engine):
     def _build_camera(self):
         from omni.kit.viewport.utility.camera_state import ViewportCameraState
         self._camera_state = ViewportCameraState("/OmniverseKit_Persp")
+        self._viewer = _IsaacLabViewportViewer(self._sim)
         return
     
     def _build_draw_interface(self):
@@ -653,13 +706,32 @@ class IsaacLabEngine(engine.Engine):
         return
     
     def _create_simulator(self, sim_timestep, visualize):
-        self._app_launcher = AppLauncher({"headless": not visualize, "device": self._device})
+        from isaaclab.app import AppLauncher
+
+        # Sequence rendering in WSL/headless sessions should use Isaac Lab's
+        # offscreen rendering experience instead of a viewport-backed window.
+        viewer_headless = os.getenv("MIMICKIT_VIEWER_HEADLESS", "0") == "1"
+        headless_render = visualize and viewer_headless
+        launcher_cfg = {
+            "headless": (not visualize) or headless_render,
+            "device": self._device,
+            "enable_cameras": visualize,
+            # Our MimicKit paths run a single render/sim device at a time.
+            # Explicitly disable multi-GPU so Isaac Sim does not probe all
+            # adapters in WSL dual-GPU setups and mis-detect duplicate ICDs.
+            "multi_gpu": False,
+        }
+        if headless_render:
+            launcher_cfg["experience"] = "isaaclab.python.headless.rendering.kit"
+
+        self._app_launcher = AppLauncher(launcher_cfg)
 
         import isaaclab.sim as sim_utils
         from isaacsim.core.utils.stage import get_current_stage
         
         sim_cfg = sim_utils.SimulationCfg(device=self._device, dt=sim_timestep,
                                           render_interval=self._sim_steps)
+        sim_cfg.use_fabric = False
         
         sim_cfg.physx.bounce_threshold_velocity = 0.2
         sim_cfg.physx.max_position_iteration_count = 4

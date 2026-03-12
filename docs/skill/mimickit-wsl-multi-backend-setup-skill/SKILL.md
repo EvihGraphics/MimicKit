@@ -209,6 +209,95 @@ python "$MIMICKIT_DIR/mimickit/run.py" \
   --num_envs 1 --visualize false --mode test --test_episodes 1 --devices cuda:0
 ```
 
+## 3.1 White-Knight Mesh Validation
+
+When WSL can still train/test but cannot finish the white-knight `usd` render path,
+keep Newton in WSL and move only the mesh visualization/render step to native
+Windows.
+
+Repo-side helpers:
+
+- `tools/windows/bootstrap_native_windows_workspace.ps1`
+- `tools/windows/apply_native_isaaclab_hotfixes.py`
+- `tools/windows/run_white_knight_mesh_viewmotion.ps1`
+- `tools/windows/run_white_knight_mesh_render_sequence.ps1`
+
+Recommended native Windows layout:
+
+```text
+D:\MimicKitNative\
+  workspace\
+    MimicKit\
+    IsaacLab_full\
+  conda\
+    mimickit-isaaclab-win\
+  logs\
+```
+
+Bootstrap the native workspace:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\bootstrap_native_windows_workspace.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win
+```
+
+What the bootstrap now does:
+
+- creates or reuses the prefix env `D:\MimicKitNative\conda\mimickit-isaaclab-win`
+- installs Isaac Sim `4.5.0` via pip by default
+- installs Isaac Lab source packages from `IsaacLab_full`
+- installs MimicKit requirements plus the missing native-Windows extras
+- writes the `flatdict` compatibility shim into `site-packages`
+- accepts the Omniverse EULA
+- applies the minimal external IsaacLab hotfixes through `apply_native_isaaclab_hotfixes.py`
+
+Interactive white-knight viewport validation:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\run_white_knight_mesh_viewmotion.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win `
+  -Device cuda:0 `
+  -MotionFile D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
+```
+
+Render-sequence export on native Windows:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File D:\MimicKitNative\workspace\MimicKit\tools\windows\run_white_knight_mesh_render_sequence.ps1 `
+  -WorkspaceRoot D:\MimicKitNative `
+  -CondaPrefix D:\MimicKitNative\conda\mimickit-isaaclab-win `
+  -RootName case_white_knight_mesh_native_20260312_224041 `
+  -Frames 60 `
+  -FrameStride 10 `
+  -Device cuda:0
+```
+
+Important native-Windows render settings:
+
+- `MIMICKIT_SKIP_XVFB=1`
+- `MIMICKIT_VIEWER_HEADLESS=0`
+
+These keep the export on `isaaclab.python.rendering.kit`. The validated white-knight
+closure on `2026-03-12` used the GUI render path instead of the headless
+`physx.fabric` path.
+
+Validated closure from the isolated native workspace:
+
+- root: `case_white_knight_mesh_native_20260312_224041`
+- motion: `RL_Avatar_Atk_2xCombo01_Motion`
+- index: `output/img/case_white_knight_mesh_native_20260312_224041/infer_viz_index.tsv`
+- result: `status=ok`, `visual_kind=mesh`, `image_count=6`
+- frames:
+  - `output/img/case_white_knight_mesh_native_20260312_224041/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/frames`
+
+Interpretation:
+
+- WSL remains the recommended home for Newton train/test parity.
+- Native Windows is the validated escape hatch for final white-knight `usd`
+  visualization and render-sequence export on this dual-4090 host.
+
 ## 4. Isaac Gym Backend (`mimickit-isaacgym`)
 
 Prereq:
