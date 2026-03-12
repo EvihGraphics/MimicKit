@@ -104,12 +104,12 @@ class Normalizer(torch.nn.Module):
         
         if init_mean is not None:
             assert init_mean.shape == shape, \
-            Logger.print('Normalizer init mean shape mismatch, expecting {:d}, but got {:d}'.shape(shape, init_mean.shape))
+            Logger.print('Normalizer init mean shape mismatch, expecting {}, but got {}'.format(shape, init_mean.shape))
             self._mean[:] = init_mean
 
         if init_std is not None:
             assert init_std.shape == shape, \
-            Logger.print('Normalizer init std shape mismatch, expecting {:d}, but got {:d}'.format(shape, init_std.shape))
+            Logger.print('Normalizer init std shape mismatch, expecting {}, but got {}'.format(shape, init_std.shape))
             self._std[:] = init_std
         
         self._new_count = 0

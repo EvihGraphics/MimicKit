@@ -2,10 +2,11 @@ import numpy as np
 import torch
 
 import engines.engine as engine
-import envs.amp_env as amp_env
+import envs.task_amp_env as task_amp_env
 import util.torch_util as torch_util
 
-class TaskLocationEnv(amp_env.AMPEnv):
+
+class TaskLocationEnv(task_amp_env.TaskAMPEnv):
     def __init__(self, env_config, engine_config, num_envs, device, visualize):
         self._tar_speed = env_config["tar_speed"]
         self._tar_change_time_min = env_config["tar_change_time_min"]

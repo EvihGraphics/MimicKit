@@ -28,6 +28,7 @@ def load_args(argv):
         succ = args.load_file(arg_file)
         assert succ, Logger.print("Failed to load args from: " + arg_file)
 
+    arg_parser.ArgParser.global_parser = args
     return args
 
 def build_env(args, num_envs, device, visualize):

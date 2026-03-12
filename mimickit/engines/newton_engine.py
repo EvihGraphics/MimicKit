@@ -1,3 +1,5 @@
+import ctypes
+
 import warp as wp
 wp.config.enable_backward = False
 
@@ -9,6 +11,65 @@ import pyglet
 
 import engines.engine as engine
 from util.logger import Logger
+
+
+def _env_flag_true(name, default="0"):
+    raw = str(os.environ.get(name, default)).strip().lower()
+    return raw in ("1", "true", "yes", "on")
+
+
+def _patch_headless_viewer_cuda_interop():
+    disable_cuda_interop = _env_flag_true("MIMICKIT_VIEWER_DISABLE_CUDA_INTEROP", "0")
+    viewer_headless = _env_flag_true("MIMICKIT_VIEWER_HEADLESS", "0")
+    if (not disable_cuda_interop and not viewer_headless):
+        return
+
+    from newton._src.viewer import viewer_gl as newton_viewer_gl
+    from newton._src.viewer.gl import opengl as newton_opengl
+
+    if getattr(newton_opengl, "ENABLE_CUDA_INTEROP", True):
+        Logger.print("Disabling Newton viewer CUDA-GL interop for headless rendering")
+        newton_opengl.ENABLE_CUDA_INTEROP = False
+
+    if getattr(newton_viewer_gl.ViewerGL, "_mimickit_cpu_get_frame_patched", False):
+        return
+
+    def _cpu_get_frame(self, target_image=None, render_ui=False):
+        gl = newton_opengl.RendererGL.gl
+        w = self.renderer._screen_width
+        h = self.renderer._screen_height
+
+        assert self.renderer._frame_fbo is not None
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, self.renderer._frame_fbo)
+
+        if (render_ui and self.ui):
+            self.ui.begin_frame()
+            self._render_ui()
+            self.ui.end_frame()
+            self.ui.render()
+
+        gl.glPixelStorei(gl.GL_PACK_ALIGNMENT, 1)
+        frame_np = np.empty((h, w, 3), dtype=np.uint8)
+        gl.glReadPixels(0, 0, w, h, gl.GL_RGB, gl.GL_UNSIGNED_BYTE,
+                        frame_np.ctypes.data_as(ctypes.c_void_p))
+        gl.glBindFramebuffer(gl.GL_FRAMEBUFFER, 0)
+
+        # OpenGL returns bottom-left origin; consumers expect top-left origin.
+        frame_np = np.flip(frame_np, axis=0).copy()
+        frame_wp = wp.array(frame_np, dtype=wp.uint8, device=self.device)
+
+        if (target_image is not None):
+            if (target_image.shape != (h, w, 3)):
+                raise ValueError(f"Shape of `target_image` must be ({h}, {w}, 3), got {target_image.shape}")
+            wp.copy(target_image, frame_wp)
+            return target_image
+
+        return frame_wp
+
+    newton_viewer_gl.ViewerGL._mimickit_original_get_frame = newton_viewer_gl.ViewerGL.get_frame
+    newton_viewer_gl.ViewerGL.get_frame = _cpu_get_frame
+    newton_viewer_gl.ViewerGL._mimickit_cpu_get_frame_patched = True
+    return
 
 def str_to_key_code(key_str):
     key_name = key_str.upper()
@@ -934,7 +995,10 @@ class NewtonEngine(engine.Engine):
         return builder
     
     def _build_viewer(self):
-        self._viewer = newton.viewer.ViewerGL(headless=False)
+        headless_env = str(os.environ.get("MIMICKIT_VIEWER_HEADLESS", "0")).strip().lower()
+        viewer_headless = headless_env in ("1", "true", "yes", "on")
+        _patch_headless_viewer_cuda_interop()
+        self._viewer = newton.viewer.ViewerGL(headless=viewer_headless)
         self._draw_line_count = 0
 
         def on_keyboard_event(symbol, modifiers):

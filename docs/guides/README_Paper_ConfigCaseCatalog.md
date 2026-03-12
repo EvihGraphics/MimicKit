@@ -27,7 +27,7 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 |---|---:|---:|---:|
 | DeepMimic 论文 | 7 | 7 | 0 |
 | AMP 论文 | 9 | 9 | 0 |
-| ASE 论文 | 2 | 2 | 0 |
+| ASE 论文 | 8 | 7 | 1 |
 | ADD 论文 | 5 | 5 | 0 |
 | MimicKit 框架与扩展示例 | 9 | 2 | 7 |
 
@@ -72,6 +72,12 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 |---|---|---|---|---|---:|---:|---|
 | `ase_humanoid_args.txt` | trainable | `train` | `data/envs/ase_humanoid_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
 | `ase_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_getup_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_getup_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_heading_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_heading_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_location_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_location_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_reach_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_reach_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_strike_humanoid_sword_shield_args.txt` | trainable | `train` | `data/envs/ase_strike_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
+| `ase_perturb_humanoid_sword_shield_args.txt` | nontrainable | `test` | `data/envs/ase_perturb_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | 4096 | - | `data/engines/isaac_gym_engine.yaml` |
 
 ## 3. ADD 论文
 
@@ -187,12 +193,18 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 | 多样性约束 | 同上 | `diversity_weight` `diversity_tar` | 降低 latent collapse | 过高导致动作发散 |
 | 潜变量驻留时间 | 同上 | `latent_time_min` `latent_time_max` | 切换更平滑 | 过短易抖，过长不灵活 |
 
-案例级预期（ASE 2 例）：
+案例级预期（ASE Full Chain）：
 
 | case | 数据类型 | 预期视觉结果（L2/L3） | 日志侧应看到 | 优先调参 |
 |---|---|---|---|---|
 | `ase_humanoid_args.txt` | `dataset_humanoid_locomotion.yaml` | 不同 `z` 显示明显步态/节奏差异 | 编码器相关奖励长期可用 | `enc_reward_weight`、`diversity_weight` |
 | `ase_humanoid_sword_shield_args.txt` | `dataset_humanoid_sword_shield.yaml` | 技能切换时武器动作不应坍缩 | 多个 latent 的视觉差异可复测 | `latent_time_*`、`diversity_weight` |
+| `ase_getup_humanoid_sword_shield_args.txt` | `dataset_humanoid_sword_shield.yaml` | 跌倒后应能恢复，不是躺地抖动 | `Mean Episode Length` 与可视化恢复窗口可复测 | `recovery_steps`、`fall_init_prob` |
+| `ase_heading_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | 朝向与速度控制稳定，LLC 风格不塌 | HLC 可产出 `model.pt`，且需显式 `--llc_model_file` | `llc_steps`、`task_reward_weight` |
+| `ase_location_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | 到点同时保持 sword/shield 风格 | `Mean Return` 稳定，目标跟随可视化明确 | 同上 |
+| `ase_reach_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | sword 末端主动追目标点 | 3D reach 目标可持续命中 | `llc_steps`、`task_reward_weight` |
+| `ase_strike_humanoid_sword_shield_args.txt` | `RL_Avatar_Idle_Ready_Motion.pkl` + `ASEHRL` | 能对物理 target 施加稳定击倒 | target topple / contact 结果可见 | `llc_steps`、`task_reward_weight` |
+| `ase_perturb_humanoid_sword_shield_args.txt` | perturb robustness | projectile 扰动下不应立刻退化 | test/viz 稳定触发 projectile | `perturb_interval`、`projectile_speed_*` |
 
 ### 4.4 ADD（原论文主张与案例预期）
 
@@ -309,11 +321,11 @@ python -u scripts/run_case_longcycle.py \
 
 | 原论文图示主题（caption 摘要） | 对应仓库 case | 对齐等级 | 复现时重点 |
 |---|---|---|---|
-| “pre-train + transfer framework” | `ase_humanoid_args.txt`, `ase_humanoid_sword_shield_args.txt` | Direct | 验证 latent 技能库可用性，再做下游 test/viz |
+| “pre-train + transfer framework” | `ase_humanoid_args.txt`, `ase_humanoid_sword_shield_args.txt`, `ase_heading_humanoid_sword_shield_args.txt`, `ase_location_humanoid_sword_shield_args.txt`, `ase_reach_humanoid_sword_shield_args.txt`, `ase_strike_humanoid_sword_shield_args.txt` | Direct | 先验证 LLC latent 技能库，再验证 HLC task transfer |
 | “random latent samples produce diverse skills” | `ase_*` 两例 | Direct | 固定模型下切不同 latent，观察行为差异 |
-| “tasks with simple rewards” | 当前 ASE 未单独暴露 task_x args | Partial | 可参考 AMP 任务环境思路，ASE 需额外任务配置 |
+| “tasks with simple rewards” | `ase_heading_humanoid_sword_shield_args.txt`, `ase_location_humanoid_sword_shield_args.txt`, `ase_reach_humanoid_sword_shield_args.txt`, `ase_strike_humanoid_sword_shield_args.txt` | Direct | HLC case 已单独暴露，并要求 `--llc_model_file` |
 | “motion transition matrix / frequency analysis” | `ase_*` + 离线日志分析 | Partial | 需要额外脚本统计转移频率，不是开箱即得 |
-| “recovery after falling” | `ase_*`（受扰动评测） | Partial | 仓库可测恢复性，但需增加扰动评测脚本 |
+| “recovery after falling” | `ase_getup_humanoid_sword_shield_args.txt`, `ase_perturb_humanoid_sword_shield_args.txt` | Direct | getup 与 perturb 已拆成单独 case |
 
 ### 7.4 ADD（2505.04961）图示对照
 

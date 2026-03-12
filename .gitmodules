@@ -1,0 +1,4 @@
+[submodule "third_party/ase_upstream"]
+	path = third_party/ase_upstream
+	url = https://github.com/logic-three-body/ASE.git
+	branch = main

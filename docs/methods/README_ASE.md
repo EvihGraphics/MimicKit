@@ -89,43 +89,78 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
 | `disc_grad_penalty` | 判别器稳定项 | 默认 `5`，判别器不稳时优先检查 |
 | `optimizer.learning_rate` | 学习率 | ASE 默认较低 `2e-5`，更稳但收敛慢 |
 
-## 4. 案例覆盖（ASE 2）
+执行型全流程请同时参考：
+
+- `docs/guides/README_ASE_FullChain_TrainInferVisual_SOP.md`
+
+当前实现备注：
+
+- `2026-03-12` 已完成一轮 `27/27` ASE smoke validation，覆盖 `LLC/HLC/test/viz/perturb/view_motion`。
+- headless 可视化与离线渲染推荐统一带：
+  - `MIMICKIT_VIEWER_HEADLESS=1`
+  - `MESA_GL_VERSION_OVERRIDE=3.3`
+  - `MESA_GLSL_VERSION_OVERRIDE=330`
+
+## 4. 案例覆盖（ASE Full Chain）
 
 | case | env_config | agent_config | motion_file | 参数导读（意义） |
 |---|---|---|---|---|
 | `ase_humanoid_args.txt` | `data/envs/ase_humanoid_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | `data/datasets/dataset_humanoid_locomotion.yaml` | locomotion 技能集，`disc_reward_weight=0.5`, `enc_reward_weight=0.5` 平衡风格与可辨识技能 |
 | `ase_humanoid_sword_shield_args.txt` | `data/envs/ase_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | `data/datasets/dataset_humanoid_sword_shield.yaml` | 武器技能集，`joint_err_w` 覆盖 sword 相关关节，保持同一 latent 配置迁移 |
+| `ase_getup_humanoid_sword_shield_args.txt` | `data/envs/ase_getup_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | `data/datasets/dataset_humanoid_sword_shield.yaml` | LLC getup 预训练，重点看 `recovery_*` 与 `fall_init_prob` |
+| `ase_heading_humanoid_sword_shield_args.txt` | `data/envs/ase_heading_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/motions/reallusion/RL_Avatar_Idle_Ready_Motion.pkl` | HLC heading，运行时必须提供 `--llc_model_file` |
+| `ase_location_humanoid_sword_shield_args.txt` | `data/envs/ase_location_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/motions/reallusion/RL_Avatar_Idle_Ready_Motion.pkl` | HLC location，对应 upstream `HumanoidLocation` |
+| `ase_reach_humanoid_sword_shield_args.txt` | `data/envs/ase_reach_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/motions/reallusion/RL_Avatar_Idle_Ready_Motion.pkl` | HLC reach，3D target + sword-body reward |
+| `ase_strike_humanoid_sword_shield_args.txt` | `data/envs/ase_strike_humanoid_sword_shield_env.yaml` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/motions/reallusion/RL_Avatar_Idle_Ready_Motion.pkl` | HLC strike，target topple / contact / velocity reward |
+| `ase_perturb_humanoid_sword_shield_args.txt` | `data/envs/ase_perturb_humanoid_sword_shield_env.yaml` | `data/agents/ase_humanoid_agent.yaml` | `data/datasets/dataset_humanoid_sword_shield.yaml` | test-only robustness case，不进入 trainable 主线 |
+
+`view_motion` 资产验收入口：
+
+- 单动作：`data/envs/view_motion_humanoid_sword_shield_env.yaml`
+- dataset yaml：`data/envs/view_motion_humanoid_sword_shield_dataset_env.yaml`
 
 ## 5. 训练/推理/可视化模板
 
 ```bash
 # 训练
-python mimickit/run.py \
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
   --arg_file args/ase_humanoid_args.txt \
   --mode train \
-  --engine_config data/engines/isaac_gym_engine.yaml \
+  --engine_config data/engines/newton_engine.yaml \
   --visualize false \
   --out_dir output/train/<run_name>
 
 # 推理（无渲染）
-python mimickit/run.py \
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
   --arg_file args/ase_humanoid_args.txt \
   --mode test \
-  --engine_config data/engines/isaac_gym_engine.yaml \
+  --engine_config data/engines/newton_engine.yaml \
   --visualize false \
   --num_envs 1 \
   --test_episodes 10 \
   --model_file output/train/<run_name>/model.pt
 
 # 策略可视化
-python mimickit/run.py \
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
   --arg_file args/ase_humanoid_args.txt \
   --mode test \
-  --engine_config data/engines/isaac_gym_engine.yaml \
+  --engine_config data/engines/newton_engine.yaml \
   --visualize true \
   --num_envs 1 \
   --test_episodes 1 \
   --model_file output/train/<run_name>/model.pt
+```
+
+HLC 额外模板：
+
+```bash
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
+  --arg_file args/ase_heading_humanoid_sword_shield_args.txt \
+  --mode train \
+  --engine_config data/engines/newton_engine.yaml \
+  --visualize false \
+  --llc_model_file output/train/<llc_run>/model.pt \
+  --out_dir output/train/<hlc_run_name>
 ```
 
 ## 6. 每个案例推理与可视化讲解
@@ -134,20 +169,20 @@ python mimickit/run.py \
 
 ```bash
 # 推理（指标验证）
-python mimickit/run.py \
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
   --arg_file args/<case_args>.txt \
   --mode test \
-  --engine_config data/engines/isaac_gym_engine.yaml \
+  --engine_config data/engines/newton_engine.yaml \
   --visualize false \
   --num_envs 1 \
   --test_episodes 10 \
   --model_file output/train/<run_name>/model.pt
 
 # 可视化（技能质检）
-python mimickit/run.py \
+/root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
   --arg_file args/<case_args>.txt \
   --mode test \
-  --engine_config data/engines/isaac_gym_engine.yaml \
+  --engine_config data/engines/newton_engine.yaml \
   --visualize true \
   --num_envs 1 \
   --test_episodes 1 \
@@ -158,6 +193,12 @@ python mimickit/run.py \
 |---|---|---|---|
 | `ase_humanoid_args.txt` | `ase_humanoid` | 看总回报、风格奖励、编码器奖励是否同时稳定 | 观察同一模型下不同技能是否有明显差异 |
 | `ase_humanoid_sword_shield_args.txt` | `ase_humanoid_sword_shield` | 看武器动作场景下是否稳定完成完整回合 | 观察持武器动作是否自然、技能切换是否平滑 |
+| `ase_getup_humanoid_sword_shield_args.txt` | `ase_getup_humanoid_sword_shield` | 看跌倒初始化后能否恢复 | 观察恢复窗口是否连续、不是地面抖动 |
+| `ase_heading_humanoid_sword_shield_args.txt` | `ase_heading_humanoid_sword_shield` | 需加 `--llc_model_file`，看 heading 任务达成 | 看角色速度和朝向是否持续对齐 |
+| `ase_location_humanoid_sword_shield_args.txt` | `ase_location_humanoid_sword_shield` | 需加 `--llc_model_file`，看到点成功率 | 看战斗姿态下的目标跟随 |
+| `ase_reach_humanoid_sword_shield_args.txt` | `ase_reach_humanoid_sword_shield` | 需加 `--llc_model_file`，看 sword 是否主动逼近目标 | 看 3D 目标点和 sword 末端关系 |
+| `ase_strike_humanoid_sword_shield_args.txt` | `ase_strike_humanoid_sword_shield` | 需加 `--llc_model_file`，看 target topple / hit 率 | 看 strike 动作是否能稳定击倒 target |
+| `ase_perturb_humanoid_sword_shield_args.txt` | `ase_perturb_humanoid_sword_shield` | robustness test，不做 trainable 主线评价 | 看 projectile 扰动下是否迅速退化 |
 
 ## Citation
 

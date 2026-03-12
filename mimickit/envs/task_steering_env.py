@@ -1,12 +1,12 @@
 import torch
 import numpy as np
 
-import envs.amp_env as amp_env
 import engines.engine as engine
+import envs.task_amp_env as task_amp_env
 import util.torch_util as torch_util
 
 
-class TaskSteeringEnv(amp_env.AMPEnv):
+class TaskSteeringEnv(task_amp_env.TaskAMPEnv):
     def __init__(self, env_config, engine_config, num_envs, device, visualize):
         self._rand_tar_dir = env_config.get("rand_tar_dir", True)
         self._rand_face_dir = env_config.get("rand_face_dir", True)

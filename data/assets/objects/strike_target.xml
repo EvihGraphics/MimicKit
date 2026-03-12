@@ -1,0 +1,9 @@
+<mujoco model="strike_target">
+    <worldbody>
+        <body name="target" pos="0 0 0.9">
+            <freejoint name="root"/>
+            <geom name="target_body" type="cylinder" fromto="0 0 0 0 0 0.9" size="0.18" density="400"/>
+            <geom name="target_base" type="box" pos="0 0 0.08" size="0.22 0.22 0.08" density="300"/>
+        </body>
+    </worldbody>
+</mujoco>

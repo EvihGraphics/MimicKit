@@ -1,14 +1,14 @@
 # MimicKit Case Catalog
 
-- Total arg entries: `32`
-- Trainable entries: `25`
-- Tooling/view entries: `6`
+- Total arg entries: `38`
+- Trainable entries: `30`
+- Tooling/view entries: `7`
 
 ## Categories
 
 - `add`: `5`
 - `amp`: `9`
-- `ase`: `2`
+- `ase`: `8`
 - `deepmimic`: `7`
 - `dof`: `1`
 - `vault`: `2`
@@ -34,6 +34,12 @@
 | `amp_steering_humanoid_sword_shield_args.txt` | `amp` | `train` | `trainable` | `data/agents/amp_task_humanoid_agent.yaml` | `data/envs/amp_steering_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `ase_humanoid_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_humanoid_agent.yaml` | `data/envs/ase_humanoid_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `ase_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_humanoid_agent.yaml` | `data/envs/ase_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_getup_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_humanoid_agent.yaml` | `data/envs/ase_getup_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_heading_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/envs/ase_heading_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_location_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/envs/ase_location_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_reach_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/envs/ase_reach_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_strike_humanoid_sword_shield_args.txt` | `ase` | `train` | `trainable` | `data/agents/ase_hrl_humanoid_agent.yaml` | `data/envs/ase_strike_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
+| `ase_perturb_humanoid_sword_shield_args.txt` | `ase` | `test` | `tooling` | `data/agents/ase_humanoid_agent.yaml` | `data/envs/ase_perturb_humanoid_sword_shield_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `deepmimic_g1_ppo_args.txt` | `deepmimic` | `train` | `trainable` | `data/agents/deepmimic_g1_ppo_agent.yaml` | `data/envs/deepmimic_g1_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `deepmimic_go2_ppo_args.txt` | `deepmimic` | `train` | `trainable` | `data/agents/deepmimic_go2_ppo_agent.yaml` | `data/envs/deepmimic_go2_env.yaml` | `data/engines/isaac_gym_engine.yaml` |
 | `deepmimic_humanoid_awr_args.txt` | `deepmimic` | `train` | `trainable` | `data/agents/deepmimic_humanoid_awr_agent.yaml` | `data/envs/deepmimic_humanoid_env.yaml` | `data/engines/isaac_gym_engine.yaml` |

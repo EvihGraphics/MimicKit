@@ -1,0 +1,8 @@
+<mujoco model="block_projectile">
+    <worldbody>
+        <body name="projectile" pos="0 0 0">
+            <freejoint name="root"/>
+            <geom name="projectile_geom" type="box" size="0.08 0.08 0.08" density="500"/>
+        </body>
+    </worldbody>
+</mujoco>

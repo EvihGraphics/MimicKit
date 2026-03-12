@@ -14,13 +14,15 @@
 ## 2. `docs/guides/`（学习与上手）
 
 - `docs/guides/README_ASE_Dual4090_SOP.md`
+- `docs/guides/README_ASE_FullChain_TrainInferVisual_SOP.md`
 - `docs/guides/README_Newbie_TrainInferVisual_PaperCases.md`
 - `docs/guides/README_LearningPlan.md`
 - `docs/guides/README_VisualReproductionAcceptance.md`
 - `docs/guides/README_Paper_ConfigCaseCatalog.md`
 
 适合查：零基础学习路径、全量案例总览、统一使用流程。
-若当前主目标是双 RTX 4090 上的 ASE 大规模训练，优先读：`docs/guides/README_ASE_Dual4090_SOP.md`，再读 `docs/methods/README_ASE.md`。
+若当前主目标是双 RTX 4090 上的 ASE 大规模训练，优先读：`docs/guides/README_ASE_Dual4090_SOP.md`。
+若当前目标是把 upstream `ASE` 的 LLC -> HLC -> perturb / view_motion 全链路在本仓库跑通，优先读：`docs/guides/README_ASE_FullChain_TrainInferVisual_SOP.md`，再读 `docs/methods/README_ASE.md`。
 推荐先读：`docs/guides/README_VisualReproductionAcceptance.md` 中的 `8h -> 24h` 预算策略，再开始全案例长周期运行。
 
 ## 3. `docs/guide/`（面向小白的综合手册）

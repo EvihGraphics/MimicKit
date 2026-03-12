@@ -26,6 +26,9 @@ def build_agent(agent_file, env, device):
     elif (agent_name == "ASE"):
         import learning.ase_agent as ase_agent
         agent = ase_agent.ASEAgent(config=agent_config, env=env, device=device)
+    elif (agent_name == "ASEHRL"):
+        import learning.ase_hrl_agent as ase_hrl_agent
+        agent = ase_hrl_agent.ASEHRLAgent(config=agent_config, env=env, device=device)
     elif (agent_name == "ADD"):
         import learning.add_agent as add_agent
         agent = add_agent.ADDAgent(config=agent_config, env=env, device=device)

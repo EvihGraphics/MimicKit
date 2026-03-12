@@ -23,6 +23,12 @@ def build_env(env_file, engine_file, num_envs, device, visualize):
     elif (env_name == "ase"):
         import envs.ase_env as ase_env
         env = ase_env.ASEEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+    elif (env_name == "ase_getup"):
+        import envs.ase_getup_env as ase_getup_env
+        env = ase_getup_env.ASEGetupEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+    elif (env_name == "ase_perturb"):
+        import envs.ase_perturb_env as ase_perturb_env
+        env = ase_perturb_env.ASEPerturbEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
     elif (env_name == "add"):
         import envs.add_env as add_env
         env = add_env.ADDEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
@@ -38,6 +44,12 @@ def build_env(env_file, engine_file, num_envs, device, visualize):
     elif (env_name == "task_steering"):
         import envs.task_steering_env as task_steering_env
         env = task_steering_env.TaskSteeringEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+    elif (env_name == "task_reach"):
+        import envs.task_reach_env as task_reach_env
+        env = task_reach_env.TaskReachEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+    elif (env_name == "task_strike"):
+        import envs.task_strike_env as task_strike_env
+        env = task_strike_env.TaskStrikeEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
     elif (env_name == "static_objects"):
         import envs.static_objects_env as static_objects_env
         env = static_objects_env.StaticObjectsEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
