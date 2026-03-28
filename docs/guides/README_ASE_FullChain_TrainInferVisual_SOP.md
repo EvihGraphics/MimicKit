@@ -34,7 +34,35 @@
 | `HumanoidReach` | `ase_reach_humanoid_sword_shield_args.txt` |
 | `HumanoidStrike` | `ase_strike_humanoid_sword_shield_args.txt` |
 
-## 2. 运行前检查
+## 2. 7-Case 与论文交互 Agent 的关系
+
+当前主线中的 `7` 个 trainable ASE case，已经覆盖论文口径里“可运动、可恢复、可接收高层目标、可与环境交互”的 agent 主干能力。
+
+| case | 能力定位 | 对最终 agent 的作用 |
+|---|---|---|
+| `ase_humanoid` | 基础 locomotion LLC | 提供无武器 humanoid 的基础动作先验，验证 LLC 训练链可用 |
+| `ase_humanoid_sword_shield` | 剑盾 locomotion LLC | 提供后续所有 sword/shield HLC 任务共享的底层技能库 |
+| `ase_getup_humanoid_sword_shield` | 恢复 LLC | 让 agent 在跌倒或扰动后能重新站起，而不是一次失败就结束 |
+| `ase_heading_humanoid_sword_shield` | 方向控制 HLC | 让 agent 能持续响应方向目标，体现“接收高层控制信号” |
+| `ase_location_humanoid_sword_shield` | 导航 HLC | 让 agent 能稳定走向空间目标点，形成基础场景移动能力 |
+| `ase_reach_humanoid_sword_shield` | 末端接近 HLC | 让 agent 能把 sword 主动送向 3D 目标，形成定向交互能力 |
+| `ase_strike_humanoid_sword_shield` | 攻击交互 HLC | 让 agent 能对 target 产生稳定接触/击倒趋势，构成显式环境交互 |
+
+结论：
+
+- 如果目标是复刻论文里的 `hierarchical interactive agent`，这 `7` 个训练 case 就是主干闭环。
+- LLC 负责“怎么动”，HLC 负责“朝哪里动、碰哪里、打哪里”。
+- `ase_humanoid_sword_shield` 的 LLC 模型是 `heading/location/reach/strike` 的共享前提，不应跳过。
+- `getup` 不是额外装饰项，而是让交互 agent 在真实 rollout 中具备恢复性的关键能力。
+
+边界说明：
+
+- `perturb` 和 `view_motion` 不属于这 `7` 个 trainable case。
+- `perturb` 用来验收鲁棒性，回答“被打乱后还能不能继续站立/行动”。
+- `view_motion` 用来验收动作库与资产呈现，回答“动作素材和可视化是否正确”。
+- 白骑士外观复刻属于可视化层，不决定论文口径 agent 是否成立。
+
+## 3. 运行前检查
 
 ```bash
 cd /root/Project/MimicKit
@@ -83,9 +111,34 @@ export MESA_GLSL_VERSION_OVERRIDE=330
 - `_mesh_env.yaml` 会把视觉资产切到 `usd`，同时把 `kin_char_file` 保持在 `xml`，避免把运动学解析绑到 `pxr`。
 - `mesh` 模式需要 `data/engines/isaac_lab_engine.yaml` 这类支持 `usd` 的 backend；当前 `newton_engine.yaml` 不能直接实例化 `.usd` 资产。
 
-## 3. LLC 训练
+## 3.1 官方停止线
 
-### 3.1 Locomotion LLC
+当前仓库中如果直接运行 `mimickit/run.py --mode train`，默认没有硬停止线；必须显式传 `--max_samples` 才会在指定样本预算停下。
+
+官方口径应按 upstream 训练配置推算，而不是按看板里历史上临时使用的 `1e9` 预算线：
+
+| family | case | upstream cfg basis | 官方样本口径 |
+|---|---|---|---:|
+| LLC | `ase_humanoid` | `numEnvs=4096`, `horizon_length=32`, `max_epochs=100000` | `13,107,200,000` |
+| LLC | `ase_humanoid_sword_shield` | 同上 | `13,107,200,000` |
+| LLC | `ase_getup_humanoid_sword_shield` | 同上 | `13,107,200,000` |
+| HLC | `ase_heading_humanoid_sword_shield` | `numEnvs=4096`, `horizon_length=32`, `max_epochs=10000` | `1,310,720,000` |
+| HLC | `ase_location_humanoid_sword_shield` | 同上 | `1,310,720,000` |
+| HLC | `ase_reach_humanoid_sword_shield` | 同上 | `1,310,720,000` |
+| HLC | `ase_strike_humanoid_sword_shield` | 同上 | `1,310,720,000` |
+| tooling | `ase_perturb_humanoid_sword_shield` | nontrainable | 不按 samples 停 |
+| tooling | `view_motion_humanoid_sword_shield` | nontrainable | 不按 samples 停 |
+
+说明：
+
+- LLC 的 `13,107,200,000` 来自 `4096 * 32 * 100000`。
+- HLC 的 `1,310,720,000` 来自 `4096 * 32 * 10000`。
+- 这两个数是“官方配置等价样本预算”；在本仓库里即使 `num_envs` 改成双卡 `2048` 或单卡 `1024`，样本总预算本身不变，只是 wall-clock 和迭代数会变。
+- `ase_perturb`、`view_motion` 不属于 trainable case，停止线由 `test_episodes` 或渲染帧数决定。
+
+## 4. LLC 训练
+
+### 4.1 Locomotion LLC
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -94,10 +147,11 @@ export MESA_GLSL_VERSION_OVERRIDE=330
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples 13107200000 \
   --out_dir output/train/ase_humanoid_fullchain
 ```
 
-### 3.2 Sword / Shield LLC
+### 4.2 Sword / Shield LLC
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -106,10 +160,11 @@ export MESA_GLSL_VERSION_OVERRIDE=330
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples 13107200000 \
   --out_dir output/train/ase_humanoid_sword_shield_fullchain
 ```
 
-### 3.3 Getup LLC
+### 4.3 Getup LLC
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -118,6 +173,7 @@ export MESA_GLSL_VERSION_OVERRIDE=330
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples 13107200000 \
   --out_dir output/train/ase_getup_humanoid_sword_shield_fullchain
 ```
 
@@ -134,7 +190,7 @@ LLC 验收：
 - latent 切换后不能大面积摔倒。
 - `ase_getup` 至少能看到明显恢复窗口，不是倒地后直接终止。
 
-### 3.4 LLC 断点续训
+### 4.4 LLC 断点续训
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -143,11 +199,18 @@ LLC 验收：
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples <remaining_samples_for_this_resume_segment> \
   --model_file output/train/ase_humanoid_sword_shield_fullchain/model.pt \
   --out_dir output/train/ase_humanoid_sword_shield_fullchain_resume
 ```
 
-## 4. HLC 训练
+注意：
+
+- raw `run.py --model_file ... --out_dir new_root` 的 `sample_count` 会从 `0` 重新开始，不会自动继承旧 root 的已训练 samples。
+- 所以断点续训时，`--max_samples` 必须传“当前续训段还需要补的剩余 samples”，不能再直接写完整官方预算。
+- 如果希望自动按历史 segment 汇总剩余样本，优先用本文后面的 keepalive 口径。
+
+## 5. HLC 训练
 
 `ASEHRL` 必须显式指定 `--llc_model_file`。缺失该参数时应立即报错。
 
@@ -160,6 +223,7 @@ LLC 验收：
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples 1310720000 \
   --llc_model_file output/train/ase_humanoid_sword_shield_fullchain/model.pt \
   --out_dir output/train/<hlc_run_name>
 ```
@@ -182,6 +246,7 @@ LLC 验收：
   --mode train \
   --visualize false \
   --devices cuda:0 cuda:1 \
+  --max_samples 1310720000 \
   --llc_model_file output/train/ase_humanoid_sword_shield_fullchain/model.pt \
   --out_dir output/train/ase_heading_humanoid_sword_shield_fullchain
 ```
@@ -193,9 +258,34 @@ HLC 验收：
 - `Reach/Strike` 必须加载新 task env，而不是 AMP 旧 case。
 - LLC trainable params 不应出现在 HLC 优化器中。
 
-## 5. Test 与交互可视化
+### 5.1 官方口径 keepalive 启动
 
-### 5.1 LLC / HLC 通用 test
+如果要按官方样本口径自动续训、自动计算 remaining samples，推荐直接走：
+
+```bash
+cd /root/Project/MimicKit
+
+./scripts/run_ase_7case_keepalive.py \
+  --root-out ase_7case_official_budget \
+  --engine-config data/engines/newton_engine.yaml \
+  --devices-train cuda:0,cuda:1 \
+  --strict-dual-gpu \
+  --primary-num-envs 2048 \
+  --fallback-num-envs 1024,512 \
+  --llc-target-samples 13107200000 \
+  --hlc-target-samples 1310720000 \
+  --case-budget-hours 0
+```
+
+说明：
+
+- `--case-budget-hours 0` 表示关闭按小时强截断，避免在达到官方样本预算前被 `8h` 预算提前切断。
+- `ase_humanoid`、`ase_humanoid_sword_shield`、`ase_getup` 会自动使用 LLC 口径。
+- `heading/location/reach/strike` 会自动使用 HLC 口径。
+
+## 6. Test 与交互可视化
+
+### 6.1 LLC / HLC 通用 test
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -215,7 +305,7 @@ HLC 验收：
 - `Mean Episode Length`
 - 是否能稳定跑完整 episode
 
-### 5.2 交互可视化
+### 6.2 交互可视化
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -260,7 +350,7 @@ HLC 看：
 - `reach` 是否能主动把 sword 送向目标
 - `strike` 是否能对 target 产生稳定击倒/扰动
 
-### 5.3 Getup 专项 test
+### 6.3 Getup 专项 test
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -290,7 +380,7 @@ data/engines/isaac_lab_engine.yaml
 
 - 跌倒初始化后应能进入恢复动作，而不是持续躺地抖动。
 
-## 6. 离线序列渲染
+## 7. 离线序列渲染
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
@@ -314,7 +404,7 @@ ASE 专属注意：
 - 不要先用静态 actor 包装结果判断 `ASE` 坍缩。
 - 如果看到“蓝色 agent 原地轻微抖动”，先复查渲染路径，再判训练失败。
 
-## 7. Perturb 验收
+## 8. Perturb 验收
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -332,9 +422,9 @@ ASE 专属注意：
 - projectile 能持续生成，不是只出现一次。
 - 角色受扰动后不应立刻退化成纯抖动或完全失控。
 
-## 8. View Motion 验收
+## 9. View Motion 验收
 
-### 8.1 单动作
+### 9.1 单动作
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -360,7 +450,7 @@ ASE 专属注意：
   --test_episodes 1
 ```
 
-### 8.2 数据集
+### 9.2 数据集
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python mimickit/run.py \
@@ -393,7 +483,7 @@ data/engines/isaac_lab_engine.yaml
 - Newton 下直接跑 `view_motion` 时，建议保持默认设备 `cuda:0`，不要强行切到 `cuda:1`；否则可能触发 Warp `copy_indexed` 的跨设备 launch 报错。
 - 当前 `newton_engine.yaml` 不能直接加载 `.usd`，所以白骑士 mesh 版要切到 `data/engines/isaac_lab_engine.yaml`。
 
-## 9. 白骑士动作库全覆盖
+## 10. 白骑士动作库全覆盖
 
 官方 `ASE` 官网里最显眼的白骑士剑盾展示，主要来自 Reallusion 的两套动作素材：
 
@@ -415,7 +505,7 @@ data/engines/isaac_lab_engine.yaml
   - `output/train/case_ase_reallusion_motion_library_smoke_20260312_143511`
   - `output/img/case_ase_reallusion_motion_library_smoke_20260312_143511`
 
-### 9.1 生成 per-clip render root
+### 10.1 生成 per-clip render root
 
 ```bash
 ROOT_NAME=case_ase_reallusion_motion_library_$(date +%Y%m%d_%H%M%S)
@@ -439,7 +529,7 @@ ROOT_NAME=case_ase_reallusion_motion_library_$(date +%Y%m%d_%H%M%S)
 - `output/train/${ROOT_NAME}/best_by_case.tsv`
 - `output/train/${ROOT_NAME}/generated_envs/<motion_id>.yaml`
 
-### 9.2 dry-run 检查
+### 10.2 dry-run 检查
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
@@ -453,7 +543,7 @@ ROOT_NAME=case_ase_reallusion_motion_library_$(date +%Y%m%d_%H%M%S)
 - dry-run 必须发现 `87` 个 job。
 - variant 必须直接对应 `motion_id`。
 
-### 9.3 全量离线渲染
+### 10.3 全量离线渲染
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
@@ -487,16 +577,16 @@ ROOT_NAME=case_ase_reallusion_motion_library_$(date +%Y%m%d_%H%M%S)
 - 如果索引里看到 `visual_kind=geom`，说明还在走默认 `xml`；要看白骑士，应改用 `_mesh_env.yaml` 或 `--base-env-config ..._mesh_env.yaml`。
 - 如果在 `mesh` 模式下仍使用 `data/engines/newton_engine.yaml`，会直接报 `.usd` asset unsupported；这是当前 Newton 后端的已知边界。
 
-## 10. 看板与排障
+## 11. 看板与排障
 
-### 10.1 ASE 看板
+### 11.1 ASE 看板
 
 ```bash
 /root/miniconda3/envs/mimickit/bin/python scripts/run_ase_dashboard.py \
   --root-out ase_humanoid_sword_shield_fullchain
 ```
 
-### 10.2 常见问题
+### 11.2 常见问题
 
 - `python: command not found`
   - 统一改用 `/root/miniconda3/envs/mimickit/bin/python`

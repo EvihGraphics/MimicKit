@@ -154,3 +154,18 @@
   - 图片根目录：`output/img/case_ase_reallusion_motion_library_smoke_20260312_143511`
   - 渲染索引：`infer_viz_index.tsv`
   - 结果：`87/87 ok`
+
+## Visualization Dual Mode
+
+- sword/shield 可视化保留两条并行口径：
+  - `geom`：默认 `xml` 物理几何体，继续作为训练、验证、问题定位的主口径
+  - `mesh`：可选 `usd` 白骑士外观，用于交互观察、离线图片导出、官网观感对照
+- 新增一组 `data/envs/*sword_shield*_mesh_env.yaml`，只替换 `char_file` 到 `data/assets/sword_shield/humanoid_sword_shield.usd`，不改任务逻辑。
+- `mesh` env 额外固定 `kin_char_file=data/assets/sword_shield/humanoid_sword_shield.xml`，避免把运动学解析和视觉资产耦死。
+- `mesh` 模式要求 `data/engines/isaac_lab_engine.yaml` 这类 USD-capable backend；`newton_engine.yaml` 仍只支持 `.xml/.urdf`。
+- `view_motion` 的 per-clip render helper 不改默认行为；如果要导出白骑士，显式传：
+  - `--base-env-config data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml`
+- 验收要求：
+  - `geom` 和 `mesh` 两种入口都必须能被解析
+  - `mesh` 模式下 render index 应显示 `visual_kind=mesh`
+  - 训练闭环统计仍以 `geom` 口径记账，不把白骑士外观切换误算成新的 task family

@@ -20,6 +20,14 @@ description: Build MimicKit inference visualization frame sequences from output/
   --frames 300 --frame-stride 5 --device cuda:0 --num-envs 1
 ```
 
+- ASE 白骑士 per-clip root 生成时，如果希望输出 `mesh` 而不是默认 `geom`，先这样生成 synthetic root：
+```bash
+/root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_ase_reallusion_motion_render_root.py \
+  --root-name <root_name> \
+  --engine-config data/engines/isaac_lab_engine.yaml \
+  --base-env-config data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml
+```
+
 - Full pass (only roots whose rows are all final_ok=1):
 ```bash
 /root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
@@ -57,6 +65,10 @@ ASE-specific note:
 - Do not judge ASE quality from renders that bypass the agent test loop.
 - A static actor wrapper can skip latent reset/update behavior and produce false negatives such as “blue agent jitters in place”.
 - If an ASE render looks like idle wobble or near-frozen poses, rerender with the agent test loop before concluding the checkpoint collapsed.
+- Sword/shield now has two visual modes:
+  - `geom`: default XML physics shapes, stable baseline
+  - `mesh`: USD white-knight appearance, opt-in through `*_mesh_env.yaml`
+- `mesh` requires a USD-capable backend such as `data/engines/isaac_lab_engine.yaml`; `newton_engine.yaml` still rejects `.usd`.
 
 ## Acceptance
 

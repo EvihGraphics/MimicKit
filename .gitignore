@@ -9,3 +9,4 @@ data/*
 !data/envs/
 data/envs/*
 !data/envs/*mesh_env.yaml
+docs/plan/

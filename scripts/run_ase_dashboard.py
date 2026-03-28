@@ -21,6 +21,65 @@ except Exception:
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIN_ROOT = ROOT / "output" / "train"
+OFFICIAL_LLC_TARGET_SAMPLES = 13_107_200_000
+OFFICIAL_HLC_TARGET_SAMPLES = 1_310_720_000
+CASE_META = {
+    "ase_humanoid": {
+        "args": "ase_humanoid_args.txt",
+        "short": "ASE Humanoid",
+        "out_name": "ase_humanoid_l2",
+        "family": "llc",
+    },
+    "ase_humanoid_sword_shield": {
+        "args": "ase_humanoid_sword_shield_args.txt",
+        "short": "ASE SwordShield",
+        "out_name": "ase_humanoid_sword_shield_l2",
+        "family": "llc",
+    },
+    "ase_getup_humanoid_sword_shield": {
+        "args": "ase_getup_humanoid_sword_shield_args.txt",
+        "short": "ASE Getup",
+        "out_name": "ase_getup_humanoid_sword_shield_l2",
+        "family": "llc",
+    },
+    "ase_heading_humanoid_sword_shield": {
+        "args": "ase_heading_humanoid_sword_shield_args.txt",
+        "short": "ASE Heading",
+        "out_name": "ase_heading_humanoid_sword_shield_l2",
+        "family": "hlc",
+    },
+    "ase_location_humanoid_sword_shield": {
+        "args": "ase_location_humanoid_sword_shield_args.txt",
+        "short": "ASE Location",
+        "out_name": "ase_location_humanoid_sword_shield_l2",
+        "family": "hlc",
+    },
+    "ase_reach_humanoid_sword_shield": {
+        "args": "ase_reach_humanoid_sword_shield_args.txt",
+        "short": "ASE Reach",
+        "out_name": "ase_reach_humanoid_sword_shield_l2",
+        "family": "hlc",
+    },
+    "ase_strike_humanoid_sword_shield": {
+        "args": "ase_strike_humanoid_sword_shield_args.txt",
+        "short": "ASE Strike",
+        "out_name": "ase_strike_humanoid_sword_shield_l2",
+        "family": "hlc",
+    },
+    "ase_perturb_humanoid_sword_shield": {
+        "args": "ase_perturb_humanoid_sword_shield_args.txt",
+        "short": "ASE Perturb",
+        "out_name": "",
+        "family": "tooling",
+    },
+    "view_motion_humanoid_sword_shield": {
+        "args": "view_motion_humanoid_sword_shield_args.txt",
+        "short": "View Motion",
+        "out_name": "",
+        "family": "tooling",
+    },
+}
+CASE_ARGS_TO_KEY = {meta["args"]: key for key, meta in CASE_META.items()}
 
 
 HTML_PAGE = """<!doctype html>
@@ -295,6 +354,7 @@ HTML_PAGE = """<!doctype html>
         <div class="v" id="progressV">-</div>
         <div class="small" id="progressSub">-</div>
         <div class="meter"><div class="fill" id="progressFill" style="width:0%"></div></div>
+        <div class="small" id="progressHealth">-</div>
       </div>
       <div class="card kpi">
         <div class="k">当前 ETA</div>
@@ -390,6 +450,11 @@ HTML_PAGE = """<!doctype html>
     function fmtPct(v, digits=1){
       if (v === null || v === undefined || Number.isNaN(Number(v))) return "-";
       return `${Number(v).toFixed(digits)}%`;
+    }
+
+    function clampPct(v){
+      if (v === null || v === undefined || Number.isNaN(Number(v))) return null;
+      return Math.max(0, Math.min(100, Number(v)));
     }
 
     function fmtDuration(sec){
@@ -582,20 +647,37 @@ HTML_PAGE = """<!doctype html>
     }
 
     function render(status){
+      const run = status.run || {};
       activeRoot = status.root_name || "";
       setRootOptions(status.available_roots || []);
       rootInput.value = parseRootFromUrl() || activeRoot;
-      subtitle.textContent = `Root: ${activeRoot || "-"} | 最近刷新: ${status.server_time || "-"} | 当前 Case: ${status.run?.case_name || "-"}`;
+      subtitle.textContent = `Root: ${activeRoot || "-"} | 最近刷新: ${status.server_time || "-"} | 当前 Case: ${run.case_name || "-"}`;
 
-      q("runV").textContent = status.run?.case_short || "-";
-      q("runSub").textContent = `iter=${fmtInt(status.run?.iteration)} | num_envs=${fmtInt(status.run?.num_envs)} | backend=${status.config?.engine_name || "-"}`;
+      q("runV").textContent = run.case_short || "-";
+      q("runSub").textContent = `iter=${fmtInt(run.iteration)} | num_envs=${fmtInt(run.num_envs)} | backend=${status.config?.engine_name || "-"}`;
 
-      q("progressV").textContent = `${fmtPct(status.run?.target_pct, 1)}`;
-      q("progressSub").textContent = `${fmtInt(status.run?.samples)} / ${fmtInt(status.run?.target_samples)} samples`;
-      q("progressFill").style.width = `${Math.max(0, Math.min(100, Number(status.run?.target_pct || 0)))}%`;
+      const progressPct = clampPct(run.display_target_pct ?? run.target_pct);
+      const overflowSamples = Number(run.overflow_samples || 0);
+      const progressBaseSamples = run.display_progress_base_samples ?? run.target_samples;
+      let progressSub = `${fmtInt(run.samples)} / ${fmtInt(progressBaseSamples)} samples`;
+      if (progressBaseSamples !== run.target_samples && Number(run.target_samples || 0) > 0){
+        progressSub += ` | ${run.target_label || "预算线"} ${fmtInt(run.target_samples)}`;
+      } else if (Number(run.target_samples || 0) > 0) {
+        progressSub += ` | ${run.target_label || "当前预算"}`;
+      }
+      if (run.completed){
+        progressSub += overflowSamples > 0 ? ` | 已超目标 ${fmtInt(overflowSamples)}` : " | 已达目标";
+      }
+      q("progressV").textContent = fmtPct(progressPct, 1);
+      q("progressSub").textContent = progressSub;
+      q("progressFill").style.width = `${progressPct ?? 0}%`;
+      const progressHealth = status.health?.progress || {};
+      const progressHealthLevel = clsByLevel(progressHealth.level || "warning");
+      q("progressHealth").innerHTML = `<span class="pill ${progressHealthLevel}">${progressHealth.label || "-"}</span> ${progressHealth.detail || "-"}`;
 
-      q("etaV").textContent = fmtDuration(status.run?.eta_current_sec);
-      q("etaSub").textContent = `速度 ${fmtNum(status.run?.samples_per_sec, 1)} samples/s | 约 ${fmtNum(status.run?.samples_per_hour_m, 2)}M/h`;
+      const etaSpeed = `速度 ${fmtNum(run.samples_per_sec, 1)} samples/s | 约 ${fmtNum(run.samples_per_hour_m, 2)}M/h`;
+      q("etaV").textContent = run.completed ? "已完成" : fmtDuration(run.eta_current_sec);
+      q("etaSub").textContent = run.completed ? `${etaSpeed} | 当前目标已达成` : etaSpeed;
 
       const hv = q("healthV");
       hv.className = `v ${clsByLevel(status.health?.overall?.level || "warning")}`;
@@ -685,10 +767,12 @@ def parse_args():
     ap.add_argument("--monitor-log", default="", help="optional monitor log path")
     ap.add_argument("--queue-log", default="", help="optional queue controller log path")
     ap.add_argument("--history-size", type=int, default=240, help="max monitor history points")
-    ap.add_argument("--target-samples", type=int, default=1_000_000_000)
+    ap.add_argument("--target-samples", type=int, default=1_000_000_000, help="fallback target for unknown/tooling cases")
+    ap.add_argument("--llc-target-samples", type=int, default=OFFICIAL_LLC_TARGET_SAMPLES)
+    ap.add_argument("--hlc-target-samples", type=int, default=OFFICIAL_HLC_TARGET_SAMPLES)
     ap.add_argument(
         "--series-cases",
-        default="ase_humanoid_args.txt,ase_humanoid_sword_shield_args.txt",
+        default="ase_humanoid_args.txt,ase_humanoid_sword_shield_args.txt,ase_getup_humanoid_sword_shield_args.txt,ase_heading_humanoid_sword_shield_args.txt,ase_location_humanoid_sword_shield_args.txt,ase_reach_humanoid_sword_shield_args.txt,ase_strike_humanoid_sword_shield_args.txt",
         help="comma-separated ASE series order",
     )
     return ap.parse_args()
@@ -752,14 +836,31 @@ def tail_lines(path: Path, n=20):
 
 
 def read_gpu_snapshot():
-    cmd = [
-        "nvidia-smi",
+    base_args = [
         "--query-gpu=index,utilization.gpu,memory.used,memory.total,power.draw",
         "--format=csv,noheader,nounits",
     ]
-    try:
-        out = subprocess.check_output(cmd, text=True).strip()
-    except Exception:
+    candidates = []
+    override = os.environ.get("MIMICKIT_NVIDIA_SMI")
+    if override:
+        candidates.append(override)
+    candidates.extend(
+        [
+            "nvidia-smi",
+            "/mnt/c/Windows/System32/nvidia-smi.exe",
+            "/mnt/c/WINDOWS/System32/nvidia-smi.exe",
+        ]
+    )
+
+    out = ""
+    for exe in candidates:
+        try:
+            out = subprocess.check_output([exe, *base_args], text=True).strip()
+            if out:
+                break
+        except Exception:
+            continue
+    if not out:
         return []
 
     rows = []
@@ -801,12 +902,16 @@ def detect_monitor_log(root_path: Path, explicit: str):
     return None
 
 
-def detect_queue_log(explicit: str):
+def detect_queue_log(root_path: Path, explicit: str):
     if explicit:
         p = Path(explicit)
         if not p.is_absolute():
             p = (ROOT / p).resolve()
         return p if p.exists() else None
+
+    if root_path is not None:
+        if (root_path / "keepalive_status.json").exists() or (root_path / "current_case.txt").exists():
+            return None
 
     hits = sorted((TRAIN_ROOT.glob("ase_series_queue_controller_*.log")), key=lambda p: p.stat().st_mtime, reverse=True)
     return hits[0] if hits else None
@@ -933,9 +1038,23 @@ def to_int(value, default=0):
 
 
 def find_resume_successor(root_path: Path):
+    candidate_ctx_paths = []
+    sibling_parent = root_path.resolve().parent
+    if sibling_parent.exists():
+        candidate_ctx_paths.extend(sorted(sibling_parent.glob("*/resume_context.tsv")))
+
+    train_root_resolved = TRAIN_ROOT.resolve()
+    if sibling_parent != train_root_resolved and train_root_resolved.exists():
+        candidate_ctx_paths.extend(sorted(TRAIN_ROOT.glob("*/resume_context.tsv")))
+
+    seen_ctx = set()
     hits = []
     root_resolved = root_path.resolve()
-    for ctx_path in TRAIN_ROOT.glob("*/resume_context.tsv"):
+    for ctx_path in candidate_ctx_paths:
+        ctx_path = ctx_path.resolve()
+        if ctx_path in seen_ctx:
+            continue
+        seen_ctx.add(ctx_path)
         run_dir = ctx_path.parent.resolve()
         if run_dir == root_resolved:
             continue
@@ -963,7 +1082,7 @@ def find_resume_successor(root_path: Path):
     return hits[0]
 
 
-def build_resume_chain(root_path: Path, limit=8):
+def build_resume_chain(root_path: Path, limit=32):
     chain = [root_path.resolve()]
     seen = {chain[0]}
     curr = chain[0]
@@ -1024,20 +1143,81 @@ def build_chain_rows(root_path: Path):
     return chain, segments, all_rows
 
 
-def infer_case_name(root_path: Path, env_cfg: dict):
-    motion = str(env_cfg.get("motion_file", ""))
-    name = root_path.name if root_path else ""
-    if "sword_shield" in name or "sword_shield" in motion:
+def resolve_supervisor_active_root(root_path: Path):
+    current_case_path = root_path / "current_case.txt"
+    if not current_case_path.exists():
+        return root_path, ""
+
+    current_key = read_text(current_case_path).strip()
+    if not current_key or current_key == "COMPLETE":
+        return root_path, current_key
+
+    meta = CASE_META.get(current_key)
+    if not meta or not meta.get("out_name"):
+        return root_path, current_key
+
+    case_root = root_path / meta["out_name"]
+    if case_root.exists() and case_root.is_dir():
+        return case_root.resolve(), current_key
+
+    resume_hits = sorted(root_path.glob(f"{meta['out_name']}_resume*"))
+    if resume_hits:
+        return resume_hits[0].resolve(), current_key
+
+    return root_path, current_key
+
+
+def infer_case_name(root_path: Path, env_cfg: dict, current_case_key: str = ""):
+    if current_case_key in CASE_META:
+        return CASE_META[current_case_key]["args"]
+
+    motion = str(env_cfg.get("motion_file", "")).lower()
+    env_name = str(env_cfg.get("env_name", "")).lower()
+    name = (root_path.name if root_path else "").lower()
+    probe = " ".join([name, motion, env_name])
+
+    ordered = [
+        ("view_motion", "view_motion_humanoid_sword_shield_args.txt"),
+        ("perturb", "ase_perturb_humanoid_sword_shield_args.txt"),
+        ("getup", "ase_getup_humanoid_sword_shield_args.txt"),
+        ("heading", "ase_heading_humanoid_sword_shield_args.txt"),
+        ("location", "ase_location_humanoid_sword_shield_args.txt"),
+        ("reach", "ase_reach_humanoid_sword_shield_args.txt"),
+        ("strike", "ase_strike_humanoid_sword_shield_args.txt"),
+    ]
+    for token, case_name in ordered:
+        if token in probe:
+            return case_name
+    if "sword_shield" in probe:
         return "ase_humanoid_sword_shield_args.txt"
     return "ase_humanoid_args.txt"
 
 
 def short_case_name(case_name: str):
-    if case_name == "ase_humanoid_sword_shield_args.txt":
-        return "ASE SwordShield"
-    if case_name == "ase_humanoid_args.txt":
-        return "ASE Humanoid"
+    key = CASE_ARGS_TO_KEY.get(case_name, "")
+    if key in CASE_META:
+        return CASE_META[key]["short"]
     return case_name.replace("_args.txt", "")
+
+
+def target_samples_for_case(case_name: str, config: dict):
+    key = CASE_ARGS_TO_KEY.get(case_name, "")
+    family = CASE_META.get(key, {}).get("family", "")
+    if family == "llc":
+        return int(config["llc_target_samples"])
+    if family == "hlc":
+        return int(config["hlc_target_samples"])
+    return int(config["target_samples"])
+
+
+def target_label_for_case(case_name: str):
+    key = CASE_ARGS_TO_KEY.get(case_name, "")
+    family = CASE_META.get(key, {}).get("family", "")
+    if family == "llc":
+        return "官方 LLC 预算"
+    if family == "hlc":
+        return "官方 HLC 预算"
+    return "当前预算"
 
 
 def severity_rank(level: str):
@@ -1115,6 +1295,39 @@ def compute_health(latest: dict, gpus: list, samples_per_sec: float, completed=F
     if completed:
         overall = make_status("good", "ASE 训练完成", f"已达到目标 samples | disc={disc:.3f} enc={enc:.3f}")
     return {"overall": overall, "style": style, "latent": latent, "throughput": throughput, "gpu": gpu}
+
+
+def compute_progress_health(case_name: str, latest: dict, samples_per_sec: float, train_log: Path):
+    if not latest:
+        return make_status("warning", "等待首个快照", "训练日志还没有有效样本")
+
+    age_sec = None
+    if train_log and train_log.exists():
+        try:
+            age_sec = max(0.0, dt.datetime.now().timestamp() - train_log.stat().st_mtime)
+        except Exception:
+            age_sec = None
+
+    key = CASE_ARGS_TO_KEY.get(case_name, "")
+    family = CASE_META.get(key, {}).get("family", "")
+    good_floor = 15_000.0 if family == "llc" else 3_000.0
+    warn_floor = 7_000.0 if family == "llc" else 1_000.0
+
+    if age_sec is not None and age_sec > 15 * 60:
+        return make_status("critical", "进度停滞", f"日志已 {int(age_sec // 60)} 分钟未更新")
+    if samples_per_sec is None:
+        detail = "历史点不足，等待测速稳定"
+        if age_sec is not None:
+            detail += f" | 日志 {int(age_sec // 60)} 分钟前更新"
+        return make_status("warning", "进度待观察", detail)
+
+    age_text = f"日志 {max(0, int((age_sec or 0) // 60))} 分钟前更新"
+    detail = f"{samples_per_sec:.1f} samples/s | {age_text}"
+    if samples_per_sec >= good_floor:
+        return make_status("good", "进度正常", detail)
+    if samples_per_sec >= warn_floor:
+        return make_status("warning", "进度偏慢", detail)
+    return make_status("critical", "进度异常偏慢", detail)
 
 
 def parse_queue_log(path: Path):
@@ -1197,8 +1410,9 @@ def collect_status(config, root_arg_override=""):
         }
 
     requested_root = root_path.resolve()
-    chain_roots, chain_segments, rows = build_chain_rows(requested_root)
-    active_root = chain_roots[-1] if chain_roots else requested_root
+    case_root, current_case_key = resolve_supervisor_active_root(requested_root)
+    chain_roots, chain_segments, rows = build_chain_rows(case_root)
+    active_root = chain_roots[-1] if chain_roots else case_root
 
     launch_log = active_root / "launch.log"
     train_log = active_root / "log.txt"
@@ -1215,11 +1429,16 @@ def collect_status(config, root_arg_override=""):
         if vals:
             samples_per_sec = sum(vals) / len(vals)
 
-    case_name = infer_case_name(root_path, env_cfg)
-    target_samples = int(config["target_samples"])
+    case_name = infer_case_name(case_root, env_cfg, current_case_key=current_case_key)
+    target_samples = target_samples_for_case(case_name, config)
+    target_label = target_label_for_case(case_name)
     samples = int(latest.get("Samples", 0) or 0)
+    observed_max_samples = max((int(r.get("Samples", 0) or 0) for r in rows), default=samples)
+    display_progress_base_samples = max(target_samples, observed_max_samples, samples)
     target_pct = (100.0 * samples / target_samples) if target_samples > 0 else 0.0
+    display_target_pct = (100.0 * samples / display_progress_base_samples) if display_progress_base_samples > 0 else 0.0
     completed = target_samples > 0 and samples >= target_samples
+    overflow_samples = max(samples - target_samples, 0) if target_samples > 0 else 0
     eta_current_sec = None
     if samples_per_sec and target_samples > samples:
         eta_current_sec = (target_samples - samples) / samples_per_sec
@@ -1227,15 +1446,22 @@ def collect_status(config, root_arg_override=""):
     series_cases = config["series_cases"]
     active_idx = series_cases.index(case_name) if case_name in series_cases else 0
     next_case = series_cases[active_idx + 1] if active_idx + 1 < len(series_cases) else ""
-    progress_pct = (active_idx + min(samples / max(target_samples, 1), 1.0)) / max(len(series_cases), 1) * 100.0
+    series_targets = [target_samples_for_case(x, config) for x in series_cases]
+    series_total_samples = sum(series_targets)
+    completed_series_samples = sum(series_targets[:active_idx]) + min(samples, target_samples)
+    progress_pct = (
+        100.0 * completed_series_samples / series_total_samples
+        if series_total_samples > 0
+        else 0.0
+    )
     eta_series_sec = None
     if samples_per_sec:
         remaining = max(target_samples - samples, 0)
-        remaining += max(0, len(series_cases) - active_idx - 1) * target_samples
+        remaining += sum(series_targets[active_idx + 1 :])
         eta_series_sec = remaining / samples_per_sec
 
     monitor_log = detect_monitor_log(active_root, config["monitor_log"])
-    queue_log = detect_queue_log(config["queue_log"])
+    queue_log = detect_queue_log(requested_root, config["queue_log"])
     monitor_samples = parse_monitor_samples(monitor_log, limit=config["history_size"])
     queue = parse_queue_log(queue_log)
     if completed:
@@ -1244,6 +1470,7 @@ def collect_status(config, root_arg_override=""):
         queue["detail"] = f"{short_case_name(case_name)} 已达到 {samples:,} samples"
     gpus = read_gpu_snapshot()
     health = compute_health(latest, gpus, samples_per_sec, completed=completed)
+    health["progress"] = compute_progress_health(case_name, latest, samples_per_sec, train_log)
 
     total_wall_time_h = None
     wall_vals = [float(x["wall_time_h"]) for x in chain_segments if x.get("wall_time_h") is not None]
@@ -1267,7 +1494,13 @@ def collect_status(config, root_arg_override=""):
         "iteration": latest.get("Iteration"),
         "samples": samples,
         "target_samples": target_samples,
+        "target_label": target_label,
+        "observed_max_samples": observed_max_samples,
+        "display_progress_base_samples": display_progress_base_samples,
         "target_pct": target_pct,
+        "display_target_pct": display_target_pct,
+        "overflow_samples": overflow_samples,
+        "completed": completed,
         "wall_time_h": total_wall_time_h if total_wall_time_h is not None else latest.get("Wall_Time"),
         "samples_per_sec": samples_per_sec,
         "samples_per_hour_m": (samples_per_sec * 3600.0 / 1_000_000.0) if samples_per_sec else None,
@@ -1330,6 +1563,8 @@ def collect_status(config, root_arg_override=""):
             "next_case": next_case,
             "progress_pct": progress_pct,
             "eta_series_sec": eta_series_sec,
+            "series_total_samples": series_total_samples,
+            "series_completed_samples": completed_series_samples,
             "resume_chain": [x["root_name"] for x in chain_segments],
         },
         "queue": queue,
@@ -1390,6 +1625,8 @@ def main():
         "queue_log": args.queue_log.strip(),
         "history_size": max(60, int(args.history_size)),
         "target_samples": int(args.target_samples),
+        "llc_target_samples": int(args.llc_target_samples),
+        "hlc_target_samples": int(args.hlc_target_samples),
         "series_cases": [x.strip() for x in args.series_cases.split(",") if x.strip()],
     }
     handler = make_handler(config)
