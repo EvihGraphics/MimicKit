@@ -1228,6 +1228,43 @@ def make_status(level, label, detail):
     return {"level": level, "label": label, "detail": detail}
 
 
+def detect_training_runtime(root_path: Path):
+    result = {
+        "has_keepalive": False,
+        "has_runner": False,
+        "detail": "",
+    }
+    try:
+        out = subprocess.check_output(["ps", "-eo", "pid=,args="], text=True, errors="ignore")
+    except Exception:
+        return result
+
+    root_markers = {
+        str(root_path),
+        root_path.name,
+    }
+    for raw in out.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        if not any(marker and marker in line for marker in root_markers):
+            continue
+        if "run_ase_7case_keepalive.py" in line:
+            result["has_keepalive"] = True
+        if "mimickit/run.py" in line:
+            result["has_runner"] = True
+
+    if result["has_keepalive"] and result["has_runner"]:
+        result["detail"] = "keepalive + run.py 活跃"
+    elif result["has_keepalive"]:
+        result["detail"] = "仅 keepalive 活跃"
+    elif result["has_runner"]:
+        result["detail"] = "仅 run.py 活跃"
+    else:
+        result["detail"] = "未发现训练进程"
+    return result
+
+
 def compute_health(latest: dict, gpus: list, samples_per_sec: float, completed=False):
     if not latest:
         empty = make_status("warning", "等待首个快照", "log.txt 还没有有效训练行")
@@ -1297,7 +1334,24 @@ def compute_health(latest: dict, gpus: list, samples_per_sec: float, completed=F
     return {"overall": overall, "style": style, "latent": latent, "throughput": throughput, "gpu": gpu}
 
 
-def compute_progress_health(case_name: str, latest: dict, samples_per_sec: float, train_log: Path):
+def compute_progress_health(case_name: str, latest: dict, samples_per_sec: float, train_log: Path, runtime=None):
+    runtime = runtime or {}
+    has_keepalive = bool(runtime.get("has_keepalive"))
+    has_runner = bool(runtime.get("has_runner"))
+    runtime_detail = str(runtime.get("detail", "")).strip()
+
+    if not has_runner:
+        detail = runtime_detail or "未发现活跃训练 worker"
+        if train_log and train_log.exists():
+            try:
+                age_sec = max(0.0, dt.datetime.now().timestamp() - train_log.stat().st_mtime)
+                detail += f" | 日志已 {int(age_sec // 60)} 分钟未更新"
+            except Exception:
+                pass
+        if has_keepalive:
+            return make_status("warning", "keepalive 重试中", detail)
+        return make_status("critical", "当前无训练进程", detail)
+
     if not latest:
         return make_status("warning", "等待首个快照", "训练日志还没有有效样本")
 
@@ -1470,7 +1524,8 @@ def collect_status(config, root_arg_override=""):
         queue["detail"] = f"{short_case_name(case_name)} 已达到 {samples:,} samples"
     gpus = read_gpu_snapshot()
     health = compute_health(latest, gpus, samples_per_sec, completed=completed)
-    health["progress"] = compute_progress_health(case_name, latest, samples_per_sec, train_log)
+    runtime = detect_training_runtime(requested_root)
+    health["progress"] = compute_progress_health(case_name, latest, samples_per_sec, train_log, runtime=runtime)
 
     total_wall_time_h = None
     wall_vals = [float(x["wall_time_h"]) for x in chain_segments if x.get("wall_time_h") is not None]
