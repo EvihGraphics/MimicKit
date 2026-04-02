@@ -35,3 +35,6 @@ tmux new -s train_ase -d "python scripts/run_ase_7case_keepalive.py --root-out a
 ```bash
 tmux new -s monitor_ase -d "python -u scripts/run_ase_dashboard.py --root-out ase_7case_tmux_20260312_235006 --llc-target-samples 13107200000 --host 0.0.0.0 --port 8788"
 ```
+
+## Automated Watchdog
+To prevent accidental interrupts, a watchdog script was installed at `/root/Project/MimicKit/scripts/watchdog_ase_training.sh`. It checks if `train_ase` and `monitor_ase` are alive, and restarts them automatically. Using `crontab -e` with `* * * * * /bin/bash /root/Project/MimicKit/scripts/watchdog_ase_training.sh` guarantees rapid resume even on hardware reboots.

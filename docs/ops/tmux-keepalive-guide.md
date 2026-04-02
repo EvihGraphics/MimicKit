@@ -116,3 +116,27 @@ tmux kill-session -t train_v1
 ## 一句话总结
 
 **进门 `tmux new`，出门 `Ctrl+b d`，回家 `tmux attach`。**
+
+## 5. 自动化保活 (Automated Watchdog SOP)
+
+如果你不希望因为服务器意外重启或崩溃而中断训练，可以使用 `crontab` 定时任务结合监控脚本来监控 Tmux 会话。
+
+**操作步骤**：
+1. **编写监控脚本**：参考 `scripts/watchdog_ase_training.sh`，脚本中会使用 `tmux has-session -t <session_name>` 来检查核心会话。如果不存在，它将记录日志到 `/tmp/ase_watchdog.log` 并重新启动指定的 tmux 会话（包括训练和 Dashboard 进程）。
+2. **设置执行权限**：
+```bash
+chmod +x /root/Project/MimicKit/scripts/watchdog_ase_training.sh
+```
+3. **添加 Cron 定时任务**：
+   运行 `crontab -e` 并添加以下行（每分钟检查一次）：
+```bash
+* * * * * /bin/bash /root/Project/MimicKit/scripts/watchdog_ase_training.sh
+```
+
+开启该功能后，若是进程被杀或服务器重启开机，系统会在 1 分钟内自动拉起所有的 Tmux 训练流和监控面板。
+
+> **注意 (WSL 用户专享)**：
+> 由于 Windows WSL 默认在开机时不会自启 `cron` 守护进程，因此即使设置了 `crontab` 也不会生效。你需要修改 `/etc/wsl.conf` 让系统启动时拉起它。
+> 运行命令：
+> `echo -e "[boot]\ncommand=\"service cron start\"" | sudo tee /etc/wsl.conf`
+> 然后重启 WSL。

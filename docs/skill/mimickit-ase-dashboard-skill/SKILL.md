@@ -111,3 +111,9 @@ These are monitoring heuristics, not proof of convergence.
 - It parses `log.txt` by converting carriage-return updates into row history, so it works for single ASE runs without `progress.json`.
 - If `--root-out` is empty, the script auto-picks the newest `output/train/ase_*` directory.
 - The queue card can read `output/train/ase_series_queue_controller_*.log` and show whether the next ASE case is armed or has started.
+
+***
+
+## Automated Watchdog SOP
+
+To prevent accidental interrupts (e.g. server reboots), `run_ase_dashboard.py` can be paired with `run_ase_7case_keepalive.py` using a crontab watcher. See the [Automated Watchdog SOP](../../ops/tmux-keepalive-guide.md#5-自动化保活-automated-watchdog-sop) inside `docs/ops/tmux-keepalive-guide.md` and use `scripts/watchdog_ase_training.sh`.
