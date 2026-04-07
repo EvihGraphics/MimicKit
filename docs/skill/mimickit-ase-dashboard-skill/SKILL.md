@@ -111,6 +111,7 @@ These are monitoring heuristics, not proof of convergence.
 - It parses `log.txt` by converting carriage-return updates into row history, so it works for single ASE runs without `progress.json`.
 - If `--root-out` is empty, the script auto-picks the newest `output/train/ase_*` directory.
 - The queue card can read `output/train/ase_series_queue_controller_*.log` and show whether the next ASE case is armed or has started.
+- Live GPU bars come from direct `nvidia-smi` snapshots. For keepalive-supervised ASE roots, the server also keeps short in-memory GPU history, so the page still shows GPU state even when no explicit `--monitor-log` is provided.
 
 ***
 

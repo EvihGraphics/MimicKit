@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TRAIN_ROOT = ROOT / "output" / "train"
 OFFICIAL_LLC_TARGET_SAMPLES = 13_107_200_000
 OFFICIAL_HLC_TARGET_SAMPLES = 1_310_720_000
+LIVE_GPU_HISTORY = []
 CASE_META = {
     "ase_humanoid": {
         "args": "ase_humanoid_args.txt",
@@ -888,6 +889,17 @@ def detect_monitor_log(root_path: Path, explicit: str):
         return p if p.exists() else None
 
     if root_path is not None:
+        supervisor_root = root_path.resolve()
+        keepalive_markers = [
+            supervisor_root / "keepalive_status.json",
+            supervisor_root / "current_case.txt",
+            supervisor_root.parent / "keepalive_status.json",
+            supervisor_root.parent / "current_case.txt",
+        ]
+        if any(x.exists() for x in keepalive_markers):
+            return None
+
+    if root_path is not None:
         name = root_path.name
         ts_match = re.search(r"(20\d{6}_\d{6})", name)
         if ts_match:
@@ -929,6 +941,36 @@ def parse_monitor_samples(path: Path, limit: int):
     for m in rx.finditer(text):
         samples.append({"t": m.group("ts"), "u0": int(m.group("u0")), "u1": int(m.group("u1"))})
     return samples[-limit:]
+
+
+def append_live_gpu_sample(server_time: str, gpus: list, limit: int):
+    if len(gpus) < 2:
+        return
+
+    sample = {
+        "t": server_time,
+        "u0": int(gpus[0].get("util", 0)),
+        "u1": int(gpus[1].get("util", 0)),
+    }
+    if LIVE_GPU_HISTORY and LIVE_GPU_HISTORY[-1]["t"] == sample["t"]:
+        LIVE_GPU_HISTORY[-1] = sample
+    else:
+        LIVE_GPU_HISTORY.append(sample)
+
+    if len(LIVE_GPU_HISTORY) > limit:
+        del LIVE_GPU_HISTORY[:-limit]
+
+
+def merged_gpu_history(log_samples: list, limit: int):
+    merged = []
+    seen = set()
+    for row in (log_samples or []) + LIVE_GPU_HISTORY:
+        key = (row.get("t"), int(row.get("u0", 0)), int(row.get("u1", 0)))
+        if key in seen:
+            continue
+        seen.add(key)
+        merged.append(row)
+    return merged[-limit:]
 
 
 def parse_launch_info(path: Path):
@@ -1082,22 +1124,42 @@ def find_resume_successor(root_path: Path):
     return hits[0]
 
 
-def build_resume_chain(root_path: Path, limit=32):
-    chain = [root_path.resolve()]
-    seen = {chain[0]}
-    curr = chain[0]
+def split_resume_root_name(name: str):
+    m = re.match(r"^(?P<base>.+)_resume(?P<idx>\d+)$", name)
+    if not m:
+        return name, None
+    return m.group("base"), int(m.group("idx"))
 
-    while len(chain) < limit:
-        nxt = find_resume_successor(curr)
-        if nxt is None:
-            break
-        nxt = nxt.resolve()
-        if nxt in seen:
-            break
-        seen.add(nxt)
-        chain.append(nxt)
-        curr = nxt
 
+def build_resume_chain(root_path: Path, limit=None):
+    root_resolved = root_path.resolve()
+    base_name, _ = split_resume_root_name(root_resolved.name)
+    base_root = root_resolved.parent / base_name if base_name != root_resolved.name else root_resolved
+
+    chain = []
+    if base_root.exists() and base_root.is_dir():
+        chain.append(base_root.resolve())
+
+    resume_pat = re.compile(rf"^{re.escape(base_name)}_resume(\d+)$")
+    resume_hits = []
+    parent = root_resolved.parent
+    if parent.exists():
+        for p in parent.glob(f"{base_name}_resume*"):
+            if not p.is_dir():
+                continue
+            m = resume_pat.match(p.name)
+            if not m:
+                continue
+            resume_hits.append((int(m.group(1)), p.resolve()))
+
+    resume_hits.sort(key=lambda x: x[0])
+    chain.extend([p for _, p in resume_hits])
+
+    if not chain and root_resolved.exists() and root_resolved.is_dir():
+        chain.append(root_resolved)
+
+    if limit is not None:
+        return chain[:limit]
     return chain
 
 
@@ -1514,7 +1576,7 @@ def collect_status(config, root_arg_override=""):
         remaining += sum(series_targets[active_idx + 1 :])
         eta_series_sec = remaining / samples_per_sec
 
-    monitor_log = detect_monitor_log(active_root, config["monitor_log"])
+    monitor_log = detect_monitor_log(requested_root, config["monitor_log"])
     queue_log = detect_queue_log(requested_root, config["queue_log"])
     monitor_samples = parse_monitor_samples(monitor_log, limit=config["history_size"])
     queue = parse_queue_log(queue_log)
@@ -1523,6 +1585,8 @@ def collect_status(config, root_arg_override=""):
         queue["state_label"] = "当前 case 已完成"
         queue["detail"] = f"{short_case_name(case_name)} 已达到 {samples:,} samples"
     gpus = read_gpu_snapshot()
+    append_live_gpu_sample(now, gpus, limit=config["history_size"])
+    monitor_samples = merged_gpu_history(monitor_samples, limit=config["history_size"])
     health = compute_health(latest, gpus, samples_per_sec, completed=completed)
     runtime = detect_training_runtime(requested_root)
     health["progress"] = compute_progress_health(case_name, latest, samples_per_sec, train_log, runtime=runtime)

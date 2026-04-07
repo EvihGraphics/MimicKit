@@ -123,6 +123,8 @@ tmux kill-session -t train_v1
 
 **操作步骤**：
 1. **编写监控脚本**：参考 `scripts/watchdog_ase_training.sh`，脚本中会使用 `tmux has-session -t <session_name>` 来检查核心会话。如果不存在，它将记录日志到 `/tmp/ase_watchdog.log` 并重新启动指定的 tmux 会话（包括训练和 Dashboard 进程）。
+   - 现版脚本会分别检查 `train_ase` 和 `monitor_ase`，Dashboard 不再依赖“训练挂了才顺带重启”。
+   - 如需手动维护，可先创建 `/tmp/ase_watchdog.pause` 暂停 cron watchdog；恢复后删除该文件即可重新启用。
 2. **设置执行权限**：
 ```bash
 chmod +x /root/Project/MimicKit/scripts/watchdog_ase_training.sh
@@ -134,6 +136,10 @@ chmod +x /root/Project/MimicKit/scripts/watchdog_ase_training.sh
 ```
 
 开启该功能后，若是进程被杀或服务器重启开机，系统会在 1 分钟内自动拉起所有的 Tmux 训练流和监控面板。
+
+> **GPU 可视化说明**：
+> 现版 ASE Dashboard 会直接读取实时 `nvidia-smi` 快照并在服务端保留短期 GPU history，
+> 因此即使没有单独的 `/tmp/mk_dualgpu_follow_until_high_*.log`，网页仍能显示当前双卡状态。
 
 > **注意 (WSL 用户专享)**：
 > 由于 Windows WSL 默认在开机时不会自启 `cron` 守护进程，因此即使设置了 `crontab` 也不会生效。你需要修改 `/etc/wsl.conf` 让系统启动时拉起它。

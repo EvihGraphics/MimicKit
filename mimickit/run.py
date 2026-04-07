@@ -94,6 +94,10 @@ def set_rand_seed(args):
     return
 
 def run(rank, num_procs, device, master_port, args):
+    # `spawn` starts fresh Python interpreters for non-root workers, so
+    # modules that read from the global parser need it rebound per process.
+    arg_parser.ArgParser.global_parser = args
+
     mode = args.parse_string("mode", "train")
     num_envs = args.parse_int("num_envs", 1)
     visualize = args.parse_bool("visualize", True)
