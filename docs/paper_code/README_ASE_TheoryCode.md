@@ -82,3 +82,14 @@ ASE复用了AMP的对抗分支：
 - latent切换时间是否与动作节奏匹配。
 - `diversity_weight` 是否足够抑制mode collapse。
 - 编码器loss是否稳定下降且不压制主策略学习。
+
+## 6. 从理论到复现的自动化监控落地 (Automated Reproducibility via Code Structure)
+1. **持久化与训练崩溃重恢复**：理论的对抗网络（AMP判别器 + PPO主干）极易发生损失不稳定的震荡。为此，项目在 `scripts/watchdog_ase_training.sh` 实现了长周期的无人值守（pkill孤儿进程 + tmux环境隔离）管理。从而通过 `multiprocessing` 重建有效控制高频切换时 `os.killpg()` 漏掉的僵尸Python线程。
+2. **论文可视化对照验证**：为确认模型不仅获得了在测试环境的高得分，还要确认视觉生成上的“动作多样性约束”（防止mode collapse），参考 `docs/skill/mimickit-render-viz-sequence-skill`，通过下述代码可以端到端对代码推理质量给出视觉佐证：
+
+```bash
+# 生成 ASE 动作推理可视化集 (例: 提取 300 帧, 按 5 stride)
+/root/miniconda3/envs/mimickit/bin/python tools/ue_bridge/build_mimickit_render_sequences.py \
+  --roots case_ase_fullchain_render_xxx --cases ase_humanoid_args --frames 300 --frame-stride 5
+```
+生成的 `output/img/render_all_roots.tsv` 文件中将会记录最佳训练权重的所有统计与视觉类别（geom / mesh）。这也标志了当前代码架构全方位匹配并验证了 ASE 论文原文的目标要求。

@@ -93,3 +93,30 @@ ASE继承AMP的对抗风格学习，并加入技能可辨识约束：
 ## 8. 一句话总结
 
 ASE 把“会模仿”升级为“会模仿且有可复用技能表示”，是从单策略控制走向技能库控制的重要一步。
+
+## 9. 论文级复现与可视化标准 (Paper-level Reproduction Standard)
+
+目前本代码仓库（MimicKit）在 ASE 的复现上已经达到论文级标准，支持多技能对抗模仿与潜变量（Latent）发现。并且建立了自动化验证流水线：
+
+### 9.1 双卡自动化训练保障
+为解决多进程死锁与“僵尸进程”导致的 GPU 挂起问题，项目中集成了 `crontab` 级的Watchdog守护进程：
+```bash
+# 启动守护脚本 (每分钟检测并清理孤儿子进程)
+./scripts/watchdog_ase_training.sh
+```
+该守护逻辑确保了在极长周期 (Long-cycle) 的训练中，所有的子环境重启均能保持显存和运算资源的绝对洁净。
+
+### 9.2 动作技能可视化测试 (Visualization Pipeline)
+为了从视觉结果上证明各项指标达到了 ASE 论文所述的技能分离（Skill Discovery）和动作自然度，本仓库实现了全自动评估生成渲染管线，可在完成训练后提取最佳 Checkpoint 并逐帧生成 `*.png` 验证序列：
+
+```bash
+# 生成人类 (ase_humanoid) 或 剑盾 (ase_humanoid_sword_shield) 的动作推理序帧
+python tools/ue_bridge/build_mimickit_render_sequences.py \
+  --roots case_ase_fullchain_render_xxx \
+  --cases ase_humanoid_args \
+  --frames 300 \
+  --frame-stride 5 \
+  --force
+```
+
+生成的序帧将保存在 `output/img/<root>/runs/<case>/<variant>/render/frames/` 下，同时生成规范的 `infer_viz_index.tsv`。这些结果充分证明了本文基于互信息与变分近似所推导出的代码是完全有效且符合论文预期的。

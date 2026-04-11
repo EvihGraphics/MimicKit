@@ -367,6 +367,11 @@ HTML_PAGE = """<!doctype html>
         <div class="v" id="healthV">-</div>
         <div class="small" id="healthSub">-</div>
       </div>
+      <div class="card kpi">
+        <div class="k">双卡实时</div>
+        <div class="v" id="gpuV">-</div>
+        <div class="small" id="gpuSub">-</div>
+      </div>
 
       <div class="card wide">
         <div class="k">ASE 专用指标</div>
@@ -684,6 +689,14 @@ HTML_PAGE = """<!doctype html>
       hv.className = `v ${clsByLevel(status.health?.overall?.level || "warning")}`;
       hv.textContent = status.health?.overall?.label || "-";
       q("healthSub").textContent = status.health?.overall?.detail || "-";
+
+      const g = status.gpus || [];
+      const gpuHealth = status.health?.gpu || {};
+      const gpuLevel = clsByLevel(gpuHealth.level || "warning");
+      const gpuText = g.length >= 2 ? `G0 ${fmtInt(g[0].util)}% | G1 ${fmtInt(g[1].util)}%` : "GPU -";
+      q("gpuV").className = `v ${gpuLevel}`;
+      q("gpuV").textContent = gpuText;
+      q("gpuSub").textContent = gpuHealth.detail || (g.length >= 2 ? "实时 nvidia-smi 快照" : "未检测到双卡数据");
 
       setKv("aseKv", [
         {k:"Disc Reward Mean", v: fmtNum(status.metrics?.disc_reward_mean, 3)},
@@ -1708,6 +1721,9 @@ def make_handler(config):
             raw = json.dumps(obj, ensure_ascii=False).encode("utf-8")
             self.send_response(code)
             self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
             self.send_header("Content-Length", str(len(raw)))
             self.end_headers()
             self.wfile.write(raw)
@@ -1716,6 +1732,9 @@ def make_handler(config):
             raw = text.encode("utf-8")
             self.send_response(code)
             self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
             self.send_header("Content-Length", str(len(raw)))
             self.end_headers()
             self.wfile.write(raw)
