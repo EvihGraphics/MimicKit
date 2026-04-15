@@ -59,6 +59,7 @@ description: Build MimicKit inference visualization frame sequences from output/
 10. Write case meta (`render_meta.json`) and indices:
    - `output/img/<root>/infer_viz_index.tsv`
    - `output/img/render_all_roots.tsv`
+11. Run `scripts/generate_mp4s.sh` to batch convert the generated PNG frames into MP4 videos using FFmpeg.
 
 ASE-specific note:
 
