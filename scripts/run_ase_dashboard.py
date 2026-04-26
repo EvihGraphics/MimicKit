@@ -660,7 +660,9 @@ HTML_PAGE = """<!doctype html>
       subtitle.textContent = `Root: ${activeRoot || "-"} | 最近刷新: ${status.server_time || "-"} | 当前 Case: ${run.case_name || "-"}`;
 
       q("runV").textContent = run.case_short || "-";
-      q("runSub").textContent = `iter=${fmtInt(run.iteration)} | num_envs=${fmtInt(run.num_envs)} | backend=${status.config?.engine_name || "-"}`;
+            q("runSub").textContent = run.all_cases_completed
+                ? `全流程完成 | backend=${status.config?.engine_name || "-"}`
+                : `iter=${fmtInt(run.iteration)} | num_envs=${fmtInt(run.num_envs)} | backend=${status.config?.engine_name || "-"}`;
 
       const progressPct = clampPct(run.display_target_pct ?? run.target_pct);
       const overflowSamples = Number(run.overflow_samples || 0);
@@ -674,6 +676,9 @@ HTML_PAGE = """<!doctype html>
       if (run.completed){
         progressSub += overflowSamples > 0 ? ` | 已超目标 ${fmtInt(overflowSamples)}` : " | 已达目标";
       }
+            if (run.completed_at){
+                progressSub += ` | 完成于 ${run.completed_at}`;
+            }
       q("progressV").textContent = fmtPct(progressPct, 1);
       q("progressSub").textContent = progressSub;
       q("progressFill").style.width = `${progressPct ?? 0}%`;
@@ -840,6 +845,27 @@ def read_yaml(path: Path):
         return data if isinstance(data, dict) else {}
     except Exception:
         return {}
+
+
+def read_keepalive_status(root_path: Path):
+    if root_path is None:
+        return {}
+
+    candidates = [
+        root_path / "keepalive_status.json",
+        root_path.parent / "keepalive_status.json",
+    ]
+    for path in candidates:
+        text = read_text(path)
+        if not text:
+            continue
+        try:
+            data = json.loads(text)
+        except Exception:
+            continue
+        if isinstance(data, dict):
+            return data
+    return {}
 
 
 def tail_lines(path: Path, n=20):
@@ -1342,6 +1368,18 @@ def detect_training_runtime(root_path: Path):
 
 def compute_health(latest: dict, gpus: list, samples_per_sec: float, completed=False):
     if not latest:
+        if completed:
+            done = make_status("good", "ASE 训练完成", "全系列 case 已达标，训练阶段结束")
+            steady = make_status("good", "训练已结束", "当前无新增训练行，属完成态")
+            throughput = make_status("good", "无需吞吐监控", "训练阶段已完成")
+            if len(gpus) >= 2:
+                u0 = int(gpus[0].get("util", 0))
+                u1 = int(gpus[1].get("util", 0))
+                gpu = make_status("good", "训练完成后空闲", f"GPU0={u0}% GPU1={u1}%")
+            else:
+                gpu = make_status("warning", "GPU 快照缺失", "训练已完成，但未检测到双卡数据")
+            return {"overall": done, "style": steady, "latent": steady, "throughput": throughput, "gpu": gpu}
+
         empty = make_status("warning", "等待首个快照", "log.txt 还没有有效训练行")
         return {"overall": empty, "style": empty, "latent": empty, "throughput": empty, "gpu": empty}
 
@@ -1409,11 +1447,15 @@ def compute_health(latest: dict, gpus: list, samples_per_sec: float, completed=F
     return {"overall": overall, "style": style, "latent": latent, "throughput": throughput, "gpu": gpu}
 
 
-def compute_progress_health(case_name: str, latest: dict, samples_per_sec: float, train_log: Path, runtime=None):
+def compute_progress_health(case_name: str, latest: dict, samples_per_sec: float, train_log: Path, runtime=None, completed=False):
     runtime = runtime or {}
     has_keepalive = bool(runtime.get("has_keepalive"))
     has_runner = bool(runtime.get("has_runner"))
     runtime_detail = str(runtime.get("detail", "")).strip()
+
+    if completed:
+        detail = runtime_detail or "supervisor 已写入 COMPLETE"
+        return make_status("good", "全流程已完成", detail)
 
     if not has_runner:
         detail = runtime_detail or "未发现活跃训练 worker"
@@ -1539,7 +1581,12 @@ def collect_status(config, root_arg_override=""):
         }
 
     requested_root = root_path.resolve()
+    keepalive_status = read_keepalive_status(requested_root)
     case_root, current_case_key = resolve_supervisor_active_root(requested_root)
+    supervisor_completed = (
+        str(current_case_key).strip() == "COMPLETE"
+        or str((keepalive_status or {}).get("current_case", "")).strip() == "COMPLETE"
+    )
     chain_roots, chain_segments, rows = build_chain_rows(case_root)
     active_root = chain_roots[-1] if chain_roots else case_root
 
@@ -1558,42 +1605,93 @@ def collect_status(config, root_arg_override=""):
         if vals:
             samples_per_sec = sum(vals) / len(vals)
 
+    series_cases = config["series_cases"]
     case_name = infer_case_name(case_root, env_cfg, current_case_key=current_case_key)
+    if supervisor_completed and series_cases:
+        case_name = series_cases[-1]
+
+    case_summaries = {}
+    raw_cases = (keepalive_status or {}).get("cases", {})
+    if isinstance(raw_cases, dict):
+        case_summaries = raw_cases
+
+    case_key = CASE_ARGS_TO_KEY.get(case_name, "")
+    case_summary = case_summaries.get(case_key, {}) if case_key else {}
+
     target_samples = target_samples_for_case(case_name, config)
     target_label = target_label_for_case(case_name)
     samples = int(latest.get("Samples", 0) or 0)
+
+    if supervisor_completed and isinstance(case_summary, dict):
+        summary_target = to_int(case_summary.get("target_samples"), 0)
+        summary_samples = to_int(case_summary.get("total_samples"), 0)
+        if summary_target > 0:
+            target_samples = summary_target
+        if summary_samples > 0:
+            samples = summary_samples
+
     observed_max_samples = max((int(r.get("Samples", 0) or 0) for r in rows), default=samples)
     display_progress_base_samples = max(target_samples, observed_max_samples, samples)
     target_pct = (100.0 * samples / target_samples) if target_samples > 0 else 0.0
     display_target_pct = (100.0 * samples / display_progress_base_samples) if display_progress_base_samples > 0 else 0.0
-    completed = target_samples > 0 and samples >= target_samples
+    completed = supervisor_completed or (target_samples > 0 and samples >= target_samples)
+
+    if supervisor_completed:
+        target_pct = 100.0
+        display_target_pct = 100.0
+
     overflow_samples = max(samples - target_samples, 0) if target_samples > 0 else 0
     eta_current_sec = None
     if samples_per_sec and target_samples > samples:
         eta_current_sec = (target_samples - samples) / samples_per_sec
 
-    series_cases = config["series_cases"]
     active_idx = series_cases.index(case_name) if case_name in series_cases else 0
     next_case = series_cases[active_idx + 1] if active_idx + 1 < len(series_cases) else ""
-    series_targets = [target_samples_for_case(x, config) for x in series_cases]
-    series_total_samples = sum(series_targets)
-    completed_series_samples = sum(series_targets[:active_idx]) + min(samples, target_samples)
-    progress_pct = (
-        100.0 * completed_series_samples / series_total_samples
-        if series_total_samples > 0
-        else 0.0
-    )
-    eta_series_sec = None
-    if samples_per_sec:
-        remaining = max(target_samples - samples, 0)
-        remaining += sum(series_targets[active_idx + 1 :])
-        eta_series_sec = remaining / samples_per_sec
+
+    if supervisor_completed and case_summaries:
+        series_total_samples = 0
+        completed_series_samples = 0
+        for series_case in series_cases:
+            key = CASE_ARGS_TO_KEY.get(series_case, "")
+            case_row = case_summaries.get(key, {}) if key else {}
+            default_target = target_samples_for_case(series_case, config)
+            row_target = to_int(case_row.get("target_samples"), default_target)
+            row_samples = to_int(case_row.get("total_samples"), 0)
+            series_total_samples += row_target
+            completed_series_samples += min(row_samples, row_target)
+        progress_pct = (100.0 * completed_series_samples / series_total_samples) if series_total_samples > 0 else 100.0
+        eta_series_sec = 0.0
+        next_case = ""
+    else:
+        series_targets = [target_samples_for_case(x, config) for x in series_cases]
+        series_total_samples = sum(series_targets)
+        completed_series_samples = sum(series_targets[:active_idx]) + min(samples, target_samples)
+        progress_pct = (
+            100.0 * completed_series_samples / series_total_samples
+            if series_total_samples > 0
+            else 0.0
+        )
+        eta_series_sec = None
+        if samples_per_sec:
+            remaining = max(target_samples - samples, 0)
+            remaining += sum(series_targets[active_idx + 1 :])
+            eta_series_sec = remaining / samples_per_sec
 
     monitor_log = detect_monitor_log(requested_root, config["monitor_log"])
     queue_log = detect_queue_log(requested_root, config["queue_log"])
     monitor_samples = parse_monitor_samples(monitor_log, limit=config["history_size"])
     queue = parse_queue_log(queue_log)
-    if completed:
+    if supervisor_completed:
+        done_at = (keepalive_status or {}).get("generated_at", "")
+        completed_cases = sum(
+            1
+            for _, row in case_summaries.items()
+            if isinstance(row, dict) and str(row.get("status", "")).startswith("completed")
+        )
+        queue = dict(queue)
+        queue["state_label"] = "全流程已完成"
+        queue["detail"] = f"{completed_cases}/{len(series_cases)} cases 达标" + (f" | 状态时间 {done_at}" if done_at else "")
+    elif completed:
         queue = dict(queue)
         queue["state_label"] = "当前 case 已完成"
         queue["detail"] = f"{short_case_name(case_name)} 已达到 {samples:,} samples"
@@ -1602,7 +1700,14 @@ def collect_status(config, root_arg_override=""):
     monitor_samples = merged_gpu_history(monitor_samples, limit=config["history_size"])
     health = compute_health(latest, gpus, samples_per_sec, completed=completed)
     runtime = detect_training_runtime(requested_root)
-    health["progress"] = compute_progress_health(case_name, latest, samples_per_sec, train_log, runtime=runtime)
+    health["progress"] = compute_progress_health(
+        case_name,
+        latest,
+        samples_per_sec,
+        train_log,
+        runtime=runtime,
+        completed=supervisor_completed,
+    )
 
     total_wall_time_h = None
     wall_vals = [float(x["wall_time_h"]) for x in chain_segments if x.get("wall_time_h") is not None]
@@ -1633,13 +1738,19 @@ def collect_status(config, root_arg_override=""):
         "display_target_pct": display_target_pct,
         "overflow_samples": overflow_samples,
         "completed": completed,
+        "all_cases_completed": supervisor_completed,
+        "completed_at": ((keepalive_status or {}).get("generated_at", "") if supervisor_completed else ""),
         "wall_time_h": total_wall_time_h if total_wall_time_h is not None else latest.get("Wall_Time"),
         "samples_per_sec": samples_per_sec,
         "samples_per_hour_m": (samples_per_sec * 3600.0 / 1_000_000.0) if samples_per_sec else None,
         "eta_current_sec": eta_current_sec,
         "num_envs": launch_info.get("num_envs"),
         "master_port": launch_info.get("master_port"),
-        "sop_stage": ("Stage 1-2 预训练完成" if completed else "Stage 1-2 预训练（style + latent）"),
+        "sop_stage": (
+            "Stage 1-2 全案例完成"
+            if supervisor_completed
+            else ("Stage 1-2 预训练完成" if completed else "Stage 1-2 预训练（style + latent）")
+        ),
     }
 
     cfg = {
@@ -1691,7 +1802,7 @@ def collect_status(config, root_arg_override=""):
         "config": cfg,
         "series": {
             "total_cases": len(series_cases),
-            "active_case": case_name,
+            "active_case": ("COMPLETE" if supervisor_completed else case_name),
             "next_case": next_case,
             "progress_pct": progress_pct,
             "eta_series_sec": eta_series_sec,
