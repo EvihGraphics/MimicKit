@@ -4,7 +4,7 @@
 export PATH=/root/miniconda3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 ROOT_DIR="/root/Project/MimicKit"
-ROOT_OUT="ase_7case_tmux_20260415_013617"
+ROOT_OUT="ase_7case_tmux_20260429_202103"
 OUT_DIR="${ROOT_DIR}/output/train/${ROOT_OUT}"
 PYTHON_BIN="/root/miniconda3/envs/mimickit/bin/python"
 BEST_BY_CASE_TSV="${OUT_DIR}/best_by_case.tsv"
