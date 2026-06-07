@@ -539,6 +539,25 @@ class NewtonEngine(engine.Engine):
 
         self._draw_line_count = 0
         return
+
+    def capture_frame(self, width, height, include_silhouette=True):
+        frame_wp = self._viewer.get_frame(render_ui=False)
+        rgba = wp.to_torch(frame_wp).detach().cpu().numpy()
+        if rgba.shape[1] != int(width) or rgba.shape[0] != int(height):
+            from PIL import Image
+            rgba = np.asarray(Image.fromarray(rgba).resize((int(width), int(height))))
+        alpha = rgba[..., 3] if rgba.ndim == 3 and rgba.shape[-1] >= 4 else np.max(rgba[..., :3], axis=-1)
+        silhouette = (alpha > 0).astype(np.uint8) * 255 if include_silhouette else None
+        camera_eye = self.get_camera_pos()
+        camera_target = camera_eye + self.get_camera_dir()
+        return engine.CaptureFrame(
+            rgba=rgba,
+            silhouette=silhouette,
+            width=int(width),
+            height=int(height),
+            camera_eye=camera_eye.tolist(),
+            camera_target=camera_target.tolist(),
+        )
     
     def get_timestep(self):
         return self._timestep

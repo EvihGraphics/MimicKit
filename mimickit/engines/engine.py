@@ -1,5 +1,18 @@
 import abc
 import enum
+from dataclasses import dataclass
+from typing import Any
+
+
+@dataclass
+class CaptureFrame:
+    rgba: Any
+    silhouette: Any
+    width: int
+    height: int
+    camera_eye: list[float]
+    camera_target: list[float]
+    fov_degrees: float | None = None
 
 class ControlMode(enum.Enum):
     none = 0
@@ -56,6 +69,9 @@ class Engine:
     @abc.abstractmethod
     def render(self):
         return
+
+    def capture_frame(self, width, height, include_silhouette=True):
+        raise RuntimeError(f"{self.get_name()} does not implement capture_frame")
     
     @abc.abstractmethod
     def get_timestep(self):

@@ -4,6 +4,7 @@ import carb
 
 import numpy as np
 import os
+import json
 import torch
 import time
 
@@ -18,6 +19,13 @@ ENV_PATH_TEMPLATE = "/World/envs/env_{}"
 OBJ_PATH_TEMPLATE = "/World/envs/env_{}/obj_{}"
 GROUND_PATH = "/World/ground"
 LIGHT_PATH = "/World/Light"
+
+def enable_kit_extension(extension_name):
+    import omni.kit.app
+    ext_manager = omni.kit.app.get_app().get_extension_manager()
+    ext_manager.set_extension_enabled_immediate(extension_name, True)
+    return
+
 
 def str_to_key_code(key_str):
     key_name = key_str.upper()
@@ -224,6 +232,41 @@ class IsaacLabEngine(engine.Engine):
 
         self._prev_frame_time = time.time()
         return
+
+    def capture_frame(self, width, height, include_silhouette=True):
+        import omni.replicator.core as rep
+
+        resolution = (int(width), int(height))
+        if getattr(self, "_capture_resolution", None) != resolution:
+            if getattr(self, "_capture_annotator", None) is not None:
+                self._capture_annotator.detach()
+            if getattr(self, "_capture_render_product", None) is not None:
+                self._capture_render_product.destroy()
+            self._capture_render_product = rep.create.render_product("/OmniverseKit_Persp", resolution)
+            self._capture_annotator = rep.AnnotatorRegistry.get_annotator("rgb")
+            self._capture_annotator.attach([self._capture_render_product])
+            self._capture_resolution = resolution
+
+        self._sim.render()
+        self._app_launcher.app.update()
+        data = self._capture_annotator.get_data()
+        rgba = np.asarray(data.get("data") if isinstance(data, dict) else data)
+        if rgba.size == 0:
+            raise RuntimeError("IsaacLab headless capture returned no pixels")
+        if rgba.ndim != 3 or rgba.shape[0] != resolution[1] or rgba.shape[1] != resolution[0]:
+            raise RuntimeError(f"IsaacLab capture shape mismatch: {rgba.shape} expected={(resolution[1], resolution[0])}")
+        alpha = rgba[..., 3] if rgba.shape[-1] >= 4 else np.max(rgba[..., :3], axis=-1)
+        silhouette = (alpha > 0).astype(np.uint8) * 255 if include_silhouette else None
+        camera_eye = self.get_camera_pos()
+        camera_target = camera_eye + self.get_camera_dir()
+        return engine.CaptureFrame(
+            rgba=rgba,
+            silhouette=silhouette,
+            width=resolution[0],
+            height=resolution[1],
+            camera_eye=camera_eye.tolist(),
+            camera_target=camera_target.tolist(),
+        )
     
     def get_timestep(self):
         return self._timestep
@@ -633,17 +676,21 @@ class IsaacLabEngine(engine.Engine):
         return
     
     def _build_camera(self):
+        enable_kit_extension("omni.kit.viewport.utility")
         from omni.kit.viewport.utility.camera_state import ViewportCameraState
         self._camera_state = ViewportCameraState("/OmniverseKit_Persp")
         return
     
     def _build_draw_interface(self):
+        enable_kit_extension("isaacsim.util.debug_draw")
         from isaacsim.util.debug_draw import _debug_draw
         self._draw_interface = _debug_draw.acquire_debug_draw_interface()
         return
     
     def _setup_keyboard(self):
         import omni
+        enable_kit_extension("omni.appwindow")
+        import omni.appwindow
 
         self._input = carb.input.acquire_input_interface()
         self._keyboard = omni.appwindow.get_default_app_window().get_keyboard()
@@ -665,6 +712,7 @@ class IsaacLabEngine(engine.Engine):
             # Explicitly disable multi-GPU so Isaac Sim does not probe all
             # adapters in WSL dual-GPU setups and mis-detect duplicate ICDs.
             "multi_gpu": False,
+            "kit_args": '--/app/extensions/excluded=["omni.physx.fabric"]',
         }
         if headless_render:
             launcher_cfg["experience"] = "isaaclab.python.headless.rendering.kit"
@@ -676,6 +724,7 @@ class IsaacLabEngine(engine.Engine):
         
         sim_cfg = sim_utils.SimulationCfg(device=self._device, dt=sim_timestep,
                                           render_interval=self._sim_steps)
+        sim_cfg.use_fabric = False
         
         sim_cfg.physx.bounce_threshold_velocity = 0.2
         sim_cfg.physx.max_position_iteration_count = 4
@@ -1045,6 +1094,15 @@ class IsaacLabEngine(engine.Engine):
     def _build_body_order(self, obj):
         meta_data = obj.root_physx_view.shared_metatype
         link_names = list(meta_data.link_names)
+        required_body_order_raw = os.environ.get("MIMICKIT_REQUIRED_BODY_ORDER_JSON", "").strip()
+        required_body_order = []
+        if required_body_order_raw:
+            try:
+                parsed_body_order = json.loads(required_body_order_raw)
+                if isinstance(parsed_body_order, list):
+                    required_body_order = [str(name) for name in parsed_body_order]
+            except Exception as exc:
+                raise RuntimeError(f"invalid MIMICKIT_REQUIRED_BODY_ORDER_JSON: {exc}") from exc
 
         # Isaac Sim exposes slightly different metatype field names across versions.
         if hasattr(meta_data, "link_parent_indices"):
@@ -1069,7 +1127,15 @@ class IsaacLabEngine(engine.Engine):
             raise AttributeError("Unsupported Isaac Sim metatype: missing joint dof offsets")
 
         num_links = len(link_names)
-        if link_parent_indices is None:
+        if required_body_order:
+            if len(required_body_order) != num_links or set(required_body_order) != set(link_names):
+                raise RuntimeError(
+                    "required body order does not exactly match IsaacLab articulation: "
+                    f"required={required_body_order} sim={link_names}"
+                )
+            body_order_sim2common = [link_names.index(name) for name in required_body_order]
+            Logger.print(f"[BRIDGE] Applied explicit body order mapping: {required_body_order}")
+        elif link_parent_indices is None:
             # Isaac Sim 4.5 metatype does not expose parent indices.
             # Try to recover mapping from link name -> simulator link id.
             body_order_sim2common = []

@@ -63,39 +63,61 @@ def _to_numpy_row(tensor: torch.Tensor) -> np.ndarray:
     return tensor.detach().cpu().numpy().reshape(-1).astype(np.float32, copy=False)
 
 
-def _try_get_ref_action_from_env(env) -> np.ndarray | None:
-    """Extract current character DoF state for visual replay."""
+def _try_get_char_tensor_row(env, getter_name: str) -> np.ndarray | None:
     try:
         if not hasattr(env, "_get_char_id"):
             return None
         char_id = env._get_char_id()
-        dof_pos = env._engine.get_dof_pos(char_id)
-        if not torch.is_tensor(dof_pos):
+        getter = getattr(env._engine, getter_name, None)
+        if getter is None:
             return None
-        if dof_pos.ndim < 2 or dof_pos.shape[0] <= 0:
+        value = getter(char_id)
+        if not torch.is_tensor(value):
             return None
-        return _to_numpy_row(dof_pos[0:1])
+        if value.ndim < 2 or value.shape[0] <= 0:
+            return None
+        return _to_numpy_row(value[0:1])
     except Exception:
         return None
 
 
+def _try_get_dof_pos_from_env(env) -> np.ndarray | None:
+    """Extract current character DoF position for visual replay."""
+    return _try_get_char_tensor_row(env, "get_dof_pos")
+
+
 def _try_get_root_pose_from_env(env) -> tuple[np.ndarray | None, np.ndarray | None]:
     """Extract current root position/rotation for UE world-space playback alignment."""
+    return _try_get_char_tensor_row(env, "get_root_pos"), _try_get_char_tensor_row(env, "get_root_rot")
+
+
+def _try_get_visual_replay_state_from_env(env) -> dict[str, np.ndarray]:
+    state: dict[str, np.ndarray] = {}
+    getters = {
+        "root_pos_m": "get_root_pos",
+        "root_rot_xyzw": "get_root_rot",
+        "root_vel_mps": "get_root_vel",
+        "root_ang_vel_radps": "get_root_ang_vel",
+        "dof_pos": "get_dof_pos",
+        "dof_vel": "get_dof_vel",
+    }
+    for field, getter_name in getters.items():
+        value = _try_get_char_tensor_row(env, getter_name)
+        if value is not None and value.size > 0:
+            state[field] = value
+    return state
+
+
+def _np_list(value: np.ndarray) -> list[float]:
+    return [float(x) for x in value.tolist()]
+
+
+def _engine_hz(ctx, key: str, fallback: int = 0) -> int:
     try:
-        if not hasattr(env, "_get_char_id"):
-            return None, None
-        char_id = env._get_char_id()
-        root_pos = env._engine.get_root_pos(char_id)
-        root_rot = env._engine.get_root_rot(char_id)
-        if not torch.is_tensor(root_pos) or not torch.is_tensor(root_rot):
-            return None, None
-        if root_pos.ndim < 2 or root_pos.shape[0] <= 0:
-            return None, None
-        if root_rot.ndim < 2 or root_rot.shape[0] <= 0:
-            return None, None
-        return _to_numpy_row(root_pos[0:1]), _to_numpy_row(root_rot[0:1])
+        return int((ctx.engine_config or {}).get(key))
     except Exception:
-        return None, None
+        return fallback
+
 
 
 def _write_jsonl(path: Path, rows: list[dict]) -> None:
@@ -150,8 +172,12 @@ def main() -> int:
 
     obs_rows: list[dict] = []
     action_rows: list[dict] = []
+    visual_replay_rows: list[dict] = []
 
     episode_index = 0
+    policy_dt = float(ctx.env._engine.get_timestep())
+    policy_hz = int(round(1.0 / policy_dt)) if policy_dt > 0 else _engine_hz(ctx, "control_freq")
+    physics_hz = _engine_hz(ctx, "sim_freq")
 
     with torch.no_grad():
         for frame_index in range(int(args.frames)):
@@ -163,32 +189,45 @@ def main() -> int:
 
             obs_np = _to_numpy_row(curr_obs)
             act_np = _to_numpy_row(action)
+            visual_state = _try_get_visual_replay_state_from_env(ctx.env)
 
             obs_rows.append(
                 {
                     "frame": frame_index,
                     "episode": episode_index,
-                    "obs": [float(x) for x in obs_np.tolist()],
+                    "obs": _np_list(obs_np),
                 }
             )
 
-            ref_action_np = _try_get_ref_action_from_env(ctx.env)
-            if ref_action_np is not None and ref_action_np.size > 0:
-                obs_rows[-1]["ref_action"] = [float(x) for x in ref_action_np.tolist()]
+            dof_pos_np = visual_state.get("dof_pos")
+            if dof_pos_np is not None and dof_pos_np.size > 0:
+                obs_rows[-1]["dof_pos"] = _np_list(dof_pos_np)
+                # Legacy alias kept for existing AI4/UE parity consumers.
+                obs_rows[-1]["ref_action"] = _np_list(dof_pos_np)
 
             root_pos_np, root_rot_np = _try_get_root_pose_from_env(ctx.env)
             if root_pos_np is not None and root_pos_np.size > 0:
-                obs_rows[-1]["ref_root_pos"] = [float(x) for x in root_pos_np.tolist()]
+                obs_rows[-1]["ref_root_pos"] = _np_list(root_pos_np)
             if root_rot_np is not None and root_rot_np.size > 0:
-                obs_rows[-1]["ref_root_rot"] = [float(x) for x in root_rot_np.tolist()]
+                obs_rows[-1]["ref_root_rot"] = _np_list(root_rot_np)
 
             action_rows.append(
                 {
                     "frame": frame_index,
                     "episode": episode_index,
-                    "action": [float(x) for x in act_np.tolist()],
+                    "action": _np_list(act_np),
                 }
             )
+
+            visual_row = {
+                "frame": frame_index,
+                "episode": episode_index,
+                "time_seconds": float(frame_index * policy_dt),
+                "policy_action": _np_list(act_np),
+            }
+            for field, value in visual_state.items():
+                visual_row[field] = _np_list(value)
+            visual_replay_rows.append(visual_row)
 
             next_obs, reward, done, next_info = ctx.env.step(action)
             obs = next_obs
@@ -201,23 +240,62 @@ def main() -> int:
     obs_dim = len(obs_rows[0]["obs"]) if obs_rows else 0
     act_dim = len(action_rows[0]["action"]) if action_rows else 0
     ref_action_dim = 0
+    dof_pos_dim = 0
+    dof_vel_dim = 0
     ref_root_pos_dim = 0
     ref_root_rot_dim = 0
+    root_vel_dim = 0
+    root_ang_vel_dim = 0
     if obs_rows and isinstance(obs_rows[0].get("ref_action", None), list):
         ref_action_dim = len(obs_rows[0]["ref_action"])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get("dof_pos", None), list):
+        dof_pos_dim = len(visual_replay_rows[0]["dof_pos"])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get("dof_vel", None), list):
+        dof_vel_dim = len(visual_replay_rows[0]["dof_vel"])
     if obs_rows and isinstance(obs_rows[0].get("ref_root_pos", None), list):
         ref_root_pos_dim = len(obs_rows[0]["ref_root_pos"])
     if obs_rows and isinstance(obs_rows[0].get("ref_root_rot", None), list):
         ref_root_rot_dim = len(obs_rows[0]["ref_root_rot"])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get("root_vel_mps", None), list):
+        root_vel_dim = len(visual_replay_rows[0]["root_vel_mps"])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get("root_ang_vel_radps", None), list):
+        root_ang_vel_dim = len(visual_replay_rows[0]["root_ang_vel_radps"])
 
     out_dir = choose_export_dir(out_dir=args.out_dir, model_file=args.model_file)
 
     obs_path = Path(out_dir) / "obs_fixture.jsonl"
     act_path = Path(out_dir) / "ref_actions.jsonl"
     meta_path = Path(out_dir) / "fixture_meta.json"
+    visual_dir = Path(out_dir) / "visual_replay"
+    visual_replay_path = visual_dir / "pose_dof_replay.jsonl"
+    visual_meta_path = visual_dir / "pose_dof_meta.json"
 
     _write_jsonl(obs_path, obs_rows)
     _write_jsonl(act_path, action_rows)
+    _write_jsonl(visual_replay_path, visual_replay_rows)
+
+    visual_meta = {
+        "schema_version": 1,
+        "row_count": int(len(visual_replay_rows)),
+        "policy_hz": int(policy_hz),
+        "physics_hz": int(physics_hz),
+        "dof_size": int(dof_pos_dim),
+        "root_pos_dim": int(ref_root_pos_dim),
+        "root_rot_dim": int(ref_root_rot_dim),
+        "root_vel_dim": int(root_vel_dim),
+        "root_ang_vel_dim": int(root_ang_vel_dim),
+        "dof_pos_dim": int(dof_pos_dim),
+        "dof_vel_dim": int(dof_vel_dim),
+        "action_dim": int(act_dim),
+        "joint_order_file": "../joint_order.json",
+        "coordinate_basis": "training_basis_pending_explicit_contract",
+        "unit_scale": "meters_to_ue_cm",
+        "rotation_convention": "quat_xyzw",
+        "files": {
+            "pose_dof_replay": str(visual_replay_path.resolve()),
+        },
+    }
+    save_json(visual_meta_path, visual_meta)
 
     meta = {
         "source": {
@@ -237,13 +315,19 @@ def main() -> int:
             "obs_dim": int(obs_dim),
             "act_dim": int(act_dim),
             "ref_action_dim": int(ref_action_dim),
+            "dof_pos_dim": int(dof_pos_dim),
+            "dof_vel_dim": int(dof_vel_dim),
             "ref_root_pos_dim": int(ref_root_pos_dim),
             "ref_root_rot_dim": int(ref_root_rot_dim),
+            "root_vel_dim": int(root_vel_dim),
+            "root_ang_vel_dim": int(root_ang_vel_dim),
             "count": int(len(obs_rows)),
         },
         "files": {
             "obs_fixture": str(obs_path.resolve()),
             "ref_actions": str(act_path.resolve()),
+            "visual_replay": str(visual_replay_path.resolve()),
+            "visual_replay_meta": str(visual_meta_path.resolve()),
         },
     }
 
@@ -251,6 +335,7 @@ def main() -> int:
 
     print(f"[OK] obs fixture exported: {obs_path}")
     print(f"[OK] reference actions exported: {act_path}")
+    print(f"[OK] visual replay exported: {visual_replay_path}")
     print(f"[OK] metadata: {meta_path}")
     print(
         f"     count={meta['shape']['count']} "

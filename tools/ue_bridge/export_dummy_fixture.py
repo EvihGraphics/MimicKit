@@ -65,6 +65,41 @@ def _try_get_root_pose_from_env(env) -> tuple[list[float] | None, list[float] | 
         return None, None
 
 
+def _try_get_char_tensor_row(env, getter_name: str) -> list[float] | None:
+    try:
+        if not hasattr(env, "_get_char_id"):
+            return None
+        char_id = env._get_char_id()
+        getter = getattr(env._engine, getter_name, None)
+        if getter is None:
+            return None
+        value = getter(char_id)
+        if not torch.is_tensor(value):
+            return None
+        if value.ndim < 2 or value.shape[0] <= 0:
+            return None
+        return _to_numpy_row(value[0:1])
+    except Exception:
+        return None
+
+
+def _try_get_visual_replay_state_from_env(env) -> dict[str, list[float]]:
+    state: dict[str, list[float]] = {}
+    getters = {
+        "root_pos_m": "get_root_pos",
+        "root_rot_xyzw": "get_root_rot",
+        "root_vel_mps": "get_root_vel",
+        "root_ang_vel_radps": "get_root_ang_vel",
+        "dof_pos": "get_dof_pos",
+        "dof_vel": "get_dof_vel",
+    }
+    for field, getter_name in getters.items():
+        value = _try_get_char_tensor_row(env, getter_name)
+        if value is not None and len(value) > 0:
+            state[field] = value
+    return state
+
+
 def _write_jsonl(path: Path, rows: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('w', encoding='utf-8') as fp:
@@ -163,13 +198,18 @@ def main() -> int:
 
     obs_rows: list[dict] = []
     action_rows: list[dict] = []
+    visual_replay_rows: list[dict] = []
 
     obs, _ = ctx.env.reset(None)
     episode_index = 0
+    policy_dt = float(ctx.env._engine.get_timestep())
+    policy_hz = int(round(1.0 / policy_dt)) if policy_dt > 0 else int(ctx.engine_config.get("control_freq", 0) or 0)
+    physics_hz = int(ctx.engine_config.get("sim_freq", 0) or 0)
 
     with torch.no_grad():
         for frame_index in range(int(args.frames)):
             curr_obs = obs[0:1]
+            visual_state = _try_get_visual_replay_state_from_env(ctx.env)
             obs_payload = {
                 'frame': frame_index,
                 'episode': episode_index,
@@ -188,6 +228,14 @@ def main() -> int:
 
             obs_rows.append(obs_payload)
             action_rows.append({'frame': frame_index, 'episode': episode_index, 'action': default_action})
+            visual_row = {
+                'frame': frame_index,
+                'episode': episode_index,
+                'time_seconds': float(frame_index * policy_dt),
+                'policy_action': default_action,
+            }
+            visual_row.update(visual_state)
+            visual_replay_rows.append(visual_row)
 
             if isinstance(act_space, spaces.Box):
                 act_tensor = torch.tensor([default_action], device=curr_obs.device, dtype=action_dtype)
@@ -233,6 +281,8 @@ def main() -> int:
 
     obs_path = out_dir / 'obs_fixture.jsonl'
     ref_path = out_dir / 'ref_actions.jsonl'
+    visual_replay_path = out_dir / 'visual_replay' / 'pose_dof_replay.jsonl'
+    visual_replay_meta_path = out_dir / 'visual_replay' / 'pose_dof_meta.json'
     schema_path = out_dir / 'schema.json'
     meta_path = out_dir / 'fixture_meta.json'
     onnx_path = out_dir / 'policy_actor.onnx'
@@ -240,7 +290,63 @@ def main() -> int:
 
     _write_jsonl(obs_path, obs_rows)
     _write_jsonl(ref_path, action_rows)
+    _write_jsonl(visual_replay_path, visual_replay_rows)
     save_json(schema_path, schema)
+
+    dof_pos_dim = 0
+    dof_vel_dim = 0
+    root_pos_dim = 0
+    root_rot_dim = 0
+    root_vel_dim = 0
+    root_ang_vel_dim = 0
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('dof_pos'), list):
+        dof_pos_dim = len(visual_replay_rows[0]['dof_pos'])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('dof_vel'), list):
+        dof_vel_dim = len(visual_replay_rows[0]['dof_vel'])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('root_pos_m'), list):
+        root_pos_dim = len(visual_replay_rows[0]['root_pos_m'])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('root_rot_xyzw'), list):
+        root_rot_dim = len(visual_replay_rows[0]['root_rot_xyzw'])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('root_vel_mps'), list):
+        root_vel_dim = len(visual_replay_rows[0]['root_vel_mps'])
+    if visual_replay_rows and isinstance(visual_replay_rows[0].get('root_ang_vel_radps'), list):
+        root_ang_vel_dim = len(visual_replay_rows[0]['root_ang_vel_radps'])
+
+    save_json(
+        visual_replay_meta_path,
+        {
+            'schema_version': 1,
+            'source': schema['source'],
+            'runtime': {
+                'device': args.device,
+                'frames': int(args.frames),
+                'seed': int(args.seed),
+                'episodes_recorded': int(episode_index + 1),
+                'policy_kind': 'dummy_constant_action',
+            },
+            'shape': {
+                'count': int(len(visual_replay_rows)),
+                'dof_pos_dim': int(dof_pos_dim),
+                'dof_vel_dim': int(dof_vel_dim),
+                'root_pos_dim': int(root_pos_dim),
+                'root_rot_dim': int(root_rot_dim),
+                'root_vel_dim': int(root_vel_dim),
+                'root_ang_vel_dim': int(root_ang_vel_dim),
+                'policy_action_dim': int(act_dim),
+            },
+            'timing': {
+                'policy_hz': int(policy_hz),
+                'physics_hz': int(physics_hz),
+                'dt_seconds': float(policy_dt),
+            },
+            'conventions': {
+                'root_pos_unit': 'meters',
+                'root_rot_order': 'xyzw',
+                'dof_pos_unit': 'radians',
+            },
+            'files': {'pose_dof_replay': str(visual_replay_path.resolve())},
+        },
+    )
 
     fixture_meta = {
         'source': schema['source'],
@@ -252,7 +358,12 @@ def main() -> int:
             'policy_kind': 'dummy_constant_action',
         },
         'shape': {'obs_dim': int(obs_dim), 'act_dim': int(act_dim), 'count': int(len(obs_rows))},
-        'files': {'obs_fixture': str(obs_path.resolve()), 'ref_actions': str(ref_path.resolve())},
+        'files': {
+            'obs_fixture': str(obs_path.resolve()),
+            'ref_actions': str(ref_path.resolve()),
+            'visual_replay': str(visual_replay_path.resolve()),
+            'visual_replay_meta': str(visual_replay_meta_path.resolve()),
+        },
     }
     save_json(meta_path, fixture_meta)
 
@@ -273,6 +384,7 @@ def main() -> int:
     print(f'[OK] dummy schema exported: {schema_path}')
     print(f'[OK] dummy fixture exported: {obs_path}')
     print(f'[OK] dummy ref actions exported: {ref_path}')
+    print(f'[OK] dummy visual replay exported: {visual_replay_path}')
     print(f'[OK] dummy onnx exported: {onnx_path}')
 
     return 0

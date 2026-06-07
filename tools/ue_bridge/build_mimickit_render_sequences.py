@@ -20,13 +20,18 @@ from types import SimpleNamespace
 from typing import Any
 
 import gymnasium.spaces as spaces
-from matplotlib import image as mpimg
 import numpy as np
 import torch
-import warp as wp
 import yaml
 
 from _bridge_common import build_runtime_context
+from visual_bridge_validation import (
+    build_scene_contract_v2,
+    inspect_mp4,
+    inspect_png,
+    sha256_file,
+    write_json,
+)
 import learning.base_agent as base_agent
 
 
@@ -67,6 +72,11 @@ INDEX_FIELDS = [
     "out_dir_rel",
     "render_dir",
     "render_meta",
+    "mp4_file",
+    "mp4_ok",
+    "mp4_error",
+    "scene_contract_sha256",
+    "motion_visible",
     "error",
 ]
 
@@ -171,6 +181,23 @@ def pick_existing(paths: list[Path | None]) -> Path | None:
     return None
 
 
+def read_json(path: Path) -> dict[str, Any]:
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def resolve_train_root(root_text: str, train_root: Path) -> Path:
+    root = Path(root_text)
+    if root.is_absolute():
+        return root.resolve()
+    return (train_root / root).resolve()
+
+
 def resolve_out_dir_rel(row: dict[str, str], root_dir: Path, case_name: str) -> str:
     out_dir_text = str(row.get("out_dir", "")).strip()
     variant = str(row.get("variant", "")).strip()
@@ -232,6 +259,28 @@ def resolve_model_file(row: dict[str, str]) -> Path | None:
             ]
         )
 
+    return pick_existing(candidates)
+
+
+def resolve_status_model(status: dict[str, Any], root_dir: Path, stage: str) -> Path | None:
+    stages = status.get("stages") if isinstance(status.get("stages"), dict) else {}
+    stage_meta = stages.get(stage) if isinstance(stages.get(stage), dict) else {}
+    best_meta = status.get("best_scalar_checkpoint") if isinstance(status.get("best_scalar_checkpoint"), dict) else {}
+    candidates = [
+        str(stage_meta.get("latest_model", "")).strip(),
+        str(best_meta.get("model_file", "")).strip() if str(best_meta.get("stage", "")).strip() == stage else "",
+        str(root_dir / stage / "model.pt"),
+    ]
+    return pick_existing([resolve_path(curr) for curr in candidates if curr])
+
+
+def first_existing_status_path(status: dict[str, Any], keys: list[str], root_dir: Path, stage: str, filename: str) -> Path | None:
+    candidates: list[Path | None] = []
+    for key in keys:
+        text = str(status.get(key, "")).strip()
+        if text:
+            candidates.append(resolve_path(text))
+    candidates.append(root_dir / stage / filename)
     return pick_existing(candidates)
 
 
@@ -315,6 +364,69 @@ def detect_visual_kind(env_cfg: Path | None) -> tuple[str, str, bool]:
         return ("mesh" if has_mesh else "geom"), str(char_path), bool(has_mesh)
 
     return "unknown", str(char_path), False
+
+
+def build_amp_root_job(args: argparse.Namespace) -> dict[str, Any]:
+    train_root = Path(args.train_root).resolve()
+    img_root = Path(args.img_root).resolve()
+    root_dir = resolve_train_root(args.amp_root, train_root)
+    status = read_json(root_dir / "keepalive_status.json")
+    if not status:
+        raise RuntimeError(f"missing or invalid keepalive_status.json under {root_dir}")
+
+    stage = str(args.amp_stage or "").strip()
+    if not stage:
+        stage = str(status.get("current_train_stage", "") or status.get("current_stage", "")).strip()
+    if not stage:
+        stage = "probe_train"
+
+    model_file = resolve_status_model(status, root_dir, stage)
+    arg_file_text = str(status.get("arg_file", "")).strip()
+    arg_file = resolve_path(arg_file_text) if arg_file_text else ROOT / "args" / "amp_stop_humanoid_sword_shield_args.txt"
+    case_name = normalize_case_name(arg_file.name)
+
+    env_cfg = first_existing_status_path(status, ["current_env_config"], root_dir, stage, "env_config.yaml")
+    engine_cfg = first_existing_status_path(status, ["current_engine_config", "engine_config"], root_dir, stage, "engine_config.yaml")
+    agent_cfg = first_existing_status_path(status, ["current_agent_config"], root_dir, stage, "agent_config.yaml")
+
+    if model_file is None or not model_file.exists():
+        raise RuntimeError(f"missing model for {root_dir.name}/{stage}")
+    if env_cfg is None or not env_cfg.exists():
+        raise RuntimeError(f"missing env_config.yaml for {root_dir.name}/{stage}")
+    if engine_cfg is None or not engine_cfg.exists():
+        raise RuntimeError(f"missing engine_config.yaml for {root_dir.name}/{stage}")
+    if agent_cfg is None or not agent_cfg.exists():
+        raise RuntimeError(f"missing agent_config.yaml for {root_dir.name}/{stage}")
+
+    visual_kind, char_file, mesh_detected = detect_visual_kind(env_cfg)
+    render_dir = (img_root / root_dir.name / stage / "render").resolve()
+    case_key = str(status.get("case_key", "")).strip() or case_name.replace("_args.txt", "")
+
+    return {
+        "root": root_dir.name,
+        "case": case_name,
+        "variant": stage,
+        "case_type": "trainable",
+        "case_kind": "policy",
+        "visual_kind": visual_kind,
+        "char_file": char_file,
+        "mesh_detected": int(mesh_detected),
+        "arg_file": str(arg_file.resolve()) if arg_file.exists() else str(arg_file),
+        "model_file": str(model_file.resolve()),
+        "env_config": str(env_cfg.resolve()),
+        "engine_config": str(engine_cfg.resolve()),
+        "agent_config": str(agent_cfg.resolve()),
+        "llc_model_file": "",
+        "motion_id": "",
+        "motion_file": "",
+        "source_pack": root_dir.name,
+        "category": case_key,
+        "train_enabled": "true",
+        "view_enabled": "true",
+        "out_dir": str((root_dir / stage).resolve()),
+        "out_dir_rel": stage,
+        "render_dir": str(render_dir),
+    }
 
 
 class DeterministicPolicyWrapper(torch.nn.Module):
@@ -490,9 +602,39 @@ def should_retry_render_error(error_text: str) -> bool:
     return ("GLException" in text) or ("Invalid operation" in text)
 
 
+def build_render_mp4(render_dir: Path, fps: int) -> tuple[bool, str]:
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg:
+        return False, "ffmpeg not found"
+
+    frames_dir = render_dir / "frames"
+    mp4_path = render_dir / "render.mp4"
+    cmd = [
+        ffmpeg,
+        "-y",
+        "-hide_banner",
+        "-loglevel",
+        "error",
+        "-framerate",
+        str(int(fps)),
+        "-pattern_type",
+        "glob",
+        "-i",
+        str(frames_dir / "frame_*.png"),
+        "-pix_fmt",
+        "yuv420p",
+        str(mp4_path),
+    ]
+    proc = subprocess.run(cmd, cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
+    if proc.returncode != 0:
+        return False, proc.stdout.strip()
+    return mp4_path.exists(), ""
+
+
 def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     render_dir = Path(job["render_dir"])
     frames_dir = render_dir / "frames"
+    silhouette_dir = render_dir / "silhouettes"
     meta_path = render_dir / "render_meta.json"
     expected = expected_image_count(args.frames, args.frame_stride)
 
@@ -506,6 +648,9 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             "resumed": 0,
             "dry_run": int(args.dry_run),
             "status": "pending",
+            "width": int(args.width),
+            "height": int(args.height),
+            "motion_visible": 0,
             "error": "",
             "render_meta": str(meta_path),
         }
@@ -525,6 +670,9 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                 row["status"] = "skipped_resume"
                 row["resumed"] = 1
                 row["image_count"] = int(existing_images)
+                row["mp4_file"] = str(render_dir / "render.mp4")
+                row["mp4_ok"] = int((render_dir / "render.mp4").exists())
+                row["mp4_error"] = ""
                 return row
         except Exception:
             pass
@@ -537,6 +685,9 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     if frames_dir.exists():
         shutil.rmtree(frames_dir)
     frames_dir.mkdir(parents=True, exist_ok=True)
+    if silhouette_dir.exists():
+        shutil.rmtree(silhouette_dir)
+    silhouette_dir.mkdir(parents=True, exist_ok=True)
 
     random.seed(int(args.seed))
     np.random.seed(int(args.seed))
@@ -558,8 +709,6 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     while attempt < max_attempts:
         attempt += 1
         ctx = None
-        viewer = None
-
         try:
             if frames_dir.exists():
                 shutil.rmtree(frames_dir)
@@ -592,12 +741,10 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                 obs, info = ctx.agent._reset_envs(None)
             else:
                 obs, info = ctx.env.reset(None)
-            viewer = getattr(ctx.env._engine, "_viewer", None)
-            if viewer is None:
-                raise RuntimeError("viewer not available (render path requires visualize=True)")
 
             captures: list[dict[str, Any]] = []
             image_count = 0
+            frame_hashes: list[str] = []
 
             with torch.no_grad():
                 for frame_idx in range(int(args.frames)):
@@ -609,11 +756,36 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         _next_obs, _reward, done, _next_info = ctx.env.step(action)
 
                     if frame_idx % int(args.frame_stride) == 0:
-                        frame_wp = viewer.get_frame(render_ui=False)
-                        frame_np = wp.to_torch(frame_wp).detach().cpu().numpy()
+                        capture = ctx.env._engine.capture_frame(
+                            int(args.width),
+                            int(args.height),
+                            include_silhouette=True,
+                        )
                         frame_path = frames_dir / f"frame_{frame_idx:06d}.png"
-                        mpimg.imsave(frame_path, frame_np)
-                        captures.append({"frame": int(frame_idx), "file": frame_path.name})
+                        silhouette_path = silhouette_dir / f"frame_{frame_idx:06d}.png"
+                        from PIL import Image
+
+                        rgba = np.asarray(capture.rgba)
+                        if rgba.dtype != np.uint8:
+                            rgba = np.clip(rgba * (255.0 if float(np.max(rgba)) <= 1.0 else 1.0), 0, 255).astype(np.uint8)
+                        Image.fromarray(rgba).save(frame_path)
+                        if capture.silhouette is not None:
+                            Image.fromarray(np.asarray(capture.silhouette).astype(np.uint8), mode="L").save(silhouette_path)
+                        frame_report = inspect_png(frame_path, int(args.width), int(args.height))
+                        if not frame_report.get("ok"):
+                            raise RuntimeError(f"captured PNG failed validation: {frame_report}")
+                        frame_hashes.append(sha256_file(frame_path))
+                        captures.append(
+                            {
+                                "frame": int(frame_idx),
+                                "file": frame_path.name,
+                                "silhouette_file": silhouette_path.name if silhouette_path.exists() else "",
+                                "sha256": frame_hashes[-1],
+                                "camera_eye": capture.camera_eye,
+                                "camera_target": capture.camera_target,
+                                "fov_degrees": capture.fov_degrees,
+                            }
+                        )
                         image_count += 1
 
                     if agent_loop:
@@ -625,25 +797,60 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         obs = _next_obs
 
             index_path = frames_dir / "index.json"
-            index_path.write_text(
-                json.dumps(
-                    {
-                        "frames": int(args.frames),
-                        "frame_stride": int(args.frame_stride),
-                        "expected_image_count": int(expected),
-                        "image_count": int(image_count),
-                        "captures": captures,
-                    },
-                    ensure_ascii=False,
-                    indent=2,
-                ),
-                encoding="utf-8",
+            write_json(
+                index_path,
+                {
+                    "frames": int(args.frames),
+                    "frame_stride": int(args.frame_stride),
+                    "expected_image_count": int(expected),
+                    "image_count": int(image_count),
+                    "captures": captures,
+                },
             )
+            scene_contract = build_scene_contract_v2(
+                root_name=str(job["root"]),
+                case=str(job["case"]),
+                motion_id=str(job.get("motion_id", "")),
+                width=int(args.width),
+                height=int(args.height),
+                frames=int(args.frames),
+                frame_stride=int(args.frame_stride),
+                fps=int(args.mp4_fps),
+                seed=int(args.seed),
+                renderer=str(ctx.env._engine.get_name()),
+                camera_samples=[
+                    {
+                        "frame": item["frame"],
+                        "eye": item["camera_eye"],
+                        "target": item["camera_target"],
+                        "fov_degrees": item["fov_degrees"],
+                    }
+                    for item in captures
+                ],
+            )
+            scene_contract_path = render_dir / "scene_contract_v2.json"
+            write_json(scene_contract_path, scene_contract)
 
-            row["status"] = "ok"
             row["image_count"] = int(image_count)
             row["resumed"] = 0
             row["error"] = ""
+            row["frame_ids"] = [item["frame"] for item in captures]
+            row["motion_visible"] = int(len(set(frame_hashes)) > 1)
+            row["scene_contract_file"] = str(scene_contract_path)
+            row["scene_contract_sha256"] = scene_contract["scene_contract_sha256"]
+            mp4_ok, mp4_error = build_render_mp4(render_dir, int(args.mp4_fps))
+            row["mp4_file"] = str(render_dir / "render.mp4")
+            mp4_probe = inspect_mp4(render_dir / "render.mp4", int(args.mp4_fps), int(expected))
+            row["mp4_probe"] = mp4_probe
+            row["mp4_ok"] = int(mp4_ok and bool(mp4_probe.get("ok")))
+            row["mp4_error"] = mp4_error or str(mp4_probe.get("blocker", ""))
+            row["status"] = "ok" if (
+                image_count == expected
+                and bool(row["mp4_ok"])
+                and bool(row["motion_visible"])
+            ) else "error"
+            if row["status"] != "ok":
+                row["error"] = "render_media_validation_failed"
             break
 
         except BaseException as err:
@@ -662,7 +869,6 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             print(f"[WARN] retrying render job after viewer error attempt={attempt} case={job['case']} variant={job['variant']}")
 
         finally:
-            viewer = None
             ctx = None
             gc.collect()
             if torch.cuda.is_available():
@@ -678,6 +884,9 @@ def build_jobs(args: argparse.Namespace) -> list[dict[str, Any]]:
     img_root = Path(args.img_root).resolve()
     root_filters = {Path(x).name for x in parse_csv_list(args.roots)}
     case_filters = {normalize_case_name(x) for x in parse_csv_list(args.cases)}
+
+    if str(args.amp_root or "").strip():
+        return [build_amp_root_job(args)]
 
     roots = parse_roots(train_root)
     selected_roots = select_roots(roots, args.root_scope, root_filters)
@@ -749,8 +958,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--train-root", default=str(DEFAULT_TRAIN_ROOT))
     parser.add_argument("--img-root", default=str(DEFAULT_IMG_ROOT))
     parser.add_argument("--root-scope", choices=["all", "latest", "full_pass"], default="all")
+    parser.add_argument("--amp-root", default="", help="Explicit AMP root under output/train or absolute path; bypasses best_by_case.tsv discovery")
+    parser.add_argument("--amp-stage", default="", help="Stage under --amp-root to render, default current_train_stage/current_stage")
     parser.add_argument("--frames", type=int, default=300)
     parser.add_argument("--frame-stride", type=int, default=5)
+    parser.add_argument("--mp4-fps", type=int, default=12)
+    parser.add_argument("--width", type=int, default=960)
+    parser.add_argument("--height", type=int, default=540)
     parser.add_argument("--device", default="cuda:0")
     parser.add_argument("--num-envs", type=int, default=1)
     parser.add_argument("--seed", type=int, default=7)
@@ -769,6 +983,10 @@ def parse_args() -> argparse.Namespace:
         parser.error("--frame-stride must be > 0")
     if args.num_envs <= 0:
         parser.error("--num-envs must be > 0")
+    if args.mp4_fps <= 0:
+        parser.error("--mp4-fps must be > 0")
+    if args.width <= 0 or args.height <= 0:
+        parser.error("--width/--height must be > 0")
     return args
 
 

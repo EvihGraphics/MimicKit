@@ -1,13 +1,83 @@
 # Memory Checkpoints
 
-`docs/memory/` is reserved for short-lived handoff checkpoints.
+`docs/memory/` 只用于**短期 handoff checkpoint**。
 
-Retention policy:
-- Keep only active handoff notes for in-flight work.
-- Remove stale checkpoint files after the run is completed or replaced.
-- Do not treat this folder as long-term documentation.
+这里记录的是“当前这轮工作做到哪里、离目标还差多少、下一个会话如何最快接手”，不是长期设计文档。
 
-For stable guidance, use:
+## 保留策略
+
+- 只保留仍在推进中的交接记录。
+- 当运行完成、被新 checkpoint 替代、或已经沉淀到长期文档后，删除旧 memory。
+- 不要把 `docs/memory/` 当成长期知识库。
+
+长期稳定知识优先放到：
+
 - `docs/skill/`
-- `docs/guides/`
+- `docs/plan/`
+- `docs/methods/`
 - `docs/benchmarks/`
+
+## 文件命名
+
+- 继续使用**时间戳前缀**。
+- 推荐格式：
+  - `YYYYMMDD_<topic>_status_checkpoint.md`
+
+## 必填结构
+
+以后每一份 memory 文档都必须至少包含这 4 个主段落：
+
+1. `最终目标`
+2. `目前状态`
+3. `和最终目标还差多少`
+4. `新会话快速了解与复现入口`
+
+## 写作规则
+
+- `最终目标`
+  - 写清楚这一轮工作的终点是什么。
+  - 如果最终目标定义来自已有文档，明确引用对应 `docs/skill/`、`docs/plan/` 或 `docs/methods/`。
+- `目前状态`
+  - 必须引用**真实运行事实**，不要写抽象总结。
+  - 优先写：
+    - 当前 root / run name
+    - 当前阶段
+    - 当前样本或进度
+    - 当前日志路径
+    - 当前 dashboard 地址
+    - 当前 tmux / 进程状态
+- `和最终目标还差多少`
+  - 必须写成**可执行差距**。
+  - 允许写“还差哪些 case / 阶段 / 产物 / 验证”，不允许只写“还没完成很多”。
+  - 能量化时尽量量化，例如剩余样本数、未完成 brain 数、未生成的导出物。
+- `新会话快速了解与复现入口`
+  - 必须至少列出一组：
+    - 文档入口
+    - skill 入口
+    - 运行态事实入口
+    - 最小复现命令
+  - 目标是让新会话**不重新搜索整个仓库**，就能回到当前状态。
+
+## 推荐模板
+
+```md
+# <Topic> Status Checkpoint (<date>)
+
+## 最终目标
+- ...
+
+## 目前状态
+- snapshot_time: ...
+- current_root: ...
+- current_stage: ...
+- dashboard: ...
+
+## 和最终目标还差多少
+- ...
+
+## 新会话快速了解与复现入口
+- 文档：
+- skill：
+- 运行态事实：
+- 最小复现命令：
+```

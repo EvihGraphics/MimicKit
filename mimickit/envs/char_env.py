@@ -2,6 +2,7 @@ import enum
 import gymnasium.spaces as spaces
 import numpy as np
 import os
+import os
 import torch
 
 import anim.motion_lib as motion_lib
@@ -237,6 +238,8 @@ class CharEnv(sim_env.SimEnv):
             Logger.print(f"Body count mismatch: sim={len(sim_body_names)} kin={len(kin_body_names)}")
             Logger.print(f"sim_body_names={sim_body_names}")
             Logger.print(f"kin_body_names={kin_body_names}")
+            if os.environ.get("MIMICKIT_STRICT_BODY_ORDER", "0") == "1":
+                raise RuntimeError("body count mismatch rejected by MIMICKIT_STRICT_BODY_ORDER")
             Logger.print("[WARN] Proceeding despite body count mismatch (compatibility mode).")
             return
 
@@ -245,6 +248,8 @@ class CharEnv(sim_env.SimEnv):
                 Logger.print(f"Body name mismatch at {i}: sim={sim_name}, kin={kin_name}")
                 Logger.print(f"sim_body_names={sim_body_names}")
                 Logger.print(f"kin_body_names={kin_body_names}")
+                if os.environ.get("MIMICKIT_STRICT_BODY_ORDER", "0") == "1":
+                    raise RuntimeError("body name mismatch rejected by MIMICKIT_STRICT_BODY_ORDER")
                 Logger.print("[WARN] Proceeding despite body name mismatch (compatibility mode).")
                 return
         return

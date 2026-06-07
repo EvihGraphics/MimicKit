@@ -117,6 +117,19 @@ def load_configs_from_args(args: ArgParser) -> tuple[Dict[str, Any], Dict[str, A
 
 
 
+def resolve_runtime_device(requested_device: str, engine_config: Dict[str, Any]) -> str:
+    device = (requested_device or "").strip() or "cpu"
+    if device != "cpu":
+        return device
+
+    engine_name = str((engine_config or {}).get("engine_name", "")).strip().lower()
+    if engine_name == "newton" and torch.cuda.is_available():
+        return "cuda:0"
+
+    return device
+
+
+
 def build_runtime_context(
     arg_file: str,
     overrides: argparse.Namespace,
@@ -125,7 +138,9 @@ def build_runtime_context(
     load_model: bool = False,
 ) -> RuntimeContext:
     args = load_runtime_args(arg_file=arg_file, overrides=overrides)
-    init_single_process_mp(device=device)
+    env_cfg, eng_cfg, agent_cfg = load_configs_from_args(args)
+    runtime_device = resolve_runtime_device(device, eng_cfg)
+    init_single_process_mp(device=runtime_device)
 
     num_envs = int(args.parse_int("num_envs", 1))
     env_file = _resolve_path(args.parse_string("env_config"))
@@ -133,8 +148,8 @@ def build_runtime_context(
     agent_file_raw = args.parse_string("agent_config", "")
     agent_file = _resolve_path(agent_file_raw) if agent_file_raw else ""
 
-    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=device, visualize=visualize)
-    agent = agent_builder.build_agent(str(agent_file) if agent_file else "", env=env, device=device)
+    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=runtime_device, visualize=visualize)
+    agent = agent_builder.build_agent(str(agent_file) if agent_file else "", env=env, device=runtime_device)
 
     model_file = args.parse_string("model_file", "")
     if load_model and model_file:
@@ -143,8 +158,6 @@ def build_runtime_context(
             raise FileNotFoundError(f"model_file does not exist: {model_path}")
         agent.load(str(model_path))
 
-    env_cfg, eng_cfg, agent_cfg = load_configs_from_args(args)
-
     return RuntimeContext(
         args=args,
         env=env,
@@ -152,7 +165,7 @@ def build_runtime_context(
         env_config=env_cfg,
         engine_config=eng_cfg,
         agent_config=agent_cfg,
-        device=device,
+        device=runtime_device,
         arg_file=_resolve_path(arg_file),
     )
 

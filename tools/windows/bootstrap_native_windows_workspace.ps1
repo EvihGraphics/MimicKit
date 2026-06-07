@@ -4,7 +4,7 @@ param(
     [string]$CondaPrefix = "",
     [switch]$InstallIsaacSimPip = $true,
     [string]$IsaacSimVersion = "4.5.0",
-    [string]$IsaacSimPipExtras = "all"
+    [string]$IsaacSimPipExtras = "all,extscache"
 )
 
 $ErrorActionPreference = "Stop"
