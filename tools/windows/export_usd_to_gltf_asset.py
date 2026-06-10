@@ -150,29 +150,53 @@ def export_usd_stage_to_rigid_glb(input_usd: Path, output_asset: Path) -> dict[s
     if stage is None:
         raise RuntimeError(f"failed to open USD stage: {input_usd}")
 
+    meters_per_unit = float(UsdGeom.GetStageMetersPerUnit(stage))
+
+    required_body_names = {
+        "pelvis", "torso", "head", "right_upper_arm", "right_lower_arm",
+        "right_hand", "sword", "left_upper_arm", "left_lower_arm", "shield",
+        "left_hand", "right_thigh", "right_shin", "right_foot", "left_thigh",
+        "left_shin", "left_foot",
+    }
     by_body: dict[str, list[Any]] = {}
     body_world: dict[str, Any] = {}
     converted_prims = 0
-    for prim in stage.Traverse():
+    geometry_prim_count = 0
+    for prim in Usd.PrimRange.Stage(stage, Usd.TraverseInstanceProxies()):
         mesh = _mesh_from_usd_prim(prim)
         if mesh is None:
             continue
+        geometry_prim_count += 1
         body = prim
-        while body and body.IsValid() and not body.HasAPI(UsdPhysics.RigidBodyAPI):
+        while (
+            body
+            and body.IsValid()
+            and not body.HasAPI(UsdPhysics.RigidBodyAPI)
+            and str(body.GetName()) not in required_body_names
+        ):
             body = body.GetParent()
         if not body or not body.IsValid():
             continue
         body_name = str(body.GetName())
+        if body_name not in required_body_names:
+            continue
         geom_world = _matrix_to_numpy(UsdGeom.Xformable(prim).ComputeLocalToWorldTransform(Usd.TimeCode.Default()))
         current_body_world = _matrix_to_numpy(UsdGeom.Xformable(body).ComputeLocalToWorldTransform(Usd.TimeCode.Default()))
         local_transform = np.linalg.inv(current_body_world) @ geom_world
         mesh.apply_transform(local_transform)
+        mesh.apply_transform(trimesh.transformations.scale_matrix(meters_per_unit))
         by_body.setdefault(body_name, []).append(mesh)
-        body_world[body_name] = current_body_world
+        
+        scaled_body_world = current_body_world.copy()
+        scaled_body_world[:3, 3] *= meters_per_unit
+        body_world[body_name] = scaled_body_world
         converted_prims += 1
 
     if not by_body:
-        raise RuntimeError("USD stage contains no renderable mesh or primitive under rigid bodies")
+        raise RuntimeError(
+            "USD stage contains no renderable mesh or primitive under character bodies "
+            f"(geometry_prims={geometry_prim_count})"
+        )
 
     scene = trimesh.Scene()
     for body_name, pieces in by_body.items():
@@ -190,6 +214,7 @@ def export_usd_stage_to_rigid_glb(input_usd: Path, output_asset: Path) -> dict[s
         "body_count": len(by_body),
         "body_names": sorted(by_body),
         "converted_primitive_count": converted_prims,
+        "geometry_prim_count": geometry_prim_count,
     }
 
 

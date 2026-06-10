@@ -407,6 +407,28 @@ def patch_package(package_dir: Path, spec_path: Path, runtime_path: Path, spec: 
         write_json(package_manifest_path, package_manifest)
 
 
+def build_mesh_binding_contract(package_dir: Path) -> dict[str, Any]:
+    joint_order = read_json(package_dir / "joint_order.json")
+    body_order = joint_order.get("body_order", [])
+    nodes = []
+    for body in body_order:
+        nodes.append({
+            "node_name": body,
+            "body_binding": body,
+            "bind_local_transform": {
+                "translation": [0.0, 0.0, 0.0],
+                "rotation": [0.0, 0.0, 0.0, 1.0],
+                "scale": [1.0, 1.0, 1.0]
+            }
+        })
+    contract = {
+        "schema_version": 1,
+        "contract_role": "mimickit_mesh_binding_contract",
+        "nodes": nodes
+    }
+    return contract
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--package-dir", required=True)
@@ -422,14 +444,23 @@ def main() -> int:
     char_usd = Path(args.char_usd).resolve() if args.char_usd else Path()
     spec_path = Path(args.out).resolve()
     runtime_path = Path(args.runtime_out).resolve() if args.runtime_out else package_dir / "runtime_control_contract.json"
+    mesh_binding_path = package_dir / "mesh_binding_contract.json"
 
     spec = build_source_rig_spec(package_dir=package_dir, char_xml=char_xml, char_usd=char_usd, ue_asset_root=args.ue_asset_root.rstrip("/"))
     runtime = build_runtime_contract(package_dir=package_dir, spec=spec)
+    mesh_binding = build_mesh_binding_contract(package_dir=package_dir)
     write_json(spec_path, spec)
     write_json(runtime_path, runtime)
+    write_json(mesh_binding_path, mesh_binding)
     patch_package(package_dir, spec_path, runtime_path, spec, runtime)
 
-    print(json.dumps({"ok": True, "spec": str(spec_path), "runtime_contract": str(runtime_path), "spec_hash": spec["spec_hash"]}, ensure_ascii=False))
+    package_manifest_path = package_dir / "export_package_manifest.json"
+    package_manifest = read_json(package_manifest_path)
+    if package_manifest:
+        package_manifest.setdefault("artifacts", {})["mesh_binding_contract"] = mesh_binding_path.name
+        write_json(package_manifest_path, package_manifest)
+
+    print(json.dumps({"ok": True, "spec": str(spec_path), "runtime_contract": str(runtime_path), "mesh_binding_contract": str(mesh_binding_path), "spec_hash": spec["spec_hash"]}, ensure_ascii=False))
     return 0
 
 

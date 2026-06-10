@@ -255,8 +255,8 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
     frames_dir = render_dir / "frames"
     frame_ids = collect_frame_ids(frames_dir)
     mp4_file = render_dir / "render.mp4"
-    scene_contract_path = render_dir / "scene_contract_v2.json"
-    scene_contract_v2 = read_json(scene_contract_path)
+    scene_contract_path = render_dir / "scene_contract_v3.json"
+    scene_contract_v3 = read_json(scene_contract_path)
     expected = expected_image_count(args.frames, args.frame_stride)
     expected_frame_ids = list(range(0, int(args.frames), max(1, int(args.frame_stride))))
     status = str(render_meta.get("status", ""))
@@ -273,7 +273,7 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         and frame_ids == expected_frame_ids
         and mp4_ok
         and bool(render_meta.get("motion_visible"))
-        and bool(scene_contract_v2.get("scene_contract_sha256"))
+        and bool(scene_contract_v3.get("scene_contract_sha256"))
         and mp4_file.exists()
         and mp4_file.stat().st_size > 0
     )
@@ -293,9 +293,9 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         "mp4_ok": mp4_ok,
         "mp4_size_bytes": mp4_file.stat().st_size if mp4_file.exists() else 0,
         "motion_visible": bool(render_meta.get("motion_visible")),
-        "scene_contract_v2_file": str(scene_contract_path),
-        "scene_contract_v2": scene_contract_v2,
-        "scene_contract_sha256": str(scene_contract_v2.get("scene_contract_sha256", "")),
+        "scene_contract_v3_file": str(scene_contract_path),
+        "scene_contract_v3": scene_contract_v3,
+        "scene_contract_sha256": str(scene_contract_v3.get("scene_contract_sha256", "")),
         "mesh_reference_pass": pass_ok,
         "raw_render_meta": render_meta,
     }
@@ -307,7 +307,7 @@ def default_root_name(source_root: Path, stage: str) -> str:
 
 def scene_contract(args: argparse.Namespace, root_name: str, source_root: Path, case: str) -> dict[str, Any]:
     return {
-        "schema_version": 1,
+        "schema_version": 3,
         "root_name": root_name,
         "source_root": str(source_root),
         "source_stage": args.stage,
@@ -321,6 +321,9 @@ def scene_contract(args: argparse.Namespace, root_name: str, source_root: Path, 
         "mp4_fps": int(args.mp4_fps),
         "expected_frame_ids": list(range(0, int(args.frames), max(1, int(args.frame_stride)))),
         "engine_config": str(DEFAULT_ENGINE),
+        "debug_overlays": False,
+        "fov_degrees": 45.0,
+        "seed": int(args.seed),
     }
 
 
@@ -573,6 +576,8 @@ def main() -> int:
             args.device,
             "--num-envs",
             str(args.num_envs),
+            "--seed",
+            str(args.seed),
             "--force",
         ]
         render_env = os.environ.copy()
@@ -586,7 +591,7 @@ def main() -> int:
         manifest["png_count"] = int(summary.get("image_count", 0) or len(summary.get("frame_ids", [])) or 0)
         manifest["mp4_ok"] = bool(summary.get("mp4_ok"))
         manifest["source_was_ppm_only"] = bool(summary.get("source_was_ppm_only"))
-        manifest["scene_contract_v2"] = summary.get("scene_contract_v2", {})
+        manifest["scene_contract_v3"] = summary.get("scene_contract_v3", {})
         manifest["scene_contract_sha256"] = summary.get("scene_contract_sha256", "")
         contact = build_contact_sheet(Path(summary["render_dir"]), Path(summary["render_dir"]) / "mesh_reference_contact_sheet.png")
         manifest["contact_sheet"] = contact
@@ -667,19 +672,20 @@ def main() -> int:
     )
     render_summary_for_package = manifest.get("render_summary") if isinstance(manifest.get("render_summary"), dict) else {}
     scene_contract = (
-        Path(str(render_summary_for_package.get("render_dir"))) / "scene_contract_v2.json"
+        Path(str(render_summary_for_package.get("render_dir"))) / "scene_contract_v3.json"
         if render_summary_for_package.get("render_dir")
         else None
     )
     if scene_contract is not None and scene_contract.exists():
-        shutil.copy2(scene_contract, package_dir / "scene_contract_v2.json")
+        shutil.copy2(scene_contract, package_dir / "scene_contract_v3.json")
     required_package = [
         package_dir / "visual_replay" / "pose_dof_replay.jsonl",
         package_dir / "visual_replay" / "pose_dof_meta.json",
         package_dir / "joint_order.json",
         package_dir / "mimickit_source_rig_asset_spec.json",
         package_dir / "visual_alignment_contract.json",
-        package_dir / "scene_contract_v2.json",
+        package_dir / "scene_contract_v3.json",
+        package_dir / "mesh_binding_contract.json",
     ]
     manifest["package_export"] = {
         "ok": bool(package_result.get("ok")) and all(path.exists() and path.stat().st_size > 0 for path in required_package),

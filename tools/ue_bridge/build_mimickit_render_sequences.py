@@ -27,6 +27,7 @@ import yaml
 from _bridge_common import build_runtime_context
 from visual_bridge_validation import (
     build_scene_contract_v2,
+    build_scene_contract_v3,
     inspect_mp4,
     inspect_png,
     sha256_file,
@@ -603,12 +604,41 @@ def should_retry_render_error(error_text: str) -> bool:
 
 
 def build_render_mp4(render_dir: Path, fps: int) -> tuple[bool, str]:
-    ffmpeg = shutil.which("ffmpeg")
-    if not ffmpeg:
-        return False, "ffmpeg not found"
-
     frames_dir = render_dir / "frames"
     mp4_path = render_dir / "render.mp4"
+    frame_paths = sorted(frames_dir.glob("frame_*.png"))
+    if not frame_paths:
+        return False, "no PNG frames found"
+    imageio_error = ""
+    try:
+        import imageio_ffmpeg
+        from PIL import Image
+
+        with Image.open(frame_paths[0]) as first:
+            size = first.size
+        writer = imageio_ffmpeg.write_frames(
+            str(mp4_path),
+            size,
+            fps=float(fps),
+            codec="libx264",
+            pix_fmt_in="rgb24",
+            pix_fmt_out="yuv420p",
+            macro_block_size=1,
+        )
+        writer.send(None)
+        try:
+            for frame_path in frame_paths:
+                with Image.open(frame_path) as image:
+                    writer.send(np.asarray(image.convert("RGB"), dtype=np.uint8).tobytes())
+        finally:
+            writer.close()
+        return bool(mp4_path.exists() and mp4_path.stat().st_size > 0), ""
+    except Exception as imageio_exc:
+        imageio_error = f"{type(imageio_exc).__name__}: {imageio_exc}"
+        ffmpeg = shutil.which("ffmpeg")
+        if not ffmpeg:
+            return False, f"imageio ffmpeg failed and ffmpeg not found: {imageio_error}"
+
     cmd = [
         ffmpeg,
         "-y",
@@ -627,7 +657,7 @@ def build_render_mp4(render_dir: Path, fps: int) -> tuple[bool, str]:
     ]
     proc = subprocess.run(cmd, cwd=str(ROOT), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, check=False)
     if proc.returncode != 0:
-        return False, proc.stdout.strip()
+        return False, f"imageio={imageio_error}; ffmpeg={proc.stdout.strip()}"
     return mp4_path.exists(), ""
 
 
@@ -756,6 +786,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         _next_obs, _reward, done, _next_info = ctx.env.step(action)
 
                     if frame_idx % int(args.frame_stride) == 0:
+                        ctx.env._engine.render()
                         capture = ctx.env._engine.capture_frame(
                             int(args.width),
                             int(args.height),
@@ -831,6 +862,23 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             scene_contract_path = render_dir / "scene_contract_v2.json"
             write_json(scene_contract_path, scene_contract)
 
+            scene_contract_v3 = build_scene_contract_v3(
+                root_name=str(job["root"]),
+                case=str(job["case"]),
+                motion_id=str(job.get("motion_id", "")),
+                width=args.width,
+                height=args.height,
+                frames=args.frames,
+                frame_stride=args.frame_stride,
+                fps=args.mp4_fps,
+                seed=args.seed,
+                base_env_config=job.get("env_config", ""),
+                engine_config=job.get("engine_config", ""),
+                camera_samples=scene_contract.get("camera_samples"),
+            )
+            scene_contract_path_v3 = render_dir / "scene_contract_v3.json"
+            write_json(scene_contract_path_v3, scene_contract_v3)
+
             row["image_count"] = int(image_count)
             row["resumed"] = 0
             row["error"] = ""
@@ -838,6 +886,8 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             row["motion_visible"] = int(len(set(frame_hashes)) > 1)
             row["scene_contract_file"] = str(scene_contract_path)
             row["scene_contract_sha256"] = scene_contract["scene_contract_sha256"]
+            row["scene_contract_v3_file"] = str(scene_contract_path_v3)
+            row["scene_contract_v3_sha256"] = scene_contract_v3["scene_contract_sha256"]
             mp4_ok, mp4_error = build_render_mp4(render_dir, int(args.mp4_fps))
             row["mp4_file"] = str(render_dir / "render.mp4")
             mp4_probe = inspect_mp4(render_dir / "render.mp4", int(args.mp4_fps), int(expected))
@@ -869,6 +919,11 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             print(f"[WARN] retrying render job after viewer error attempt={attempt} case={job['case']} variant={job['variant']}")
 
         finally:
+            if ctx is not None:
+                try:
+                    ctx.env._engine.release_capture()
+                except Exception:
+                    pass
             ctx = None
             gc.collect()
             if torch.cuda.is_available():

@@ -238,25 +238,73 @@ class IsaacLabEngine(engine.Engine):
 
         resolution = (int(width), int(height))
         if getattr(self, "_capture_resolution", None) != resolution:
-            if getattr(self, "_capture_annotator", None) is not None:
-                self._capture_annotator.detach()
-            if getattr(self, "_capture_render_product", None) is not None:
-                self._capture_render_product.destroy()
+            self.release_capture()
             self._capture_render_product = rep.create.render_product("/OmniverseKit_Persp", resolution)
             self._capture_annotator = rep.AnnotatorRegistry.get_annotator("rgb")
             self._capture_annotator.attach([self._capture_render_product])
+            if include_silhouette:
+                self._capture_semantic_annotator = rep.AnnotatorRegistry.get_annotator(
+                    "semantic_segmentation",
+                    init_params={"colorize": False},
+                )
+                self._capture_semantic_annotator.attach([self._capture_render_product])
             self._capture_resolution = resolution
 
-        self._sim.render()
-        self._app_launcher.app.update()
-        data = self._capture_annotator.get_data()
-        rgba = np.asarray(data.get("data") if isinstance(data, dict) else data)
-        if rgba.size == 0:
-            raise RuntimeError("IsaacLab headless capture returned no pixels")
-        if rgba.ndim != 3 or rgba.shape[0] != resolution[1] or rgba.shape[1] != resolution[0]:
-            raise RuntimeError(f"IsaacLab capture shape mismatch: {rgba.shape} expected={(resolution[1], resolution[0])}")
-        alpha = rgba[..., 3] if rgba.shape[-1] >= 4 else np.max(rgba[..., :3], axis=-1)
-        silhouette = (alpha > 0).astype(np.uint8) * 255 if include_silhouette else None
+        rgba = None
+        silhouette = None
+        last_error = "capture did not become ready"
+        for _attempt in range(6):
+            self._sim.render()
+            self._app_launcher.app.update()
+            data = self._capture_annotator.get_data()
+            candidate_rgba = np.asarray(data.get("data") if isinstance(data, dict) else data)
+            if candidate_rgba.size == 0:
+                last_error = "IsaacLab headless capture returned no pixels"
+                continue
+            if candidate_rgba.ndim != 3 or candidate_rgba.shape[0] != resolution[1] or candidate_rgba.shape[1] != resolution[0]:
+                last_error = f"IsaacLab capture shape mismatch: {candidate_rgba.shape} expected={(resolution[1], resolution[0])}"
+                continue
+            if not np.any(np.ptp(candidate_rgba[..., :3], axis=(0, 1)) > 0):
+                last_error = "IsaacLab headless capture returned a black/static frame"
+                continue
+
+            candidate_silhouette = None
+            if include_silhouette:
+                semantic_payload = self._capture_semantic_annotator.get_data()
+                semantic = np.asarray(semantic_payload.get("data") if isinstance(semantic_payload, dict) else semantic_payload)
+                semantic = np.squeeze(semantic)
+                if semantic.shape != (resolution[1], resolution[0]):
+                    last_error = f"IsaacLab silhouette shape mismatch: {semantic.shape}"
+                    continue
+                target_ids = []
+                semantic_info = semantic_payload.get("info", {}) if isinstance(semantic_payload, dict) else {}
+                id_to_labels = semantic_info.get("idToLabels", {}) if isinstance(semantic_info, dict) else {}
+                if isinstance(id_to_labels, dict):
+                    for raw_id, labels in id_to_labels.items():
+                        if "mimickit_character" in json.dumps(labels, ensure_ascii=True):
+                            try:
+                                target_ids.append(int(raw_id))
+                            except (TypeError, ValueError):
+                                pass
+                if target_ids:
+                    candidate_silhouette = np.isin(semantic, target_ids).astype(np.uint8) * 255
+                else:
+                    unique_ids, counts = np.unique(semantic, return_counts=True)
+                    if len(unique_ids) < 2:
+                        last_error = f"IsaacLab semantic silhouette has no foreground classes: ids={unique_ids.tolist()}"
+                        continue
+                    background_id = unique_ids[int(np.argmax(counts))]
+                    candidate_silhouette = (semantic != background_id).astype(np.uint8) * 255
+                nonzero = int(np.count_nonzero(candidate_silhouette))
+                if nonzero <= 0 or nonzero >= candidate_silhouette.size:
+                    last_error = "IsaacLab semantic silhouette is empty or full-frame"
+                    continue
+
+            rgba = candidate_rgba
+            silhouette = candidate_silhouette
+            break
+        if rgba is None:
+            raise RuntimeError(last_error)
         camera_eye = self.get_camera_pos()
         camera_target = camera_eye + self.get_camera_dir()
         return engine.CaptureFrame(
@@ -266,7 +314,32 @@ class IsaacLabEngine(engine.Engine):
             height=resolution[1],
             camera_eye=camera_eye.tolist(),
             camera_target=camera_target.tolist(),
+            fov_degrees=45.0,
+            projection="perspective",
+            near=0.1,
+            far=1000.0,
+            ground_mask=None,
+            renderer_version="isaaclab"
         )
+
+    def release_capture(self):
+        for name in ("_capture_annotator", "_capture_semantic_annotator"):
+            annotator = getattr(self, name, None)
+            if annotator is not None:
+                try:
+                    annotator.detach()
+                except Exception:
+                    pass
+                setattr(self, name, None)
+        render_product = getattr(self, "_capture_render_product", None)
+        if render_product is not None:
+            try:
+                render_product.destroy()
+            except Exception:
+                pass
+            self._capture_render_product = None
+        self._capture_resolution = None
+        return
     
     def get_timestep(self):
         return self._timestep
@@ -937,6 +1010,7 @@ class IsaacLabEngine(engine.Engine):
                                        visual_material=visual_material,
                                        articulation_props=articulation_props,
                                        rigid_props=rigid_props,
+                                       semantic_tags=[("class", "mimickit_character")],
                                        activate_contact_sensors=True)
 
         if (obj_cfg.disable_motors):

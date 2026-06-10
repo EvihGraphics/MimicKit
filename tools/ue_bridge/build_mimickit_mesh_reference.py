@@ -356,7 +356,7 @@ def build_synthetic_root(args: argparse.Namespace, root_name: str) -> dict[str, 
 
 def scene_contract(args: argparse.Namespace, root_name: str) -> dict[str, Any]:
     return {
-        "schema_version": 1,
+        "schema_version": 3,
         "root_name": root_name,
         "camera_mode": "track",
         "ground": "mimickit_engine_default_flat_ground",
@@ -370,6 +370,9 @@ def scene_contract(args: argparse.Namespace, root_name: str) -> dict[str, Any]:
         "case": args.case,
         "base_env_config": str(args.base_env_config),
         "engine_config": str(args.engine_config),
+        "debug_overlays": False,
+        "fov_degrees": 45.0,
+        "seed": int(args.seed),
     }
 
 
@@ -416,6 +419,8 @@ def render_command(args: argparse.Namespace, root_name: str, dry_run: bool) -> l
         args.device,
         "--num-envs",
         str(args.num_envs),
+        "--seed",
+        str(args.seed),
         "--force",
     ]
     if dry_run:
@@ -490,8 +495,8 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
     frames_dir = render_dir / "frames"
     frame_ids = collect_frame_ids(frames_dir)
     mp4_file = render_dir / "render.mp4"
-    scene_contract_path = render_dir / "scene_contract_v2.json"
-    scene_contract_v2 = read_json(scene_contract_path)
+    scene_contract_path = render_dir / "scene_contract_v3.json"
+    scene_contract_v3 = read_json(scene_contract_path)
     legacy_ppm_count = len(list(frames_dir.glob("frame_*.ppm")))
     expected = expected_image_count(args.frames, args.frame_stride)
     status = str(render_meta.get("status", ""))
@@ -511,7 +516,7 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         and mp4_file.stat().st_size > 0
         and mp4_ok
         and bool(render_meta.get("motion_visible"))
-        and bool(scene_contract_v2.get("scene_contract_sha256"))
+        and bool(scene_contract_v3.get("scene_contract_sha256"))
     )
     return {
         "render_dir": str(render_dir),
@@ -535,9 +540,9 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         "mp4_size_bytes": mp4_file.stat().st_size if mp4_file.exists() else 0,
         "mp4_ok": mp4_ok,
         "motion_visible": bool(render_meta.get("motion_visible")),
-        "scene_contract_v2_file": str(scene_contract_path),
-        "scene_contract_v2": scene_contract_v2,
-        "scene_contract_sha256": str(scene_contract_v2.get("scene_contract_sha256", "")),
+        "scene_contract_v3_file": str(scene_contract_path),
+        "scene_contract_v3": scene_contract_v3,
+        "scene_contract_sha256": str(scene_contract_v3.get("scene_contract_sha256", "")),
         "mesh_reference_pass": pass_ok,
         "raw_render_meta": render_meta,
     }
@@ -659,16 +664,17 @@ def run_package_export(args: argparse.Namespace, root_name: str) -> dict[str, An
         str(package_dir / "mimickit_source_rig_asset_spec.json"),
     ]
     result["source_rig"] = run_command(source_rig_cmd)
-    scene_contract = render_dir_for(args, root_name) / "scene_contract_v2.json"
+    scene_contract = render_dir_for(args, root_name) / "scene_contract_v3.json"
     if scene_contract.exists():
-        shutil.copy2(scene_contract, package_dir / "scene_contract_v2.json")
+        shutil.copy2(scene_contract, package_dir / "scene_contract_v3.json")
     required = {
         "pose_dof_replay": package_dir / "visual_replay" / "pose_dof_replay.jsonl",
         "pose_dof_meta": package_dir / "visual_replay" / "pose_dof_meta.json",
         "joint_order": package_dir / "joint_order.json",
         "source_rig_asset_spec": package_dir / "mimickit_source_rig_asset_spec.json",
         "visual_alignment_contract": package_dir / "visual_alignment_contract.json",
-        "scene_contract_v2": package_dir / "scene_contract_v2.json",
+        "scene_contract_v3": package_dir / "scene_contract_v3.json",
+        "mesh_binding_contract": package_dir / "mesh_binding_contract.json",
     }
     result["files"] = {key: str(path) for key, path in required.items()}
     missing = [key for key, path in required.items() if not path.exists() or path.stat().st_size <= 0]
@@ -883,7 +889,7 @@ def main() -> int:
         manifest["png_count"] = int(summary.get("image_count", 0) or summary.get("frame_count_on_disk", 0) or 0)
         manifest["mp4_ok"] = bool(summary.get("mp4_ok"))
         manifest["source_was_ppm_only"] = bool(summary.get("source_was_ppm_only"))
-        manifest["scene_contract_v2"] = summary.get("scene_contract_v2", {})
+        manifest["scene_contract_v3"] = summary.get("scene_contract_v3", {})
         manifest["scene_contract_sha256"] = summary.get("scene_contract_sha256", "")
         contact = build_contact_sheet(Path(summary["render_dir"]), Path(summary["render_dir"]) / "mesh_reference_contact_sheet.png")
         manifest["contact_sheet"] = contact

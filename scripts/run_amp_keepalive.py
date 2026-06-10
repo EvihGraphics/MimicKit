@@ -427,6 +427,7 @@ def render_summary(root_out: Path, render_root_arg: str):
     comparison_sheets = sorted(render_root.glob("**/*_vs_*_sheet.png")) + sorted(render_root.glob("**/*contact_sheet.png"))
     metric_reports = sorted(render_root.glob("**/visual_metric_report.json")) + sorted(render_root.glob("**/scene_compare_report.json"))
     visual_reviews = sorted(render_root.glob("**/visual_review.json"))
+    bridge_case_manifests = sorted(render_root.glob("**/bridge_case_manifest.json"))
     full_chain_manifests = sorted(render_root.parent.glob("**/full_chain_bridge_manifest.json"))
 
     evih_result_files = []
@@ -464,14 +465,16 @@ def render_summary(root_out: Path, render_root_arg: str):
     parsed_mesh = [read_json_file(path) for path in mesh_manifests]
     parsed_visual = [read_json_file(path) for path in visual_result_manifests]
     parsed_render = [read_json_file(path) for path in render_meta]
+    parsed_bridge = [read_json_file(path) for path in bridge_case_manifests]
+    parsed_full = [read_json_file(path) for path in full_chain_manifests]
+
     pass_detected = bool(
-        any(item.get("mesh_reference_pass") for item in parsed_mesh)
-        or any(item.get("evih_mesh_replay_pass") or item.get("skeleton_replay_pass") for item in parsed_visual)
-        or any(item.get("status") in {"ok", "skipped_resume"} and item.get("mp4_ok") for item in parsed_render)
+        any(item.get("bridge_pass") for item in parsed_bridge)
+        or any(item.get("bridge_pass") for item in parsed_full)
     )
     blockers = [
         str(item.get("blocker") or item.get("error") or "").strip()
-        for item in [*parsed_mesh, *parsed_visual, *parsed_render]
+        for item in [*parsed_bridge, *parsed_full, *parsed_mesh, *parsed_visual, *parsed_render]
         if str(item.get("blocker") or item.get("error") or "").strip()
     ]
     has_artifacts = bool(infer_index.exists() or render_meta or mp4s or mesh_manifests or visual_result_manifests or comparison_sheets or evih_result_files)

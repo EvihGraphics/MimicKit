@@ -75,7 +75,25 @@ def main() -> int:
     parser.add_argument("--baseline-snapshot", default="")
     parser.add_argument("--out", required=True)
     args = parser.parse_args()
-    cases = [case_report(parse_case_spec(text)) for text in args.case]
+    cases = []
+    for text in args.case:
+        spec = parse_case_spec(text)
+        report = case_report(spec)
+        cases.append(report)
+        # Emit bridge_case_manifest.json alongside the mimic manifest
+        mimic_dir = Path(spec["mimic"]).parent
+        bridge_case_manifest = mimic_dir / "bridge_case_manifest.json"
+        
+        # We wrap the single case report as a standalone case manifest
+        case_manifest_data = {
+            "schema_version": 1,
+            "created_at_utc": datetime.now(timezone.utc).isoformat(),
+            "case_id": report["label"],
+            "bridge_case_pass": report["pass"],
+            "report": report
+        }
+        write_json(bridge_case_manifest, case_manifest_data)
+
     baseline_path = Path(args.baseline_snapshot).resolve() if args.baseline_snapshot else None
     baseline = read_json(baseline_path) if baseline_path else {}
     manifest = {

@@ -1,0 +1,132 @@
+﻿python : \\wsl.localhost\Ubuntu-20.04\root\Project\MimicKit\tools\ue_bridge\build_mimickit_mesh_reference.py:40: Deprec
+ationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-awar
+e objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+At line:1 char:1
++ python tools\ue_bridge\build_mimickit_mesh_reference.py --root-name t ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (\\wsl.localhost...(datetime.UTC).:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  return datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-09T06:40:10Z",
+  "root_name": "tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3",
+  "train_root_dir": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3",
+  "img_root_dir": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3",
+  "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+  "case": "view_motion_humanoid_sword_shield_args",
+  "base_env_config": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+  "engine_config": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+  "usd_asset": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+  "xml_kinematic_asset": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.xml",
+  "frames": 5,
+  "frame_stride": 5,
+  "expected_image_count": 1,
+  "expected_frame_ids": [
+    0
+  ],
+  "frame_ids": [],
+  "png_count": 0,
+  "mp4_ok": false,
+  "source_was_ppm_only": false,
+  "scene_contract": {
+    "schema_version": 3,
+    "root_name": "tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3",
+    "camera_mode": "track",
+    "ground": "mimickit_engine_default_flat_ground",
+    "width": 960,
+    "height": 540,
+    "frames": 5,
+    "frame_stride": 5,
+    "mp4_fps": 12,
+    "expected_frame_ids": [
+      0
+    ],
+    "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+    "case": "view_motion_humanoid_sword_shield_args",
+    "base_env_config": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+    "engine_config": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+    "debug_overlays": false,
+    "fov_degrees": 45.0,
+    "seed": 7
+  },
+  "conda_env": "mimickit-isaaclab",
+  "render_python": "",
+  "asset_export": {
+    "ok": false,
+    "skipped": false,
+    "source_usd_file": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+    "source_usd_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+    "format": "glb",
+    "glb_file": "",
+    "gltf_file": "",
+    "output_file": "",
+    "output_sha256": ""
+  },
+  "package_export": {
+    "ok": false,
+    "package_dir": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\\ue_export_mesh_reference",
+    "files": {},
+    "missing": []
+  },
+  "native_windows": {
+    "requested_run": false,
+    "requested_ingest": false,
+    "workspace_root": "D:\\MimicKitNative",
+    "workspace_wsl": "\\mnt\\d\\MimicKitNative\\workspace\\MimicKit",
+    "conda_env": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win",
+    "script_sync": {
+      "ok": false,
+      "skipped": false
+    },
+    "run": {
+      "ok": false,
+      "skipped": true
+    },
+    "ingest": {
+      "ok": false,
+      "skipped": true
+    }
+  },
+  "precheck": {
+    "ok": false,
+    "skipped": false
+  },
+  "build_synthetic_root": {
+    "cmd": [
+      "C:\\ProgramData\\anaconda3\\python.exe",
+      "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\tools\\ue_bridge\\build_ase_reallusion_motion_render_root.py",
+      "--train-root",
+      "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\output\\train",
+      "--root-name",
+      "tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3",
+      "--motion-ids",
+      "RL_Avatar_Atk_2xCombo01_Motion",
+      "--base-env-config",
+      "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+      "--engine-config",
+      "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\data\\engines\\isaac_lab_engine.yaml"
+    ],
+    "returncode": 1,
+    "stdout_tail": "",
+    "stderr_tail": "Traceback (most recent call last):\n  File \"\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\tools\\ue_bridge\\build_ase_reallusion_motion_render_root.py\", line 205, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\tools\\ue_bridge\\build_ase_reallusion_motion_render_root.py\", line 122, in main\n    raise RuntimeError(f\"output root already exists: {out_root}\")\nRuntimeError: output root already exists: \\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\n",
+    "ok": false
+  },
+  "dry_run": {
+    "ok": false
+  },
+  "render": {
+    "ok": false,
+    "skipped": false
+  },
+  "contact_sheet": {
+    "ok": false
+  },
+  "mesh_reference_pass": false,
+  "blocker": "synthetic_root_build_failed",
+  "native_windows_fallback": {
+    "script": "\\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\tools\\windows\\run_white_knight_mesh_viewmotion.ps1",
+    "recommended_when": "WSL Isaac Lab precheck/render fails due missing omni.kit.usd, gpu.foundation, Vulkan, or headless renderer startup"
+  }
+}

@@ -13,6 +13,11 @@ class CaptureFrame:
     camera_eye: list[float]
     camera_target: list[float]
     fov_degrees: float | None = None
+    projection: str = "perspective"
+    near: float = 0.1
+    far: float = 1000.0
+    ground_mask: Any = None
+    renderer_version: str = "unknown"
 
 class ControlMode(enum.Enum):
     none = 0
@@ -72,6 +77,9 @@ class Engine:
 
     def capture_frame(self, width, height, include_silhouette=True):
         raise RuntimeError(f"{self.get_name()} does not implement capture_frame")
+
+    def release_capture(self):
+        return
     
     @abc.abstractmethod
     def get_timestep(self):

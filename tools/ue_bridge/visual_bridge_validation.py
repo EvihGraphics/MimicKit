@@ -168,8 +168,38 @@ def inspect_mp4(path: Path, expected_fps: int = 0, expected_frames: int = 0) -> 
         report["blocker"] = "mp4_missing_or_empty"
         return report
     if not ffprobe:
-        report["blocker"] = "ffprobe_not_found"
-        return report
+        try:
+            import cv2
+
+            capture = cv2.VideoCapture(str(path))
+            fps = float(capture.get(cv2.CAP_PROP_FPS) or 0.0)
+            frames = int(capture.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
+            width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH) or 0)
+            height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT) or 0)
+            opened = bool(capture.isOpened())
+            capture.release()
+            report.update(
+                {
+                    "probe_method": "opencv_fallback_pending_final_ffprobe",
+                    "fps": fps,
+                    "frame_count": frames,
+                    "probe": {"width": width, "height": height},
+                }
+            )
+            report["ok"] = bool(
+                opened
+                and width > 0
+                and height > 0
+                and (expected_fps <= 0 or math.isclose(fps, float(expected_fps), rel_tol=0.02, abs_tol=0.02))
+                and (expected_frames <= 0 or frames == expected_frames)
+            )
+            if not report["ok"]:
+                report["blocker"] = "mp4_probe_failed"
+            return report
+        except Exception as exc:
+            report["blocker"] = "ffprobe_not_found"
+            report["error"] = f"{type(exc).__name__}: {exc}"
+            return report
     proc = subprocess.run(
         [
             ffprobe,
@@ -248,5 +278,45 @@ def build_scene_contract_v2(
         "color_space": "srgb",
         "camera_samples": camera_samples or [],
     }
+    contract["scene_contract_sha256"] = stable_json_sha256(contract)
+    return contract
+
+
+def build_scene_contract_v3(
+    *,
+    root_name: str,
+    case: str,
+    motion_id: str,
+    width: int = 960,
+    height: int = 540,
+    frames: int = 300,
+    frame_stride: int = 5,
+    fps: int = 12,
+    seed: int = 7,
+    base_env_config: str = "",
+    engine_config: str = "",
+    camera_samples: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    contract: dict[str, Any] = {
+        "schema_version": 3,
+        "root_name": root_name,
+        "camera_mode": "track",
+        "ground": "mimickit_engine_default_flat_ground",
+        "width": int(width),
+        "height": int(height),
+        "frames": int(frames),
+        "frame_stride": int(frame_stride),
+        "mp4_fps": int(fps),
+        "expected_frame_ids": list(range(0, int(frames), max(1, int(frame_stride)))),
+        "motion_id": motion_id,
+        "case": case,
+        "base_env_config": base_env_config,
+        "engine_config": engine_config,
+        "debug_overlays": False,
+        "fov_degrees": 45.0,
+        "seed": int(seed),
+    }
+    if camera_samples:
+        contract["camera_samples"] = camera_samples
     contract["scene_contract_sha256"] = stable_json_sha256(contract)
     return contract

@@ -557,6 +557,12 @@ class NewtonEngine(engine.Engine):
             height=int(height),
             camera_eye=camera_eye.tolist(),
             camera_target=camera_target.tolist(),
+            fov_degrees=45.0,
+            projection="perspective",
+            near=0.1,
+            far=1000.0,
+            ground_mask=None,
+            renderer_version="newton"
         )
     
     def get_timestep(self):
