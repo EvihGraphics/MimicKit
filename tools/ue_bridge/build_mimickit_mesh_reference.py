@@ -21,6 +21,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from visual_bridge_validation import validate_body_world_replay
+
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_TRAIN_ROOT = ROOT / "output" / "train"
@@ -64,6 +66,33 @@ def sha256_file(path: Path) -> str:
         for chunk in iter(lambda: fp.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def finalize_manifest_gate_fields(manifest: dict[str, Any]) -> dict[str, Any]:
+    """Expose the independent v3 source gates on every manifest write."""
+    summary = manifest.get("render_summary") if isinstance(manifest.get("render_summary"), dict) else {}
+    asset_export = manifest.get("asset_export") if isinstance(manifest.get("asset_export"), dict) else {}
+    package_export = manifest.get("package_export") if isinstance(manifest.get("package_export"), dict) else {}
+    expected = int(summary.get("expected_image_count", manifest.get("expected_image_count", 0)) or 0)
+    rgb_count = int(summary.get("image_count", manifest.get("png_count", 0)) or 0)
+    silhouette_count = int(summary.get("silhouette_image_count", 0) or 0)
+    ground_mask_count = int(summary.get("ground_mask_image_count", 0) or 0)
+    manifest["capture_ok"] = bool(summary.get("mesh_reference_pass"))
+    manifest["media_ok"] = bool(
+        expected > 0
+        and rgb_count == expected
+        and silhouette_count == expected
+        and ground_mask_count == expected
+        and summary.get("mp4_ok", manifest.get("mp4_ok"))
+        and not summary.get("source_was_ppm_only", manifest.get("source_was_ppm_only"))
+    )
+    manifest["asset_ok"] = bool(
+        asset_export.get("ok")
+        and isinstance(asset_export.get("asset_structure"), dict)
+        and asset_export["asset_structure"].get("ok")
+    )
+    manifest["package_ok"] = bool(package_export.get("ok"))
+    return manifest
 
 
 def body_order_from_mjcf(path: Path = DEFAULT_XML) -> list[str]:
@@ -239,7 +268,9 @@ def localize_native_manifest_paths(data: Any, train_root: Path, img_root: Path, 
         return value
 
     if isinstance(data, dict):
-        preserved = {"cmd", "stdout_tail", "stderr_tail"}
+        # scene_contract_v3 is source evidence whose declared hash covers the
+        # native provenance paths. Localize pointers to it, not its contents.
+        preserved = {"cmd", "stdout_tail", "stderr_tail", "scene_contract_v3"}
         return {
             key: value if key in preserved else localize_native_manifest_paths(value, train_root, img_root, root_name)
             for key, value in data.items()
@@ -493,7 +524,11 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
     render_meta_path = render_dir / "render_meta.json"
     render_meta = read_json(render_meta_path)
     frames_dir = render_dir / "frames"
+    silhouettes_dir = render_dir / "silhouettes"
+    ground_masks_dir = render_dir / "ground_masks"
     frame_ids = collect_frame_ids(frames_dir)
+    silhouette_ids = collect_frame_ids(silhouettes_dir)
+    ground_mask_ids = collect_frame_ids(ground_masks_dir)
     mp4_file = render_dir / "render.mp4"
     scene_contract_path = render_dir / "scene_contract_v3.json"
     scene_contract_v3 = read_json(scene_contract_path)
@@ -512,6 +547,8 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         and image_count >= expected
         and len(frame_ids) >= expected
         and frame_ids == expected_frame_ids
+        and silhouette_ids == expected_frame_ids
+        and ground_mask_ids == expected_frame_ids
         and mp4_file.exists()
         and mp4_file.stat().st_size > 0
         and mp4_ok
@@ -532,6 +569,10 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         "image_count": image_count,
         "frame_count_on_disk": len(frame_ids),
         "frame_ids": frame_ids,
+        "silhouette_frame_ids": silhouette_ids,
+        "ground_mask_frame_ids": ground_mask_ids,
+        "silhouette_image_count": len(silhouette_ids),
+        "ground_mask_image_count": len(ground_mask_ids),
         "expected_frame_ids": expected_frame_ids,
         "legacy_ppm_count": legacy_ppm_count,
         "source_was_ppm_only": bool(legacy_ppm_count > 0 and len(frame_ids) == 0),
@@ -669,6 +710,8 @@ def run_package_export(args: argparse.Namespace, root_name: str) -> dict[str, An
         shutil.copy2(scene_contract, package_dir / "scene_contract_v3.json")
     required = {
         "pose_dof_replay": package_dir / "visual_replay" / "pose_dof_replay.jsonl",
+        "body_world_replay": package_dir / "visual_replay" / "body_world_replay.jsonl",
+        "body_world_contract": package_dir / "visual_replay" / "body_world_contract.json",
         "pose_dof_meta": package_dir / "visual_replay" / "pose_dof_meta.json",
         "joint_order": package_dir / "joint_order.json",
         "source_rig_asset_spec": package_dir / "mimickit_source_rig_asset_spec.json",
@@ -678,14 +721,18 @@ def run_package_export(args: argparse.Namespace, root_name: str) -> dict[str, An
     }
     result["files"] = {key: str(path) for key, path in required.items()}
     missing = [key for key, path in required.items() if not path.exists() or path.stat().st_size <= 0]
+    data_binding = validate_body_world_replay(package_dir)
+    result["data_binding"] = data_binding
+    result["data_binding_ok"] = bool(data_binding.get("data_binding_ok"))
     result["missing"] = missing
-    result["ok"] = bool(command_result.get("ok")) and not missing
+    result["ok"] = bool(command_result.get("ok")) and not missing and result["data_binding_ok"]
     if not result["ok"] and not result.get("error"):
         result["error"] = "package export failed or required sidecars are missing"
     return result
 
 
 def write_manifest(args: argparse.Namespace, root_name: str, manifest: dict[str, Any]) -> None:
+    finalize_manifest_gate_fields(manifest)
     train_manifest = Path(args.train_root) / root_name / "mesh_reference_manifest.json"
     img_manifest = Path(args.img_root) / root_name / "mesh_reference_manifest.json"
     write_json(train_manifest, manifest)
@@ -897,6 +944,8 @@ def main() -> int:
         manifest["asset_export"] = asset_export
         package_export = run_package_export(args, root_name)
         manifest["package_export"] = package_export
+        manifest["data_binding"] = package_export.get("data_binding", {})
+        manifest["data_binding_ok"] = bool(package_export.get("data_binding_ok"))
         glb_export_ok = (
             str(asset_export.get("format", "")) == "glb"
             and bool(asset_export.get("ok"))
@@ -909,6 +958,7 @@ def main() -> int:
             and bool(contact.get("ok"))
             and glb_export_ok
             and bool(package_export.get("ok"))
+            and bool(manifest.get("data_binding_ok"))
             and not bool(summary.get("source_was_ppm_only"))
         )
         if not manifest["mesh_reference_pass"]:
@@ -922,6 +972,8 @@ def main() -> int:
                 manifest["blocker"] = "mesh_asset_export_failed"
             elif not bool(package_export.get("ok")):
                 manifest["blocker"] = "mesh_package_export_failed"
+            elif not bool(manifest.get("data_binding_ok")):
+                manifest["blocker"] = "body_world_replay_invalid"
             else:
                 manifest["blocker"] = "mesh_reference_gate_failed"
         write_manifest(args, root_name, manifest)

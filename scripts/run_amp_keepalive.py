@@ -14,7 +14,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TRAIN_ROOT = ROOT / "output" / "train"
-EVIH_RESULTS_ROOT = Path("/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge/Demos/MimicKitReplay/results")
+EVIH_RESULTS_ROOT = Path(
+    os.environ.get(
+        "MIMICKIT_EVIH_RESULTS_ROOT",
+        "/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results",
+    )
+)
 RUN_PY = ROOT / "mimickit" / "run.py"
 DEFAULT_PYTHON = os.environ.get("MIMICKIT_TRAIN_PY", "/root/miniconda3/envs/mimickit/bin/python")
 DEFAULT_HEADLESS_ENV = {
@@ -425,23 +430,34 @@ def render_summary(root_out: Path, render_root_arg: str):
     mesh_manifests = sorted(render_root.glob("**/mesh_reference_manifest.json"))
     visual_result_manifests = sorted(render_root.glob("**/visual_result_manifest.json"))
     comparison_sheets = sorted(render_root.glob("**/*_vs_*_sheet.png")) + sorted(render_root.glob("**/*contact_sheet.png"))
-    metric_reports = sorted(render_root.glob("**/visual_metric_report.json")) + sorted(render_root.glob("**/scene_compare_report.json"))
+    comparison_markdown = sorted(render_root.glob("**/comparison_sheet.md"))
+    metric_reports = (
+        sorted(render_root.glob("**/visual_metric_report.json"))
+        + sorted(render_root.glob("**/scene_contract_compare_report.json"))
+        + sorted(render_root.glob("**/scene_visual_metric_report.json"))
+        + sorted(render_root.glob("**/rgb_metric_report.json"))
+    )
     visual_reviews = sorted(render_root.glob("**/visual_review.json"))
-    bridge_case_manifests = sorted(render_root.glob("**/bridge_case_manifest.json"))
+    bridge_case_manifests = sorted({*render_root.glob("**/bridge_case_manifest.json"), *root_out.glob("**/bridge_case_manifest.json")})
     full_chain_manifests = sorted(render_root.parent.glob("**/full_chain_bridge_manifest.json"))
+    bridge_execution_manifests = sorted(render_root.parent.glob("**/plan_6_9_execution_manifest.json"))
 
     evih_result_files = []
+    evih_visual_result_manifests = []
     if EVIH_RESULTS_ROOT.exists():
         for manifest_path in sorted(EVIH_RESULTS_ROOT.glob("**/visual_result_manifest.json")):
             raw = read_text(manifest_path)
             if root_out.name in raw or render_root.name in raw:
                 evih_result_files.append(str(manifest_path))
+                evih_visual_result_manifests.append(manifest_path)
                 result_dir = manifest_path.parent
-                for child in sorted(result_dir.glob("*_vs_*_sheet.png")):
+                for child in sorted(result_dir.glob("**/*_vs_*_sheet.png")):
                     evih_result_files.append(str(child))
                 for child in sorted(result_dir.glob("**/*.mp4")):
                     evih_result_files.append(str(child))
                 for child in sorted(result_dir.glob("**/*_report.json")) + sorted(result_dir.glob("**/visual_review.json")):
+                    evih_result_files.append(str(child))
+                for child in sorted(result_dir.glob("**/comparison_sheet.md")):
                     evih_result_files.append(str(child))
         # Current Walk/Stop result directories predate root-name linkage; expose them
         # when viewing their known AMP roots so the dashboard remains useful.
@@ -457,32 +473,39 @@ def render_summary(root_out: Path, render_root_arg: str):
                     evih_result_files.append(str(child))
 
     files = []
-    for path in [infer_index, global_index, *render_meta[:8], *mp4s[:8], *mesh_manifests[:8], *visual_result_manifests[:8], *comparison_sheets[:8], *metric_reports[:8], *visual_reviews[:8], *full_chain_manifests[:4]]:
+    for path in [infer_index, global_index, *render_meta[:8], *mp4s[:8], *mesh_manifests[:8], *visual_result_manifests[:8], *comparison_sheets[:8], *comparison_markdown[:8], *metric_reports[:8], *visual_reviews[:8], *full_chain_manifests[:4], *bridge_execution_manifests[:4]]:
         if path.exists():
             files.append(str(path))
     files.extend(evih_result_files[:24])
 
     parsed_mesh = [read_json_file(path) for path in mesh_manifests]
     parsed_visual = [read_json_file(path) for path in visual_result_manifests]
+    parsed_visual.extend(read_json_file(path) for path in evih_visual_result_manifests)
     parsed_render = [read_json_file(path) for path in render_meta]
     parsed_bridge = [read_json_file(path) for path in bridge_case_manifests]
     parsed_full = [read_json_file(path) for path in full_chain_manifests]
+    parsed_execution = [read_json_file(path) for path in bridge_execution_manifests]
 
     pass_detected = bool(
-        any(item.get("bridge_pass") for item in parsed_bridge)
-        or any(item.get("bridge_pass") for item in parsed_full)
+        any(item.get("case_acceptance_pass") for item in parsed_bridge)
+        or any(item.get("full_chain_bridge_pass") for item in parsed_full)
     )
-    blockers = [
-        str(item.get("blocker") or item.get("error") or "").strip()
-        for item in [*parsed_bridge, *parsed_full, *parsed_mesh, *parsed_visual, *parsed_render]
-        if str(item.get("blocker") or item.get("error") or "").strip()
-    ]
+    blockers = []
+    for item in [*parsed_bridge, *parsed_full, *parsed_execution, *parsed_mesh, *parsed_visual, *parsed_render]:
+        primary = str(item.get("blocker") or item.get("error") or "").strip()
+        if primary:
+            blockers.append(primary)
+        blockers.extend(str(value).strip() for value in item.get("blockers", []) if str(value).strip())
+        report = item.get("report", {}) if isinstance(item.get("report"), dict) else {}
+        blockers.extend(str(value).strip() for value in report.get("blockers", []) if str(value).strip())
+    blockers = list(dict.fromkeys(blockers))
     has_artifacts = bool(infer_index.exists() or render_meta or mp4s or mesh_manifests or visual_result_manifests or comparison_sheets or evih_result_files)
     status = "available" if pass_detected else ("failed" if blockers else ("pending" if not has_artifacts else "incomplete"))
     return {
         "root_path": str(render_root),
         "status": status,
         "blocker": blockers[0] if blockers else "",
+        "blockers": blockers,
         "infer_viz_index": str(infer_index) if infer_index.exists() else "",
         "render_all_roots": str(global_index) if global_index.exists() else "",
         "render_meta_files": [str(path) for path in render_meta[:12]],
@@ -490,10 +513,14 @@ def render_summary(root_out: Path, render_root_arg: str):
         "mesh_manifest_files": [str(path) for path in mesh_manifests[:12]],
         "visual_result_manifest_files": [str(path) for path in visual_result_manifests[:12]],
         "comparison_sheet_files": [str(path) for path in comparison_sheets[:12]],
+        "comparison_markdown_files": [str(path) for path in comparison_markdown[:12]],
         "metric_report_files": [str(path) for path in metric_reports[:12]],
         "visual_review_files": [str(path) for path in visual_reviews[:12]],
+        "bridge_case_manifest_files": [str(path) for path in bridge_case_manifests[:12]],
         "full_chain_manifest_files": [str(path) for path in full_chain_manifests[:6]],
+        "bridge_execution_manifest_files": [str(path) for path in bridge_execution_manifests[:6]],
         "evih_result_files": evih_result_files[:24],
+        "evih_visual_result_manifest_files": [str(path) for path in evih_visual_result_manifests[:12]],
         "files": files,
     }
 

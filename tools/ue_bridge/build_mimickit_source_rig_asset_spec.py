@@ -214,9 +214,14 @@ def build_source_rig_spec(package_dir: Path, char_xml: Path, char_usd: Path, ue_
     bodies = flatten_bodies(root_body)
     actuators = parse_actuators(root)
     joint_order = read_json(package_dir / "joint_order.json")
+    kinematic_joints = {
+        str(joint.get("body_name", "")): joint
+        for joint in joint_order.get("joints", [])
+        if isinstance(joint, dict) and joint.get("body_name")
+    }
 
     spec = {
-        "schema_version": 1,
+        "schema_version": 2,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "contract_role": "mimickit_source_equivalent_ue_rig_asset_spec",
         "package_dir": str(package_dir.resolve()),
@@ -235,11 +240,25 @@ def build_source_rig_spec(package_dir: Path, char_xml: Path, char_usd: Path, ue_
                 "name": body.get("name", ""),
                 "parent": body.get("parent", ""),
                 "pos": body.get("pos", []),
+                "bind_local_translation_m": kinematic_joints.get(str(body.get("name", "")), {}).get(
+                    "bind_local_translation_m",
+                    body.get("pos", []),
+                ),
+                "bind_local_rotation_xyzw": kinematic_joints.get(str(body.get("name", "")), {}).get(
+                    "bind_local_rotation_xyzw",
+                    [0.0, 0.0, 0.0, 1.0],
+                ),
                 "joint_count": len(body.get("joints", [])),
                 "geom_count": len(body.get("geoms", [])),
             }
             for body in bodies
         ],
+        "kinematic_rig": {
+            "source": "runtime_kin_char_model",
+            "root_bind_local_translation_m": joint_order.get("root_bind_local_translation_m", []),
+            "root_bind_local_rotation_xyzw": joint_order.get("root_bind_local_rotation_xyzw", []),
+            "joints": list(kinematic_joints.values()),
+        },
         "geoms": [geom for body in bodies for geom in body.get("geoms", [])],
         "joints": [joint for body in bodies for joint in body.get("joints", [])],
         "actuators": actuators,

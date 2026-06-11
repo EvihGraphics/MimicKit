@@ -236,6 +236,7 @@ class IsaacLabEngine(engine.Engine):
     def capture_frame(self, width, height, include_silhouette=True):
         import omni.replicator.core as rep
 
+        visual_link_sync = self._sync_capture_visual_links()
         resolution = (int(width), int(height))
         if getattr(self, "_capture_resolution", None) != resolution:
             self.release_capture()
@@ -252,8 +253,10 @@ class IsaacLabEngine(engine.Engine):
 
         rgba = None
         silhouette = None
+        ground_mask = None
         last_error = "capture did not become ready"
         for _attempt in range(6):
+            visual_link_sync = self._sync_capture_visual_links()
             self._sim.render()
             self._app_launcher.app.update()
             data = self._capture_annotator.get_data()
@@ -269,6 +272,7 @@ class IsaacLabEngine(engine.Engine):
                 continue
 
             candidate_silhouette = None
+            candidate_ground_mask = None
             if include_silhouette:
                 semantic_payload = self._capture_semantic_annotator.get_data()
                 semantic = np.asarray(semantic_payload.get("data") if isinstance(semantic_payload, dict) else semantic_payload)
@@ -277,36 +281,68 @@ class IsaacLabEngine(engine.Engine):
                     last_error = f"IsaacLab silhouette shape mismatch: {semantic.shape}"
                     continue
                 target_ids = []
+                ground_ids = []
                 semantic_info = semantic_payload.get("info", {}) if isinstance(semantic_payload, dict) else {}
                 id_to_labels = semantic_info.get("idToLabels", {}) if isinstance(semantic_info, dict) else {}
                 if isinstance(id_to_labels, dict):
                     for raw_id, labels in id_to_labels.items():
-                        if "mimickit_character" in json.dumps(labels, ensure_ascii=True):
+                        label_text = json.dumps(labels, ensure_ascii=True).lower()
+                        if "mimickit_character" in label_text:
                             try:
                                 target_ids.append(int(raw_id))
                             except (TypeError, ValueError):
                                 pass
-                if target_ids:
-                    candidate_silhouette = np.isin(semantic, target_ids).astype(np.uint8) * 255
-                else:
-                    unique_ids, counts = np.unique(semantic, return_counts=True)
-                    if len(unique_ids) < 2:
-                        last_error = f"IsaacLab semantic silhouette has no foreground classes: ids={unique_ids.tolist()}"
-                        continue
-                    background_id = unique_ids[int(np.argmax(counts))]
-                    candidate_silhouette = (semantic != background_id).astype(np.uint8) * 255
+                        if "mimickit_ground" in label_text:
+                            try:
+                                ground_ids.append(int(raw_id))
+                            except (TypeError, ValueError):
+                                pass
+                if not target_ids:
+                    last_error = "IsaacLab semantic capture is missing mimickit_character"
+                    continue
+                if not ground_ids:
+                    last_error = "IsaacLab semantic capture is missing mimickit_ground"
+                    continue
+                candidate_silhouette = np.isin(semantic, target_ids).astype(np.uint8) * 255
+                candidate_ground_mask = np.isin(semantic, ground_ids).astype(np.uint8) * 255
                 nonzero = int(np.count_nonzero(candidate_silhouette))
                 if nonzero <= 0 or nonzero >= candidate_silhouette.size:
                     last_error = "IsaacLab semantic silhouette is empty or full-frame"
                     continue
+                ground_nonzero = int(np.count_nonzero(candidate_ground_mask))
+                if ground_nonzero <= 0 or ground_nonzero >= candidate_ground_mask.size:
+                    last_error = "IsaacLab semantic ground mask is empty or full-frame"
+                    continue
 
             rgba = candidate_rgba
             silhouette = candidate_silhouette
+            ground_mask = candidate_ground_mask
             break
         if rgba is None:
             raise RuntimeError(last_error)
         camera_eye = self.get_camera_pos()
-        camera_target = camera_eye + self.get_camera_dir()
+        camera_target = np.array(self._camera_state.target_world, dtype=np.float64)
+        env_offset = self._env_offsets[0].cpu().numpy()
+        camera_target[:2] -= env_offset
+        projection = "perspective"
+        fov_degrees = 45.0
+        fov_axis = "horizontal"
+        near = 0.1
+        far = 1000.0
+        try:
+            from pxr import UsdGeom
+
+            camera = UsdGeom.Camera(self._stage.GetPrimAtPath("/OmniverseKit_Persp"))
+            focal_length = float(camera.GetFocalLengthAttr().Get())
+            horizontal_aperture = float(camera.GetHorizontalApertureAttr().Get())
+            clipping = camera.GetClippingRangeAttr().Get()
+            if focal_length > 0.0 and horizontal_aperture > 0.0:
+                fov_degrees = float(np.degrees(2.0 * np.arctan(horizontal_aperture / (2.0 * focal_length))))
+            if clipping is not None:
+                near, far = float(clipping[0]), float(clipping[1])
+            projection = str(camera.GetProjectionAttr().Get() or "perspective")
+        except Exception:
+            pass
         return engine.CaptureFrame(
             rgba=rgba,
             silhouette=silhouette,
@@ -314,13 +350,116 @@ class IsaacLabEngine(engine.Engine):
             height=resolution[1],
             camera_eye=camera_eye.tolist(),
             camera_target=camera_target.tolist(),
-            fov_degrees=45.0,
-            projection="perspective",
-            near=0.1,
-            far=1000.0,
-            ground_mask=None,
-            renderer_version="isaaclab"
+            fov_degrees=fov_degrees,
+            fov_axis=fov_axis,
+            projection=projection,
+            near=near,
+            far=far,
+            ground_mask=ground_mask,
+            renderer_version="isaaclab+usd-link-sync-v1",
+            visual_link_sync_ok=visual_link_sync["ok"],
+            visual_link_sync_max_pos_error_m=visual_link_sync["max_pos_error_m"],
+            visual_link_sync_max_rot_error_rad=visual_link_sync["max_rot_error_rad"],
+            visual_link_sync_count=visual_link_sync["link_count"],
         )
+
+    def _sync_capture_visual_links(self):
+        from isaaclab.assets import Articulation
+        import isaaclab.sim as sim_utils
+        from isaacsim.core.prims import XFormPrim
+        from pxr import UsdGeom, UsdPhysics
+
+        if not hasattr(self, "_capture_link_views"):
+            self._capture_link_views = {}
+
+        max_pos_error_m = 0.0
+        max_rot_error_rad = 0.0
+        link_count = 0
+        for obj_id, obj in enumerate(self._objs):
+            if not isinstance(obj, Articulation):
+                continue
+
+            body_names = list(obj.root_physx_view.shared_metatype.link_names)
+            link_views = self._capture_link_views.get(obj_id)
+            if link_views is None:
+                root_path = OBJ_PATH_TEMPLATE.format(0, obj_id)
+                rigid_prims = sim_utils.get_all_matching_child_prims(
+                    root_path,
+                    predicate=lambda prim: prim.HasAPI(UsdPhysics.RigidBodyAPI),
+                    stage=self._stage,
+                    traverse_instance_prims=True,
+                )
+                paths_by_name = {}
+                for prim in rigid_prims:
+                    paths_by_name.setdefault(prim.GetName(), []).append(prim.GetPath().pathString)
+                missing = [name for name in body_names if len(paths_by_name.get(name, [])) != 1]
+                if missing:
+                    raise RuntimeError(
+                        "IsaacLab capture cannot uniquely map articulation links to USD prims: "
+                        f"missing_or_ambiguous={missing} root={root_path}"
+                    )
+                link_views = [
+                    XFormPrim(
+                        prim_paths_expr=paths_by_name[name][0],
+                        name=f"mimickit_capture_link_{obj_id}_{name}",
+                        reset_xform_properties=False,
+                        usd=True,
+                    )
+                    for name in body_names
+                ]
+                self._capture_link_views[obj_id] = link_views
+
+            body_poses_raw = obj.data.body_link_pose_w[0]
+            if torch.is_tensor(body_poses_raw):
+                body_poses = body_poses_raw.detach().cpu().numpy()
+            else:
+                body_poses = np.asarray(body_poses_raw)
+            if body_poses.shape != (len(link_views), 7):
+                raise RuntimeError(
+                    "IsaacLab capture body pose shape mismatch: "
+                    f"actual={body_poses.shape} expected={(len(link_views), 7)}"
+                )
+
+            # Simulator link order is parent-before-child. Updating each view in
+            # that order lets set_world_poses compute the correct child-local pose.
+            for link_view, body_pose in zip(link_views, body_poses):
+                link_view.set_world_poses(
+                    positions=torch.as_tensor(body_pose[:3], dtype=torch.float32, device=self._device).unsqueeze(0),
+                    orientations=torch.as_tensor(body_pose[3:7], dtype=torch.float32, device=self._device).unsqueeze(0),
+                    usd=True,
+                )
+
+            for link_view, body_pose in zip(link_views, body_poses):
+                prim = self._stage.GetPrimAtPath(link_view.prim_paths[0])
+                world = UsdGeom.Xformable(prim).ComputeLocalToWorldTransform(0)
+                stage_pos = np.asarray(world.ExtractTranslation(), dtype=np.float64)
+                stage_quat_gf = world.ExtractRotationQuat()
+                stage_quat = np.asarray(
+                    [stage_quat_gf.GetReal(), *stage_quat_gf.GetImaginary()],
+                    dtype=np.float64,
+                )
+                expected_pos = np.asarray(body_pose[:3], dtype=np.float64)
+                expected_quat = np.asarray(body_pose[3:7], dtype=np.float64)
+                max_pos_error_m = max(max_pos_error_m, float(np.linalg.norm(stage_pos - expected_pos)))
+                stage_quat /= max(float(np.linalg.norm(stage_quat)), 1e-12)
+                expected_quat /= max(float(np.linalg.norm(expected_quat)), 1e-12)
+                quat_dot = float(np.clip(abs(np.dot(stage_quat, expected_quat)), 0.0, 1.0))
+                max_rot_error_rad = max(max_rot_error_rad, float(2.0 * np.arccos(quat_dot)))
+                link_count += 1
+
+        ok = link_count > 0 and max_pos_error_m <= 1e-5 and max_rot_error_rad <= 1e-5
+        if not ok:
+            raise RuntimeError(
+                "IsaacLab capture visual links are not synchronized: "
+                f"links={link_count} max_pos_error_m={max_pos_error_m} "
+                f"max_rot_error_rad={max_rot_error_rad}"
+            )
+        return {
+            "ok": True,
+            "link_count": int(link_count),
+            "max_pos_error_m": float(max_pos_error_m),
+            "max_rot_error_rad": float(max_rot_error_rad),
+        }
 
     def release_capture(self):
         for name in ("_capture_annotator", "_capture_semantic_annotator"):
@@ -697,6 +836,12 @@ class IsaacLabEngine(engine.Engine):
                                                           restitution=0.0)
         plane_cfg = GroundPlaneCfg(physics_material=physics_material, color=ground_col)
         self._ground = spawn_ground_plane(prim_path=ground_path, cfg=plane_cfg)
+        try:
+            from isaacsim.core.utils.semantics import add_update_semantics
+
+            add_update_semantics(self._stage.GetPrimAtPath(ground_path), "mimickit_ground", "class")
+        except Exception:
+            pass
 
         # add rigid body schema to terrain to enable contact sensors
         UsdPhysics.RigidBodyAPI.Apply(self._stage.GetPrimAtPath(ground_path))

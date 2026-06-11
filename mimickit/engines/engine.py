@@ -13,11 +13,16 @@ class CaptureFrame:
     camera_eye: list[float]
     camera_target: list[float]
     fov_degrees: float | None = None
+    fov_axis: str = "vertical"
     projection: str = "perspective"
     near: float = 0.1
     far: float = 1000.0
     ground_mask: Any = None
     renderer_version: str = "unknown"
+    visual_link_sync_ok: bool | None = None
+    visual_link_sync_max_pos_error_m: float | None = None
+    visual_link_sync_max_rot_error_rad: float | None = None
+    visual_link_sync_count: int = 0
 
 class ControlMode(enum.Enum):
     none = 0

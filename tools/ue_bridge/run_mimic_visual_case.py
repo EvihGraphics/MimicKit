@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import math
 import shutil
 import subprocess
 import sys
@@ -394,6 +395,8 @@ def _to_plain_list(value) -> list[float]:
 def _collect_joint_order(ctx) -> dict:
     kin = ctx.env._kin_char_model
     body_names = list(kin.get_body_names())
+    local_translation = kin._local_translation.detach().cpu().tolist()
+    local_rotation = kin._local_rotation.detach().cpu().tolist()
 
     joints: list[dict] = []
     for joint_index in range(1, kin.get_num_joints()):
@@ -413,14 +416,138 @@ def _collect_joint_order(ctx) -> dict:
                 'dof_index': dof_index,
                 'dof_dim': dof_dim,
                 'dof_slice': [dof_index, dof_index + dof_dim],
+                'axis_xyz': _to_plain_list(joint.axis) if joint.axis is not None else [],
+                'bind_local_translation_m': [float(value) for value in local_translation[joint_index]],
+                'bind_local_rotation_xyzw': [float(value) for value in local_rotation[joint_index]],
             }
         )
 
     return {
-        'schema_version': PACKAGE_SCHEMA_VERSION,
+        'schema_version': 3,
         'body_order': body_names,
         'dof_size': int(kin.get_dof_size()),
+        'root_bind_local_translation_m': [float(value) for value in local_translation[0]],
+        'root_bind_local_rotation_xyzw': [float(value) for value in local_rotation[0]],
         'joints': joints,
+    }
+
+
+def _quat_normalize(quaternion: list[float]) -> tuple[float, float, float, float]:
+    x, y, z, w = (float(value) for value in quaternion)
+    length = math.sqrt(x * x + y * y + z * z + w * w) or 1.0
+    return x / length, y / length, z / length, w / length
+
+
+def _quat_mul(left: list[float] | tuple[float, ...], right: list[float] | tuple[float, ...]) -> tuple[float, float, float, float]:
+    x1, y1, z1, w1 = (float(value) for value in left)
+    x2, y2, z2, w2 = (float(value) for value in right)
+    return (
+        w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
+        w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2,
+        w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2,
+        w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2,
+    )
+
+
+def _quat_rotate(quaternion: list[float] | tuple[float, ...], vector: list[float]) -> tuple[float, float, float]:
+    x, y, z, w = (float(value) for value in quaternion)
+    vx, vy, vz = (float(value) for value in vector)
+    tx = 2.0 * (y * vz - z * vy)
+    ty = 2.0 * (z * vx - x * vz)
+    tz = 2.0 * (x * vy - y * vx)
+    return (
+        vx + w * tx + (y * tz - z * ty),
+        vy + w * ty + (z * tx - x * tz),
+        vz + w * tz + (x * ty - y * tx),
+    )
+
+
+def _joint_rotation(joint: dict, dof_pos: list[float]) -> tuple[float, float, float, float]:
+    start = int(joint.get("dof_index", 0))
+    dimension = int(joint.get("dof_dim", 0))
+    values = [float(value) for value in dof_pos[start : start + dimension]]
+    if dimension == 3 and joint.get("joint_type") == "spherical":
+        angle = math.sqrt(sum(value * value for value in values))
+        if angle > 1e-12:
+            scale = math.sin(angle * 0.5) / angle
+            return _quat_normalize([values[0] * scale, values[1] * scale, values[2] * scale, math.cos(angle * 0.5)])
+    elif dimension == 1:
+        axis = joint.get("axis_xyz", [0.0, 1.0, 0.0])
+        length = math.sqrt(sum(float(value) * float(value) for value in axis)) or 1.0
+        half = values[0] * 0.5
+        scale = math.sin(half) / length
+        return _quat_normalize([float(axis[0]) * scale, float(axis[1]) * scale, float(axis[2]) * scale, math.cos(half)])
+    return 0.0, 0.0, 0.0, 1.0
+
+
+def _read_jsonl(path: Path) -> list[dict]:
+    if not path.is_file():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def _write_jsonl(path: Path, rows: list[dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows), encoding="utf-8")
+
+
+def _canonicalize_body_world_replay(pose_path: Path, body_path: Path, joint_order: dict) -> dict:
+    pose_rows = _read_jsonl(pose_path)
+    original_body_rows = {int(row.get("frame", -1)): row for row in _read_jsonl(body_path)}
+    body_order = [str(value) for value in joint_order.get("body_order", [])]
+    joint_by_body = {
+        str(joint.get("body_name", "")): joint
+        for joint in joint_order.get("joints", [])
+        if isinstance(joint, dict) and joint.get("body_name")
+    }
+    output_rows: list[dict] = []
+    for pose in pose_rows:
+        states: dict[str, tuple[tuple[float, float, float], tuple[float, float, float, float]]] = {}
+        root_name = body_order[0]
+        states[root_name] = (
+            tuple(float(value) for value in pose["root_pos_m"]),
+            _quat_normalize(pose["root_rot_xyzw"]),
+        )
+        for body_name in body_order[1:]:
+            joint = joint_by_body[body_name]
+            parent_pos, parent_rot = states[str(joint["parent_body_name"])]
+            offset = _quat_rotate(parent_rot, joint["bind_local_translation_m"])
+            position = tuple(parent_pos[index] + offset[index] for index in range(3))
+            rotation = _quat_mul(
+                parent_rot,
+                _quat_mul(joint["bind_local_rotation_xyzw"], _joint_rotation(joint, pose["dof_pos"])),
+            )
+            states[body_name] = position, rotation
+        original = original_body_rows.get(int(pose["frame"]), {})
+        positions = [value for body_name in body_order for value in states[body_name][0]]
+        rotations = [value for body_name in body_order for value in states[body_name][1]]
+        pose["kin_char_model_body_pos_m"] = pose.get("body_pos_m", [])
+        pose["kin_char_model_body_rot_xyzw"] = pose.get("body_rot_xyzw", [])
+        pose["body_pos_m"] = positions
+        pose["body_rot_xyzw"] = rotations
+        pose["body_world_source"] = "canonical_source_rig_fk_v3"
+        output_rows.append(
+            {
+                "frame": int(pose["frame"]),
+                "episode": int(pose.get("episode", 0)),
+                "time_seconds": float(pose.get("time_seconds", 0.0)),
+                "source": "canonical_source_rig_fk_v3",
+                "body_order": body_order,
+                "body_pos_m": positions,
+                "body_rot_xyzw": rotations,
+                "kin_char_model_body_pos_m": original.get("body_pos_m", []),
+                "kin_char_model_body_rot_xyzw": original.get("body_rot_xyzw", []),
+                "engine_body_pos_m": original.get("engine_body_pos_m", []),
+                "engine_body_rot_xyzw": original.get("engine_body_rot_xyzw", []),
+            }
+        )
+    _write_jsonl(pose_path, pose_rows)
+    _write_jsonl(body_path, output_rows)
+    return {
+        "schema_version": 1,
+        "source": "canonical_source_rig_fk_v3",
+        "row_count": len(output_rows),
+        "body_count": len(body_order),
     }
 
 
@@ -490,6 +617,7 @@ def _build_obs_action_spec(brain_name: str, schema: dict, fixture_meta: dict) ->
             'root_vel_dim': int(((fixture_meta.get('shape') or {}).get('root_vel_dim')) or 0),
             'root_ang_vel_dim': int(((fixture_meta.get('shape') or {}).get('root_ang_vel_dim')) or 0),
             'visual_replay_file': 'visual_replay/pose_dof_replay.jsonl',
+            'body_world_replay_file': 'visual_replay/body_world_replay.jsonl',
             'visual_replay_meta_file': 'visual_replay/pose_dof_meta.json',
         },
         'files': {
@@ -497,6 +625,7 @@ def _build_obs_action_spec(brain_name: str, schema: dict, fixture_meta: dict) ->
             'joint_order': 'joint_order.json',
             'brain_manifest': 'brain_manifest.json',
             'visual_replay': 'visual_replay/pose_dof_replay.jsonl',
+            'body_world_replay': 'visual_replay/body_world_replay.jsonl',
             'visual_replay_meta': 'visual_replay/pose_dof_meta.json',
         },
     }
@@ -614,6 +743,7 @@ def build_arc_package(
     obs_fixture_path = out_dir / 'obs_fixture.jsonl'
     onnx_meta_path = out_dir / 'onnx_export_meta.json'
     visual_replay_path = out_dir / 'visual_replay' / 'pose_dof_replay.jsonl'
+    body_world_replay_path = out_dir / 'visual_replay' / 'body_world_replay.jsonl'
     visual_replay_meta_path = out_dir / 'visual_replay' / 'pose_dof_meta.json'
 
     schema = read_json(schema_path)
@@ -649,6 +779,8 @@ def build_arc_package(
     package_manifest_path = out_dir / 'export_package_manifest.json'
 
     save_json(joint_order_path, joint_order)
+    body_world_contract = _canonicalize_body_world_replay(visual_replay_path, body_world_replay_path, joint_order)
+    save_json(out_dir / "visual_replay" / "body_world_contract.json", body_world_contract)
     save_json(normalization_path, normalization_stats)
     write_yaml_or_json(obs_action_spec_path, obs_action_spec)
     visual_alignment_contract = _build_visual_alignment_contract(ctx, args, source_root, joint_order)
@@ -671,6 +803,7 @@ def build_arc_package(
         'fixture_file': obs_fixture_path.name,
         'reference_action_file': ref_actions_path.name,
         'visual_replay_file': 'visual_replay/pose_dof_replay.jsonl',
+        'body_world_replay_file': 'visual_replay/body_world_replay.jsonl',
         'visual_replay_meta_file': 'visual_replay/pose_dof_meta.json',
         'visual_alignment_contract_file': visual_alignment_path.name,
         'skeletal_mapping_contract_file': skeletal_mapping_path.name,
@@ -679,6 +812,7 @@ def build_arc_package(
         'runtime_control_basis_status': 'blocked_until_live_observation_basis_validation',
         'visual_replay': {
             'pose_dof_replay': 'visual_replay/pose_dof_replay.jsonl',
+            'body_world_replay': 'visual_replay/body_world_replay.jsonl',
             'pose_dof_meta': 'visual_replay/pose_dof_meta.json',
         },
         'source': {
@@ -703,6 +837,7 @@ def build_arc_package(
         'obs_fixture': obs_fixture_path.name,
         'ref_actions': ref_actions_path.name,
         'visual_replay': 'visual_replay/pose_dof_replay.jsonl',
+        'body_world_replay': 'visual_replay/body_world_replay.jsonl',
         'visual_replay_meta': 'visual_replay/pose_dof_meta.json',
         'fixture_meta': fixture_meta_path.name,
         'visual_alignment_contract': visual_alignment_path.name,
@@ -770,6 +905,12 @@ def build_dummy_visual_package(
     brain_manifest_path = out_dir / "brain_manifest.json"
     package_manifest_path = out_dir / "export_package_manifest.json"
     save_json(joint_order_path, joint_order)
+    body_world_contract = _canonicalize_body_world_replay(
+        out_dir / "visual_replay" / "pose_dof_replay.jsonl",
+        out_dir / "visual_replay" / "body_world_replay.jsonl",
+        joint_order,
+    )
+    save_json(out_dir / "visual_replay" / "body_world_contract.json", body_world_contract)
     save_json(visual_alignment_path, visual_alignment_contract)
     save_json(skeletal_mapping_path, visual_alignment_contract["skeletal_mapping_contract"])
     save_json(
@@ -794,6 +935,8 @@ def build_dummy_visual_package(
             "artifacts": {
                 "joint_order": joint_order_path.name,
                 "visual_replay": "visual_replay/pose_dof_replay.jsonl",
+                "body_world_replay": "visual_replay/body_world_replay.jsonl",
+                "body_world_contract": "visual_replay/body_world_contract.json",
                 "visual_replay_meta": "visual_replay/pose_dof_meta.json",
                 "visual_alignment_contract": visual_alignment_path.name,
                 "skeletal_mapping_contract": skeletal_mapping_path.name,
@@ -873,6 +1016,7 @@ def main() -> int:
     obs_fixture = out_dir / 'obs_fixture.jsonl'
     fixture_meta = out_dir / 'fixture_meta.json'
     visual_replay = out_dir / 'visual_replay' / 'pose_dof_replay.jsonl'
+    body_world_replay = out_dir / 'visual_replay' / 'body_world_replay.jsonl'
     visual_replay_meta = out_dir / 'visual_replay' / 'pose_dof_meta.json'
     schema_path = out_dir / 'schema.json'
     onnx_path = out_dir / 'policy_actor.onnx'
@@ -987,6 +1131,7 @@ def main() -> int:
         and obs_fixture.exists()
         and fixture_meta.exists()
         and visual_replay.exists()
+        and body_world_replay.exists()
         and visual_replay_meta.exists()
         and schema_path.exists()
         and onnx_path.exists()
@@ -1014,6 +1159,7 @@ def main() -> int:
         'obs_fixture': str(obs_fixture),
         'ref_actions': str(ref_actions),
         'visual_replay': str(visual_replay),
+        'body_world_replay': str(body_world_replay),
         'visual_replay_meta': str(visual_replay_meta),
         'fixture_meta': str(fixture_meta),
         'schema': str(schema_path),

@@ -83,6 +83,19 @@ def _try_get_char_tensor_row(env, getter_name: str) -> list[float] | None:
         return None
 
 
+def _try_get_kinematic_body_world_from_env(env) -> tuple[list[float] | None, list[float] | None]:
+    try:
+        char_id = env._get_char_id()
+        root_pos = env._engine.get_root_pos(char_id)
+        root_rot = env._engine.get_root_rot(char_id)
+        dof_pos = env._engine.get_dof_pos(char_id)
+        joint_rot = env._kin_char_model.dof_to_rot(dof_pos)
+        body_pos, body_rot = env._kin_char_model.forward_kinematics(root_pos, root_rot, joint_rot)
+        return _to_numpy_row(body_pos[0:1]), _to_numpy_row(body_rot[0:1])
+    except Exception:
+        return None, None
+
+
 def _try_get_visual_replay_state_from_env(env) -> dict[str, list[float]]:
     state: dict[str, list[float]] = {}
     getters = {
@@ -92,11 +105,19 @@ def _try_get_visual_replay_state_from_env(env) -> dict[str, list[float]]:
         "root_ang_vel_radps": "get_root_ang_vel",
         "dof_pos": "get_dof_pos",
         "dof_vel": "get_dof_vel",
+        "body_pos_m": "get_body_pos",
+        "body_rot_xyzw": "get_body_rot",
     }
     for field, getter_name in getters.items():
         value = _try_get_char_tensor_row(env, getter_name)
         if value is not None and len(value) > 0:
             state[field] = value
+    body_pos, body_rot = _try_get_kinematic_body_world_from_env(env)
+    if body_pos is not None and body_rot is not None:
+        state["engine_body_pos_m"] = state.get("body_pos_m", [])
+        state["engine_body_rot_xyzw"] = state.get("body_rot_xyzw", [])
+        state["body_pos_m"] = body_pos
+        state["body_rot_xyzw"] = body_rot
     return state
 
 
@@ -282,6 +303,7 @@ def main() -> int:
     obs_path = out_dir / 'obs_fixture.jsonl'
     ref_path = out_dir / 'ref_actions.jsonl'
     visual_replay_path = out_dir / 'visual_replay' / 'pose_dof_replay.jsonl'
+    body_world_replay_path = out_dir / 'visual_replay' / 'body_world_replay.jsonl'
     visual_replay_meta_path = out_dir / 'visual_replay' / 'pose_dof_meta.json'
     schema_path = out_dir / 'schema.json'
     meta_path = out_dir / 'fixture_meta.json'
@@ -291,6 +313,22 @@ def main() -> int:
     _write_jsonl(obs_path, obs_rows)
     _write_jsonl(ref_path, action_rows)
     _write_jsonl(visual_replay_path, visual_replay_rows)
+    body_order = [str(value) for value in ctx.env._kin_char_model.get_body_names()]
+    body_world_rows = [
+        {
+            "frame": int(row["frame"]),
+            "episode": int(row["episode"]),
+            "time_seconds": float(row["time_seconds"]),
+            "body_order": body_order,
+            "source": "kin_char_model_fk",
+            "body_pos_m": row.get("body_pos_m", []),
+            "body_rot_xyzw": row.get("body_rot_xyzw", []),
+            "engine_body_pos_m": row.get("engine_body_pos_m", []),
+            "engine_body_rot_xyzw": row.get("engine_body_rot_xyzw", []),
+        }
+        for row in visual_replay_rows
+    ]
+    _write_jsonl(body_world_replay_path, body_world_rows)
     save_json(schema_path, schema)
 
     dof_pos_dim = 0
@@ -332,6 +370,7 @@ def main() -> int:
                 'root_rot_dim': int(root_rot_dim),
                 'root_vel_dim': int(root_vel_dim),
                 'root_ang_vel_dim': int(root_ang_vel_dim),
+                'body_count': int(len(body_order)),
                 'policy_action_dim': int(act_dim),
             },
             'timing': {
@@ -343,8 +382,12 @@ def main() -> int:
                 'root_pos_unit': 'meters',
                 'root_rot_order': 'xyzw',
                 'dof_pos_unit': 'radians',
+                'body_world_source': 'kin_char_model_fk',
             },
-            'files': {'pose_dof_replay': str(visual_replay_path.resolve())},
+            'files': {
+                'pose_dof_replay': str(visual_replay_path.resolve()),
+                'body_world_replay': str(body_world_replay_path.resolve()),
+            },
         },
     )
 
@@ -362,6 +405,7 @@ def main() -> int:
             'obs_fixture': str(obs_path.resolve()),
             'ref_actions': str(ref_path.resolve()),
             'visual_replay': str(visual_replay_path.resolve()),
+            'body_world_replay': str(body_world_replay_path.resolve()),
             'visual_replay_meta': str(visual_replay_meta_path.resolve()),
         },
     }

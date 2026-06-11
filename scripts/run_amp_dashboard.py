@@ -727,11 +727,17 @@ def collect_keepalive_status(root_path: Path, config):
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("comparison_sheet_files", [])[:8]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("comparison_markdown_files", [])[:8]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("metric_report_files", [])[:8]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("visual_review_files", [])[:4]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("bridge_case_manifest_files", [])[:4]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("full_chain_manifest_files", [])[:4]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("bridge_execution_manifest_files", [])[:4]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("evih_result_files", [])[:12]:
         links.append({"label": f"evih/{Path(path).name}", "href": artifact_href(path)})
@@ -861,11 +867,17 @@ def collect_plain_root_status(root_path: Path, config):
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("comparison_sheet_files", [])[:8]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("comparison_markdown_files", [])[:8]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("metric_report_files", [])[:8]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("visual_review_files", [])[:4]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("bridge_case_manifest_files", [])[:4]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("full_chain_manifest_files", [])[:4]:
+        links.append({"label": Path(path).name, "href": artifact_href(path)})
+    for path in render.get("bridge_execution_manifest_files", [])[:4]:
         links.append({"label": Path(path).name, "href": artifact_href(path)})
     for path in render.get("evih_result_files", [])[:12]:
         links.append({"label": f"evih/{Path(path).name}", "href": artifact_href(path)})

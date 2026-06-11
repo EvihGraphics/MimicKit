@@ -665,6 +665,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     render_dir = Path(job["render_dir"])
     frames_dir = render_dir / "frames"
     silhouette_dir = render_dir / "silhouettes"
+    ground_mask_dir = render_dir / "ground_masks"
     meta_path = render_dir / "render_meta.json"
     expected = expected_image_count(args.frames, args.frame_stride)
 
@@ -690,16 +691,22 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
         try:
             old = json.loads(meta_path.read_text(encoding="utf-8"))
             existing_images = count_frame_images(frames_dir)
+            existing_silhouettes = count_frame_images(silhouette_dir)
+            existing_ground_masks = count_frame_images(ground_mask_dir)
             if (
                 str(old.get("status", "")) == "ok"
                 and int(old.get("image_count", 0)) >= expected
                 and existing_images >= expected
+                and existing_silhouettes >= expected
+                and existing_ground_masks >= expected
                 and int(old.get("frames", -1)) == int(args.frames)
                 and int(old.get("frame_stride", -1)) == int(args.frame_stride)
             ):
                 row["status"] = "skipped_resume"
                 row["resumed"] = 1
                 row["image_count"] = int(existing_images)
+                row["silhouette_image_count"] = int(existing_silhouettes)
+                row["ground_mask_image_count"] = int(existing_ground_masks)
                 row["mp4_file"] = str(render_dir / "render.mp4")
                 row["mp4_ok"] = int((render_dir / "render.mp4").exists())
                 row["mp4_error"] = ""
@@ -718,6 +725,9 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     if silhouette_dir.exists():
         shutil.rmtree(silhouette_dir)
     silhouette_dir.mkdir(parents=True, exist_ok=True)
+    if ground_mask_dir.exists():
+        shutil.rmtree(ground_mask_dir)
+    ground_mask_dir.mkdir(parents=True, exist_ok=True)
 
     random.seed(int(args.seed))
     np.random.seed(int(args.seed))
@@ -778,13 +788,6 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
 
             with torch.no_grad():
                 for frame_idx in range(int(args.frames)):
-                    if agent_loop:
-                        action, _action_info = ctx.agent._decide_action(obs, info)
-                        _next_obs, _reward, done, _next_info = ctx.agent._step_env(action)
-                    else:
-                        action = action_fn(obs)
-                        _next_obs, _reward, done, _next_info = ctx.env.step(action)
-
                     if frame_idx % int(args.frame_stride) == 0:
                         ctx.env._engine.render()
                         capture = ctx.env._engine.capture_frame(
@@ -792,8 +795,18 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                             int(args.height),
                             include_silhouette=True,
                         )
+                        if str(capture.renderer_version).startswith("isaaclab"):
+                            if capture.visual_link_sync_ok is not True:
+                                raise RuntimeError("IsaacLab capture visual-link sync did not pass")
+                            if int(capture.visual_link_sync_count) <= 0:
+                                raise RuntimeError("IsaacLab capture visual-link sync has no links")
+                            if float(capture.visual_link_sync_max_pos_error_m) > 1e-5:
+                                raise RuntimeError("IsaacLab capture visual-link position sync exceeded tolerance")
+                            if float(capture.visual_link_sync_max_rot_error_rad) > 1e-5:
+                                raise RuntimeError("IsaacLab capture visual-link rotation sync exceeded tolerance")
                         frame_path = frames_dir / f"frame_{frame_idx:06d}.png"
                         silhouette_path = silhouette_dir / f"frame_{frame_idx:06d}.png"
+                        ground_mask_path = ground_mask_dir / f"frame_{frame_idx:06d}.png"
                         from PIL import Image
 
                         rgba = np.asarray(capture.rgba)
@@ -802,6 +815,10 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         Image.fromarray(rgba).save(frame_path)
                         if capture.silhouette is not None:
                             Image.fromarray(np.asarray(capture.silhouette).astype(np.uint8), mode="L").save(silhouette_path)
+                        if capture.ground_mask is not None:
+                            Image.fromarray(np.asarray(capture.ground_mask).astype(np.uint8), mode="L").save(ground_mask_path)
+                        if not silhouette_path.exists() or not ground_mask_path.exists():
+                            raise RuntimeError("capture is missing required silhouette or ground mask")
                         frame_report = inspect_png(frame_path, int(args.width), int(args.height))
                         if not frame_report.get("ok"):
                             raise RuntimeError(f"captured PNG failed validation: {frame_report}")
@@ -811,13 +828,30 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                                 "frame": int(frame_idx),
                                 "file": frame_path.name,
                                 "silhouette_file": silhouette_path.name if silhouette_path.exists() else "",
+                                "ground_mask_file": ground_mask_path.name if ground_mask_path.exists() else "",
                                 "sha256": frame_hashes[-1],
                                 "camera_eye": capture.camera_eye,
                                 "camera_target": capture.camera_target,
                                 "fov_degrees": capture.fov_degrees,
+                                "fov_axis": capture.fov_axis,
+                                "projection": capture.projection,
+                                "near": capture.near,
+                                "far": capture.far,
+                                "renderer_version": capture.renderer_version,
+                                "visual_link_sync_ok": capture.visual_link_sync_ok,
+                                "visual_link_sync_max_pos_error_m": capture.visual_link_sync_max_pos_error_m,
+                                "visual_link_sync_max_rot_error_rad": capture.visual_link_sync_max_rot_error_rad,
+                                "visual_link_sync_count": capture.visual_link_sync_count,
                             }
                         )
                         image_count += 1
+
+                    if agent_loop:
+                        action, _action_info = ctx.agent._decide_action(obs, info)
+                        _next_obs, _reward, done, _next_info = ctx.agent._step_env(action)
+                    else:
+                        action = action_fn(obs)
+                        _next_obs, _reward, done, _next_info = ctx.env.step(action)
 
                     if agent_loop:
                         obs, info = ctx.agent._reset_done_envs(done)
@@ -855,6 +889,15 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         "eye": item["camera_eye"],
                         "target": item["camera_target"],
                         "fov_degrees": item["fov_degrees"],
+                        "fov_axis": item["fov_axis"],
+                        "projection": item["projection"],
+                        "near": item["near"],
+                        "far": item["far"],
+                        "renderer_version": item["renderer_version"],
+                        "visual_link_sync_ok": item["visual_link_sync_ok"],
+                        "visual_link_sync_max_pos_error_m": item["visual_link_sync_max_pos_error_m"],
+                        "visual_link_sync_max_rot_error_rad": item["visual_link_sync_max_rot_error_rad"],
+                        "visual_link_sync_count": item["visual_link_sync_count"],
                     }
                     for item in captures
                 ],
@@ -874,12 +917,33 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                 seed=args.seed,
                 base_env_config=job.get("env_config", ""),
                 engine_config=job.get("engine_config", ""),
-                camera_samples=scene_contract.get("camera_samples"),
+                renderer=str(ctx.env._engine.get_name()),
+                source_capture_index_sha256=sha256_file(index_path),
+                camera_samples=[
+                    {
+                        "frame": item["frame"],
+                        "eye": item["camera_eye"],
+                        "target": item["camera_target"],
+                        "fov_degrees": item["fov_degrees"],
+                        "fov_axis": item["fov_axis"],
+                        "projection": item["projection"],
+                        "near": item["near"],
+                        "far": item["far"],
+                        "renderer_version": item["renderer_version"],
+                        "visual_link_sync_ok": item["visual_link_sync_ok"],
+                        "visual_link_sync_max_pos_error_m": item["visual_link_sync_max_pos_error_m"],
+                        "visual_link_sync_max_rot_error_rad": item["visual_link_sync_max_rot_error_rad"],
+                        "visual_link_sync_count": item["visual_link_sync_count"],
+                    }
+                    for item in captures
+                ],
             )
             scene_contract_path_v3 = render_dir / "scene_contract_v3.json"
             write_json(scene_contract_path_v3, scene_contract_v3)
 
             row["image_count"] = int(image_count)
+            row["silhouette_image_count"] = count_frame_images(silhouette_dir)
+            row["ground_mask_image_count"] = count_frame_images(ground_mask_dir)
             row["resumed"] = 0
             row["error"] = ""
             row["frame_ids"] = [item["frame"] for item in captures]
@@ -896,6 +960,8 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
             row["mp4_error"] = mp4_error or str(mp4_probe.get("blocker", ""))
             row["status"] = "ok" if (
                 image_count == expected
+                and row["silhouette_image_count"] == expected
+                and row["ground_mask_image_count"] == expected
                 and bool(row["mp4_ok"])
                 and bool(row["motion_visible"])
             ) else "error"
