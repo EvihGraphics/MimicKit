@@ -21,6 +21,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from visual_bridge_validation import V3_MIN_UNIQUE_DYNAMIC_FRAMES
+from visual_bridge_validation import V3_REQUIRED_FRAME_IDS
 from visual_bridge_validation import validate_body_world_replay
 
 
@@ -68,6 +70,27 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def decoded_mp4_unique_frame_count(path: Path) -> int:
+    ffmpeg = shutil.which("ffmpeg")
+    if not ffmpeg or not path.is_file():
+        return 0
+    process = subprocess.run(
+        [ffmpeg, "-v", "error", "-i", str(path), "-f", "framemd5", "-"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    if process.returncode != 0:
+        return 0
+    return len(
+        {
+            line.rsplit(",", 1)[-1].strip()
+            for line in process.stdout.splitlines()
+            if line and not line.startswith("#") and "," in line
+        }
+    )
+
+
 def finalize_manifest_gate_fields(manifest: dict[str, Any]) -> dict[str, Any]:
     """Expose the independent v3 source gates on every manifest write."""
     summary = manifest.get("render_summary") if isinstance(manifest.get("render_summary"), dict) else {}
@@ -77,6 +100,11 @@ def finalize_manifest_gate_fields(manifest: dict[str, Any]) -> dict[str, Any]:
     rgb_count = int(summary.get("image_count", manifest.get("png_count", 0)) or 0)
     silhouette_count = int(summary.get("silhouette_image_count", 0) or 0)
     ground_mask_count = int(summary.get("ground_mask_image_count", 0) or 0)
+    frame_ids = list(summary.get("frame_ids", []))
+    expected_frame_ids = list(summary.get("expected_frame_ids", []))
+    unique_rgb_count = int(summary.get("unique_rgb_frame_count", 0) or 0)
+    unique_silhouette_count = int(summary.get("unique_silhouette_frame_count", 0) or 0)
+    mp4_unique_frame_count = int(summary.get("mp4_unique_frame_count", 0) or 0)
     manifest["capture_ok"] = bool(summary.get("mesh_reference_pass"))
     manifest["media_ok"] = bool(
         expected > 0
@@ -85,6 +113,18 @@ def finalize_manifest_gate_fields(manifest: dict[str, Any]) -> dict[str, Any]:
         and ground_mask_count == expected
         and summary.get("mp4_ok", manifest.get("mp4_ok"))
         and not summary.get("source_was_ppm_only", manifest.get("source_was_ppm_only"))
+    )
+    manifest["dynamic_sequence_ok"] = bool(
+        frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and expected_frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and rgb_count == len(V3_REQUIRED_FRAME_IDS)
+        and silhouette_count == len(V3_REQUIRED_FRAME_IDS)
+        and ground_mask_count == len(V3_REQUIRED_FRAME_IDS)
+        and unique_rgb_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and unique_silhouette_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and mp4_unique_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and summary.get("motion_visible")
+        and summary.get("mp4_ok", manifest.get("mp4_ok"))
     )
     manifest["asset_ok"] = bool(
         asset_export.get("ok")
@@ -169,6 +209,7 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
         "tools/ue_bridge/build_mimickit_exact_mesh_reference.py",
         "tools/ue_bridge/_bridge_common.py",
         "tools/ue_bridge/export_dummy_fixture.py",
+        "tools/ue_bridge/export_obs_fixture.py",
         "tools/ue_bridge/run_mimic_visual_case.py",
         "tools/ue_bridge/build_mimickit_render_sequences.py",
         "tools/ue_bridge/visual_bridge_validation.py",
@@ -183,8 +224,9 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
         "tools/windows/build_white_knight_mesh_reference_native.ps1",
         "tools/windows/build_exact_mesh_reference_native.ps1",
     ]
-    copied: list[dict[str, str]] = []
+    copied: list[dict[str, Any]] = []
     missing: list[str] = []
+    mismatches: list[str] = []
     for rel in rel_paths:
         src = ROOT / rel
         dst = workspace / rel
@@ -193,8 +235,34 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
             continue
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
-        copied.append({"src": str(src), "dst": str(dst)})
-    return {"ok": not missing, "workspace": str(workspace), "copied": copied, "missing": missing}
+        src_sha256 = sha256_file(src)
+        dst_sha256 = sha256_file(dst)
+        hash_match = bool(src_sha256) and src_sha256 == dst_sha256
+        if not hash_match:
+            mismatches.append(rel)
+        copied.append(
+            {
+                "rel_path": rel,
+                "src": str(src),
+                "dst": str(dst),
+                "src_sha256": src_sha256,
+                "dst_sha256": dst_sha256,
+                "hash_match": hash_match,
+            }
+        )
+    blocker = (
+        f"native_workspace_script_hash_mismatch:{mismatches[0]}"
+        if mismatches
+        else (f"native_workspace_script_missing:{missing[0]}" if missing else "")
+    )
+    return {
+        "ok": not missing and not mismatches,
+        "workspace": str(workspace),
+        "copied": copied,
+        "missing": missing,
+        "mismatches": mismatches,
+        "blocker": blocker,
+    }
 
 
 def run_windows_native_reference(args: argparse.Namespace, root_name: str) -> dict[str, Any]:
@@ -540,6 +608,16 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
     image_count = int(render_meta.get("image_count", 0) or 0)
     mp4_ok = bool(int(render_meta.get("mp4_ok", 0) or 0)) if "mp4_ok" in render_meta else mp4_file.exists()
     expected_frame_ids = list(range(0, int(args.frames), max(1, int(args.frame_stride))))
+    unique_rgb_frame_count = len({sha256_file(path) for path in frames_dir.glob("frame_*.png")})
+    unique_silhouette_frame_count = len({sha256_file(path) for path in silhouettes_dir.glob("frame_*.png")})
+    mp4_unique_frame_count = decoded_mp4_unique_frame_count(mp4_file)
+    dynamic_sequence_ok = bool(
+        frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and expected_frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and unique_rgb_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and unique_silhouette_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and mp4_unique_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+    )
     pass_ok = (
         status in {"ok", "skipped_resume"}
         and visual_kind == "mesh"
@@ -554,6 +632,7 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         and mp4_ok
         and bool(render_meta.get("motion_visible"))
         and bool(scene_contract_v3.get("scene_contract_sha256"))
+        and dynamic_sequence_ok
     )
     return {
         "render_dir": str(render_dir),
@@ -581,6 +660,10 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         "mp4_size_bytes": mp4_file.stat().st_size if mp4_file.exists() else 0,
         "mp4_ok": mp4_ok,
         "motion_visible": bool(render_meta.get("motion_visible")),
+        "unique_rgb_frame_count": unique_rgb_frame_count,
+        "unique_silhouette_frame_count": unique_silhouette_frame_count,
+        "mp4_unique_frame_count": mp4_unique_frame_count,
+        "dynamic_sequence_ok": dynamic_sequence_ok,
         "scene_contract_v3_file": str(scene_contract_path),
         "scene_contract_v3": scene_contract_v3,
         "scene_contract_sha256": str(scene_contract_v3.get("scene_contract_sha256", "")),

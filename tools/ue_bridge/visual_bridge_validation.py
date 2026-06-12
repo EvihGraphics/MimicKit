@@ -13,6 +13,16 @@ from pathlib import Path
 from typing import Any
 
 
+V3_REQUIRED_WIDTH = 960
+V3_REQUIRED_HEIGHT = 540
+V3_REQUIRED_FRAMES = 300
+V3_REQUIRED_FRAME_STRIDE = 5
+V3_REQUIRED_FPS = 12
+V3_REQUIRED_SEED = 7
+V3_REQUIRED_FRAME_IDS = tuple(range(0, V3_REQUIRED_FRAMES, V3_REQUIRED_FRAME_STRIDE))
+V3_MIN_UNIQUE_DYNAMIC_FRAMES = 6
+
+
 def sha256_file(path: Path) -> str:
     if not path.exists() or not path.is_file():
         return ""
@@ -299,6 +309,21 @@ def build_scene_contract_v3(
     source_capture_index_sha256: str = "",
     camera_samples: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    actual_settings = (int(width), int(height), int(frames), int(frame_stride), int(fps), int(seed))
+    required_settings = (
+        V3_REQUIRED_WIDTH,
+        V3_REQUIRED_HEIGHT,
+        V3_REQUIRED_FRAMES,
+        V3_REQUIRED_FRAME_STRIDE,
+        V3_REQUIRED_FPS,
+        V3_REQUIRED_SEED,
+    )
+    if actual_settings != required_settings:
+        raise ValueError(
+            "scene contract v3 requires "
+            f"{V3_REQUIRED_WIDTH}x{V3_REQUIRED_HEIGHT}, {V3_REQUIRED_FRAMES} frames, "
+            f"stride {V3_REQUIRED_FRAME_STRIDE}, {V3_REQUIRED_FPS} fps, seed {V3_REQUIRED_SEED}"
+        )
     expected_frame_ids = list(range(0, int(frames), max(1, int(frame_stride))))
     samples = camera_samples or []
     samples_by_frame = {
@@ -325,7 +350,14 @@ def build_scene_contract_v3(
         far = float(sample.get("far", 0.0))
         if not math.isfinite(near) or not math.isfinite(far) or near <= 0.0 or far <= near:
             raise ValueError(f"scene contract camera sample has invalid clipping range for frame {frame_id}")
+        if not str(sample.get("renderer_version", "")).strip():
+            raise ValueError(f"scene contract camera sample is missing renderer_version for frame {frame_id}")
+        if int(sample.get("capture_settle_updates", 0) or 0) <= 0:
+            raise ValueError(f"scene contract camera sample has invalid capture_settle_updates for frame {frame_id}")
+        if sample.get("visual_link_sync_ok") is not True or int(sample.get("visual_link_sync_count", 0) or 0) <= 0:
+            raise ValueError(f"scene contract camera sample has invalid visual-link sync for frame {frame_id}")
 
+    settle_updates = sorted({int(sample["capture_settle_updates"]) for sample in samples})
     contract: dict[str, Any] = {
         "schema_version": 3,
         "root_name": root_name,
@@ -354,16 +386,26 @@ def build_scene_contract_v3(
             "semantic_label": "mimickit_ground",
             "color_rgb": [0.017, 0.0153, 0.01275],
             "albedo_add": 10.0,
-            "grid_spacing_m": 1.0,
+            "grid_spacing_m": 0.5,
             "major_grid_spacing_m": 5.0,
         },
         "lights": {
-            "distant": {"intensity": 2000.0, "color_rgb": [0.8, 0.8, 0.8]},
+            "distant": {
+                "intensity": 2000.0,
+                "color_rgb": [0.8, 0.8, 0.8],
+                "rotation_euler_xyz_rad": [0.7, 0.0, 0.6],
+                "direction_world": [-0.36375266832671915, 0.5316958010320105, -0.7648421872844884],
+                "casts_shadows": True,
+            },
             "dome": {"intensity": 800.0, "color_rgb": [0.7, 0.7, 0.7]},
         },
         "renderer": renderer,
         "color_space": "srgb",
         "debug_overlays": False,
+        "capture": {
+            "settle_updates_per_attempt": settle_updates,
+            "requires_visual_link_sync": True,
+        },
         "seed": int(seed),
         "camera_samples": samples,
     }

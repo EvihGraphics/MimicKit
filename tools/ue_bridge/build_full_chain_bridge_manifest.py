@@ -58,10 +58,37 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
                     "no_obvious_penetration_or_drift": False,
                 },
                 "reviewer": "",
+                "reviewed_at_utc": "",
                 "notes": "Generated review template. Manual confirmation is required.",
             },
         )
     review = read_json(review_path)
+    review_checks = review.get("checks", {}) if isinstance(review.get("checks"), dict) else {}
+    review_evidence = review.get("evidence", {}) if isinstance(review.get("evidence"), dict) else {}
+    mesh_report = evih.get("mesh_report", {}) if isinstance(evih.get("mesh_report"), dict) else {}
+    evih_review_evidence = mesh_report.get("visual_review_evidence", {}) if isinstance(mesh_report.get("visual_review_evidence"), dict) else {}
+    comparison_sheet = Path(str(evih.get("comparison_sheet", ""))) if str(evih.get("comparison_sheet", "")).strip() else None
+    comparison_mp4 = Path(str(evih.get("comparison_mp4", ""))) if str(evih.get("comparison_mp4", "")).strip() else None
+    review_checks_pass = all(bool(review_checks.get(name)) for name in (
+        "character",
+        "sword",
+        "shield",
+        "pose",
+        "camera",
+        "ground",
+        "lighting",
+        "frame_pairing",
+        "no_obvious_penetration_or_drift",
+    ))
+    review_reviewer_present = bool(str(review.get("reviewer", "")).strip())
+    review_timestamp_present = bool(str(review.get("reviewed_at_utc", "")).strip())
+    review_pass = (
+        bool(review.get("visual_review_pass"))
+        and review_checks_pass
+        and review_reviewer_present
+        and review_timestamp_present
+    )
+    label = str(spec["label"]).strip().lower()
     checks = {
         "mimic_manifest_exists": mimic_path.exists(),
         "mimic_mesh_reference_pass": bool(mimic.get("mesh_reference_pass")),
@@ -71,8 +98,18 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
         "mimic_package_ok": bool(mimic.get("package_ok")),
         "mimic_blocker_empty": not bool(str(mimic.get("blocker", "")).strip()),
         "mimic_data_binding_ok": bool(mimic.get("data_binding_ok")),
+        "mimic_dynamic_sequence_ok": bool(mimic.get("dynamic_sequence_ok")),
         "mimic_source_not_ppm_only": not bool(mimic.get("source_was_ppm_only")),
         "evih_manifest_exists": evih_path.exists(),
+        "software_geometry_replay_pass": bool(evih.get("software_geometry_replay_pass")),
+        "framework_api_used": bool(evih.get("framework_api_used")),
+        "evih_framework_api_replay_pass": bool(evih.get("evih_framework_api_replay_pass")),
+        "framework_scene_contract_compare_pass": bool(evih.get("framework_scene_contract_compare_pass")),
+        "framework_visual_metric_pass": bool(evih.get("framework_visual_metric_pass")),
+        "framework_scene_visual_metric_pass": bool(evih.get("framework_scene_visual_metric_pass")),
+        "framework_dynamic_sequence_pass": bool(evih.get("framework_dynamic_sequence_pass")),
+        "framework_media_ok": bool(evih.get("framework_media_ok")),
+        "framework_renderer_provenance_present": bool(evih.get("framework_renderer_provenance")),
         "evih_mesh_replay_pass": bool(evih.get("evih_mesh_replay_pass")),
         "evih_data_binding_ok": bool(evih.get("data_binding_ok")),
         "mesh_binding_pass": bool(evih.get("mesh_binding_pass")),
@@ -80,12 +117,45 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
         "scene_contract_compare_pass": bool(evih.get("scene_contract_compare_pass")),
         "scene_visual_metric_pass": bool(evih.get("scene_visual_metric_pass")),
         "visual_metric_pass": bool(evih.get("visual_metric_pass")),
+        "evih_dynamic_sequence_pass": bool(evih.get("dynamic_sequence_pass")),
+        "comparison_mp4_pass": bool(evih.get("comparison_mp4_pass")),
         "media_ok": bool(evih.get("media_ok")),
         "evih_blocker_empty": not bool(str(evih.get("blocker", "")).strip()),
         "visual_review_exists": review_path.exists(),
-        "visual_review_pass": bool(review.get("visual_review_pass")),
+        "visual_review_checks_pass": review_checks_pass,
+        "visual_review_reviewer_present": review_reviewer_present,
+        "visual_review_timestamp_present": review_timestamp_present,
+        "visual_review_evidence_matches_evih": bool(review_evidence) and review_evidence == evih_review_evidence,
+        "visual_review_binds_current_mimic_manifest": (
+            bool(review_evidence)
+            and review_evidence.get("mimickit_mesh_reference_manifest_sha256") == sha256_file(mimic_path)
+        ),
+        "visual_review_binds_current_comparison_sheet": (
+            bool(review_evidence)
+            and comparison_sheet is not None
+            and review_evidence.get("comparison_sheet_sha256") == sha256_file(comparison_sheet)
+        ),
+        "visual_review_binds_current_comparison_mp4": (
+            bool(review_evidence)
+            and comparison_mp4 is not None
+            and review_evidence.get("comparison_mp4_sha256") == sha256_file(comparison_mp4)
+        ),
+        "visual_review_pass": review_pass,
     }
-    source_key = f"mimickit-evih-v3:{str(spec['label']).strip().lower()}"
+    if label == "white-knight-smoke":
+        for name in (
+            "software_geometry_replay_pass",
+            "framework_api_used",
+            "evih_framework_api_replay_pass",
+            "framework_scene_contract_compare_pass",
+            "framework_visual_metric_pass",
+            "framework_scene_visual_metric_pass",
+            "framework_dynamic_sequence_pass",
+            "framework_media_ok",
+            "framework_renderer_provenance_present",
+        ):
+            checks.pop(name)
+    source_key = f"mimickit-evih-v3:{label}"
     bridge_case_id = hashlib.sha256(source_key.encode("utf-8")).hexdigest()[:20]
     blockers = [
         blocker

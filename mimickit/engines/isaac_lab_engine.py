@@ -237,6 +237,7 @@ class IsaacLabEngine(engine.Engine):
         import omni.replicator.core as rep
 
         visual_link_sync = self._sync_capture_visual_links()
+        capture_settle_updates = max(1, min(64, int(os.environ.get("MIMICKIT_CAPTURE_SETTLE_UPDATES", "8"))))
         resolution = (int(width), int(height))
         if getattr(self, "_capture_resolution", None) != resolution:
             self.release_capture()
@@ -257,8 +258,12 @@ class IsaacLabEngine(engine.Engine):
         last_error = "capture did not become ready"
         for _attempt in range(6):
             visual_link_sync = self._sync_capture_visual_links()
-            self._sim.render()
-            self._app_launcher.app.update()
+            # Let the RTX render product converge after a pose/camera update.
+            # Without this, the first captured frame can contain a partially
+            # initialized ground-grid shader while later frames are settled.
+            for _ in range(capture_settle_updates):
+                self._sim.render()
+                self._app_launcher.app.update()
             data = self._capture_annotator.get_data()
             candidate_rgba = np.asarray(data.get("data") if isinstance(data, dict) else data)
             if candidate_rgba.size == 0:
@@ -356,11 +361,12 @@ class IsaacLabEngine(engine.Engine):
             near=near,
             far=far,
             ground_mask=ground_mask,
-            renderer_version="isaaclab+usd-link-sync-v1",
+            renderer_version="isaaclab+usd-link-sync-v2-settled",
             visual_link_sync_ok=visual_link_sync["ok"],
             visual_link_sync_max_pos_error_m=visual_link_sync["max_pos_error_m"],
             visual_link_sync_max_rot_error_rad=visual_link_sync["max_rot_error_rad"],
             visual_link_sync_count=visual_link_sync["link_count"],
+            capture_settle_updates=capture_settle_updates,
         )
 
     def _sync_capture_visual_links(self):

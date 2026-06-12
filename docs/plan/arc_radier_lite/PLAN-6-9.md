@@ -2,9 +2,56 @@
 
 ## 当前状态 (Current Status)
 
-1. **渲染管线修复完成**: 在 `EvihAnimation-mimickit-bridge` 仓库中，成功修复了 `MimicKitSkeletonReplay.py` 的核心坐标系转换问题。修复了 `Z-up` 到 `Y-up` 投影矩阵的颠倒问题、关节局部旋转的共轭转换 (`rx * R_z * rx_inv`)，以及 `camera_for_frame` 中错误的水平/垂直 FOV (`HFOV/VFOV`) 转换逻辑。
-2. **视觉一致性验证**: 通过修改后的测试渲染脚本，成功生成了 `frame: 5` 的渲染输出，并验证其 2D 屏幕空间 bounding box 尺寸（Width: 167, Height: 126）与 Isaac Sim 原始参考图像的 ground truth 尺寸（Width: 165, Height: 133）极其吻合，成功消除了此前由于摄影机位置和姿态解算导致的严重“压扁”和形变失真。
-3. **代码已推送**: 相关修复已提交并推送到远端仓库的 `codex/mimickit-bridge` 分支。
+1. **正式实现 worktree**：
+   `/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3`，
+   分支 `codex/mimickit-bridge-v3`。旧 dirty checkout 与历史 artifacts
+   保持只读。
+2. **G0 preserved regressions 通过**：Walk/Stop geom baseline 的 60 PNG、
+   MP4 与原始 hashes 未漂移，`baseline_protection_pass=true`。
+3. **G1 White-Knight smoke 自动门禁通过**：
+   MimicKit 与 Evih 均输出 60 RGB、60 silhouette、60 ground-mask PNG 和
+   60 帧 H.264 MP4；v3 禁止再用 `[0,5]` 两帧结果充当动态视觉证据。
+   Evih 同时输出 60 帧左右同屏 `mimickit_vs_evih_dynamic.mp4`，并将其
+   hash 绑定到人工 review。
+   data binding、FK、mesh binding、scene/hash、silhouette 和 ground 指标通过。
+   Isaac 捕获每帧执行 8 次 RTX settle update，首帧与后续帧的 ground grid
+   均稳定；实际小网格间距已固化为 `0.5m`。Evih 使用合同中的方向光
+   投射并柔化 ground shadow，`applied_scene_contract.json` 记录实际参数。
+4. **G1 动态与自动指标**：MimicKit unique RGB/silhouette 为 `60/20`，
+   Evih 为 `20/20`，两端 MP4 均解码出 `60` 个不同帧，
+   `dynamic_sequence_pass=true`；mean silhouette IoU
+   `0.924255`、p10 `0.888288`，ground-mask mean IoU `0.980994`、p10
+   `0.977996`，RGB report-only MAE `0.021496`。
+5. **G1 最终门禁仍失败**：`visual_review.json` 保持默认失败，必须由具名
+   reviewer 完成九项 checklist 后才允许 G2。
+   Review 模板绑定当前 Mimic manifest、mesh、scene、comparison sheet 和
+   两端 RGB frame-set hashes；陈旧 review 会 fail closed。
+6. **G2/G3 未启动**：严格编排器拒绝越过未验收 G1，当前 blocker 为
+   `previous_gate_not_accepted:white-knight-smoke`。动态 smoke root 仍与最终
+   White-Knight full-chain root 分离。
+
+当前证据：
+
+```text
+output/train/tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3/bridge_case_manifest.json
+output/img/mimickit_evih_bridge_v3/plan_6_9_execution_manifest.json
+output/img/mimickit_evih_bridge_v3/full_chain_bridge_manifest.json
+/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results/white_knight_mesh_replay_v3_smoke/evih_mesh_replay/comparison_sheet.md
+/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results/white_knight_mesh_replay_v3_smoke/evih_mesh_replay/dynamic_sequence_report.json
+/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results/white_knight_mesh_replay_v3_smoke/evih_mesh_replay/mimickit_vs_evih_dynamic.mp4
+```
+
+严格执行入口：
+
+```bash
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate preflight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate status
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight
+```
+
+编排器没有 unreviewed-gate bypass。
+聚合器还会独立验证 review evidence 是否绑定当前 Mimic manifest 与
+comparison sheet，不能复用旧签署。
 
 ## 核心目标 (Objective)
 
@@ -12,11 +59,14 @@
 
 ## 详细计划 (Implementation Steps)
 
-### 阶段 1：White-Knight Full 闭环校验 (G2/G3 Validation)
-- 对目标数据集 `tmp_white_knight_mesh_reference_20260607_bridge_full_v2` 执行全链路回放 (`MimicKitSkeletonReplay.py`)。
+### 阶段 1：White-Knight Full 闭环校验 (G2 Validation)
+- G1 人工验收通过后，生成
+  `tmp_white_knight_mesh_reference_20260611_bridge_full_v3` 并执行全链路回放。
 - 传入 `--true-mesh`、`--mesh-asset` 等必要参数，确保程序读取新生成的 `scene_contract_v3.json`、`mesh_binding_contract.json` 和 `joint_order.json`。
 - 输出完整的 60 帧 PNG 序列及配套的可解码 MP4。
-- **验收标准**: 生成的 PNG 序列中，自动化视觉对齐指标必须满足 `mean silhouette IoU >= 0.90`。
+- **验收标准**: 60 RGB + 60 silhouette + 60 ground-mask PNG、可解码
+  H.264 MP4、`mean silhouette IoU >= 0.90`、ground-mask 指标通过，且
+  具名人工 review 通过。
 
 ### 阶段 2：指标汇总与可观测性面板 (Metrics & Dashboard)
 - 收集生成的 `visual_metric_report.json` 和 `mesh_binding_report.json`。

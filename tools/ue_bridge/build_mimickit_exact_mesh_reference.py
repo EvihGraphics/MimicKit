@@ -16,11 +16,14 @@ from typing import Any
 
 import yaml
 
+from visual_bridge_validation import V3_MIN_UNIQUE_DYNAMIC_FRAMES
+from visual_bridge_validation import V3_REQUIRED_FRAME_IDS
 from visual_bridge_validation import validate_body_world_replay
 
 from build_mimickit_mesh_reference import (
     body_order_from_mjcf,
     build_contact_sheet,
+    decoded_mp4_unique_frame_count,
     expected_image_count,
     finalize_manifest_gate_fields,
     localize_native_manifest_paths,
@@ -130,6 +133,7 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
         "tools/ue_bridge/build_mimickit_exact_mesh_reference.py",
         "tools/ue_bridge/build_mimickit_mesh_reference.py",
         "tools/ue_bridge/_bridge_common.py",
+        "tools/ue_bridge/export_obs_fixture.py",
         "tools/ue_bridge/build_mimickit_render_sequences.py",
         "tools/ue_bridge/visual_bridge_validation.py",
         "tools/ue_bridge/run_mimic_visual_case.py",
@@ -142,8 +146,9 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
         "tools/windows/export_usd_to_gltf_asset.py",
         "tools/windows/build_exact_mesh_reference_native.ps1",
     ]
-    copied: list[dict[str, str]] = []
+    copied: list[dict[str, Any]] = []
     missing: list[str] = []
+    mismatches: list[str] = []
     for rel in rel_paths:
         src = ROOT / rel
         dst = workspace / rel
@@ -152,8 +157,34 @@ def sync_native_workspace_scripts(args: argparse.Namespace) -> dict[str, Any]:
             continue
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)
-        copied.append({"src": str(src), "dst": str(dst)})
-    return {"ok": not missing, "workspace": str(workspace), "copied": copied, "missing": missing}
+        src_sha256 = sha256_file(src)
+        dst_sha256 = sha256_file(dst)
+        hash_match = bool(src_sha256) and src_sha256 == dst_sha256
+        if not hash_match:
+            mismatches.append(rel)
+        copied.append(
+            {
+                "rel_path": rel,
+                "src": str(src),
+                "dst": str(dst),
+                "src_sha256": src_sha256,
+                "dst_sha256": dst_sha256,
+                "hash_match": hash_match,
+            }
+        )
+    blocker = (
+        f"native_workspace_script_hash_mismatch:{mismatches[0]}"
+        if mismatches
+        else (f"native_workspace_script_missing:{missing[0]}" if missing else "")
+    )
+    return {
+        "ok": not missing and not mismatches,
+        "workspace": str(workspace),
+        "copied": copied,
+        "missing": missing,
+        "mismatches": mismatches,
+        "blocker": blocker,
+    }
 
 
 def run_windows_native_reference(args: argparse.Namespace, root_name: str, source_root_arg: str) -> dict[str, Any]:
@@ -267,6 +298,16 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
     scene_contract_v3 = read_json(scene_contract_path)
     expected = expected_image_count(args.frames, args.frame_stride)
     expected_frame_ids = list(range(0, int(args.frames), max(1, int(args.frame_stride))))
+    unique_rgb_frame_count = len({sha256_file(path) for path in frames_dir.glob("frame_*.png")})
+    unique_silhouette_frame_count = len({sha256_file(path) for path in silhouettes_dir.glob("frame_*.png")})
+    mp4_unique_frame_count = decoded_mp4_unique_frame_count(mp4_file)
+    dynamic_sequence_ok = bool(
+        frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and expected_frame_ids == list(V3_REQUIRED_FRAME_IDS)
+        and unique_rgb_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and unique_silhouette_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+        and mp4_unique_frame_count >= V3_MIN_UNIQUE_DYNAMIC_FRAMES
+    )
     status = str(render_meta.get("status", ""))
     visual_kind = str(render_meta.get("visual_kind", ""))
     mesh_detected = bool(int(render_meta.get("mesh_detected", 0) or 0))
@@ -284,6 +325,7 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         and mp4_ok
         and bool(render_meta.get("motion_visible"))
         and bool(scene_contract_v3.get("scene_contract_sha256"))
+        and dynamic_sequence_ok
         and mp4_file.exists()
         and mp4_file.stat().st_size > 0
     )
@@ -307,6 +349,10 @@ def summarize_render(args: argparse.Namespace, root_name: str) -> dict[str, Any]
         "mp4_ok": mp4_ok,
         "mp4_size_bytes": mp4_file.stat().st_size if mp4_file.exists() else 0,
         "motion_visible": bool(render_meta.get("motion_visible")),
+        "unique_rgb_frame_count": unique_rgb_frame_count,
+        "unique_silhouette_frame_count": unique_silhouette_frame_count,
+        "mp4_unique_frame_count": mp4_unique_frame_count,
+        "dynamic_sequence_ok": dynamic_sequence_ok,
         "scene_contract_v3_file": str(scene_contract_path),
         "scene_contract_v3": scene_contract_v3,
         "scene_contract_sha256": str(scene_contract_v3.get("scene_contract_sha256", "")),
@@ -685,13 +731,13 @@ def main() -> int:
         ]
     )
     render_summary_for_package = manifest.get("render_summary") if isinstance(manifest.get("render_summary"), dict) else {}
-    scene_contract = (
+    scene_contract_file = (
         Path(str(render_summary_for_package.get("render_dir"))) / "scene_contract_v3.json"
         if render_summary_for_package.get("render_dir")
         else None
     )
-    if scene_contract is not None and scene_contract.exists():
-        shutil.copy2(scene_contract, package_dir / "scene_contract_v3.json")
+    if scene_contract_file is not None and scene_contract_file.exists():
+        shutil.copy2(scene_contract_file, package_dir / "scene_contract_v3.json")
     required_package = [
         package_dir / "visual_replay" / "pose_dof_replay.jsonl",
         package_dir / "visual_replay" / "body_world_replay.jsonl",

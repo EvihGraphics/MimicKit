@@ -238,9 +238,9 @@ output/img/render_all_roots.tsv
 For MimicKit -> Evih v2 bridge results, the dashboard also links:
 
 ```text
-MimicKit RGB/silhouette PNG and MP4
+MimicKit RGB/silhouette/ground-mask PNG and MP4
 mesh_reference_manifest.json
-Evih RGB/silhouette PNG and MP4
+Evih RGB/silhouette/ground-mask PNG and MP4
 visual_result_manifest.json
 scene_contract_compare_report.json
 visual_metric_report.json
@@ -252,6 +252,41 @@ full_chain_bridge_manifest.json
 `render ready` is manifest-driven. File existence alone is never sufficient.
 Failed manifests must show their blocker; incomplete manifests must not be
 promoted to ready.
+
+For the strict v3 bridge, configure the Evih result root when needed:
+
+```bash
+export MIMICKIT_EVIH_RESULTS_ROOT=/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results
+```
+
+The dashboard additionally exposes ground-mask PNGs,
+`scene_visual_metric_report.json`, report-only `rgb_metric_report.json`,
+`dynamic_sequence_report.json`,
+`mimickit_vs_evih_dynamic.mp4` and `comparison_media_report.json`,
+`evih_framework_replay/framework_render_report.json`,
+`framework_renderer_provenance.json`, Framework RGB/silhouette/ground-mask
+frame sets, Framework comparison sheet/MP4, and separate software-geometry and
+Framework API pass counts,
+`comparison_sheet.md`, `visual_review.json`, `bridge_case_manifest.json`,
+`full_chain_bridge_manifest.json`, and `plan_6_9_execution_manifest.json`.
+
+For strict Framework cases, provenance must identify the Actor-driven
+`rigid_node` dynamic vertex-buffer mode, RenderPipeline semantic silhouette
+pass, and complement-derived ground-mask. Dashboard must not treat raw
+character-only/ground-only passes or file existence as accepted semantic media.
+
+A single case may display `case_acceptance_pass=true`, but global Dashboard
+`render ready` is driven only by `full_chain_bridge_pass=true`. Smoke media, a
+passing bbox, software-geometry-only success, or file existence alone must
+remain incomplete or failed.
+
+The case manifest must independently verify that `visual_review.json.evidence`
+matches the current Evih evidence, current Mimic manifest hash, and current
+comparison-sheet hash. It also requires a named reviewer and non-empty
+`reviewed_at_utc`. A review from an older regeneration is never ready.
+After a reviewer signs an existing case, use
+`run_plan_6_9_bridge.py --gate promote-review --case <case>` to revalidate and
+publish the manifest without rebuilding the MimicKit source root.
 
 If an AMP render appears frozen or jittery, first verify the render used the agent test loop rather than a static policy wrapper.
 

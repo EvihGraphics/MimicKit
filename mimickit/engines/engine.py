@@ -23,6 +23,7 @@ class CaptureFrame:
     visual_link_sync_max_pos_error_m: float | None = None
     visual_link_sync_max_rot_error_rad: float | None = None
     visual_link_sync_count: int = 0
+    capture_settle_updates: int = 0
 
 class ControlMode(enum.Enum):
     none = 0

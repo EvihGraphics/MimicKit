@@ -430,6 +430,7 @@ def render_summary(root_out: Path, render_root_arg: str):
     mesh_manifests = sorted(render_root.glob("**/mesh_reference_manifest.json"))
     visual_result_manifests = sorted(render_root.glob("**/visual_result_manifest.json"))
     comparison_sheets = sorted(render_root.glob("**/*_vs_*_sheet.png")) + sorted(render_root.glob("**/*contact_sheet.png"))
+    comparison_videos = sorted(render_root.glob("**/*_vs_*_dynamic.mp4"))
     comparison_markdown = sorted(render_root.glob("**/comparison_sheet.md"))
     metric_reports = (
         sorted(render_root.glob("**/visual_metric_report.json"))
@@ -444,6 +445,12 @@ def render_summary(root_out: Path, render_root_arg: str):
 
     evih_result_files = []
     evih_visual_result_manifests = []
+    evih_mp4s = []
+    evih_comparison_sheets = []
+    evih_comparison_videos = []
+    evih_comparison_markdown = []
+    evih_metric_reports = []
+    evih_visual_reviews = []
     if EVIH_RESULTS_ROOT.exists():
         for manifest_path in sorted(EVIH_RESULTS_ROOT.glob("**/visual_result_manifest.json")):
             raw = read_text(manifest_path)
@@ -453,12 +460,22 @@ def render_summary(root_out: Path, render_root_arg: str):
                 result_dir = manifest_path.parent
                 for child in sorted(result_dir.glob("**/*_vs_*_sheet.png")):
                     evih_result_files.append(str(child))
+                    evih_comparison_sheets.append(child)
+                for child in sorted(result_dir.glob("**/*_vs_*_dynamic.mp4")):
+                    evih_result_files.append(str(child))
+                    evih_comparison_videos.append(child)
                 for child in sorted(result_dir.glob("**/*.mp4")):
                     evih_result_files.append(str(child))
-                for child in sorted(result_dir.glob("**/*_report.json")) + sorted(result_dir.glob("**/visual_review.json")):
+                    evih_mp4s.append(child)
+                for child in sorted(result_dir.glob("**/*_report.json")):
                     evih_result_files.append(str(child))
+                    evih_metric_reports.append(child)
+                for child in sorted(result_dir.glob("**/visual_review.json")):
+                    evih_result_files.append(str(child))
+                    evih_visual_reviews.append(child)
                 for child in sorted(result_dir.glob("**/comparison_sheet.md")):
                     evih_result_files.append(str(child))
+                    evih_comparison_markdown.append(child)
         # Current Walk/Stop result directories predate root-name linkage; expose them
         # when viewing their known AMP roots so the dashboard remains useful.
         known_pairs = {
@@ -472,24 +489,31 @@ def render_summary(root_out: Path, render_root_arg: str):
                 if child.exists():
                     evih_result_files.append(str(child))
 
+    mp4s = sorted({*mp4s, *evih_mp4s})
+    visual_result_manifests = sorted({*visual_result_manifests, *evih_visual_result_manifests})
+    comparison_sheets = sorted({*comparison_sheets, *evih_comparison_sheets})
+    comparison_videos = sorted({*comparison_videos, *evih_comparison_videos})
+    comparison_markdown = sorted({*comparison_markdown, *evih_comparison_markdown})
+    metric_reports = sorted({*metric_reports, *evih_metric_reports})
+    visual_reviews = sorted({*visual_reviews, *evih_visual_reviews})
     files = []
-    for path in [infer_index, global_index, *render_meta[:8], *mp4s[:8], *mesh_manifests[:8], *visual_result_manifests[:8], *comparison_sheets[:8], *comparison_markdown[:8], *metric_reports[:8], *visual_reviews[:8], *full_chain_manifests[:4], *bridge_execution_manifests[:4]]:
+    for path in [infer_index, global_index, *render_meta[:8], *mp4s[:8], *mesh_manifests[:8], *visual_result_manifests[:8], *comparison_sheets[:8], *comparison_videos[:8], *comparison_markdown[:8], *metric_reports[:8], *visual_reviews[:8], *full_chain_manifests[:4], *bridge_execution_manifests[:4]]:
         if path.exists():
             files.append(str(path))
     files.extend(evih_result_files[:24])
 
     parsed_mesh = [read_json_file(path) for path in mesh_manifests]
     parsed_visual = [read_json_file(path) for path in visual_result_manifests]
-    parsed_visual.extend(read_json_file(path) for path in evih_visual_result_manifests)
     parsed_render = [read_json_file(path) for path in render_meta]
     parsed_bridge = [read_json_file(path) for path in bridge_case_manifests]
     parsed_full = [read_json_file(path) for path in full_chain_manifests]
     parsed_execution = [read_json_file(path) for path in bridge_execution_manifests]
 
-    pass_detected = bool(
-        any(item.get("case_acceptance_pass") for item in parsed_bridge)
-        or any(item.get("full_chain_bridge_pass") for item in parsed_full)
-    )
+    case_acceptance_detected = any(item.get("case_acceptance_pass") for item in parsed_bridge)
+    pass_detected = any(item.get("full_chain_bridge_pass") for item in parsed_full)
+    software_geometry_pass_count = sum(bool(item.get("software_geometry_replay_pass")) for item in parsed_visual)
+    framework_api_pass_count = sum(bool(item.get("evih_framework_api_replay_pass")) for item in parsed_visual)
+    accepted_case_count = sum(bool(item.get("case_acceptance_pass")) for item in parsed_bridge)
     blockers = []
     for item in [*parsed_bridge, *parsed_full, *parsed_execution, *parsed_mesh, *parsed_visual, *parsed_render]:
         primary = str(item.get("blocker") or item.get("error") or "").strip()
@@ -504,6 +528,11 @@ def render_summary(root_out: Path, render_root_arg: str):
     return {
         "root_path": str(render_root),
         "status": status,
+        "case_acceptance_detected": case_acceptance_detected,
+        "full_chain_bridge_pass": pass_detected,
+        "software_geometry_pass_count": software_geometry_pass_count,
+        "framework_api_pass_count": framework_api_pass_count,
+        "accepted_case_count": accepted_case_count,
         "blocker": blockers[0] if blockers else "",
         "blockers": blockers,
         "infer_viz_index": str(infer_index) if infer_index.exists() else "",
@@ -513,6 +542,7 @@ def render_summary(root_out: Path, render_root_arg: str):
         "mesh_manifest_files": [str(path) for path in mesh_manifests[:12]],
         "visual_result_manifest_files": [str(path) for path in visual_result_manifests[:12]],
         "comparison_sheet_files": [str(path) for path in comparison_sheets[:12]],
+        "comparison_video_files": [str(path) for path in comparison_videos[:12]],
         "comparison_markdown_files": [str(path) for path in comparison_markdown[:12]],
         "metric_report_files": [str(path) for path in metric_reports[:12]],
         "visual_review_files": [str(path) for path in visual_reviews[:12]],

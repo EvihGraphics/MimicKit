@@ -324,7 +324,7 @@ HTML_PAGE = """<!doctype html>
 
       q("renderV").className = `v ${clsByLevel(status.health.render.level)}`;
       q("renderV").textContent = status.health.render.label;
-      q("renderSub").textContent = status.health.render.detail;
+      q("renderSub").textContent = `${status.health.render.detail} | software geometry ${fmtInt(status.render.software_geometry_pass_count)} | framework API ${fmtInt(status.render.framework_api_pass_count)} | accepted ${fmtInt(status.render.accepted_case_count)}`;
 
       setKv("ampKv", [
         {k:"Task Metric", v:`${status.metrics.task_metric_label || "-"}<div class="small">${fmtNum(status.metrics.task_metric_value,3)}</div>`},
@@ -346,6 +346,10 @@ HTML_PAGE = """<!doctype html>
         {k:"Queue State", v: "single-brain mode"},
         {k:"Warming Up", v: status.flags.warming_up ? "yes" : "no"},
         {k:"Render Root", v: status.render.root_path || "-"},
+        {k:"Software Geometry Passes", v: fmtInt(status.render.software_geometry_pass_count)},
+        {k:"Framework API Passes", v: fmtInt(status.render.framework_api_pass_count)},
+        {k:"Accepted Cases", v: fmtInt(status.render.accepted_case_count)},
+        {k:"Full Chain Ready", v: status.render.full_chain_bridge_pass ? "yes" : "no"},
       ]);
 
       setKv("configKv", [
@@ -611,7 +615,7 @@ def compute_health(latest: dict, samples_per_sec: float, throughput_floor: float
         checkpoint = make("warning", "warming up", "best scalar 候选尚未达到健康阈值")
 
     if render_state == "available":
-        render = make("good", "render ready", "已发现 render_meta / mp4 / 索引文件")
+        render = make("good", "render ready", "严格 full_chain_bridge_pass 已通过")
     elif render_state == "failed":
         render = make("bad", "render blocked", "视觉桥接 gate 失败，查看 blocker 与 manifest")
     elif render_state == "incomplete":

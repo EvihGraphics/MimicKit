@@ -842,6 +842,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                                 "visual_link_sync_max_pos_error_m": capture.visual_link_sync_max_pos_error_m,
                                 "visual_link_sync_max_rot_error_rad": capture.visual_link_sync_max_rot_error_rad,
                                 "visual_link_sync_count": capture.visual_link_sync_count,
+                                "capture_settle_updates": capture.capture_settle_updates,
                             }
                         )
                         image_count += 1
@@ -898,6 +899,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         "visual_link_sync_max_pos_error_m": item["visual_link_sync_max_pos_error_m"],
                         "visual_link_sync_max_rot_error_rad": item["visual_link_sync_max_rot_error_rad"],
                         "visual_link_sync_count": item["visual_link_sync_count"],
+                        "capture_settle_updates": item["capture_settle_updates"],
                     }
                     for item in captures
                 ],
@@ -934,6 +936,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                         "visual_link_sync_max_pos_error_m": item["visual_link_sync_max_pos_error_m"],
                         "visual_link_sync_max_rot_error_rad": item["visual_link_sync_max_rot_error_rad"],
                         "visual_link_sync_count": item["visual_link_sync_count"],
+                        "capture_settle_updates": item["capture_settle_updates"],
                     }
                     for item in captures
                 ],

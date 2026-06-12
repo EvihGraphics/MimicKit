@@ -180,7 +180,7 @@ Runtime notes:
 
 ### MimicKit -> EvihAnimation v2 mesh gate
 
-Build a two-frame white-knight native smoke:
+Historical v2 diagnostics used a two-frame white-knight native smoke:
 
 ```bash
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/build_mimickit_mesh_reference.py \
@@ -189,6 +189,9 @@ PYTHONPATH=tools/ue_bridge python tools/ue_bridge/build_mimickit_mesh_reference.
   --frames 10 --frame-stride 5 --width 960 --height 540 --mp4-fps 12 \
   --asset-export-format glb --force-root
 ```
+
+That command is retained only as historical evidence. Current v3 code rejects
+it because `scene_contract_v3.json` requires the 60-frame dynamic sequence.
 
 The gate requires:
 
@@ -202,6 +205,39 @@ The gate requires:
 Use `snapshot_bridge_baselines.py` to protect existing Walk/Stop geom results,
 and `build_full_chain_bridge_manifest.py` to aggregate the final MimicKit/Evih
 manifests and human reviews.
+
+For PLAN-6-9 v3, use the strict gate orchestrator:
+
+```bash
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate preflight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate framework-preflight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate status
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight-smoke
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate framework-render --case white-knight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate walk-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate stop-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate aggregate
+```
+
+The runner refuses each generation gate until its predecessor has
+`case_acceptance_pass=true`. It has no unreviewed-gate bypass and records the
+next allowed gate in `output/img/mimickit_evih_bridge_v3/plan_6_9_execution_manifest.json`.
+Every v3 generation gate uses 300 source frames sampled at stride 5 and must
+emit 60 changing RGB/silhouette/ground-mask PNG frames plus a 60-frame MP4.
+Evih must additionally emit the 60-frame side-by-side
+`mimickit_vs_evih_dynamic.mp4`; manual review evidence is bound to that video.
+For final true-mesh cases, the stdlib rasterizer is only the software geometry
+baseline. Acceptance also requires EvihAnimation Framework API capture through
+`AI4Animation.Mode.CAPTURE`, `Actor`, rigid-node mesh registration, and
+`RenderPipeline`, with Framework provenance and scene application reports.
+After each final case reaches automatic-gate completion, stop for human review;
+`promote-review` validates the existing signed evidence without rerendering it.
+
+The v3 Isaac capture records a settled renderer contract. Each capture waits
+for the configured RTX settle updates, and the source contract records the
+actual `0.5m` grid spacing. Manual review templates are bound to current
+artifact hashes; regeneration invalidates an older signed review.
 
 ### 8) Finalize a UE visual replay capture into PNG + MP4
 
