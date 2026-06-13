@@ -1,0 +1,1688 @@
+{
+  "frames": 300,
+  "frame_stride": 5,
+  "expected_image_count": 60,
+  "image_count": 60,
+  "captures": [
+    {
+      "frame": 0,
+      "file": "frame_000000.png",
+      "silhouette_file": "frame_000000.png",
+      "ground_mask_file": "frame_000000.png",
+      "sha256": "0e499f5688f349d85a3e9bdbb9ac85f30272c8faa5f0dc0408e3b16023d6da6c",
+      "camera_eye": [
+        -0.00014457496581599116,
+        -5.000851081626025,
+        3.0000000000000004
+      ],
+      "camera_target": [
+        -0.00014457496581599116,
+        -0.0008509899613304839,
+        1.0000002291617556
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 0.0,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 5,
+      "file": "frame_000005.png",
+      "silhouette_file": "frame_000005.png",
+      "ground_mask_file": "frame_000005.png",
+      "sha256": "0f5eb44a7cb96f47cd937295d225c9564eb4a2e8bab6d59dd2fe98e804ff974b",
+      "camera_eye": [
+        0.032429773360490806,
+        -4.998429798753935,
+        3.000000000000003
+      ],
+      "camera_target": [
+        0.032429773360490806,
+        0.0015702929107632713,
+        1.000000229161757
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.384893146634269e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 10,
+      "file": "frame_000010.png",
+      "silhouette_file": "frame_000010.png",
+      "ground_mask_file": "frame_000010.png",
+      "sha256": "4ef771e51c1c3d2ae18d5b70a58d468b61fbe33cf24168c9a69a753a5fd5461a",
+      "camera_eye": [
+        0.028120208531618125,
+        -4.988075605593624,
+        3.0000000000000036
+      ],
+      "camera_target": [
+        0.028120208531618115,
+        0.011924486071075435,
+        1.000000229161757
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.483844433367835e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 15,
+      "file": "frame_000015.png",
+      "silhouette_file": "frame_000015.png",
+      "ground_mask_file": "frame_000015.png",
+      "sha256": "b1c20840c63c58b93d11f0167a467cf55e992c2adc323f0757619e62aaf2f517",
+      "camera_eye": [
+        0.09099581837654111,
+        -4.9727784283459195,
+        3.000000000000005
+      ],
+      "camera_target": [
+        0.09099581837654115,
+        0.027221663318777622,
+        1.0000002291617587
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 9.000103992546575e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 20,
+      "file": "frame_000020.png",
+      "silhouette_file": "frame_000020.png",
+      "ground_mask_file": "frame_000020.png",
+      "sha256": "941eef33d0b9c140ee626a2cf236cf44a078dab6e7033e1acd3e30cbb2ae7746",
+      "camera_eye": [
+        0.1916029006242752,
+        -5.035527776926757,
+        3.000000000000006
+      ],
+      "camera_target": [
+        0.1916029006242752,
+        -0.03552768526205874,
+        1.0000002291617598
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.7651430243207606e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 25,
+      "file": "frame_000025.png",
+      "silhouette_file": "frame_000025.png",
+      "ground_mask_file": "frame_000025.png",
+      "sha256": "60fdfd75fb03f688eb8707e684d5bede7e409784508ffeead01a7c8a9cb251d1",
+      "camera_eye": [
+        0.38368484377861023,
+        -5.0743159651756296,
+        3.000000000000006
+      ],
+      "camera_target": [
+        0.38368484377861023,
+        -0.07431587351093061,
+        1.0000002291617596
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.940696716308595e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 30,
+      "file": "frame_000030.png",
+      "silhouette_file": "frame_000030.png",
+      "ground_mask_file": "frame_000030.png",
+      "sha256": "314114ce096ddcb7b5e212df9a6a619f984fff47b7f56f3ee4a34987fc0f4abb",
+      "camera_eye": [
+        0.6780927181243899,
+        -5.096880726516249,
+        3.000000000000007
+      ],
+      "camera_target": [
+        0.6780927181243895,
+        -0.09688063485154697,
+        1.0000002291617598
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.2990531157078367e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 35,
+      "file": "frame_000035.png",
+      "silhouette_file": "frame_000035.png",
+      "ground_mask_file": "frame_000035.png",
+      "sha256": "4a5ec0120e02c651dd2137918f851ec62b129d8af24d6e0ea5f90027ffe594c8",
+      "camera_eye": [
+        0.8992035388946533,
+        -5.165835678577426,
+        3.0000000000000058
+      ],
+      "camera_target": [
+        0.8992035388946534,
+        -0.16583558691272593,
+        1.0000002291617596
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 7.300048299977715e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 40,
+      "file": "frame_000040.png",
+      "silhouette_file": "frame_000040.png",
+      "ground_mask_file": "frame_000040.png",
+      "sha256": "c9d17832c6e9874f4f6475769acca61bce55963774c5a53f2b0c55f2d1a771df",
+      "camera_eye": [
+        1.1041464805603032,
+        -5.1762443780899074,
+        3.000000000000006
+      ],
+      "camera_target": [
+        1.1041464805603027,
+        -0.17624428642520673,
+        1.0000002291617593
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.1151007970493858e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 45,
+      "file": "frame_000045.png",
+      "silhouette_file": "frame_000045.png",
+      "ground_mask_file": "frame_000045.png",
+      "sha256": "33248a06beab691b7c6b0855fca2b58d69d0c462ed7a25905a80cf8660d27891",
+      "camera_eye": [
+        1.234060764312745,
+        -5.060485858470201,
+        3.000000000000007
+      ],
+      "camera_target": [
+        1.2340607643127441,
+        -0.06048576680550344,
+        1.0000002291617607
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.615143176136055e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 50,
+      "file": "frame_000050.png",
+      "silhouette_file": "frame_000050.png",
+      "ground_mask_file": "frame_000050.png",
+      "sha256": "599761959d118d8049ea1c65a0760582fa13578ae423c6e1fc80005524b9a811",
+      "camera_eye": [
+        1.6365914344787613,
+        -5.108738385140894,
+        3.0000000000000084
+      ],
+      "camera_target": [
+        1.6365914344787598,
+        -0.10873829347619957,
+        1.000000229161762
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.178009232289993e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 55,
+      "file": "frame_000055.png",
+      "silhouette_file": "frame_000055.png",
+      "ground_mask_file": "frame_000055.png",
+      "sha256": "daef78cc40f7cee352f8e2d68066ae67a2683336e6a817f59b48aa2d32bf8374",
+      "camera_eye": [
+        1.7607774734497086,
+        -5.096140727400782,
+        3.00000000000001
+      ],
+      "camera_target": [
+        1.7607774734497073,
+        -0.09614063573607812,
+        1.000000229161762
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.85146659496419e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 60,
+      "file": "frame_000060.png",
+      "silhouette_file": "frame_000060.png",
+      "ground_mask_file": "frame_000060.png",
+      "sha256": "fbce6f339e3500d483fa0619e28e42da86c19085320e69ccfb14ae58bee47053",
+      "camera_eye": [
+        1.9554144144058239,
+        -5.040637586265804,
+        3.000000000000011
+      ],
+      "camera_target": [
+        1.9554144144058228,
+        -0.040637494601101665,
+        1.0000002291617625
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.0535540904806456e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 65,
+      "file": "frame_000065.png",
+      "silhouette_file": "frame_000065.png",
+      "ground_mask_file": "frame_000065.png",
+      "sha256": "95022f8d39c478d2283e046560d8b6b97a49354e41e3c5db73ea93a32235c729",
+      "camera_eye": [
+        2.15134906768799,
+        -5.005734004545962,
+        3.000000000000013
+      ],
+      "camera_target": [
+        2.1513490676879883,
+        -0.0057339128812570195,
+        1.0000002291617638
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.8429603618888453e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 70,
+      "file": "frame_000070.png",
+      "silhouette_file": "frame_000070.png",
+      "ground_mask_file": "frame_000070.png",
+      "sha256": "12dbf776a96bb10fceb3d54e647ecbf603ba7ef02cba18aff681298cfe56f1b8",
+      "camera_eye": [
+        2.17453980445862,
+        -4.995336389169105,
+        3.0000000000000138
+      ],
+      "camera_target": [
+        2.174539804458618,
+        0.0046637024956011075,
+        1.0000002291617642
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.632340423778195e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 75,
+      "file": "frame_000075.png",
+      "silhouette_file": "frame_000075.png",
+      "ground_mask_file": "frame_000075.png",
+      "sha256": "26f178f910258154d28fb9fae09581ffcca233c7f8ab91c1233441485156655f",
+      "camera_eye": [
+        2.1604824066162136,
+        -5.020687540993103,
+        3.0000000000000138
+      ],
+      "camera_target": [
+        2.1604824066162105,
+        -0.020687449328393726,
+        1.0000002291617631
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.598106231415675e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 80,
+      "file": "frame_000080.png",
+      "silhouette_file": "frame_000080.png",
+      "ground_mask_file": "frame_000080.png",
+      "sha256": "396fc6a2f5564f9267191744ca6bb9b6c84f150805f70de182bb9bc94e8e0072",
+      "camera_eye": [
+        2.1389162540435813,
+        -5.034767132252464,
+        3.000000000000013
+      ],
+      "camera_target": [
+        2.1389162540435787,
+        -0.03476704058775493,
+        1.0000002291617622
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 85,
+      "file": "frame_000085.png",
+      "silhouette_file": "frame_000085.png",
+      "ground_mask_file": "frame_000085.png",
+      "sha256": "8dbad56075b0e66172adb06ec1d306be9eba0fe698108e7d1fa060fd506a093b",
+      "camera_eye": [
+        2.1169641017913845,
+        -5.021997248753915,
+        3.000000000000013
+      ],
+      "camera_target": [
+        2.116964101791382,
+        -0.021997157089207242,
+        1.0000002291617625
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 90,
+      "file": "frame_000090.png",
+      "silhouette_file": "frame_000090.png",
+      "ground_mask_file": "frame_000090.png",
+      "sha256": "d36d0fe2c4b1207c40bbe3f57d75ae8f6abe706fdbd2ec60d65cbcac1c19b3ab",
+      "camera_eye": [
+        2.1037912368774454,
+        -4.997820949181926,
+        3.0000000000000147
+      ],
+      "camera_target": [
+        2.1037912368774414,
+        0.002179142482784613,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.858538343496754e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 95,
+      "file": "frame_000095.png",
+      "silhouette_file": "frame_000095.png",
+      "ground_mask_file": "frame_000095.png",
+      "sha256": "f581b93fb19241ef3063e8c11834946cd5cade3cb711dc1895bc9643f7c14d23",
+      "camera_eye": [
+        2.1030802726745645,
+        -4.985003795474782,
+        3.0000000000000164
+      ],
+      "camera_target": [
+        2.1030802726745605,
+        0.014996296189932146,
+        1.0000002291617642
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 0.0,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 100,
+      "file": "frame_000100.png",
+      "silhouette_file": "frame_000100.png",
+      "ground_mask_file": "frame_000100.png",
+      "sha256": "9be0d4f99c4bd1d87b6544e5000e4cf9a82638cc2b12b7e4b48608a498fe4099",
+      "camera_eye": [
+        0.03242977336049482,
+        -4.9984297987539446,
+        3.000000000000016
+      ],
+      "camera_target": [
+        0.0324297733604908,
+        0.0015702929107677122,
+        1.0000002291617642
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.384893146634269e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 105,
+      "file": "frame_000105.png",
+      "silhouette_file": "frame_000105.png",
+      "ground_mask_file": "frame_000105.png",
+      "sha256": "0648aaba98df1716ab7c05c9228163863b6a5fe4373ee6c00d960b96b24d2bae",
+      "camera_eye": [
+        0.028120208531622136,
+        -4.988075605593634,
+        3.0000000000000155
+      ],
+      "camera_target": [
+        0.028120208531618125,
+        0.011924486071076323,
+        1.0000002291617647
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.483844433367835e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 110,
+      "file": "frame_000110.png",
+      "silhouette_file": "frame_000110.png",
+      "ground_mask_file": "frame_000110.png",
+      "sha256": "dfd6b10584ee2cdb828449763ba46c09c8f0791c073fdb6d95fcdd07741a2d97",
+      "camera_eye": [
+        0.09099581837654518,
+        -4.972778428345932,
+        3.0000000000000155
+      ],
+      "camera_target": [
+        0.09099581837654115,
+        0.027221663318780287,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 9.000103992546575e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 115,
+      "file": "frame_000115.png",
+      "silhouette_file": "frame_000115.png",
+      "ground_mask_file": "frame_000115.png",
+      "sha256": "7aa5adc3542a49aef61909b415412f79fc6d5a0c24bd86130f9406a13fbe40d7",
+      "camera_eye": [
+        0.19160290062427934,
+        -5.035527776926771,
+        3.0000000000000164
+      ],
+      "camera_target": [
+        0.19160290062427524,
+        -0.03552768526205785,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.7651430243207606e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 120,
+      "file": "frame_000120.png",
+      "silhouette_file": "frame_000120.png",
+      "ground_mask_file": "frame_000120.png",
+      "sha256": "19fc7398b7750a0ac4a5e60733f78c87ede072b2cb8637ab39b772557df8b9af",
+      "camera_eye": [
+        0.38368484377861434,
+        -5.074315965175643,
+        3.0000000000000164
+      ],
+      "camera_target": [
+        0.38368484377861023,
+        -0.07431587351092883,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.940696716308595e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 125,
+      "file": "frame_000125.png",
+      "silhouette_file": "frame_000125.png",
+      "ground_mask_file": "frame_000125.png",
+      "sha256": "7b400ccc6ca4e28ad297ad557898d055dd1a260bb912bde9037f888cbf84694c",
+      "camera_eye": [
+        0.6780927181243935,
+        -5.096880726516261,
+        3.000000000000017
+      ],
+      "camera_target": [
+        0.6780927181243895,
+        -0.09688063485154608,
+        1.0000002291617642
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.2990531157078367e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 130,
+      "file": "frame_000130.png",
+      "silhouette_file": "frame_000130.png",
+      "ground_mask_file": "frame_000130.png",
+      "sha256": "b57c9a94fa359f34743fab48e7d33efc01302ef3d42bdf53e95d699d255da3ba",
+      "camera_eye": [
+        0.8992035388946574,
+        -5.165835678577441,
+        3.000000000000018
+      ],
+      "camera_target": [
+        0.8992035388946533,
+        -0.16583558691272327,
+        1.0000002291617645
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 7.300048299977715e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 135,
+      "file": "frame_000135.png",
+      "silhouette_file": "frame_000135.png",
+      "ground_mask_file": "frame_000135.png",
+      "sha256": "138e9d13c67e3bf82ef47dfb7be9d8c9737fabee4860c7784e2c77331c62a49b",
+      "camera_eye": [
+        1.1041464805603067,
+        -5.176244378089927,
+        3.0000000000000195
+      ],
+      "camera_target": [
+        1.1041464805603027,
+        -0.17624428642520673,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.1151007970493858e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 140,
+      "file": "frame_000140.png",
+      "silhouette_file": "frame_000140.png",
+      "ground_mask_file": "frame_000140.png",
+      "sha256": "3f4cdd318083682b4919af05139a1e776b9c025aed691bc7ca4943b3e32c15f5",
+      "camera_eye": [
+        1.2340607643127481,
+        -5.060485858470225,
+        3.00000000000002
+      ],
+      "camera_target": [
+        1.2340607643127444,
+        -0.06048576680550166,
+        1.0000002291617636
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.615143176136055e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 145,
+      "file": "frame_000145.png",
+      "silhouette_file": "frame_000145.png",
+      "ground_mask_file": "frame_000145.png",
+      "sha256": "3c52cf37e97dfc99654bb1456d716620cfd2d3ffee65e51587804286d8d6163e",
+      "camera_eye": [
+        1.6365914344787644,
+        -5.10873838514092,
+        3.0000000000000204
+      ],
+      "camera_target": [
+        1.6365914344787598,
+        -0.10873829347619601,
+        1.000000229161764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.178009232289993e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 150,
+      "file": "frame_000150.png",
+      "silhouette_file": "frame_000150.png",
+      "ground_mask_file": "frame_000150.png",
+      "sha256": "9d5bb1ec0ea69e9372d380e4aec0d36acd8411460a7c37a84562c890628596e8",
+      "camera_eye": [
+        1.7607774734497124,
+        -5.0961407274008055,
+        3.000000000000024
+      ],
+      "camera_target": [
+        1.7607774734497068,
+        -0.09614063573607812,
+        1.0000002291617656
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.85146659496419e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 155,
+      "file": "frame_000155.png",
+      "silhouette_file": "frame_000155.png",
+      "ground_mask_file": "frame_000155.png",
+      "sha256": "eb75a505cef340f64ade6a7a560e910d1169e11a62f2e87d325e16a3015b6d7b",
+      "camera_eye": [
+        1.955414414405829,
+        -5.040637586265829,
+        3.0000000000000253
+      ],
+      "camera_target": [
+        1.9554144144058228,
+        -0.040637494601101665,
+        1.000000229161767
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.0535540904806456e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 160,
+      "file": "frame_000160.png",
+      "silhouette_file": "frame_000160.png",
+      "ground_mask_file": "frame_000160.png",
+      "sha256": "084e08099198ee6f043af0d3974f4d2cc6b7e25dda40e389a1eb7ac08e9824ac",
+      "camera_eye": [
+        2.1513490676879945,
+        -5.0057340045459835,
+        3.0000000000000266
+      ],
+      "camera_target": [
+        2.1513490676879883,
+        -0.005733912881256131,
+        1.0000002291617685
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.8429603618888453e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 165,
+      "file": "frame_000165.png",
+      "silhouette_file": "frame_000165.png",
+      "ground_mask_file": "frame_000165.png",
+      "sha256": "de6051443a1c64a73a2bb9d9f49755827bd61bcdde14354be6767baad74cb56c",
+      "camera_eye": [
+        2.1745398044586244,
+        -4.995336389169124,
+        3.0000000000000266
+      ],
+      "camera_target": [
+        2.174539804458618,
+        0.004663702495603772,
+        1.0000002291617687
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.632340423778195e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 170,
+      "file": "frame_000170.png",
+      "silhouette_file": "frame_000170.png",
+      "ground_mask_file": "frame_000170.png",
+      "sha256": "ac5497f4a9d57b32da4ec8e0015a3e7a0cfa4621722e0879d480496bdc6261fa",
+      "camera_eye": [
+        2.160482406616217,
+        -5.020687540993122,
+        3.000000000000026
+      ],
+      "camera_target": [
+        2.160482406616211,
+        -0.020687449328393726,
+        1.000000229161768
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.598106231415675e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 175,
+      "file": "frame_000175.png",
+      "silhouette_file": "frame_000175.png",
+      "ground_mask_file": "frame_000175.png",
+      "sha256": "7fad8f6952580d36294630ed87e8cc26439ad7877f71eed68a8cd8abf4472b3c",
+      "camera_eye": [
+        2.1389162540435853,
+        -5.034767132252483,
+        3.0000000000000266
+      ],
+      "camera_target": [
+        2.1389162540435795,
+        -0.03476704058775404,
+        1.000000229161768
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 180,
+      "file": "frame_000180.png",
+      "silhouette_file": "frame_000180.png",
+      "ground_mask_file": "frame_000180.png",
+      "sha256": "a9dc69b507e54d4a28b3ac64904f25dacaa2ddf2fa0ce1ef396f25e4d0f3b5f0",
+      "camera_eye": [
+        2.1169641017913876,
+        -5.021997248753933,
+        3.000000000000026
+      ],
+      "camera_target": [
+        2.116964101791382,
+        -0.021997157089204578,
+        1.000000229161768
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 185,
+      "file": "frame_000185.png",
+      "silhouette_file": "frame_000185.png",
+      "ground_mask_file": "frame_000185.png",
+      "sha256": "1c4a4394843e71620cfabed09ae249034d806affbcdc36f30cf33ed69236927a",
+      "camera_eye": [
+        2.103791236877447,
+        -4.997820949181944,
+        3.000000000000026
+      ],
+      "camera_target": [
+        2.1037912368774414,
+        0.0021791424827863892,
+        1.0000002291617676
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.858538343496754e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 190,
+      "file": "frame_000190.png",
+      "silhouette_file": "frame_000190.png",
+      "ground_mask_file": "frame_000190.png",
+      "sha256": "6c7940e6a2fa7884769482ee3b7503e88babea6105c9e42db9a631f9f933edc0",
+      "camera_eye": [
+        2.1030802726745668,
+        -4.9850037954748,
+        3.000000000000027
+      ],
+      "camera_target": [
+        2.1030802726745605,
+        0.014996296189933034,
+        1.0000002291617671
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 0.0,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 195,
+      "file": "frame_000195.png",
+      "silhouette_file": "frame_000195.png",
+      "ground_mask_file": "frame_000195.png",
+      "sha256": "5fadc570365b4a7bc05adc7856928fcfb1f92298c776abf2d37dbe872260eafb",
+      "camera_eye": [
+        0.032429773360497016,
+        -4.998429798753966,
+        3.0000000000000284
+      ],
+      "camera_target": [
+        0.03242977336049079,
+        0.0015702929107694885,
+        1.000000229161767
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.384893146634269e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 200,
+      "file": "frame_000200.png",
+      "silhouette_file": "frame_000200.png",
+      "ground_mask_file": "frame_000200.png",
+      "sha256": "a164d14fab8432bf920146805dc879be9310b2781253b0a6c7c035aaf7c307a5",
+      "camera_eye": [
+        0.028120208531624336,
+        -4.9880756055936555,
+        3.0000000000000293
+      ],
+      "camera_target": [
+        0.02812020853161812,
+        0.011924486071079876,
+        1.0000002291617682
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.483844433367835e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 205,
+      "file": "frame_000205.png",
+      "silhouette_file": "frame_000205.png",
+      "ground_mask_file": "frame_000205.png",
+      "sha256": "60ecbbc533e694dedc8f55a606a587ba318aea489d36a51c97ad2dc8ce0773f7",
+      "camera_eye": [
+        0.09099581837654737,
+        -4.972778428345953,
+        3.00000000000003
+      ],
+      "camera_target": [
+        0.09099581837654112,
+        0.02722166331878295,
+        1.0000002291617687
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 9.000103992546575e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 210,
+      "file": "frame_000210.png",
+      "silhouette_file": "frame_000210.png",
+      "ground_mask_file": "frame_000210.png",
+      "sha256": "e5ccd54aeeed0db35bfc98060f977390de71742d1f14a2fda924c313cd47208f",
+      "camera_eye": [
+        0.19160290062428137,
+        -5.035527776926789,
+        3.0000000000000315
+      ],
+      "camera_target": [
+        0.1916029006242752,
+        -0.035527685262055186,
+        1.0000002291617698
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.7651430243207606e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 215,
+      "file": "frame_000215.png",
+      "silhouette_file": "frame_000215.png",
+      "ground_mask_file": "frame_000215.png",
+      "sha256": "1778f5688a83c654da7dc91ca457626fe2249056ae0d7916023466eca850b485",
+      "camera_eye": [
+        0.38368484377861645,
+        -5.074315965175663,
+        3.000000000000033
+      ],
+      "camera_target": [
+        0.38368484377861023,
+        -0.07431587351092706,
+        1.0000002291617713
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.940696716308595e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 220,
+      "file": "frame_000220.png",
+      "silhouette_file": "frame_000220.png",
+      "ground_mask_file": "frame_000220.png",
+      "sha256": "9d880686e6c225cca48ea1d7e0ef1a280e1918152d96f91e3cfcf3a48f151935",
+      "camera_eye": [
+        0.678092718124396,
+        -5.096880726516283,
+        3.0000000000000333
+      ],
+      "camera_target": [
+        0.6780927181243898,
+        -0.0968806348515443,
+        1.000000229161771
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.2990531157078367e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 225,
+      "file": "frame_000225.png",
+      "silhouette_file": "frame_000225.png",
+      "ground_mask_file": "frame_000225.png",
+      "sha256": "6069759fdd1f3b0ce41e8fcf3b7ca9c87e1fbab83d5e492ee16a18e8c6a4055a",
+      "camera_eye": [
+        0.8992035388946599,
+        -5.165835678577459,
+        3.000000000000033
+      ],
+      "camera_target": [
+        0.8992035388946535,
+        -0.16583558691272238,
+        1.000000229161771
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 7.300048299977715e-08,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 230,
+      "file": "frame_000230.png",
+      "silhouette_file": "frame_000230.png",
+      "ground_mask_file": "frame_000230.png",
+      "sha256": "1255cb80aa0aeea36aacc9878acc214d4910d3e0d102132501016340eabaf367",
+      "camera_eye": [
+        1.1041464805603092,
+        -5.176244378089937,
+        3.000000000000032
+      ],
+      "camera_target": [
+        1.1041464805603027,
+        -0.1762442864252023,
+        1.0000002291617716
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.1151007970493858e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 235,
+      "file": "frame_000235.png",
+      "silhouette_file": "frame_000235.png",
+      "ground_mask_file": "frame_000235.png",
+      "sha256": "1395267ff249fd0ad1f9e3086a5b98fdeeedf20130cfbd22e405884518c4bac0",
+      "camera_eye": [
+        1.2340607643127506,
+        -5.060485858470232,
+        3.0000000000000306
+      ],
+      "camera_target": [
+        1.2340607643127441,
+        -0.060485766805499,
+        1.0000002291617713
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.615143176136055e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 240,
+      "file": "frame_000240.png",
+      "silhouette_file": "frame_000240.png",
+      "ground_mask_file": "frame_000240.png",
+      "sha256": "acbf7b0408729e426dba25f300217f8da4b5188802122d70b9ac9a8c871ab86a",
+      "camera_eye": [
+        1.6365914344787662,
+        -5.108738385140925,
+        3.0000000000000306
+      ],
+      "camera_target": [
+        1.6365914344787598,
+        -0.10873829347619512,
+        1.000000229161771
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 8.178009232289993e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 245,
+      "file": "frame_000245.png",
+      "silhouette_file": "frame_000245.png",
+      "ground_mask_file": "frame_000245.png",
+      "sha256": "9fd65e00719aba53656258ead81ca49bce3cf584abe0523a9b594c2c79b175e4",
+      "camera_eye": [
+        1.7607774734497132,
+        -5.096140727400809,
+        3.00000000000003
+      ],
+      "camera_target": [
+        1.7607774734497068,
+        -0.09614063573607634,
+        1.0000002291617711
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.85146659496419e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 250,
+      "file": "frame_000250.png",
+      "silhouette_file": "frame_000250.png",
+      "ground_mask_file": "frame_000250.png",
+      "sha256": "4c46d90b022a3198f04d1f5918fb3f9bbd8fa34b264e455ea83689baac019873",
+      "camera_eye": [
+        1.95541441440583,
+        -5.040637586265833,
+        3.000000000000031
+      ],
+      "camera_target": [
+        1.9554144144058228,
+        -0.040637494601101665,
+        1.0000002291617718
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 4.0535540904806456e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 255,
+      "file": "frame_000255.png",
+      "silhouette_file": "frame_000255.png",
+      "ground_mask_file": "frame_000255.png",
+      "sha256": "d0d0972297218455f4f7ebf98e33e167a443e267571a9a55299fe986c20406e6",
+      "camera_eye": [
+        2.1513490676879954,
+        -5.005734004545985,
+        3.000000000000031
+      ],
+      "camera_target": [
+        2.1513490676879883,
+        -0.005733912881254355,
+        1.0000002291617716
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.8429603618888453e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 260,
+      "file": "frame_000260.png",
+      "silhouette_file": "frame_000260.png",
+      "ground_mask_file": "frame_000260.png",
+      "sha256": "5d566bc208ade679e1f26ff934b7179a1c368ff81118139089fe6d909b4d7736",
+      "camera_eye": [
+        2.1745398044586257,
+        -4.995336389169124,
+        3.0000000000000333
+      ],
+      "camera_target": [
+        2.1745398044586186,
+        0.004663702495605548,
+        1.0000002291617738
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.632340423778195e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 265,
+      "file": "frame_000265.png",
+      "silhouette_file": "frame_000265.png",
+      "ground_mask_file": "frame_000265.png",
+      "sha256": "f438ad86f3e544f775989235fe4d37c0bf3b8e2e4793052f2ef5298a080e3c11",
+      "camera_eye": [
+        2.1604824066162185,
+        -5.02068754099312,
+        3.0000000000000333
+      ],
+      "camera_target": [
+        2.160482406616211,
+        -0.02068744932839195,
+        1.0000002291617756
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.598106231415675e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 270,
+      "file": "frame_000270.png",
+      "silhouette_file": "frame_000270.png",
+      "ground_mask_file": "frame_000270.png",
+      "sha256": "4fe64d8ac607d9d10ea10c5fe3777318a0888d2f995a87edc17d07387c530453",
+      "camera_eye": [
+        2.1389162540435875,
+        -5.0347671322524805,
+        3.000000000000033
+      ],
+      "camera_target": [
+        2.1389162540435795,
+        -0.03476704058775226,
+        1.0000002291617742
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 275,
+      "file": "frame_000275.png",
+      "silhouette_file": "frame_000275.png",
+      "ground_mask_file": "frame_000275.png",
+      "sha256": "93da4ebac78753b697471dc7af6570d7b7de91a49509601c062f84acee0b3c70",
+      "camera_eye": [
+        2.1169641017913903,
+        -5.021997248753931,
+        3.000000000000033
+      ],
+      "camera_target": [
+        2.116964101791382,
+        -0.021997157089201025,
+        1.0000002291617742
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.686343692795336e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 280,
+      "file": "frame_000280.png",
+      "silhouette_file": "frame_000280.png",
+      "ground_mask_file": "frame_000280.png",
+      "sha256": "776e9ece84d9ebc46e27e0a0a36eb3687738d0a4cf7576371d5c1a93d6df9659",
+      "camera_eye": [
+        2.1037912368774503,
+        -4.997820949181942,
+        3.000000000000033
+      ],
+      "camera_target": [
+        2.1037912368774414,
+        0.0021791424827872774,
+        1.0000002291617742
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 2.858538343496754e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 285,
+      "file": "frame_000285.png",
+      "silhouette_file": "frame_000285.png",
+      "ground_mask_file": "frame_000285.png",
+      "sha256": "fb83d5bd89c94586d0ab80087089510432b4d313ae6b057147466603e058f725",
+      "camera_eye": [
+        2.1030802726745708,
+        -4.985003795474796,
+        3.0000000000000355
+      ],
+      "camera_target": [
+        2.1030802726745605,
+        0.014996296189936587,
+        1.0000002291617751
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 0.0,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 290,
+      "file": "frame_000290.png",
+      "silhouette_file": "frame_000290.png",
+      "ground_mask_file": "frame_000290.png",
+      "sha256": "608d233a47d54abed17fbfe14f4bffee1af84063992506d07147d3c62cd72139",
+      "camera_eye": [
+        0.03242977336050102,
+        -4.998429798753961,
+        3.0000000000000364
+      ],
+      "camera_target": [
+        0.03242977336049079,
+        0.001570292910772153,
+        1.0000002291617764
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 3.384893146634269e-07,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    },
+    {
+      "frame": 295,
+      "file": "frame_000295.png",
+      "silhouette_file": "frame_000295.png",
+      "ground_mask_file": "frame_000295.png",
+      "sha256": "55bd0bbd4a48c1cf4e1beb0e016408a24a82b911c6d7038394f1e3e084632744",
+      "camera_eye": [
+        0.028120208531628343,
+        -4.988075605593652,
+        3.0000000000000364
+      ],
+      "camera_target": [
+        0.028120208531618115,
+        0.011924486071083429,
+        1.000000229161776
+      ],
+      "fov_degrees": 60.000000665109205,
+      "fov_axis": "horizontal",
+      "projection": "perspective",
+      "near": 0.009999999776482582,
+      "far": 10000000.0,
+      "renderer_version": "isaaclab+usd-link-sync-v2-settled",
+      "visual_link_sync_ok": true,
+      "visual_link_sync_max_pos_error_m": 0.0,
+      "visual_link_sync_max_rot_error_rad": 1.483844433367835e-06,
+      "visual_link_sync_count": 17,
+      "capture_settle_updates": 8
+    }
+  ]
+}
