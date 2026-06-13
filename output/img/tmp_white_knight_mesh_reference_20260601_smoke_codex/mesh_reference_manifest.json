@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-01T15:00:13Z",
+  "root_name": "tmp_white_knight_mesh_reference_20260601_smoke_codex",
+  "train_root_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260601_smoke_codex",
+  "img_root_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260601_smoke_codex",
+  "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+  "case": "view_motion_humanoid_sword_shield_args",
+  "base_env_config": "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+  "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+  "usd_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+  "xml_kinematic_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml",
+  "frames": 10,
+  "frame_stride": 5,
+  "expected_image_count": 2,
+  "conda_env": "mimickit-isaaclab",
+  "render_python": "",
+  "precheck": {
+    "ok": false,
+    "conda_env": "mimickit-isaaclab",
+    "render_python": "",
+    "command": {
+      "cmd": [
+        "/root/miniconda3/bin/conda",
+        "run",
+        "-n",
+        "mimickit-isaaclab",
+        "python",
+        "-c",
+        "\nimport importlib\nimport json\nimport sys\n\nmodules = [\"isaaclab\", \"carb\", \"omni\", \"omni.kit.usd\", \"torch\"]\nresult = {\"python\": sys.executable, \"imports\": {}, \"torch_cuda_available\": False}\nok = True\nfor name in modules:\n    try:\n        mod = importlib.import_module(name)\n        result[\"imports\"][name] = {\"ok\": True, \"file\": getattr(mod, \"__file__\", \"\")}\n    except Exception as exc:\n        ok = False\n        result[\"imports\"][name] = {\"ok\": False, \"error\": f\"{type(exc).__name__}: {exc}\"}\ntry:\n    import torch\n    result[\"torch_version\"] = torch.__version__\n    result[\"torch_cuda_available\"] = bool(torch.cuda.is_available())\n    if not result[\"torch_cuda_available\"]:\n        ok = False\nexcept Exception as exc:\n    ok = False\n    result[\"torch_error\"] = f\"{type(exc).__name__}: {exc}\"\nprint(json.dumps(result, indent=2))\nraise SystemExit(0 if ok else 3)\n"
+      ],
+      "returncode": 1,
+      "stdout_tail": "",
+      "stderr_tail": "\nEnvironmentLocationNotFound: Not a conda environment: /root/miniconda3/envs/mimickit-isaaclab\n\n",
+      "ok": false
+    },
+    "details": {}
+  },
+  "build_synthetic_root": {
+    "cmd": [
+      "/root/miniconda3/envs/mimickit/bin/python",
+      "/root/Project/MimicKit/tools/ue_bridge/build_ase_reallusion_motion_render_root.py",
+      "--train-root",
+      "/root/Project/MimicKit/output/train",
+      "--root-name",
+      "tmp_white_knight_mesh_reference_20260601_smoke_codex",
+      "--motion-ids",
+      "RL_Avatar_Atk_2xCombo01_Motion",
+      "--base-env-config",
+      "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+      "--engine-config",
+      "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+      "--force"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[OK] root=/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260601_smoke_codex\n[OK] generated_rows=1\n[OK] best_by_case=/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260601_smoke_codex/best_by_case.tsv\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "dry_run": {
+    "cmd": [
+      "/root/miniconda3/envs/mimickit/bin/python",
+      "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py",
+      "--train-root",
+      "/root/Project/MimicKit/output/train",
+      "--img-root",
+      "/root/Project/MimicKit/output/img",
+      "--roots",
+      "tmp_white_knight_mesh_reference_20260601_smoke_codex",
+      "--cases",
+      "view_motion_humanoid_sword_shield_args",
+      "--frames",
+      "10",
+      "--frame-stride",
+      "5",
+      "--mp4-fps",
+      "12",
+      "--device",
+      "cuda:0",
+      "--num-envs",
+      "1",
+      "--force",
+      "--dry-run",
+      "--max-cases",
+      "1"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[INFO] jobs_selected=1 root_scope=all dry_run=1\n[CASE 1/1] tmp_white_knight_mesh_reference_20260601_smoke_codex :: view_motion_humanoid_sword_shield_args.txt :: RL_Avatar_Atk_2xCombo01_Motion\n  [RESULT] status=dry_run visual_kind=mesh image_count=0\n[INDEX] /root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260601_smoke_codex/infer_viz_index.tsv rows=1\n[INDEX] /root/Project/MimicKit/output/img/render_all_roots.tsv rows=1\n[DONE] ok=1/1\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "render": {
+    "ok": false,
+    "skipped": false
+  },
+  "contact_sheet": {
+    "ok": false
+  },
+  "mesh_reference_pass": false,
+  "blocker": "isaaclab_precheck_failed",
+  "native_windows_fallback": {
+    "script": "/root/Project/MimicKit/tools/windows/run_white_knight_mesh_viewmotion.ps1",
+    "recommended_when": "WSL Isaac Lab precheck/render fails due missing omni.kit.usd, gpu.foundation, Vulkan, or headless renderer startup"
+  }
+}

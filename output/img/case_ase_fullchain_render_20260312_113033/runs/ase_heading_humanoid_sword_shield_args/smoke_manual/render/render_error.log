@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 540, in run_job
+    ctx = build_runtime_context(
+  File "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py", line 134, in build_runtime_context
+    agent = agent_builder.build_agent(str(agent_file) if agent_file else "", env=env, device=device)
+  File "/root/Project/MimicKit/mimickit/learning/agent_builder.py", line 31, in build_agent
+    agent = ase_hrl_agent.ASEHRLAgent(config=agent_config, env=env, device=device)
+  File "/root/Project/MimicKit/mimickit/learning/ase_hrl_agent.py", line 41, in __init__
+    self._build_llc_agent()
+  File "/root/Project/MimicKit/mimickit/learning/ase_hrl_agent.py", line 78, in _build_llc_agent
+    assert(llc_model_file != ""), "ASEHRL requires --llc_model_file"
+AssertionError: ASEHRL requires --llc_model_file
