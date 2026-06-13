@@ -1,0 +1,99 @@
+Using master port: 44866
+Using master port: 44866
+Setting seed: 453972590202
+Setting seed: 453972590162
+Building task_reach env
+Warp 1.12.0.dev20260206 initialized:
+   CUDA Toolkit 12.9, Driver 12.9
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+     "cuda:1"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+   CUDA peer access:
+     Not supported
+   Kernel cache:
+     /root/.cache/warp/1.12.0.dev20260206
+Warp 1.12.0.dev20260206 initialized:
+   CUDA Toolkit 12.9, Driver 12.9
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+     "cuda:1"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+   CUDA peer access:
+     Not supported
+   Kernel cache:
+     /root/.cache/warp/1.12.0.dev20260206
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 164, in <module>
+[rank0]:     main(sys.argv)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 156, in main
+[rank0]:     run(root_rank, num_workers, root_device, master_port, args)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 113, in run
+[rank0]:     env = build_env(args, num_envs, device, visualize)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 37, in build_env
+[rank0]:     env = env_builder.build_env(env_file, engine_file, num_envs, device, visualize)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/env_builder.py", line 49, in build_env
+[rank0]:     env = task_reach_env.TaskReachEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/task_reach_env.py", line 20, in __init__
+[rank0]:     super().__init__(env_config=env_config, engine_config=engine_config,
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/amp_env.py", line 13, in __init__
+[rank0]:     super().__init__(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device,
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/deepmimic_env.py", line 42, in __init__
+[rank0]:     super().__init__(env_config=env_config, engine_config=engine_config,
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 23, in __init__
+[rank0]:     super().__init__(env_config=env_config, engine_config=engine_config,
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/sim_env.py", line 28, in __init__
+[rank0]:     self._build_envs(env_config, num_envs)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/task_reach_env.py", line 27, in _build_envs
+[rank0]:     super()._build_envs(config, num_envs)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/deepmimic_env.py", line 297, in _build_envs
+[rank0]:     super()._build_envs(env_config, num_envs)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 54, in _build_envs
+[rank0]:     self._build_kin_char_model(kin_char_file)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 109, in _build_kin_char_model
+[rank0]:     self._kin_char_model.load(char_file)
+[rank0]:   File "/root/Project/MimicKit-ase-fullchain/mimickit/anim/mjcf_char_model.py", line 18, in load
+[rank0]:     tree = ET.parse(char_file)
+[rank0]:   File "/root/miniconda3/envs/mimickit/lib/python3.10/xml/etree/ElementTree.py", line 1222, in parse
+[rank0]:     tree.parse(source, parser)
+[rank0]:   File "/root/miniconda3/envs/mimickit/lib/python3.10/xml/etree/ElementTree.py", line 569, in parse
+[rank0]:     source = open(source, "rb")
+[rank0]: FileNotFoundError: [Errno 2] No such file or directory: 'data/assets/sword_shield/humanoid_sword_shield.xml'
+Process Process-1:
+Traceback (most recent call last):
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 113, in run
+    env = build_env(args, num_envs, device, visualize)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/run.py", line 37, in build_env
+    env = env_builder.build_env(env_file, engine_file, num_envs, device, visualize)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/env_builder.py", line 49, in build_env
+    env = task_reach_env.TaskReachEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/task_reach_env.py", line 20, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/amp_env.py", line 13, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device,
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/deepmimic_env.py", line 42, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 23, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/sim_env.py", line 28, in __init__
+    self._build_envs(env_config, num_envs)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/task_reach_env.py", line 27, in _build_envs
+    super()._build_envs(config, num_envs)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/deepmimic_env.py", line 297, in _build_envs
+    super()._build_envs(env_config, num_envs)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 54, in _build_envs
+    self._build_kin_char_model(kin_char_file)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/envs/char_env.py", line 109, in _build_kin_char_model
+    self._kin_char_model.load(char_file)
+  File "/root/Project/MimicKit-ase-fullchain/mimickit/anim/mjcf_char_model.py", line 18, in load
+    tree = ET.parse(char_file)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/xml/etree/ElementTree.py", line 1222, in parse
+    tree.parse(source, parser)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/xml/etree/ElementTree.py", line 569, in parse
+    source = open(source, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: 'data/assets/sword_shield/humanoid_sword_shield.xml'
+[rank0]:[W312 23:47:14.017450070 ProcessGroupNCCL.cpp:1553] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())

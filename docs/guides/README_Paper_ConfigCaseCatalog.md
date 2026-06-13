@@ -67,6 +67,7 @@ python mimickit/run.py --arg_file args/<case>.txt --mode test --visualize true -
 
 - 论文导读：`docs/paper/README_ASE_CN.md`
 - 方法文档：`docs/methods/README_ASE.md`
+- `7` 个 trainable ASE case 的 `L2` 参数总表：`docs/guides/README_ASE_7Case_L2_ParamSpec.md`
 
 | case (`args/*.txt`) | case_type | mode | env_config | agent_config | default_num_envs | max_samples | default_engine |
 |---|---|---|---|---|---:|---:|---|

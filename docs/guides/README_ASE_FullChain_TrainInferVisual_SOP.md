@@ -7,6 +7,7 @@
 说明：
 
 - 这是执行型 SOP，不是论文导读。
+- 若当前目标是把 `7` 个 trainable ASE case 的 `L2` 参数一次性定死，先读：`docs/guides/README_ASE_7Case_L2_ParamSpec.md`
 - 上游对照源固定为 `third_party/ase_upstream`，提交 `6f9b4f1f289603eee6a4f45d082bc6e6d83fecec`。
 - submodule 只用于对照 upstream `README / cfg / models / assets`，运行时不要直接 import。
 - 本实现已在 `2026-03-12` 完成一轮 `27/27` smoke validation，验证根目录为 `output/train/ase_validation_suite_smoke_20260312_093358`。

@@ -92,6 +92,7 @@ ASE 在 AMP 的对抗模仿基础上，引入可复用技能向量 `z`：
 执行型全流程请同时参考：
 
 - `docs/guides/README_ASE_FullChain_TrainInferVisual_SOP.md`
+- `docs/guides/README_ASE_7Case_L2_ParamSpec.md`
 
 当前实现备注：
 

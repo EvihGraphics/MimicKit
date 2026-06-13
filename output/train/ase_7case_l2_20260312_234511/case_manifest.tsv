@@ -1,0 +1,39 @@
+case	method	case_type	mode	agent_config	env_config
+add_g1_args.txt	add	trainable	train	data/agents/add_g1_agent.yaml	data/envs/add_g1_env.yaml
+add_go2_args.txt	add	trainable	train	data/agents/add_go2_agent.yaml	data/envs/add_go2_env.yaml
+add_humanoid_args.txt	add	trainable	train	data/agents/add_humanoid_agent.yaml	data/envs/add_humanoid_env.yaml
+add_pi_plus_args.txt	add	trainable	train	data/agents/add_pi_plus_agent.yaml	data/envs/add_pi_plus_env.yaml
+add_smpl_args.txt	add	trainable	train	data/agents/add_smpl_agent.yaml	data/envs/add_smpl_env.yaml
+amp_g1_args.txt	amp	trainable	train	data/agents/amp_g1_agent.yaml	data/envs/amp_g1_env.yaml
+amp_go2_args.txt	amp	trainable	train	data/agents/amp_go2_agent.yaml	data/envs/amp_go2_env.yaml
+amp_humanoid_args.txt	amp	trainable	train	data/agents/amp_humanoid_agent.yaml	data/envs/amp_humanoid_env.yaml
+amp_location_humanoid_args.txt	amp	trainable	train	data/agents/amp_task_humanoid_agent.yaml	data/envs/amp_location_humanoid_env.yaml
+amp_location_humanoid_sword_shield_args.txt	amp	trainable	train	data/agents/amp_task_humanoid_agent.yaml	data/envs/amp_location_humanoid_sword_shield_env.yaml
+amp_pi_plus_args.txt	amp	trainable	train	data/agents/amp_pi_plus_agent.yaml	data/envs/amp_pi_plus_env.yaml
+amp_smpl_args.txt	amp	trainable	train	data/agents/amp_smpl_agent.yaml	data/envs/amp_smpl_env.yaml
+amp_steering_humanoid_args.txt	amp	trainable	train	data/agents/amp_task_humanoid_agent.yaml	data/envs/amp_steering_humanoid_env.yaml
+amp_steering_humanoid_sword_shield_args.txt	amp	trainable	train	data/agents/amp_task_humanoid_agent.yaml	data/envs/amp_steering_humanoid_sword_shield_env.yaml
+ase_getup_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_humanoid_agent.yaml	data/envs/ase_getup_humanoid_sword_shield_env.yaml
+ase_heading_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_hrl_humanoid_agent.yaml	data/envs/ase_heading_humanoid_sword_shield_env.yaml
+ase_humanoid_args.txt	ase	trainable	train	data/agents/ase_humanoid_agent.yaml	data/envs/ase_humanoid_env.yaml
+ase_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_humanoid_agent.yaml	data/envs/ase_humanoid_sword_shield_env.yaml
+ase_location_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_hrl_humanoid_agent.yaml	data/envs/ase_location_humanoid_sword_shield_env.yaml
+ase_perturb_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_humanoid_agent.yaml	data/envs/ase_perturb_humanoid_sword_shield_env.yaml
+ase_reach_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_hrl_humanoid_agent.yaml	data/envs/ase_reach_humanoid_sword_shield_env.yaml
+ase_strike_humanoid_sword_shield_args.txt	ase	trainable	train	data/agents/ase_hrl_humanoid_agent.yaml	data/envs/ase_strike_humanoid_sword_shield_env.yaml
+deepmimic_g1_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_g1_ppo_agent.yaml	data/envs/deepmimic_g1_env.yaml
+deepmimic_go2_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_go2_ppo_agent.yaml	data/envs/deepmimic_go2_env.yaml
+deepmimic_humanoid_awr_args.txt	deepmimic	trainable	train	data/agents/deepmimic_humanoid_awr_agent.yaml	data/envs/deepmimic_humanoid_env.yaml
+deepmimic_humanoid_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_humanoid_ppo_agent.yaml	data/envs/deepmimic_humanoid_env.yaml
+deepmimic_humanoid_sword_shield_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_humanoid_ppo_agent.yaml	data/envs/deepmimic_humanoid_sword_shield_env.yaml
+deepmimic_pi_plus_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_pi_plus_ppo_agent.yaml	data/envs/deepmimic_pi_plus_env.yaml
+deepmimic_smpl_ppo_args.txt	deepmimic	trainable	train	data/agents/deepmimic_smpl_ppo_agent.yaml	data/envs/deepmimic_smpl_env.yaml
+dof_test_humanoid_args.txt	dof	nontrainable	train		data/envs/dof_test_humanoid_env.yaml
+vault_g1_args.txt	vault	trainable	train	data/agents/deepmimic_g1_ppo_agent.yaml	data/envs/vault_g1_env.yaml
+vault_humanoid_args.txt	vault	trainable	train	data/agents/deepmimic_humanoid_ppo_agent.yaml	data/envs/vault_humanoid_env.yaml
+view_motion_g1_args.txt	view	nontrainable	test		data/envs/view_motion_g1_env.yaml
+view_motion_go2_args.txt	view	nontrainable	test		data/envs/view_motion_go2_env.yaml
+view_motion_humanoid_args.txt	view	nontrainable	test		data/envs/view_motion_humanoid_env.yaml
+view_motion_humanoid_sword_shield_args.txt	view	nontrainable	test		data/envs/view_motion_humanoid_sword_shield_env.yaml
+view_motion_pi_plus_args.txt	view	nontrainable	test		data/envs/view_motion_pi_plus_env.yaml
+view_motion_smpl_args.txt	view	nontrainable	test		data/envs/view_motion_smpl_env.yaml
