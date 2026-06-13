@@ -215,14 +215,24 @@ PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate 
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight-smoke
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate framework-render --case white-knight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case white-knight
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate walk-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case walk-exact
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate stop-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case stop-exact
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate aggregate
 ```
 
 The runner refuses each generation gate until its predecessor has
 `case_acceptance_pass=true`. It has no unreviewed-gate bypass and records the
 next allowed gate in `output/img/mimickit_evih_bridge_v3/plan_6_9_execution_manifest.json`.
+Each final generation gate runs source build, software geometry validation, and
+Framework API capture before pausing for human review. `framework-render` is the
+explicit retry/revalidation gate for an already-built final case; it runs
+Framework capture followed by `framework-results-only` and does not rebuild the
+software geometry baseline. Generation
+gates never rebuild the aggregate, and `aggregate` refuses to run until all
+three final cases have been accepted.
 Every v3 generation gate uses 300 source frames sampled at stride 5 and must
 emit 60 changing RGB/silhouette/ground-mask PNG frames plus a 60-frame MP4.
 Evih must additionally emit the 60-frame side-by-side

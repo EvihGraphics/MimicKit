@@ -512,7 +512,11 @@ def render_summary(root_out: Path, render_root_arg: str):
     case_acceptance_detected = any(item.get("case_acceptance_pass") for item in parsed_bridge)
     pass_detected = any(item.get("full_chain_bridge_pass") for item in parsed_full)
     software_geometry_pass_count = sum(bool(item.get("software_geometry_replay_pass")) for item in parsed_visual)
-    framework_api_pass_count = sum(bool(item.get("evih_framework_api_replay_pass")) for item in parsed_visual)
+    framework_api_pass_count = sum(
+        bool(item.get("evih_framework_api_replay_pass"))
+        and bool(item.get("framework_renderer_provenance_valid"))
+        for item in parsed_visual
+    )
     accepted_case_count = sum(bool(item.get("case_acceptance_pass")) for item in parsed_bridge)
     blockers = []
     for item in [*parsed_bridge, *parsed_full, *parsed_execution, *parsed_mesh, *parsed_visual, *parsed_render]:

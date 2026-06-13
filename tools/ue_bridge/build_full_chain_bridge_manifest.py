@@ -13,6 +13,35 @@ from typing import Any
 from visual_bridge_validation import sha256_file, write_json
 
 DEFAULT_REQUIRED_LABELS = ("white-knight", "walk-exact", "stop-exact")
+FRAMEWORK_PROVENANCE_EXACT = {
+    "ai4animation_mode": "CAPTURE",
+    "actor_component": "ai4animation.Components.Actor.Actor",
+    "mesh_component": "ai4animation.Standalone.RigidNodeMesh.RigidNodeMesh",
+    "render_pipeline": "ai4animation.Standalone.RenderPipeline.RenderPipeline",
+    "silhouette_derivation": "renderpipeline_semantic_character_with_ground_depth_occluder",
+    "ground_mask_derivation": "complement_of_renderpipeline_semantic_character",
+    "mesh_mode": "rigid_node",
+    "rigid_node_update_mode": "actor_entity_world_dynamic_vertex_buffer",
+}
+FRAMEWORK_REQUIRED_CAPTURE_PASSES = {"blank", "character_only", "ground_only", "full_scene"}
+FRAMEWORK_PROVENANCE_ARTIFACTS = (
+    "framework_capture_script",
+    "ai4animation_core_module",
+    "entity_module",
+    "actor_module",
+    "rigid_node_mesh_module",
+    "standalone_module",
+    "render_pipeline_module",
+    "replay_module",
+    "basic_vertex_shader",
+    "grid_shader",
+    "mesh_asset",
+    "pose_dof_replay",
+    "body_world_replay",
+    "mesh_binding_contract",
+    "scene_contract",
+    "rigid_node_transform_report",
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -32,6 +61,29 @@ def parse_case_spec(text: str) -> dict[str, Path | str]:
     if not fields.get("label") or not fields.get("mimic") or not fields.get("evih") or not fields.get("review"):
         raise ValueError("--case requires label=...,mimic=...,evih=...,review=...")
     return {key: (Path(value).resolve() if key != "label" else value) for key, value in fields.items()}
+
+
+def framework_renderer_provenance_valid(provenance: dict[str, Any]) -> bool:
+    if not provenance:
+        return False
+    if any(provenance.get(name) != value for name, value in FRAMEWORK_PROVENANCE_EXACT.items()):
+        return False
+    capture_passes = provenance.get("capture_passes", [])
+    if (
+        not isinstance(capture_passes, list)
+        or set(str(value) for value in capture_passes) != FRAMEWORK_REQUIRED_CAPTURE_PASSES
+        or len(capture_passes) != len(FRAMEWORK_REQUIRED_CAPTURE_PASSES)
+    ):
+        return False
+    if not Path(str(provenance.get("python_executable", ""))).is_file():
+        return False
+    for name in FRAMEWORK_PROVENANCE_ARTIFACTS:
+        value = str(provenance.get(name, "")).strip()
+        path = Path(value) if value else None
+        declared_hash = str(provenance.get(f"{name}_sha256", "")).strip()
+        if not path or not path.is_file() or not declared_hash or sha256_file(path) != declared_hash:
+            return False
+    return True
 
 
 def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
@@ -67,6 +119,11 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
     review_evidence = review.get("evidence", {}) if isinstance(review.get("evidence"), dict) else {}
     mesh_report = evih.get("mesh_report", {}) if isinstance(evih.get("mesh_report"), dict) else {}
     evih_review_evidence = mesh_report.get("visual_review_evidence", {}) if isinstance(mesh_report.get("visual_review_evidence"), dict) else {}
+    framework_provenance = (
+        evih.get("framework_renderer_provenance", {})
+        if isinstance(evih.get("framework_renderer_provenance"), dict)
+        else {}
+    )
     comparison_sheet = Path(str(evih.get("comparison_sheet", ""))) if str(evih.get("comparison_sheet", "")).strip() else None
     comparison_mp4 = Path(str(evih.get("comparison_mp4", ""))) if str(evih.get("comparison_mp4", "")).strip() else None
     review_checks_pass = all(bool(review_checks.get(name)) for name in (
@@ -109,7 +166,8 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
         "framework_scene_visual_metric_pass": bool(evih.get("framework_scene_visual_metric_pass")),
         "framework_dynamic_sequence_pass": bool(evih.get("framework_dynamic_sequence_pass")),
         "framework_media_ok": bool(evih.get("framework_media_ok")),
-        "framework_renderer_provenance_present": bool(evih.get("framework_renderer_provenance")),
+        "framework_renderer_provenance_present": bool(framework_provenance),
+        "framework_renderer_provenance_valid": framework_renderer_provenance_valid(framework_provenance),
         "evih_mesh_replay_pass": bool(evih.get("evih_mesh_replay_pass")),
         "evih_data_binding_ok": bool(evih.get("data_binding_ok")),
         "mesh_binding_pass": bool(evih.get("mesh_binding_pass")),
@@ -153,6 +211,7 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
             "framework_dynamic_sequence_pass",
             "framework_media_ok",
             "framework_renderer_provenance_present",
+            "framework_renderer_provenance_valid",
         ):
             checks.pop(name)
     source_key = f"mimickit-evih-v3:{label}"

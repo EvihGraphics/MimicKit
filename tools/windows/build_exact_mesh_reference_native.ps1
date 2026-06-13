@@ -94,6 +94,8 @@ if ($SkipAssetExport) {
 
 Write-Host "Running native Windows MimicKit exact mesh reference builder..." -ForegroundColor Cyan
 Write-Host "`"$condaBat`" $($argsList -join ' ')" -ForegroundColor DarkGray
+$env:MIMICKIT_SKIP_XVFB = "1"
+$env:MIMICKIT_VIEWER_HEADLESS = "1"
 & $condaBat @argsList
 if ($LASTEXITCODE -ne 0) {
     throw "Native Windows exact mesh reference builder failed with exit code $LASTEXITCODE."

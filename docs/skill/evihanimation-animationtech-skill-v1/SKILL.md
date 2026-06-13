@@ -295,6 +295,10 @@ current Mimic manifest, mesh, scene contract, comparison sheet, and both RGB
 frame sets. A named checklist also requires a non-empty `reviewed_at_utc`.
 Missing timestamps fail closed; stale evidence must fail with
 `visual_review_evidence_mismatch`.
+When evidence changes, preserve a signed stale review as
+`visual_review.stale.<sha>.json` and reset the canonical `visual_review.json`
+to an unsigned template bound to current evidence. Never carry its approval
+fields forward.
 
 Use the PLAN-6-9 orchestrator from MimicKit to preserve gate order:
 
@@ -306,10 +310,29 @@ PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate 
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case white-knight-smoke
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate white-knight
 PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate framework-render --case white-knight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case white-knight
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate walk-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case walk-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate stop-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate promote-review --case stop-exact
+PYTHONPATH=tools/ue_bridge python tools/ue_bridge/run_plan_6_9_bridge.py --gate aggregate
 ```
 
 The orchestrator has no unreviewed-gate bypass. It writes
 `output/img/mimickit_evih_bridge_v3/plan_6_9_execution_manifest.json`.
+Final-case generation gates include source build, software geometry validation,
+and Framework API capture, then pause for human review. They do not run
+aggregate. `framework-render` retries an already-built case by running Framework
+capture followed by `framework-results-only`, while `aggregate`
+fails closed until all three final cases are accepted.
+Framework provenance is structural, not a presence check: it must bind the
+exact CAPTURE/Actor/RigidNodeMesh/RenderPipeline identities, all four capture
+passes, semantic derivations, source GLB/sidecars/contracts, and renderer
+implementation/shader hashes. Any component mismatch or artifact hash drift
+fails `framework_renderer_provenance_valid`.
+Framework ground rendering must use contract world-space `grid_spacing_m` and
+`major_grid_spacing_m`; distant and dome intensities must be applied to
+RenderPipeline strengths and verified in the Framework scene compare report.
 `promote-review` reruns only the Evih evidence validation for an existing case;
 it never rebuilds or overwrites the MimicKit source root.
 After each final case's automatic gates, stop for a named human review before

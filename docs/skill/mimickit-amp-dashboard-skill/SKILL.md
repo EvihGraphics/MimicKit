@@ -272,7 +272,9 @@ Framework API pass counts,
 
 For strict Framework cases, provenance must identify the Actor-driven
 `rigid_node` dynamic vertex-buffer mode, RenderPipeline semantic silhouette
-pass, and complement-derived ground-mask. Dashboard must not treat raw
+pass, complement-derived ground-mask, four capture passes, bound input
+artifacts, and renderer implementation/shader hashes. Dashboard must require
+`framework_renderer_provenance_valid=true` and must not treat raw
 character-only/ground-only passes or file existence as accepted semantic media.
 
 A single case may display `case_acceptance_pass=true`, but global Dashboard
@@ -287,6 +289,10 @@ comparison-sheet hash. It also requires a named reviewer and non-empty
 After a reviewer signs an existing case, use
 `run_plan_6_9_bridge.py --gate promote-review --case <case>` to revalidate and
 publish the manifest without rebuilding the MimicKit source root.
+Generation and review-promotion gates must not rebuild
+`full_chain_bridge_manifest.json`. The explicit `aggregate` gate fails closed
+before all three final cases have `case_acceptance_pass=true`, so Dashboard
+cannot observe a prematurely refreshed full-chain result.
 
 If an AMP render appears frozen or jittery, first verify the render used the agent test loop rather than a static policy wrapper.
 

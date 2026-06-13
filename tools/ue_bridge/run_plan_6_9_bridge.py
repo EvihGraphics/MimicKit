@@ -59,9 +59,42 @@ PREREQUISITES = {
     "stop-exact": "walk-exact",
 }
 GENERATION_GATES = ("white-knight-smoke", "white-knight", "walk-exact", "stop-exact")
+FINAL_CASES = ("white-knight", "walk-exact", "stop-exact")
 REVIEW_PROMOTION_GATE = "promote-review"
 FRAMEWORK_PREFLIGHT_GATE = "framework-preflight"
 FRAMEWORK_RENDER_GATE = "framework-render"
+FINAL_AUTOMATIC_CHECKS = (
+    "mimic_manifest_exists",
+    "mimic_mesh_reference_pass",
+    "mimic_capture_ok",
+    "mimic_media_ok",
+    "mimic_asset_ok",
+    "mimic_package_ok",
+    "mimic_blocker_empty",
+    "mimic_data_binding_ok",
+    "mimic_dynamic_sequence_ok",
+    "mimic_source_not_ppm_only",
+    "evih_manifest_exists",
+    "software_geometry_replay_pass",
+    "framework_api_used",
+    "evih_framework_api_replay_pass",
+    "framework_scene_contract_compare_pass",
+    "framework_visual_metric_pass",
+    "framework_scene_visual_metric_pass",
+    "framework_dynamic_sequence_pass",
+    "framework_media_ok",
+    "framework_renderer_provenance_present",
+    "framework_renderer_provenance_valid",
+    "evih_data_binding_ok",
+    "mesh_binding_pass",
+    "fk_compare_pass",
+    "scene_contract_compare_pass",
+    "scene_visual_metric_pass",
+    "visual_metric_pass",
+    "evih_dynamic_sequence_pass",
+    "comparison_mp4_pass",
+    "media_ok",
+)
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -203,7 +236,7 @@ def prerequisite_blocker(case_name: str, evih_worktree: Path) -> str:
 
 
 def next_gate_status(evih_worktree: Path) -> tuple[str, str]:
-    for case_name in ("white-knight", "walk-exact", "stop-exact"):
+    for case_name in FINAL_CASES:
         blocker = prerequisite_blocker(case_name, evih_worktree)
         if blocker:
             return case_name, blocker
@@ -211,6 +244,16 @@ def next_gate_status(evih_worktree: Path) -> tuple[str, str]:
         if not case_manifest.get("case_acceptance_pass"):
             return case_name, f"gate_not_accepted:{case_name}"
     return "aggregate", ""
+
+
+def final_automatic_gate_pass(report: dict[str, Any]) -> bool:
+    checks = report.get("checks", {}) if isinstance(report.get("checks"), dict) else {}
+    return all(bool(checks.get(name)) for name in FINAL_AUTOMATIC_CHECKS)
+
+
+def aggregate_prerequisite_blocker(evih_worktree: Path) -> str:
+    next_gate, _ = next_gate_status(evih_worktree)
+    return "" if next_gate == "aggregate" else f"aggregate_requires_accepted_case:{next_gate}"
 
 
 def source_build_command(case_name: str, python: Path) -> list[str]:
@@ -263,6 +306,47 @@ def evih_build_command(
     ]
     if framework_api:
         command.extend(["--framework-api", "--framework-python", str(framework_python)])
+    return command
+
+
+def framework_capture_command(
+    case_name: str,
+    evih_worktree: Path,
+    framework_python: Path = DEFAULT_FRAMEWORK_PYTHON,
+) -> list[str]:
+    paths = case_paths(case_name, evih_worktree)
+    manifest = read_json(paths["mimic_manifest"])
+    package = Path(str((manifest.get("package_export") or {}).get("package_dir", "")))
+    asset = Path(str((manifest.get("asset_export") or {}).get("glb_file", "")))
+    scene = Path(str((manifest.get("render_summary") or {}).get("scene_contract_v3_file", "")))
+    result_root = paths["evih_manifest"].parent
+    return [
+        str(framework_python),
+        str(evih_worktree / "Demos" / "MimicKitReplay" / "framework_capture.py"),
+        "--package-dir", str(package),
+        "--mesh-asset", str(asset),
+        "--scene-contract", str(scene),
+        "--out-dir", str(result_root / "evih_framework_replay"),
+        "--width", "960",
+        "--height", "540",
+        "--fps", "12",
+    ]
+
+
+def framework_results_command(
+    case_name: str,
+    evih_worktree: Path,
+    python: Path,
+    framework_python: Path = DEFAULT_FRAMEWORK_PYTHON,
+) -> list[str]:
+    command = evih_build_command(
+        case_name,
+        evih_worktree,
+        python,
+        framework_api=False,
+        framework_python=framework_python,
+    )
+    command.append("--framework-results-only")
     return command
 
 
@@ -395,25 +479,25 @@ def main() -> int:
             write_execution_manifest(execution)
             print(json.dumps(execution, indent=2, ensure_ascii=False))
             return 3
-        result = run_command(
-            evih_build_command(
-                args.case,
-                evih_worktree,
-                python,
-                framework_api=True,
-                framework_python=framework_python,
-            ),
+        capture_result = run_command(
+            framework_capture_command(args.case, evih_worktree, framework_python),
             cwd=evih_worktree,
         )
-        execution["commands"].append(result)
+        execution["commands"].append(capture_result)
+        if not capture_result["ok"]:
+            execution["blockers"] = ["evih_framework_capture_failed"]
+            write_execution_manifest(execution)
+            print(json.dumps(execution, indent=2, ensure_ascii=False))
+            return 4
+        results_result = run_command(
+            framework_results_command(args.case, evih_worktree, python, framework_python),
+            cwd=evih_worktree,
+        )
+        execution["commands"].append(results_result)
         report = refresh_case(args.case, evih_worktree)
         execution["case"] = report
         execution["blockers"] = report.get("blockers", [])
-        execution["framework_render_automatic_pass"] = bool(
-            report.get("checks", {}).get("evih_framework_api_replay_pass")
-            and report.get("checks", {}).get("framework_visual_metric_pass")
-            and report.get("checks", {}).get("framework_media_ok")
-        )
+        execution["framework_render_automatic_pass"] = final_automatic_gate_pass(report)
         write_execution_manifest(execution)
         print(json.dumps(execution, indent=2, ensure_ascii=False))
         return 0 if execution["framework_render_automatic_pass"] else 2
@@ -432,12 +516,42 @@ def main() -> int:
             write_execution_manifest(execution)
             print(json.dumps(execution, indent=2, ensure_ascii=False))
             return 4
-        evih_result = run_command(evih_build_command(args.gate, evih_worktree, python), cwd=evih_worktree)
+        evih_result = run_command(
+            evih_build_command(
+                args.gate,
+                evih_worktree,
+                python,
+                framework_api=args.gate in FINAL_CASES,
+                framework_python=framework_python,
+            ),
+            cwd=evih_worktree,
+        )
         execution["commands"].append(evih_result)
         report = refresh_case(args.gate, evih_worktree)
         execution["case"] = report
         execution["blockers"] = report.get("blockers", [])
+        execution["automatic_gate_pass"] = (
+            final_automatic_gate_pass(report)
+            if args.gate in FINAL_CASES
+            else bool(report.get("case_acceptance_pass"))
+        )
+        execution["paused_for_human_review"] = bool(
+            args.gate in FINAL_CASES and execution["automatic_gate_pass"] and not report.get("case_acceptance_pass")
+        )
+        execution["next_gate"], execution["next_gate_blocker"] = next_gate_status(evih_worktree)
+        if execution["next_gate_blocker"]:
+            execution["blockers"] = list(dict.fromkeys([*execution["blockers"], execution["next_gate_blocker"]]))
+        write_execution_manifest(execution)
+        print(json.dumps(execution, indent=2, ensure_ascii=False))
+        return 0 if execution["automatic_gate_pass"] else 2
 
+    aggregate_blocker = aggregate_prerequisite_blocker(evih_worktree)
+    if aggregate_blocker:
+        execution["blockers"] = [aggregate_blocker]
+        execution["next_gate"], execution["next_gate_blocker"] = next_gate_status(evih_worktree)
+        write_execution_manifest(execution)
+        print(json.dumps(execution, indent=2, ensure_ascii=False))
+        return 3
     aggregate_result = run_command(aggregate_command(evih_worktree, python), cwd=ROOT)
     execution["commands"].append(aggregate_result)
     full_chain = read_json(BRIDGE_ROOT / "full_chain_bridge_manifest.json")
