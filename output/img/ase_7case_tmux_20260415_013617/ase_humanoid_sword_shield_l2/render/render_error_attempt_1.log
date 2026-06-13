@@ -1,0 +1,47 @@
+Traceback (most recent call last):
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 838, in __init__
+    config = pyglet.gl.Config(sample_buffers=1, samples=8, double_buffer=True)
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 446, in patched_config_ctor
+    raise no_such_cfg("MimicKit render sequence: force non-MSAA fallback")
+pyglet.window.NoSuchConfigException: MimicKit render sequence: force non-MSAA fallback
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 577, in run_job
+    ctx = build_runtime_context(
+  File "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py", line 136, in build_runtime_context
+    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/env_builder.py", line 25, in build_env
+    env = ase_env.ASEEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/ase_env.py", line 10, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/amp_env.py", line 13, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device,
+  File "/root/Project/MimicKit/mimickit/envs/deepmimic_env.py", line 42, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/char_env.py", line 23, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 27, in __init__
+    self._engine = self._build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 164, in _build_engine
+    engine = engine_builder.build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/engine_builder.py", line 17, in build_engine
+    engine = newton_engine.NewtonEngine(config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 401, in __init__
+    self._build_viewer()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 1003, in _build_viewer
+    self._viewer = newton.viewer.ViewerGL(headless=viewer_headless)
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 73, in __init__
+    self.renderer = RendererGL(vsync=vsync, screen_width=width, screen_height=height, headless=headless)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 853, in __init__
+    self.window = pyglet.window.Window(
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/window/xlib/__init__.py", line 167, in __init__
+    super().__init__(*args, **kwargs)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/window/__init__.py", line 509, in __init__
+    display = pyglet.display.get_display()
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/display/__init__.py", line 77, in get_display
+    return Display()
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/display/xlib.py", line 102, in __init__
+    raise NoSuchDisplayException(f'Cannot connect to "{name}"')
+pyglet.display.xlib.NoSuchDisplayException: Cannot connect to "None"

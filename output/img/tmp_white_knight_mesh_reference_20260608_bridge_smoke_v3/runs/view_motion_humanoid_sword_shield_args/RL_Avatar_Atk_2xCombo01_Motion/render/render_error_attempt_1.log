@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\build_mimickit_render_sequences.py", line 874, in run_job
+    base_env_config=meta.get("env_config", ""),
+NameError: name 'meta' is not defined

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\build_mimickit_render_sequences.py", line 793, in run_job
+    capture = ctx.env._engine.capture_frame(
+  File "D:\MimicKitNative\workspace\MimicKit\mimickit\engines\isaac_lab_engine.py", line 239, in capture_frame
+    visual_link_sync = self._sync_capture_visual_links()
+  File "D:\MimicKitNative\workspace\MimicKit\mimickit\engines\isaac_lab_engine.py", line 426, in _sync_capture_visual_links
+    link_view.set_world_poses(
+  File "d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/isaacsim/exts/isaacsim.core.prims/isaacsim/core/prims/impl/xform_prim.py", line 818, in set_world_poses
+    calculated_translations, calculated_orientations = self._backend_utils.get_local_from_world(
+  File "d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/isaacsim/exts/isaacsim.core.utils/isaacsim/core/utils/torch/transformations.py", line 44, in get_local_from_world
+    my_world_transforms = tf_matrices_from_poses(translations=positions, orientations=orientations, device=device)
+  File "d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/isaacsim/exts/isaacsim.core.utils/isaacsim/core/utils/torch/transformations.py", line 34, in tf_matrices_from_poses
+    r = Rotation.from_quat(orientations[:, [1, 2, 3, 0]].detach().cpu().numpy())
+AttributeError: 'numpy.ndarray' object has no attribute 'detach'

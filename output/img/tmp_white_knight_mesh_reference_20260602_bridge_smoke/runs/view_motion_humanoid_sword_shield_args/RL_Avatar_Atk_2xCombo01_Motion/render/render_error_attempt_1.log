@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\build_mimickit_render_sequences.py", line 734, in run_job
+    raise RuntimeError("viewer not available (render path requires visualize=True)")
+RuntimeError: viewer not available (render path requires visualize=True)

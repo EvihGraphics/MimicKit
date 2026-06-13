@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-03T07:11:56Z",
+  "ok": true,
+  "source_usd_file": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+  "source_usd_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+  "output_file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\assets\\humanoid_sword_shield.glb",
+  "output_sha256": "a11d807d003b8444a4164063a1a670e136c10d7c00e87ac287bde560a6f8f9b1",
+  "glb_file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\assets\\humanoid_sword_shield.glb",
+  "gltf_file": "",
+  "error": ""
+}
