@@ -1,0 +1,248 @@
+{
+  "frames": 300,
+  "frame_stride": 5,
+  "expected_image_count": 60,
+  "image_count": 60,
+  "captures": [
+    {
+      "frame": 0,
+      "file": "frame_000000.png"
+    },
+    {
+      "frame": 5,
+      "file": "frame_000005.png"
+    },
+    {
+      "frame": 10,
+      "file": "frame_000010.png"
+    },
+    {
+      "frame": 15,
+      "file": "frame_000015.png"
+    },
+    {
+      "frame": 20,
+      "file": "frame_000020.png"
+    },
+    {
+      "frame": 25,
+      "file": "frame_000025.png"
+    },
+    {
+      "frame": 30,
+      "file": "frame_000030.png"
+    },
+    {
+      "frame": 35,
+      "file": "frame_000035.png"
+    },
+    {
+      "frame": 40,
+      "file": "frame_000040.png"
+    },
+    {
+      "frame": 45,
+      "file": "frame_000045.png"
+    },
+    {
+      "frame": 50,
+      "file": "frame_000050.png"
+    },
+    {
+      "frame": 55,
+      "file": "frame_000055.png"
+    },
+    {
+      "frame": 60,
+      "file": "frame_000060.png"
+    },
+    {
+      "frame": 65,
+      "file": "frame_000065.png"
+    },
+    {
+      "frame": 70,
+      "file": "frame_000070.png"
+    },
+    {
+      "frame": 75,
+      "file": "frame_000075.png"
+    },
+    {
+      "frame": 80,
+      "file": "frame_000080.png"
+    },
+    {
+      "frame": 85,
+      "file": "frame_000085.png"
+    },
+    {
+      "frame": 90,
+      "file": "frame_000090.png"
+    },
+    {
+      "frame": 95,
+      "file": "frame_000095.png"
+    },
+    {
+      "frame": 100,
+      "file": "frame_000100.png"
+    },
+    {
+      "frame": 105,
+      "file": "frame_000105.png"
+    },
+    {
+      "frame": 110,
+      "file": "frame_000110.png"
+    },
+    {
+      "frame": 115,
+      "file": "frame_000115.png"
+    },
+    {
+      "frame": 120,
+      "file": "frame_000120.png"
+    },
+    {
+      "frame": 125,
+      "file": "frame_000125.png"
+    },
+    {
+      "frame": 130,
+      "file": "frame_000130.png"
+    },
+    {
+      "frame": 135,
+      "file": "frame_000135.png"
+    },
+    {
+      "frame": 140,
+      "file": "frame_000140.png"
+    },
+    {
+      "frame": 145,
+      "file": "frame_000145.png"
+    },
+    {
+      "frame": 150,
+      "file": "frame_000150.png"
+    },
+    {
+      "frame": 155,
+      "file": "frame_000155.png"
+    },
+    {
+      "frame": 160,
+      "file": "frame_000160.png"
+    },
+    {
+      "frame": 165,
+      "file": "frame_000165.png"
+    },
+    {
+      "frame": 170,
+      "file": "frame_000170.png"
+    },
+    {
+      "frame": 175,
+      "file": "frame_000175.png"
+    },
+    {
+      "frame": 180,
+      "file": "frame_000180.png"
+    },
+    {
+      "frame": 185,
+      "file": "frame_000185.png"
+    },
+    {
+      "frame": 190,
+      "file": "frame_000190.png"
+    },
+    {
+      "frame": 195,
+      "file": "frame_000195.png"
+    },
+    {
+      "frame": 200,
+      "file": "frame_000200.png"
+    },
+    {
+      "frame": 205,
+      "file": "frame_000205.png"
+    },
+    {
+      "frame": 210,
+      "file": "frame_000210.png"
+    },
+    {
+      "frame": 215,
+      "file": "frame_000215.png"
+    },
+    {
+      "frame": 220,
+      "file": "frame_000220.png"
+    },
+    {
+      "frame": 225,
+      "file": "frame_000225.png"
+    },
+    {
+      "frame": 230,
+      "file": "frame_000230.png"
+    },
+    {
+      "frame": 235,
+      "file": "frame_000235.png"
+    },
+    {
+      "frame": 240,
+      "file": "frame_000240.png"
+    },
+    {
+      "frame": 245,
+      "file": "frame_000245.png"
+    },
+    {
+      "frame": 250,
+      "file": "frame_000250.png"
+    },
+    {
+      "frame": 255,
+      "file": "frame_000255.png"
+    },
+    {
+      "frame": 260,
+      "file": "frame_000260.png"
+    },
+    {
+      "frame": 265,
+      "file": "frame_000265.png"
+    },
+    {
+      "frame": 270,
+      "file": "frame_000270.png"
+    },
+    {
+      "frame": 275,
+      "file": "frame_000275.png"
+    },
+    {
+      "frame": 280,
+      "file": "frame_000280.png"
+    },
+    {
+      "frame": 285,
+      "file": "frame_000285.png"
+    },
+    {
+      "frame": 290,
+      "file": "frame_000290.png"
+    },
+    {
+      "frame": 295,
+      "file": "frame_000295.png"
+    }
+  ]
+}

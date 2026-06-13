@@ -1,0 +1,82 @@
+{
+  "created_at": "2026-05-22T09:02:46+08:00",
+  "brain": "StopBrain",
+  "root": "amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+  "package_dir": "D:\\UE\\COLMM\\GASPALS\\Saved\\MimicKitPackages\\StopBrain_long01_probe",
+  "mimic_render_dir": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render",
+  "mimic_mp4": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render.mp4",
+  "ue_capture_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe",
+  "ue_log": "D:\\UE\\COLMM\\GASPALS\\Saved\\Logs\\GASPALSShadow_MimicKitVisualReplayCapture.log",
+  "contact_sheet": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/ue_debug_compare/contact_sheet.png",
+  "verdict": "watch",
+  "keyframe_pairs": [
+    {
+      "requested_frame": 0,
+      "mimickit_frame": 0,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000000.png",
+      "ue_frame": 0,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe/frames/frame_000000.ppm"
+    },
+    {
+      "requested_frame": 75,
+      "mimickit_frame": 75,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000075.png",
+      "ue_frame": 75,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe/frames/frame_000075.ppm"
+    },
+    {
+      "requested_frame": 150,
+      "mimickit_frame": 150,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000150.png",
+      "ue_frame": 150,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe/frames/frame_000150.ppm"
+    },
+    {
+      "requested_frame": 225,
+      "mimickit_frame": 225,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000225.png",
+      "ue_frame": 225,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe/frames/frame_000225.ppm"
+    },
+    {
+      "requested_frame": 295,
+      "mimickit_frame": 295,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000295.png",
+      "ue_frame": 295,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe/frames/frame_000295.ppm"
+    }
+  ],
+  "mimic": {
+    "status": "ok",
+    "image_count": 60,
+    "frames": 300,
+    "frame_stride": 5,
+    "visual_kind": "geom",
+    "char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml"
+  },
+  "ue": {
+    "capture_frames": 60,
+    "source_rows": 300,
+    "frame_stride": 5,
+    "root_min_m": [
+      -0.16674261540174484,
+      0.5407746732234955
+    ],
+    "root_max_m": [
+      1.8292745351791382,
+      2.0407746732234955
+    ],
+    "mode": "transient_debug_geometry_top_down_root_facing",
+    "package_dir": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe"
+  },
+  "observed_differences": {
+    "scale": "watch: UE debug capture plots root_pos_m in training meters; no skeletal mesh scale validation yet.",
+    "root_trajectory": "watch: UE top-down root trajectory is visible; compare against MimicKit perspective render qualitatively.",
+    "facing": "watch: UE facing axis is drawn from root_rot_xyzw; quaternion convention still pending full skeleton validation.",
+    "pose": "block for full parity: debug capture does not apply dof_pos to a UE skeleton.",
+    "contact_sliding": "block for full parity: no UE skeletal feet/contact surfaces are rendered.",
+    "timing": "watch: capture stride matches MimicKit frame stride; no wall-clock playback validation.",
+    "jitter": "watch: root trajectory can expose coarse jumps, but no per-joint jitter validation.",
+    "missing_assets": "watch: transient debug capture intentionally uses no content assets."
+  }
+}
