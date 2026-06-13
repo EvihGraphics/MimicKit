@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 502, in run_job
+    next_obs, _reward, done, _next_info = ctx.env.step(action)
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 77, in step
+    self._render()
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 102, in _render
+    self._render_scene()
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 112, in _render_scene
+    self._engine.render()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 475, in render
+    self._viewer.end_frame()
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 499, in end_frame
+    self._update()
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 534, in _update
+    self.renderer.render(self.camera, self.objects, self.lines)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 1055, in render
+    assert err == gl.GL_NO_ERROR, hex(err)
+AssertionError: 0x502

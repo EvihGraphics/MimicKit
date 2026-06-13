@@ -1,0 +1,57 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 479, in run_job
+    ctx = build_runtime_context(
+  File "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py", line 132, in build_runtime_context
+    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/env_builder.py", line 28, in build_env
+    env = add_env.ADDEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/add_env.py", line 9, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/amp_env.py", line 13, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device,
+  File "/root/Project/MimicKit/mimickit/envs/deepmimic_env.py", line 42, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/char_env.py", line 23, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 27, in __init__
+    self._engine = self._build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 164, in _build_engine
+    engine = engine_builder.build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/engine_builder.py", line 17, in build_engine
+    engine = newton_engine.NewtonEngine(config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 340, in __init__
+    self._build_viewer()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 937, in _build_viewer
+    self._viewer = newton.viewer.ViewerGL(headless=False)
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 73, in __init__
+    self.renderer = RendererGL(vsync=vsync, screen_width=width, screen_height=height, headless=headless)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 839, in __init__
+    self.window = pyglet.window.Window(
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/window/xlib/__init__.py", line 167, in __init__
+    super().__init__(*args, **kwargs)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/window/__init__.py", line 594, in __init__
+    self._create_projection()
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/window/__init__.py", line 602, in _create_projection
+    shader.Shader(self._default_vertex_source, 'vertex'),
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/graphics/shader.py", line 1258, in __init__
+    raise ShaderException(msg)
+pyglet.graphics.shader.ShaderException: 
+------------------------------------------------------------
+001: #version 150 core 
+002:         in vec4 position; 
+003:  
+004:         uniform WindowBlock 
+005:         { 
+006:             mat4 projection; 
+007:             mat4 view; 
+008:         } window; 
+009:  
+010:         void main() 
+011:         { 
+012:             gl_Position = window.projection * window.view * position; 
+013:         } 
+------------------------------------------------------------
+Shader compilation failed. Please review the error on the specified line.
+OpenGL returned the following message when compiling the 'vertex' shader: 
+0:1(10): error: GLSL 1.50 is not supported. Supported versions are: 1.10, 1.20, 1.30, 1.40, 1.00 ES, and 3.00 ES
+

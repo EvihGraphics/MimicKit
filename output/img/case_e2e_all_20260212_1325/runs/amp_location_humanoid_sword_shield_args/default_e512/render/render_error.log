@@ -1,0 +1,50 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 480, in run_job
+    ctx = build_runtime_context(
+  File "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py", line 132, in build_runtime_context
+    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/env_builder.py", line 37, in build_env
+    env = task_location_env.TaskLocationEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/task_location_env.py", line 15, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/amp_env.py", line 13, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device,
+  File "/root/Project/MimicKit/mimickit/envs/deepmimic_env.py", line 42, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/char_env.py", line 23, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 29, in __init__
+    self._engine.initialize_sim()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 389, in initialize_sim
+    self._build_graphs()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 840, in _build_graphs
+    self._simulate()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 1004, in _simulate
+    self._solver.step(state0, state1, control, self._contacts, self._sim_timestep)
+  File "/root/Project/newton/newton/_src/utils/benchmark.py", line 150, in wrapper
+    return fn(*args, **kwargs)
+  File "/root/Project/newton/newton/_src/solvers/mujoco/solver_mujoco.py", line 745, in step
+    self.mujoco_warp_step()
+  File "/root/Project/newton/newton/_src/utils/benchmark.py", line 150, in wrapper
+    return fn(*args, **kwargs)
+  File "/root/Project/newton/newton/_src/solvers/mujoco/solver_mujoco.py", line 721, in mujoco_warp_step
+    self._mujoco_warp.step(self.mjw_model, self.mjw_data)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/warp_util.py", line 96, in wrapper
+    return fn(*args, **kwargs)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/forward.py", line 938, in step
+    forward(m, d)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/warp_util.py", line 96, in wrapper
+    return fn(*args, **kwargs)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/forward.py", line 927, in forward
+    fwd_acceleration(m, d, factorize=True)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/warp_util.py", line 96, in wrapper
+    return fn(*args, **kwargs)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/forward.py", line 900, in fwd_acceleration
+    smooth.factor_solve_i(m, d, d.qM, d.qLD, d.qLDiagInv, d.qacc_smooth, d.qfrc_smooth)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/smooth.py", line 2596, in factor_solve_i
+    _solve_LD_sparse(m, d, L, D, x, y)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/mujoco_warp/_src/smooth.py", line 2442, in _solve_LD_sparse
+    wp.copy(x, y)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/warp/_src/context.py", line 8380, in copy
+    raise RuntimeError(f"Warp copy error: {runtime.get_error_string()}")
+RuntimeError: Warp copy error: Warp CUDA error 901: operation failed due to a previous error during capture (in function wp_memcpy_d2d, /builds/omniverse/warp/warp/native/warp.cu:925)
