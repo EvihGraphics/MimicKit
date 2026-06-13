@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-05-07T13:28:41.530046+00:00",
+  "brain_name": "WalkBrain",
+  "source_root": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+  "amp_status_brain": "WalkBrain",
+  "artifacts": {
+    "policy_actor": "policy_actor.onnx",
+    "brain_model": "WalkBrain.onnx",
+    "schema": "schema.json",
+    "onnx_export_meta": "onnx_export_meta.json",
+    "obs_fixture": "obs_fixture.jsonl",
+    "ref_actions": "ref_actions.jsonl",
+    "fixture_meta": "fixture_meta.json",
+    "obs_action_spec": "obs_action_spec.yaml",
+    "normalization_stats": "normalization_stats.json",
+    "joint_order": "joint_order.json",
+    "brain_manifest": "brain_manifest.json",
+    "summary": "mimic_case_summary.json",
+    "visual_replay": "visual_replay/pose_dof_replay.jsonl",
+    "visual_replay_meta": "visual_replay/pose_dof_meta.json",
+    "visual_alignment_contract": "visual_alignment_contract.json"
+  },
+  "render_refs": {
+    "render_root": "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+    "exists": true,
+    "mp4_files": [
+      "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render.mp4"
+    ],
+    "render_meta_files": [
+      "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render_meta.json"
+    ]
+  },
+  "status": {
+    "mimic_infer_ok": true,
+    "fixture_ok": true,
+    "mimic_viz_ok": true,
+    "visual_replay_ok": true,
+    "visual_alignment_contract_ok": true
+  }
+}

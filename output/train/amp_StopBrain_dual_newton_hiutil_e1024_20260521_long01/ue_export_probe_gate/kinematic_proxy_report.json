@@ -1,0 +1,15 @@
+{
+	"brain": "StopBrain",
+	"closure_mode": "kinematic_proxy_smoke",
+	"observation_source": "visual_replay_fixture_proxy",
+	"joint_drive_backend": "kinematic_contact_proxy",
+	"contact_measurement_source": "kinematic_contact_proxy",
+	"policy_inference_ran": false,
+	"trace_fallback_used": false,
+	"physics_simulated": false,
+	"joint_drive_applied": false,
+	"live_policy_control_pass": false,
+	"chaos_contact_validated": false,
+	"combined_pass": false,
+	"status": "diagnostic only; kinematic proxy cannot satisfy live/Chaos closure"
+}

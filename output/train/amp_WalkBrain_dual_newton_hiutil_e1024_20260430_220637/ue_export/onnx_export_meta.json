@@ -1,0 +1,9 @@
+{
+  "arg_file": "/root/Project/MimicKit/args/amp_location_humanoid_sword_shield_args.txt",
+  "model_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt",
+  "onnx_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export/policy_actor.onnx",
+  "obs_dim": 160,
+  "opset": 17,
+  "verify": true,
+  "verify_max_abs": 1.1920928955078125e-06
+}

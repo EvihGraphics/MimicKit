@@ -1,0 +1,260 @@
+{
+  "schema_version": 3,
+  "contract_role": "mimickit_to_ue_source_character_skeletal_replay_mapping",
+  "ue_visual_target": {
+    "asset_strategy": "mimickit_source_equivalent_generated_skeletal_asset",
+    "skeletal_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+    "skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+    "anim_blueprint": "",
+    "control_rig": "/GASPALS/Characters/UE5_Mannequins/Rigs/CR_Mannequin_Body.CR_Mannequin_Body",
+    "fallback_renderer": "",
+    "full_character_parity": true,
+    "mimickit_preferred_visual_asset": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+    "mimickit_preferred_visual_asset_imported_to_ue": false,
+    "physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
+    "mimickit_source_asset_imported_to_ue": false,
+    "mimickit_source_asset_import_status": "pending_ue_editor_asset_build",
+    "mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+    "mimickit_source_rig_asset_spec_hash": "fed36162dc8c1643e319c0c6a4fbc40e978580afacb6217c9f667975ca334e6b"
+  },
+  "basis_transform": {
+    "name": "mimickit_training_xyz_to_ue_xyz_cm_v1",
+    "status": "declared_for_offline_visual_replay",
+    "position": {
+      "input": "root_pos_m[x,y,z]",
+      "output": "ue_location_cm[x*100,y*100,z*100]",
+      "matrix_row_major_3x3": [
+        [
+          100.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          100.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          100.0
+        ]
+      ]
+    },
+    "rotation": {
+      "input": "quat_xyzw",
+      "output": "quat_xyzw",
+      "pre_rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "post_rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "unit_scale": "meters_to_ue_cm",
+    "live_observation_control_status": "not_validated_for_runtime_control"
+  },
+  "bone_map": {
+    "map_name": "mimickit_sword_shield_to_ue_manny_v1",
+    "target_skeleton_family": "UE5_Mannequin",
+    "entries": [
+      {
+        "mimickit_body": "pelvis",
+        "ue_bone": "pelvis",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "torso",
+        "ue_bone": "spine_03",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "head",
+        "ue_bone": "head",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_upper_arm",
+        "ue_bone": "upperarm_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_lower_arm",
+        "ue_bone": "lowerarm_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_hand",
+        "ue_bone": "hand_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "sword",
+        "ue_bone": "hand_r",
+        "required_for_skeletal_visual_pass": false,
+        "mapping_kind": "attachment"
+      },
+      {
+        "mimickit_body": "left_upper_arm",
+        "ue_bone": "upperarm_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "left_lower_arm",
+        "ue_bone": "lowerarm_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "shield",
+        "ue_bone": "lowerarm_l",
+        "required_for_skeletal_visual_pass": false,
+        "mapping_kind": "attachment"
+      },
+      {
+        "mimickit_body": "left_hand",
+        "ue_bone": "hand_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_thigh",
+        "ue_bone": "thigh_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_shin",
+        "ue_bone": "calf_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "right_foot",
+        "ue_bone": "foot_r",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "left_thigh",
+        "ue_bone": "thigh_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "left_shin",
+        "ue_bone": "calf_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      },
+      {
+        "mimickit_body": "left_foot",
+        "ue_bone": "foot_l",
+        "required_for_skeletal_visual_pass": true,
+        "mapping_kind": "bone"
+      }
+    ],
+    "mapped_required_count": 15,
+    "required_count": 15,
+    "complete_for_skeletal_visual_pass": true
+  },
+  "joint_axis_order": {
+    "spherical": {
+      "dof_interpretation": "exponential_map_xyz_radians",
+      "component_order": [
+        "x",
+        "y",
+        "z"
+      ],
+      "local_axis_basis": "mimickit_training_xyz"
+    },
+    "hinge": {
+      "dof_interpretation": "single_axis_radians",
+      "default_axis": "local_y",
+      "joint_axis_overrides": {
+        "right_elbow": "local_y",
+        "left_elbow": "local_y",
+        "right_knee": "local_y",
+        "left_knee": "local_y"
+      }
+    },
+    "fixed": {
+      "dof_interpretation": "no_dof_parent_space_attachment"
+    }
+  },
+  "attachments": {
+    "sword": {
+      "mimickit_body": "sword",
+      "attach_to_body": "right_hand",
+      "attach_to_ue_bone": "hand_r",
+      "ue_asset": "",
+      "fallback": "procedural_capsule_blade",
+      "local_offset_m": [
+        0.35,
+        -0.02,
+        0.02
+      ],
+      "local_rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    "shield": {
+      "mimickit_body": "shield",
+      "attach_to_body": "left_lower_arm",
+      "attach_to_ue_bone": "lowerarm_l",
+      "ue_asset": "",
+      "fallback": "procedural_disc",
+      "local_offset_m": [
+        0.05,
+        0.06,
+        0.02
+      ],
+      "local_rotation_xyzw": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  },
+  "acceptance_thresholds": {
+    "minimum_capture_frames": 1,
+    "expected_capture_frames_for_stride_5_rows_300": 60,
+    "requires_png_sequence": true,
+    "requires_mp4": true,
+    "requires_dof_pos_applied": true,
+    "requires_skeletal_pose_frames": true,
+    "requires_no_pose_block": true,
+    "allows_manny_fallback_for_skeletal_visual_pass": true,
+    "allows_full_character_parity_claim": false
+  },
+  "bone_map_hash": "1d7e3aaf1290193d26ec198ae9cd5c71f831f8dbb567d037dbcc2d75dc4f55c9",
+  "basis_transform_hash": "a1063452ec5e1cece42f55ac93d6a7c264ef6cd31b9d626cb19e7a19622f64d7",
+  "source_character_gate": {
+    "required_capture_mode": "source_character_skeletalmesh_replay",
+    "requires_target_mesh_prefix": "/Game/MimicKit/SwordShield",
+    "requires_fallback_renderer_empty": true,
+    "requires_mimickit_source_asset_imported_to_ue": true,
+    "ppm_only_allowed": false
+  },
+  "source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+  "runtime_control_contract_file": "runtime_control_contract.json",
+  "source_rig_asset_spec_hash": "fed36162dc8c1643e319c0c6a4fbc40e978580afacb6217c9f667975ca334e6b",
+  "contract_hash": "c006e1cd6f60e7549164fd8905920904e3b84afb1c1c3d9f3131078e84dbbc9f"
+}

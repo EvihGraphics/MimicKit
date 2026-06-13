@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\build_mimickit_render_sequences.py", line 805, in run_job
+    raise RuntimeError(f"captured PNG failed validation: {frame_report}")
+RuntimeError: captured PNG failed validation: {'file': 'D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260607_bridge_smoke_v2\\runs\\view_motion_humanoid_sword_shield_args\\RL_Avatar_Atk_2xCombo01_Motion\\render\\frames\\frame_000000.png', 'ok': False, 'width': 960, 'height': 540, 'mean_rgb': [0.0, 0.0, 0.0], 'dynamic': False}

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "brain_name": "WalkBrain",
+  "brain_role": "arc_locomotion_policy",
+  "model": "WalkBrain.onnx",
+  "policy_hz": 30,
+  "physics_hz": 240,
+  "observation_dim": 160,
+  "action_dim": 31,
+  "joint_order_file": "joint_order.json",
+  "normalization_file": "normalization_stats.json",
+  "observation_spec_file": "obs_action_spec.yaml",
+  "schema_file": "schema.json",
+  "fixture_file": "obs_fixture.jsonl",
+  "reference_action_file": "ref_actions.jsonl",
+  "coordinate_basis": "training_basis_pending_explicit_contract",
+  "unit_scale": "meters_to_ue_cm",
+  "source": {
+    "case_id": "amp_location_humanoid_sword_shield",
+    "case_kind": "policy",
+    "arg_file": "/root/Project/MimicKit/args/amp_location_humanoid_sword_shield_args.txt",
+    "model_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt",
+    "engine_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/engine_config.yaml",
+    "env_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/env_config.yaml",
+    "agent_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/agent_config.yaml",
+    "amp_root": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+    "keepalive_status": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/keepalive_status.json"
+  },
+  "visual_replay_file": "visual_replay/pose_dof_replay.jsonl",
+  "visual_replay_meta_file": "visual_replay/pose_dof_meta.json",
+  "visual_replay": {
+    "pose_dof_replay": "visual_replay/pose_dof_replay.jsonl",
+    "pose_dof_meta": "visual_replay/pose_dof_meta.json"
+  },
+  "visual_alignment_contract_file": "visual_alignment_contract.json"
+}

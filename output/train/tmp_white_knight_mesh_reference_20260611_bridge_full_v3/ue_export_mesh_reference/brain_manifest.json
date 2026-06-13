@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "brain_name": "WhiteKnightMeshReference",
+  "brain_role": "visual_reference",
+  "joint_order_file": "joint_order.json",
+  "visual_replay_file": "visual_replay/pose_dof_replay.jsonl",
+  "visual_replay_meta_file": "visual_replay/pose_dof_meta.json",
+  "visual_alignment_contract_file": "visual_alignment_contract.json",
+  "skeletal_mapping_contract_file": "skeletal_mapping_contract.json",
+  "mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+  "runtime_control_contract_file": "runtime_control_contract.json"
+}

@@ -1,0 +1,42 @@
+{
+  "frames": 10,
+  "frame_stride": 5,
+  "expected_image_count": 2,
+  "image_count": 2,
+  "captures": [
+    {
+      "frame": 0,
+      "file": "frame_000000.png",
+      "silhouette_file": "frame_000000.png",
+      "sha256": "63cfc0323895147137e8dad185f18e866f3a100e19c0da4e6be9f2d2f64dd685",
+      "camera_eye": [
+        0.05132010206580163,
+        -4.986282119527461,
+        3.0000000000000013
+      ],
+      "camera_target": [
+        0.05132010206580163,
+        -4.057805411620495,
+        2.628609366200167
+      ],
+      "fov_degrees": 45.0
+    },
+    {
+      "frame": 5,
+      "file": "frame_000005.png",
+      "silhouette_file": "frame_000005.png",
+      "sha256": "8464405db20d981fac771102e66fb4c52e785ae70c02dd58d0e01501cbdbefc9",
+      "camera_eye": [
+        0.026104692369699485,
+        -5.000660686229825,
+        3.000000000000003
+      ],
+      "camera_target": [
+        0.026104692369699485,
+        -4.072183978322859,
+        2.628609366200169
+      ],
+      "fov_degrees": 45.0
+    }
+  ]
+}

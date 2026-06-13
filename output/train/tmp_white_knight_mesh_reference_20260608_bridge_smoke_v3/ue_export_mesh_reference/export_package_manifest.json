@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-10T15:39:36.708740+00:00",
+  "brain_name": "WhiteKnightMeshReference",
+  "artifacts": {
+    "joint_order": "joint_order.json",
+    "visual_replay": "visual_replay/pose_dof_replay.jsonl",
+    "visual_replay_meta": "visual_replay/pose_dof_meta.json",
+    "visual_alignment_contract": "visual_alignment_contract.json",
+    "skeletal_mapping_contract": "skeletal_mapping_contract.json",
+    "summary": "mimic_case_summary.json",
+    "mimickit_source_rig_asset_spec": "mimickit_source_rig_asset_spec.json",
+    "runtime_control_contract": "runtime_control_contract.json",
+    "mesh_binding_contract": "mesh_binding_contract.json"
+  },
+  "status": {
+    "fixture_ok": true,
+    "visual_replay_ok": true,
+    "visual_alignment_contract_ok": true,
+    "skeletal_mapping_contract_ok": true,
+    "source_rig_asset_spec_ok": true,
+    "runtime_control_contract_ok": true
+  }
+}

@@ -1,0 +1,131 @@
+[INFO] jobs_selected=1 root_scope=all dry_run=0
+[CASE 1/1] amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637 :: amp_location_humanoid_sword_shield_args.txt :: long_train
+Building task_location env
+Warp 1.12.0.dev20260206 initialized:
+   CUDA Toolkit 12.9, Driver 13.1
+   Devices:
+     "cpu"      : "x86_64"
+     "cuda:0"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+     "cuda:1"   : "NVIDIA GeForce RTX 4090" (24 GiB, sm_89, mempool enabled)
+   CUDA peer access:
+     Not supported
+   Kernel cache:
+     /root/.cache/warp/1.12.0.dev20260206
+Disabling Newton viewer CUDA-GL interop for headless rendering
+Warning: Could not get MSAA config, falling back to non-AA.
+Building 1/1 envs
+
+Loading 1/16 motion files: data/motions/reallusion/RL_Avatar_RunBackward_Motion.pkl
+Loading 2/16 motion files: data/motions/reallusion/RL_Avatar_WalkBackward01_Motion.pkl
+Loading 3/16 motion files: data/motions/reallusion/RL_Avatar_WalkBackward02_Motion.pkl
+Loading 4/16 motion files: data/motions/reallusion/RL_Avatar_WalkLeft01_Motion.pkl
+Loading 5/16 motion files: data/motions/reallusion/RL_Avatar_WalkLeft02_Motion.pkl
+Loading 6/16 motion files: data/motions/reallusion/RL_Avatar_RunRight_Motion.pkl
+Loading 7/16 motion files: data/motions/reallusion/RL_Avatar_WalkRight01_Motion.pkl
+Loading 8/16 motion files: data/motions/reallusion/RL_Avatar_WalkRight02_Motion.pkl
+Loading 9/16 motion files: data/motions/reallusion/RL_Avatar_RunForward_Motion.pkl
+Loading 10/16 motion files: data/motions/reallusion/RL_Avatar_WalkForward01_Motion.pkl
+Loading 11/16 motion files: data/motions/reallusion/RL_Avatar_WalkForward02_Motion.pkl
+Loading 12/16 motion files: data/motions/reallusion/RL_Avatar_Standoff_Circle_Motion.pkl
+Loading 13/16 motion files: data/motions/reallusion/RL_Avatar_TurnLeft90_Motion.pkl
+Loading 14/16 motion files: data/motions/reallusion/RL_Avatar_TurnLeft180_Motion.pkl
+Loading 15/16 motion files: data/motions/reallusion/RL_Avatar_TurnRight90_Motion.pkl
+Loading 16/16 motion files: data/motions/reallusion/RL_Avatar_TurnRight180_Motion.pkl
+Loaded motion file: data/datasets/dataset_humanoid_sword_shield_locomotion.yaml
+Loaded 16 motions with a total length of 114.267s.
+Building 1/3 objsBuilding 2/3 objsBuilding 3/3 objs
+Initializing simulation...
+Module validate_and_correct_inertia_kernel_7cbb6109 7cbb610 load on device 'cuda:0' took 0.57 ms  (cached)
+Module count_contact_points_999f932b 999f932 load on device 'cuda:0' took 0.45 ms  (cached)
+Module newton._src.sim.articulation 42f7b05 load on device 'cuda:0' took 1.13 ms  (cached)
+Module newton._src.geometry.kernels c20dea8 load on device 'cuda:0' took 1.30 ms  (cached)
+Module generate_handle_contact_pairs_kernel__locals__handle_contact_pairs_9163cbe8 9163cbe load on device 'cuda:0' took 1.58 ms  (cached)
+Module newton._src.sim.graph_coloring 48d9e7a load on device 'cpu' took 1.33 ms  (cached)
+Module newton._src.solvers.mujoco.kernels d2f8e1d load on device 'cuda:0' took 2.19 ms  (cached)
+Module newton._src.viewer.gl.opengl 0cb632d load on device 'cuda:0' took 0.52 ms  (cached)
+Module engines.newton_engine 50cab67 load on device 'cuda:0' took 0.73 ms  (cached)
+Module newton._src.viewer.kernels 40627b5 load on device 'cuda:0' took 0.76 ms  (cached)
+Module mujoco_warp._src.smooth b524f35 load on device 'cuda:0' took 2.26 ms  (cached)
+Module mujoco_warp._src.collision_driver de6dc98 load on device 'cuda:0' took 0.40 ms  (cached)
+Module _nxn_broadphase__locals__kernel_5eb1a8db 5eb1a8d load on device 'cuda:0' took 0.41 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_49ad95b2 49ad95b load on device 'cuda:0' took 1.51 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_be7dceee be7dcee load on device 'cuda:0' took 1.34 ms  (cached)
+Module ccd_kernel_builder__locals__ccd_kernel_3aba9523 3aba952 load on device 'cuda:0' took 2.22 ms  (cached)
+Module _primitive_narrowphase__locals__primitive_narrowphase_ec9a9775 b3c6e0a load on device 'cuda:0' took 1.13 ms  (cached)
+Module mujoco_warp._src.constraint b935595 load on device 'cuda:0' took 2.61 ms  (cached)
+Module _actuator_velocity__locals__actuator_velocity_73e060fc b74a9c7 load on device 'cuda:0' took 0.47 ms  (cached)
+Module mujoco_warp._src.passive 81ab765 load on device 'cuda:0' took 0.83 ms  (cached)
+Module mujoco_warp._src.forward 3875c24 load on device 'cuda:0' took 1.11 ms  (cached)
+Module mujoco_warp._src.support b7a7a89 load on device 'cuda:0' took 0.42 ms  (cached)
+Module mujoco_warp._src.solver bd0c10d load on device 'cuda:0' took 1.91 ms  (cached)
+Module solve_init_jaref__locals__kernel_02bfe718 02bfe71 load on device 'cuda:0' took 0.39 ms  (cached)
+Module mul_m_sparse__locals___mul_m_sparse_eff13ecc eff13ec load on device 'cuda:0' took 0.43 ms  (cached)
+Module update_constraint_gauss_cost__locals__kernel_7d8df26b 7d8df26 load on device 'cuda:0' took 0.39 ms  (cached)
+Module update_gradient_JTDAJ_sparse_tiled__locals__kernel_facd4633 d34065f load on device 'cuda:0' took 45.98 ms  (cached)
+Module update_gradient_cholesky_blocked__locals__kernel_24998099 4319efb load on device 'cuda:0' took 235.30 ms  (cached)
+Module linesearch_jv_fused__locals__kernel_6e07eb72 6e07eb7 load on device 'cuda:0' took 0.53 ms  (cached)
+Module linesearch_iterative__locals__kernel_a9057a48 f792dfe load on device 'cuda:0' took 0.65 ms  (cached)
+Module mujoco_warp._src.derivative 5c28c7d load on device 'cuda:0' took 0.50 ms  (cached)
+Char 0 properties
+	DoFs: 31
+	Mass: 53.001 kg
+
+Building AMP agent
+Total parameter count: 3560481
+Loaded model parameters from /root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt
+Module newton._src.sensors.sensor_contact 6cef743 load on device 'cuda:0' took 5.35 ms  (cached)
+  [RESULT] status=ok visual_kind=geom image_count=60
+[INDEX] /root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/infer_viz_index.tsv rows=1
+[INDEX] /root/Project/MimicKit/output/img/render_all_roots.tsv rows=1
+[DONE] ok=1/1
+ffmpeg version 4.2.7-0ubuntu0.1 Copyright (c) 2000-2022 the FFmpeg developers
+  built with gcc 9 (Ubuntu 9.4.0-1ubuntu1~20.04.1)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.1 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-avresample --disable-filter=resample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librsvg --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal --enable-opencl --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-nvenc --enable-chromaprint --enable-frei0r --enable-libx264 --enable-shared
+  libavutil      56. 31.100 / 56. 31.100
+  libavcodec     58. 54.100 / 58. 54.100
+  libavformat    58. 29.100 / 58. 29.100
+  libavdevice    58.  8.100 / 58.  8.100
+  libavfilter     7. 57.100 /  7. 57.100
+  libavresample   4.  0.  0 /  4.  0.  0
+  libswscale      5.  5.100 /  5.  5.100
+  libswresample   3.  5.100 /  3.  5.100
+  libpostproc    55.  5.100 / 55.  5.100
+Input #0, image2, from '/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/frames/frame_*.png':
+  Duration: 00:00:02.00, start: 0.000000, bitrate: N/A
+    Stream #0:0: Video: png, rgba(pc), 1920x1080 [SAR 3937:3937 DAR 16:9], 30 fps, 30 tbr, 30 tbn, 30 tbc
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 0x5977305ee3c0] using SAR=1/1
+[libx264 @ 0x5977305ee3c0] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2 AVX512
+[libx264 @ 0x5977305ee3c0] profile High, level 4.0
+[libx264 @ 0x5977305ee3c0] 264 - core 155 r2917 0a84d98 - H.264/MPEG-4 AVC codec - Copyleft 2003-2018 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=34 lookahead_threads=5 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to '/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render.mp4':
+  Metadata:
+    encoder         : Lavf58.29.100
+    Stream #0:0: Video: h264 (libx264) (avc1 / 0x31637661), yuv420p, 1920x1080 [SAR 1:1 DAR 16:9], q=-1--1, 30 fps, 15360 tbn, 30 tbc
+    Metadata:
+      encoder         : Lavc58.54.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+frame=   60 fps=0.0 q=-1.0 Lsize=     401kB time=00:00:01.90 bitrate=1729.1kbits/s speed=3.12x    
+video:400kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.380821%
+[libx264 @ 0x5977305ee3c0] frame I:2     Avg QP:18.00  size: 12048
+[libx264 @ 0x5977305ee3c0] frame P:18    Avg QP:21.44  size: 10632
+[libx264 @ 0x5977305ee3c0] frame B:40    Avg QP:26.38  size:  4824
+[libx264 @ 0x5977305ee3c0] consecutive B-frames:  5.0% 16.7%  5.0% 73.3%
+[libx264 @ 0x5977305ee3c0] mb I  I16..4: 58.6% 37.0%  4.4%
+[libx264 @ 0x5977305ee3c0] mb P  I16..4:  6.6%  7.4%  1.2%  P16..4: 19.0%  3.3%  1.4%  0.0%  0.0%    skip:61.2%
+[libx264 @ 0x5977305ee3c0] mb B  I16..4:  0.7%  0.4%  0.2%  B16..8: 26.8%  2.2%  0.4%  direct: 0.2%  skip:69.0%  L0:46.9% L1:52.3% BI: 0.8%
+[libx264 @ 0x5977305ee3c0] 8x8 transform intra:42.5% inter:65.1%
+[libx264 @ 0x5977305ee3c0] coded y,uvDC,uvAC intra: 8.0% 13.1% 7.0% inter: 1.3% 2.1% 0.6%
+[libx264 @ 0x5977305ee3c0] i16 v,h,dc,p: 41% 58%  1%  0%
+[libx264 @ 0x5977305ee3c0] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 22% 24% 45%  1%  2%  1%  2%  1%  1%
+[libx264 @ 0x5977305ee3c0] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 25% 30% 20%  4%  5%  4%  6%  4%  3%
+[libx264 @ 0x5977305ee3c0] i8c dc,h,v,p: 64% 29%  6%  1%
+[libx264 @ 0x5977305ee3c0] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0x5977305ee3c0] ref P L0: 70.4%  2.3% 16.3% 10.9%
+[libx264 @ 0x5977305ee3c0] ref B L0: 84.4% 11.4%  4.2%
+[libx264 @ 0x5977305ee3c0] ref B L1: 91.6%  8.4%
+[libx264 @ 0x5977305ee3c0] kb/s:1633.70
+[mp4] /usr/bin/ffmpeg -framerate 30 -pattern_type glob -i '/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/frames/frame_*.png' -c:v libx264 -pix_fmt yuv420p -y /root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render.mp4

@@ -1,0 +1,425 @@
+{
+	"schema_version": 3,
+	"created_at_utc": "2026-05-24T16:22:30.357306+00:00",
+	"brain_name": "StopBrain",
+	"package_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe",
+	"character":
+	{
+		"declared_char_file": "data/assets/sword_shield/humanoid_sword_shield.xml",
+		"resolved_char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml",
+		"char_file_exists": true,
+		"char_file_sha256": "ab5f71953fe8d423e9419cfffa5bd38b5967ec53de1347dc77882a9849d1ebf7",
+		"visual_kind": "geom",
+		"mesh_detected_in_declared_asset": false,
+		"preferred_visual_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+		"preferred_visual_asset_exists": true,
+		"preferred_visual_asset_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+		"key_bodies": [
+			"head",
+			"right_hand",
+			"left_hand",
+			"right_foot",
+			"left_foot",
+			"sword"
+		],
+		"contact_bodies": [
+			"right_foot",
+			"left_foot"
+		],
+		"joint_order_file": "joint_order.json",
+		"dof_size": 31
+	},
+	"scene":
+	{
+		"mimickit_env_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/env_config.yaml",
+		"camera_mode": "track",
+		"ground": "mimickit_engine_default_flat_ground",
+		"episode_length_seconds": 10,
+		"ref_char_offset_m": [
+			2,
+			0,
+			0
+		],
+		"init_pose": [
+			0,
+			0,
+			0.70299999999999996,
+			-0.033000000000000002,
+			0.084000000000000005,
+			-0.85699999999999998,
+			-0.033000000000000002,
+			0.71899999999999997,
+			-0.048000000000000001,
+			-0.27100000000000002,
+			-0.48699999999999999,
+			0.79200000000000004,
+			0.83599999999999997,
+			-0.40100000000000002,
+			0.67810000000000004,
+			1.0920000000000001,
+			-0.20799999999999999,
+			0.19500000000000001,
+			0.024,
+			-0.497,
+			-0.20100000000000001,
+			-0.33200000000000002,
+			-1.726,
+			-0.436,
+			-0.57299999999999995,
+			-0.192,
+			1.085,
+			0.46000000000000002,
+			-0.46000000000000002,
+			0.028000000000000001,
+			0.56999999999999995,
+			-0.90600000000000003,
+			0.41299999999999998,
+			1.056,
+			-0.29199999999999998,
+			-0.11,
+			-0.036999999999999998
+		],
+		"motion_file": "data/datasets/dataset_humanoid_sword_shield_locomotion.yaml",
+		"golden_render_refs":
+		{
+			"render_root": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+			"exists": true,
+			"mp4_files": [
+				"/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render.mp4"
+			],
+			"render_meta_files": [
+				"/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render_meta.json"
+			],
+			"frames_dirs": [
+				"/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames"
+			]
+		}
+	},
+	"coordinate_contract":
+	{
+		"coordinate_basis": "mimickit_training_xyz_to_ue_xyz_cm_v1",
+		"unit_scale": "meters_to_ue_cm",
+		"rotation_convention": "quat_xyzw",
+		"root_pos_units": "meters",
+		"ue_units": "centimeters",
+		"status": "declared_for_offline_skeletal_visual_replay",
+		"basis_transform_hash": "a1063452ec5e1cece42f55ac93d6a7c264ef6cd31b9d626cb19e7a19622f64d7",
+		"runtime_control_status": "blocked_until_live_observation_basis_validation"
+	},
+	"skeletal_mapping_contract_file": "skeletal_mapping_contract.json",
+	"skeletal_mapping_contract":
+	{
+		"schema_version": 2,
+		"contract_role": "mimickit_to_ue_skeletal_replay_mapping",
+		"ue_visual_target":
+		{
+			"asset_strategy": "mimickit_source_equivalent_generated_skeletal_asset",
+			"skeletal_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+			"skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+			"anim_blueprint": "",
+			"control_rig": "/GASPALS/Characters/UE5_Mannequins/Rigs/CR_Mannequin_Body.CR_Mannequin_Body",
+			"fallback_renderer": "",
+			"full_character_parity": true,
+			"mimickit_preferred_visual_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+			"mimickit_preferred_visual_asset_imported_to_ue": false,
+			"physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
+			"mimickit_source_asset_imported_to_ue": true,
+			"mimickit_source_asset_import_status": "built",
+			"mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+			"mimickit_source_rig_asset_spec_hash": "9ea843ca05f0f90836cae6b1a693c1e065bf2349ca9cd6b795812588ce508f46",
+			"source_asset_build_report": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe/mimickit_source_rig_asset_build_report.json"
+		},
+		"basis_transform":
+		{
+			"name": "mimickit_training_xyz_to_ue_xyz_cm_v1",
+			"status": "declared_for_offline_visual_replay",
+			"position":
+			{
+				"input": "root_pos_m[x,y,z]",
+				"output": "ue_location_cm[x*100,y*100,z*100]",
+				"matrix_row_major_3x3": [
+					[
+						100,
+						0,
+						0
+					],
+					[
+						0,
+						100,
+						0
+					],
+					[
+						0,
+						0,
+						100
+					]
+				]
+			},
+			"rotation":
+			{
+				"input": "quat_xyzw",
+				"output": "quat_xyzw",
+				"pre_rotation_xyzw": [
+					0,
+					0,
+					0,
+					1
+				],
+				"post_rotation_xyzw": [
+					0,
+					0,
+					0,
+					1
+				]
+			},
+			"unit_scale": "meters_to_ue_cm",
+			"live_observation_control_status": "not_validated_for_runtime_control"
+		},
+		"bone_map":
+		{
+			"map_name": "mimickit_sword_shield_to_ue_manny_v1",
+			"target_skeleton_family": "UE5_Mannequin",
+			"entries": [
+				{
+					"mimickit_body": "pelvis",
+					"ue_bone": "pelvis",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "torso",
+					"ue_bone": "spine_03",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "head",
+					"ue_bone": "head",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_upper_arm",
+					"ue_bone": "upperarm_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_lower_arm",
+					"ue_bone": "lowerarm_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_hand",
+					"ue_bone": "hand_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "sword",
+					"ue_bone": "hand_r",
+					"required_for_skeletal_visual_pass": false,
+					"mapping_kind": "attachment"
+				},
+				{
+					"mimickit_body": "left_upper_arm",
+					"ue_bone": "upperarm_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "left_lower_arm",
+					"ue_bone": "lowerarm_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "shield",
+					"ue_bone": "lowerarm_l",
+					"required_for_skeletal_visual_pass": false,
+					"mapping_kind": "attachment"
+				},
+				{
+					"mimickit_body": "left_hand",
+					"ue_bone": "hand_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_thigh",
+					"ue_bone": "thigh_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_shin",
+					"ue_bone": "calf_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "right_foot",
+					"ue_bone": "foot_r",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "left_thigh",
+					"ue_bone": "thigh_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "left_shin",
+					"ue_bone": "calf_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				},
+				{
+					"mimickit_body": "left_foot",
+					"ue_bone": "foot_l",
+					"required_for_skeletal_visual_pass": true,
+					"mapping_kind": "bone"
+				}
+			],
+			"mapped_required_count": 15,
+			"required_count": 15,
+			"complete_for_skeletal_visual_pass": true
+		},
+		"joint_axis_order":
+		{
+			"spherical":
+			{
+				"dof_interpretation": "exponential_map_xyz_radians",
+				"component_order": [
+					"x",
+					"y",
+					"z"
+				],
+				"local_axis_basis": "mimickit_training_xyz"
+			},
+			"hinge":
+			{
+				"dof_interpretation": "single_axis_radians",
+				"default_axis": "local_y",
+				"joint_axis_overrides":
+				{
+					"right_elbow": "local_y",
+					"left_elbow": "local_y",
+					"right_knee": "local_y",
+					"left_knee": "local_y"
+				}
+			},
+			"fixed":
+			{
+				"dof_interpretation": "no_dof_parent_space_attachment"
+			}
+		},
+		"attachments":
+		{
+			"sword":
+			{
+				"mimickit_body": "sword",
+				"attach_to_body": "right_hand",
+				"attach_to_ue_bone": "hand_r",
+				"ue_asset": "",
+				"fallback": "procedural_capsule_blade",
+				"local_offset_m": [
+					0.34999999999999998,
+					-0.02,
+					0.02
+				],
+				"local_rotation_xyzw": [
+					0,
+					0,
+					0,
+					1
+				]
+			},
+			"shield":
+			{
+				"mimickit_body": "shield",
+				"attach_to_body": "left_lower_arm",
+				"attach_to_ue_bone": "lowerarm_l",
+				"ue_asset": "",
+				"fallback": "procedural_disc",
+				"local_offset_m": [
+					0.050000000000000003,
+					0.059999999999999998,
+					0.02
+				],
+				"local_rotation_xyzw": [
+					0,
+					0,
+					0,
+					1
+				]
+			}
+		},
+		"acceptance_thresholds":
+		{
+			"minimum_capture_frames": 1,
+			"expected_capture_frames_for_stride_5_rows_300": 60,
+			"requires_png_sequence": true,
+			"requires_mp4": true,
+			"requires_dof_pos_applied": true,
+			"requires_skeletal_pose_frames": true,
+			"requires_no_pose_block": true,
+			"allows_manny_fallback_for_skeletal_visual_pass": true,
+			"allows_full_character_parity_claim": false
+		},
+		"bone_map_hash": "1d7e3aaf1290193d26ec198ae9cd5c71f831f8dbb567d037dbcc2d75dc4f55c9",
+		"basis_transform_hash": "a1063452ec5e1cece42f55ac93d6a7c264ef6cd31b9d626cb19e7a19622f64d7",
+		"source_character_gate":
+		{
+			"required_capture_mode": "source_character_skeletalmesh_replay",
+			"requires_target_mesh_prefix": "/Game/MimicKit/SwordShield",
+			"requires_fallback_renderer_empty": true,
+			"requires_mimickit_source_asset_imported_to_ue": true,
+			"ppm_only_allowed": false
+		},
+		"source_rig_asset_spec_hash": "9ea843ca05f0f90836cae6b1a693c1e065bf2349ca9cd6b795812588ce508f46"
+	},
+	"ue_capture_requirements":
+	{
+		"required_outputs": [
+			"png_frame_sequence",
+			"mp4",
+			"capture_meta.json",
+			"visual_diff_report.json"
+		],
+		"debug_geometry_is_smoke_only": true,
+		"full_visual_parity_requires_skeletal_pose": true,
+		"skeletal_visual_pass_requires": [
+			"capture_mode=skeletal_replay",
+			"dof_pos_applied=true",
+			"bone_map_hash",
+			"basis_transform_hash",
+			"png_sequence",
+			"mp4"
+		],
+		"must_log_to": "docs/memory/20260521_amp_ue_visual_diff_log.md"
+	},
+	"mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+	"runtime_control_contract_file": "runtime_control_contract.json",
+	"runtime_scope":
+	{
+		"offline_source_character_replay": true,
+		"live_policy_control": true,
+		"chaos_contact_validated": true,
+		"runtime_backend": "NNERuntimeORT",
+		"observation_source": "ue_physics_actor_state",
+		"contact_measurement_source": "chaos_contact_query",
+		"joint_drive_backend": "FConstraintInstance angular SLERP drive",
+		"proxy_gate_allowed": false,
+		"full_visual_parity_gate": "requires source_character_skeletalmesh_replay capture",
+		"capture_modes": [
+			"debug_geometry",
+			"skeletal_replay",
+			"source_character_skeletalmesh_replay",
+			"live_policy_chaos"
+		],
+		"ppm_only_allowed_for_full_parity": false
+	}
+}

@@ -1,0 +1,4 @@
+key	value
+source_run	smoke_train
+source_model_file	/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/smoke_train/model.pt
+source_last_samples	0

@@ -1,0 +1,11 @@
+[2026-05-21 23:47:01] smoke_test: start | using pretrained model
+[2026-05-21 23:47:01] smoke_test: cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_stop_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode test --visualize false --devices cuda:0 --num_envs 1 --test_episodes 1 --model_file /root/Project/MimicKit/data/models/amp_steering_humanoid_sword_shield_model.pt
+[2026-05-21 23:49:01] smoke_test: completed
+[2026-05-21 23:49:01] smoke_visualize: start | using pretrained model
+[2026-05-21 23:49:01] smoke_visualize: cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_stop_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode test --visualize true --devices cuda:0 --num_envs 1 --test_episodes 1 --model_file /root/Project/MimicKit/data/models/amp_steering_humanoid_sword_shield_model.pt
+[2026-05-21 23:49:41] smoke_visualize: completed
+[2026-05-21 23:49:41] smoke_train: attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_stop_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode train --visualize false --devices cuda:0 cuda:1 --num_envs 1024 --master_port 40690 --max_samples 16384 --out_dir /root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/smoke_train --model_file /root/Project/MimicKit/data/models/amp_steering_humanoid_sword_shield_model.pt
+[2026-05-21 23:50:21] smoke_train: completed after attempt=1
+[2026-05-21 23:50:21] probe_train: attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_stop_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode train --visualize false --devices cuda:0 cuda:1 --num_envs 1024 --master_port 40690 --max_samples 50000000 --out_dir /root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train --model_file /root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/smoke_train/model.pt
+[2026-05-22 00:13:23] probe_train: completed after attempt=1
+[2026-05-22 00:13:23] stop_after_stage reached: probe_train

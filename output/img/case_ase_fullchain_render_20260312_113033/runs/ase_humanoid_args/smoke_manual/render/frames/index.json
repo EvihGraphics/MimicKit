@@ -1,0 +1,32 @@
+{
+  "frames": 30,
+  "frame_stride": 5,
+  "expected_image_count": 6,
+  "image_count": 6,
+  "captures": [
+    {
+      "frame": 0,
+      "file": "frame_000000.png"
+    },
+    {
+      "frame": 5,
+      "file": "frame_000005.png"
+    },
+    {
+      "frame": 10,
+      "file": "frame_000010.png"
+    },
+    {
+      "frame": 15,
+      "file": "frame_000015.png"
+    },
+    {
+      "frame": 20,
+      "file": "frame_000020.png"
+    },
+    {
+      "frame": 25,
+      "file": "frame_000025.png"
+    }
+  ]
+}

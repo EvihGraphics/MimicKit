@@ -1,0 +1,30 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 577, in run_job
+    ctx = build_runtime_context(
+  File "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py", line 136, in build_runtime_context
+    env = env_builder.build_env(str(env_file), str(engine_file), num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/env_builder.py", line 40, in build_env
+    env = view_motion_env.ViewMotionEnv(env_config=env_config, engine_config=engine_config, num_envs=num_envs, device=device, visualize=visualize)
+  File "/root/Project/MimicKit/mimickit/envs/view_motion_env.py", line 15, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/char_env.py", line 23, in __init__
+    super().__init__(env_config=env_config, engine_config=engine_config,
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 27, in __init__
+    self._engine = self._build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 164, in _build_engine
+    engine = engine_builder.build_engine(engine_config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/engine_builder.py", line 14, in build_engine
+    engine = isaac_lab_engine.IsaacLabEngine(config, num_envs, device, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/isaac_lab_engine.py", line 75, in __init__
+    self._create_simulator(sim_timestep, visualize)
+  File "/root/Project/MimicKit/mimickit/engines/isaac_lab_engine.py", line 671, in _create_simulator
+    self._app_launcher = AppLauncher(launcher_cfg)
+  File "/root/Project/IsaacLab_full/source/isaaclab/isaaclab/app/app_launcher.py", line 127, in __init__
+    self._create_app()
+  File "/root/Project/IsaacLab_full/source/isaaclab/isaaclab/app/app_launcher.py", line 811, in _create_app
+    self._app = SimulationApp(self._sim_app_config, experience=self._sim_experience_file)
+  File "/root/Project/IsaacLab_full/_isaac_sim/exts/isaacsim.simulation_app/isaacsim/simulation_app/simulation_app.py", line 227, in __init__
+    from .utils import create_new_stage, open_stage
+  File "/root/Project/IsaacLab_full/_isaac_sim/exts/isaacsim.simulation_app/isaacsim/simulation_app/utils.py", line 17, in <module>
+    from omni.kit.usd import layers
+ModuleNotFoundError: No module named 'omni.kit.usd'

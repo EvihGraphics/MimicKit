@@ -1,0 +1,15 @@
+{
+  "source_path": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+  "package_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export",
+  "onnx_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export/policy_actor.onnx",
+  "obs_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export/obs_fixture.jsonl",
+  "row_count": 300,
+  "obs_dim": 160,
+  "action_dim": 31,
+  "provider_requested": "CPUExecutionProvider",
+  "parity_rows": 300,
+  "parity_max_abs": 4.76837158203125e-07,
+  "parity_mean_abs": 1.967092975974083e-07,
+  "max_abs_threshold": 0.0001,
+  "threshold_passed": true
+}

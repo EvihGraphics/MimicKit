@@ -1,0 +1,2762 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-10T03:23:50.225773+00:00",
+  "contract_role": "mimickit_source_equivalent_ue_rig_asset_spec",
+  "package_dir": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\ue_export_mesh_reference",
+  "source_assets": {
+    "mjcf_xml": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.xml",
+    "mjcf_xml_sha256": "ab5f71953fe8d423e9419cfffa5bd38b5967ec53de1347dc77882a9849d1ebf7",
+    "usd": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+    "usd_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+    "mjcf_tokens": {
+      "has_mesh_geom": false,
+      "has_texture": false,
+      "has_material": false
+    },
+    "usd_tokens": {
+      "exists": true,
+      "is_binary_usdc": true,
+      "has_usdskel_token": false,
+      "has_mesh_token": false,
+      "has_rigid_body_token": true
+    }
+  },
+  "ue_asset_targets": {
+    "asset_root": "/Game/MimicKit/SwordShield",
+    "skeletal_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+    "skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+    "physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
+    "generation_route": "mjcf_primitive_source_equivalent_skeletal_asset"
+  },
+  "root_body": {
+    "name": "pelvis",
+    "parent": "",
+    "pos": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joints": [
+      {
+        "name": "root",
+        "body_name": "pelvis",
+        "type": "freejoint",
+        "axis": [],
+        "range_degrees": [],
+        "actuator_force_range": [],
+        "stiffness": 0.0,
+        "damping": 0.0,
+        "armature": 0.0,
+        "limited": ""
+      }
+    ],
+    "geoms": [
+      {
+        "name": "pelvis",
+        "body_name": "pelvis",
+        "type": "sphere",
+        "pos": [
+          0.0,
+          0.0,
+          0.07
+        ],
+        "size": [
+          0.09
+        ],
+        "fromto": [],
+        "density": 2226.0
+      },
+      {
+        "name": "upper_waist",
+        "body_name": "pelvis",
+        "type": "sphere",
+        "pos": [
+          0.0,
+          0.0,
+          0.205
+        ],
+        "size": [
+          0.07
+        ],
+        "fromto": [],
+        "density": 2226.0
+      }
+    ],
+    "children": [
+      {
+        "name": "torso",
+        "parent": "pelvis",
+        "pos": [
+          0.0,
+          0.0,
+          0.236151
+        ],
+        "joints": [
+          {
+            "name": "abdomen_x",
+            "body_name": "torso",
+            "type": "hinge",
+            "axis": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "range_degrees": [
+              -60.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 1000.0,
+            "damping": 100.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "abdomen_y",
+            "body_name": "torso",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "range_degrees": [
+              -60.0,
+              90.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 1000.0,
+            "damping": 100.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "abdomen_z",
+            "body_name": "torso",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "range_degrees": [
+              -70.0,
+              70.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 1000.0,
+            "damping": 100.0,
+            "armature": 0.02,
+            "limited": ""
+          }
+        ],
+        "geoms": [
+          {
+            "name": "torso",
+            "body_name": "torso",
+            "type": "sphere",
+            "pos": [
+              0.0,
+              0.0,
+              0.12
+            ],
+            "size": [
+              0.11
+            ],
+            "fromto": [],
+            "density": 1623.0
+          },
+          {
+            "name": "right_clavicle",
+            "body_name": "torso",
+            "type": "capsule",
+            "pos": [],
+            "size": [
+              0.045
+            ],
+            "fromto": [
+              -0.0060125,
+              -0.0457775,
+              0.2287955,
+              -0.016835,
+              -0.128177,
+              0.2376182
+            ],
+            "density": 1623.0
+          },
+          {
+            "name": "left_clavicle",
+            "body_name": "torso",
+            "type": "capsule",
+            "pos": [],
+            "size": [
+              0.045
+            ],
+            "fromto": [
+              -0.0060125,
+              0.0457775,
+              0.2287955,
+              -0.016835,
+              0.128177,
+              0.2376182
+            ],
+            "density": 1623.0
+          }
+        ],
+        "children": [
+          {
+            "name": "head",
+            "parent": "torso",
+            "pos": [
+              0.0,
+              0.0,
+              0.223894
+            ],
+            "joints": [
+              {
+                "name": "neck_x",
+                "body_name": "head",
+                "type": "hinge",
+                "axis": [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -50.0,
+                  50.0
+                ],
+                "actuator_force_range": [
+                  -50.0,
+                  50.0
+                ],
+                "stiffness": 100.0,
+                "damping": 10.0,
+                "armature": 0.01,
+                "limited": ""
+              },
+              {
+                "name": "neck_y",
+                "body_name": "head",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -40.0,
+                  60.0
+                ],
+                "actuator_force_range": [
+                  -50.0,
+                  50.0
+                ],
+                "stiffness": 100.0,
+                "damping": 10.0,
+                "armature": 0.01,
+                "limited": ""
+              },
+              {
+                "name": "neck_z",
+                "body_name": "head",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                "range_degrees": [
+                  -45.0,
+                  45.0
+                ],
+                "actuator_force_range": [
+                  -50.0,
+                  50.0
+                ],
+                "stiffness": 100.0,
+                "damping": 10.0,
+                "armature": 0.01,
+                "limited": ""
+              }
+            ],
+            "geoms": [
+              {
+                "name": "head",
+                "body_name": "head",
+                "type": "sphere",
+                "pos": [
+                  0.0,
+                  0.0,
+                  0.175
+                ],
+                "size": [
+                  0.095
+                ],
+                "fromto": [],
+                "density": 1081.0
+              }
+            ],
+            "children": []
+          },
+          {
+            "name": "right_upper_arm",
+            "parent": "torso",
+            "pos": [
+              -0.02405,
+              -0.18311,
+              0.2435
+            ],
+            "joints": [
+              {
+                "name": "right_shoulder_x",
+                "body_name": "right_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -110.0,
+                  140.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              },
+              {
+                "name": "right_shoulder_y",
+                "body_name": "right_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -90.0,
+                  90.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              },
+              {
+                "name": "right_shoulder_z",
+                "body_name": "right_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                "range_degrees": [
+                  -60.0,
+                  160.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              }
+            ],
+            "geoms": [
+              {
+                "name": "right_upper_arm",
+                "body_name": "right_upper_arm",
+                "type": "capsule",
+                "pos": [],
+                "size": [
+                  0.045
+                ],
+                "fromto": [
+                  0.0,
+                  -0.23,
+                  0.0,
+                  0.0,
+                  -0.03,
+                  0.0
+                ],
+                "density": 982.0
+              }
+            ],
+            "children": [
+              {
+                "name": "right_lower_arm",
+                "parent": "right_upper_arm",
+                "pos": [
+                  0.0,
+                  -0.274788,
+                  0.0
+                ],
+                "joints": [
+                  {
+                    "name": "right_elbow",
+                    "body_name": "right_lower_arm",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    "range_degrees": [
+                      0.0,
+                      160.0
+                    ],
+                    "actuator_force_range": [
+                      -70.0,
+                      70.0
+                    ],
+                    "stiffness": 300.0,
+                    "damping": 30.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  }
+                ],
+                "geoms": [
+                  {
+                    "name": "right_lower_arm",
+                    "body_name": "right_lower_arm",
+                    "type": "capsule",
+                    "pos": [],
+                    "size": [
+                      0.04
+                    ],
+                    "fromto": [
+                      0.0,
+                      -0.1875,
+                      0.0,
+                      0.0,
+                      -0.035,
+                      0.0
+                    ],
+                    "density": 1056.0
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "right_hand",
+                    "parent": "right_lower_arm",
+                    "pos": [
+                      0.0,
+                      -0.258947,
+                      0.0
+                    ],
+                    "joints": [
+                      {
+                        "name": "right_hand_x",
+                        "body_name": "right_hand",
+                        "type": "hinge",
+                        "axis": [
+                          1.0,
+                          0.0,
+                          0.0
+                        ],
+                        "range_degrees": [
+                          -90.0,
+                          90.0
+                        ],
+                        "actuator_force_range": [
+                          -50.0,
+                          50.0
+                        ],
+                        "stiffness": 100.0,
+                        "damping": 10.0,
+                        "armature": 0.01,
+                        "limited": ""
+                      },
+                      {
+                        "name": "right_hand_y",
+                        "body_name": "right_hand",
+                        "type": "hinge",
+                        "axis": [
+                          0.0,
+                          1.0,
+                          0.0
+                        ],
+                        "range_degrees": [
+                          -90.0,
+                          90.0
+                        ],
+                        "actuator_force_range": [
+                          -50.0,
+                          50.0
+                        ],
+                        "stiffness": 100.0,
+                        "damping": 10.0,
+                        "armature": 0.003,
+                        "limited": ""
+                      },
+                      {
+                        "name": "right_hand_z",
+                        "body_name": "right_hand",
+                        "type": "hinge",
+                        "axis": [
+                          0.0,
+                          0.0,
+                          1.0
+                        ],
+                        "range_degrees": [
+                          -90.0,
+                          90.0
+                        ],
+                        "actuator_force_range": [
+                          -50.0,
+                          50.0
+                        ],
+                        "stiffness": 100.0,
+                        "damping": 10.0,
+                        "armature": 0.003,
+                        "limited": ""
+                      }
+                    ],
+                    "geoms": [
+                      {
+                        "name": "right_hand",
+                        "body_name": "right_hand",
+                        "type": "sphere",
+                        "pos": [],
+                        "size": [
+                          0.04
+                        ],
+                        "fromto": [],
+                        "density": 1865.0
+                      }
+                    ],
+                    "children": [
+                      {
+                        "name": "sword",
+                        "parent": "right_hand",
+                        "pos": [
+                          0.74,
+                          0.0,
+                          0.0
+                        ],
+                        "joints": [],
+                        "geoms": [
+                          {
+                            "name": "sword_hilt",
+                            "body_name": "sword",
+                            "type": "capsule",
+                            "pos": [],
+                            "size": [
+                              0.023
+                            ],
+                            "fromto": [
+                              -0.87,
+                              0.0,
+                              0.0,
+                              -0.64,
+                              0.0,
+                              0.0
+                            ],
+                            "density": 600.0
+                          },
+                          {
+                            "name": "sword_blade",
+                            "body_name": "sword",
+                            "type": "box",
+                            "pos": [
+                              -0.34,
+                              0.0,
+                              0.0
+                            ],
+                            "size": [
+                              0.34,
+                              0.035,
+                              0.01
+                            ],
+                            "fromto": [],
+                            "density": 600.0
+                          }
+                        ],
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "left_upper_arm",
+            "parent": "torso",
+            "pos": [
+              -0.02405,
+              0.18311,
+              0.2435
+            ],
+            "joints": [
+              {
+                "name": "left_shoulder_x",
+                "body_name": "left_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -140.0,
+                  110.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              },
+              {
+                "name": "left_shoulder_y",
+                "body_name": "left_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  -90.0,
+                  90.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              },
+              {
+                "name": "left_shoulder_z",
+                "body_name": "left_upper_arm",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  0.0,
+                  1.0
+                ],
+                "range_degrees": [
+                  -160.0,
+                  60.0
+                ],
+                "actuator_force_range": [
+                  -100.0,
+                  100.0
+                ],
+                "stiffness": 400.0,
+                "damping": 40.0,
+                "armature": 0.02,
+                "limited": ""
+              }
+            ],
+            "geoms": [
+              {
+                "name": "left_upper_arm",
+                "body_name": "left_upper_arm",
+                "type": "capsule",
+                "pos": [],
+                "size": [
+                  0.045
+                ],
+                "fromto": [
+                  0.0,
+                  0.03,
+                  0.0,
+                  0.0,
+                  0.23,
+                  0.0
+                ],
+                "density": 982.0
+              }
+            ],
+            "children": [
+              {
+                "name": "left_lower_arm",
+                "parent": "left_upper_arm",
+                "pos": [
+                  0.0,
+                  0.274788,
+                  0.0
+                ],
+                "joints": [
+                  {
+                    "name": "left_elbow",
+                    "body_name": "left_lower_arm",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    "range_degrees": [
+                      -160.0,
+                      0.0
+                    ],
+                    "actuator_force_range": [
+                      -70.0,
+                      70.0
+                    ],
+                    "stiffness": 300.0,
+                    "damping": 30.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  }
+                ],
+                "geoms": [
+                  {
+                    "name": "left_lower_arm",
+                    "body_name": "left_lower_arm",
+                    "type": "capsule",
+                    "pos": [],
+                    "size": [
+                      0.04
+                    ],
+                    "fromto": [
+                      0.0,
+                      0.035,
+                      0.0,
+                      0.0,
+                      0.1875,
+                      0.0
+                    ],
+                    "density": 1056.0
+                  }
+                ],
+                "children": [
+                  {
+                    "name": "shield",
+                    "parent": "left_lower_arm",
+                    "pos": [
+                      0.0,
+                      0.12,
+                      0.07
+                    ],
+                    "joints": [],
+                    "geoms": [
+                      {
+                        "name": "shield",
+                        "body_name": "shield",
+                        "type": "cylinder",
+                        "pos": [],
+                        "size": [
+                          0.3
+                        ],
+                        "fromto": [
+                          0.0,
+                          0.0,
+                          0.0,
+                          0.0,
+                          0.0,
+                          0.03
+                        ],
+                        "density": 250.0
+                      }
+                    ],
+                    "children": []
+                  },
+                  {
+                    "name": "left_hand",
+                    "parent": "left_lower_arm",
+                    "pos": [
+                      0.0,
+                      0.258947,
+                      0.0
+                    ],
+                    "joints": [],
+                    "geoms": [
+                      {
+                        "name": "left_hand",
+                        "body_name": "left_hand",
+                        "type": "sphere",
+                        "pos": [],
+                        "size": [
+                          0.04
+                        ],
+                        "fromto": [],
+                        "density": 1865.0
+                      }
+                    ],
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "right_thigh",
+        "parent": "pelvis",
+        "pos": [
+          0.0,
+          -0.084887,
+          0.0
+        ],
+        "joints": [
+          {
+            "name": "right_hip_x",
+            "body_name": "right_thigh",
+            "type": "hinge",
+            "axis": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "range_degrees": [
+              -60.0,
+              30.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "right_hip_y",
+            "body_name": "right_thigh",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "range_degrees": [
+              -140.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "right_hip_z",
+            "body_name": "right_thigh",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "range_degrees": [
+              -60.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          }
+        ],
+        "geoms": [
+          {
+            "name": "right_thigh",
+            "body_name": "right_thigh",
+            "type": "capsule",
+            "pos": [],
+            "size": [
+              0.055
+            ],
+            "fromto": [
+              0.0,
+              0.0,
+              -0.04,
+              0.0,
+              0.0,
+              -0.36
+            ],
+            "density": 1269.0
+          }
+        ],
+        "children": [
+          {
+            "name": "right_shin",
+            "parent": "right_thigh",
+            "pos": [
+              0.0,
+              0.0,
+              -0.421546
+            ],
+            "joints": [
+              {
+                "name": "right_knee",
+                "body_name": "right_shin",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  0.0,
+                  160.0
+                ],
+                "actuator_force_range": [
+                  -150.0,
+                  150.0
+                ],
+                "stiffness": 500.0,
+                "damping": 50.0,
+                "armature": 0.02,
+                "limited": ""
+              }
+            ],
+            "geoms": [
+              {
+                "name": "right_shin",
+                "body_name": "right_shin",
+                "type": "capsule",
+                "pos": [],
+                "size": [
+                  0.05
+                ],
+                "fromto": [
+                  0.0,
+                  0.0,
+                  -0.03,
+                  0.0,
+                  0.0,
+                  -0.355
+                ],
+                "density": 1014.0
+              }
+            ],
+            "children": [
+              {
+                "name": "right_foot",
+                "parent": "right_shin",
+                "pos": [
+                  0.0,
+                  0.0,
+                  -0.40987
+                ],
+                "joints": [
+                  {
+                    "name": "right_ankle_x",
+                    "body_name": "right_foot",
+                    "type": "hinge",
+                    "axis": [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    "range_degrees": [
+                      -30.0,
+                      30.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  },
+                  {
+                    "name": "right_ankle_y",
+                    "body_name": "right_foot",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      1.0,
+                      0.0
+                    ],
+                    "range_degrees": [
+                      -55.0,
+                      55.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  },
+                  {
+                    "name": "right_ankle_z",
+                    "body_name": "right_foot",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    "range_degrees": [
+                      -40.0,
+                      40.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  }
+                ],
+                "geoms": [
+                  {
+                    "name": "right_foot",
+                    "body_name": "right_foot",
+                    "type": "box",
+                    "pos": [
+                      0.045,
+                      0.0,
+                      -0.0225
+                    ],
+                    "size": [
+                      0.0885,
+                      0.045,
+                      0.0275
+                    ],
+                    "fromto": [],
+                    "density": 1141.0
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "left_thigh",
+        "parent": "pelvis",
+        "pos": [
+          0.0,
+          0.084887,
+          0.0
+        ],
+        "joints": [
+          {
+            "name": "left_hip_x",
+            "body_name": "left_thigh",
+            "type": "hinge",
+            "axis": [
+              1.0,
+              0.0,
+              0.0
+            ],
+            "range_degrees": [
+              -30.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "left_hip_y",
+            "body_name": "left_thigh",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              1.0,
+              0.0
+            ],
+            "range_degrees": [
+              -140.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          },
+          {
+            "name": "left_hip_z",
+            "body_name": "left_thigh",
+            "type": "hinge",
+            "axis": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "range_degrees": [
+              -60.0,
+              60.0
+            ],
+            "actuator_force_range": [
+              -200.0,
+              200.0
+            ],
+            "stiffness": 500.0,
+            "damping": 50.0,
+            "armature": 0.02,
+            "limited": ""
+          }
+        ],
+        "geoms": [
+          {
+            "name": "left_thigh",
+            "body_name": "left_thigh",
+            "type": "capsule",
+            "pos": [],
+            "size": [
+              0.055
+            ],
+            "fromto": [
+              0.0,
+              0.0,
+              -0.04,
+              0.0,
+              0.0,
+              -0.36
+            ],
+            "density": 1269.0
+          }
+        ],
+        "children": [
+          {
+            "name": "left_shin",
+            "parent": "left_thigh",
+            "pos": [
+              0.0,
+              0.0,
+              -0.421546
+            ],
+            "joints": [
+              {
+                "name": "left_knee",
+                "body_name": "left_shin",
+                "type": "hinge",
+                "axis": [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                "range_degrees": [
+                  0.0,
+                  160.0
+                ],
+                "actuator_force_range": [
+                  -150.0,
+                  150.0
+                ],
+                "stiffness": 500.0,
+                "damping": 50.0,
+                "armature": 0.02,
+                "limited": ""
+              }
+            ],
+            "geoms": [
+              {
+                "name": "left_shin",
+                "body_name": "left_shin",
+                "type": "capsule",
+                "pos": [],
+                "size": [
+                  0.05
+                ],
+                "fromto": [
+                  0.0,
+                  0.0,
+                  -0.03,
+                  0.0,
+                  0.0,
+                  -0.355
+                ],
+                "density": 1014.0
+              }
+            ],
+            "children": [
+              {
+                "name": "left_foot",
+                "parent": "left_shin",
+                "pos": [
+                  0.0,
+                  0.0,
+                  -0.40987
+                ],
+                "joints": [
+                  {
+                    "name": "left_ankle_x",
+                    "body_name": "left_foot",
+                    "type": "hinge",
+                    "axis": [
+                      1.0,
+                      0.0,
+                      0.0
+                    ],
+                    "range_degrees": [
+                      -30.0,
+                      30.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  },
+                  {
+                    "name": "left_ankle_y",
+                    "body_name": "left_foot",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      1.0,
+                      0.0
+                    ],
+                    "range_degrees": [
+                      -55.0,
+                      55.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  },
+                  {
+                    "name": "left_ankle_z",
+                    "body_name": "left_foot",
+                    "type": "hinge",
+                    "axis": [
+                      0.0,
+                      0.0,
+                      1.0
+                    ],
+                    "range_degrees": [
+                      -40.0,
+                      40.0
+                    ],
+                    "actuator_force_range": [
+                      -90.0,
+                      90.0
+                    ],
+                    "stiffness": 400.0,
+                    "damping": 40.0,
+                    "armature": 0.01,
+                    "limited": ""
+                  }
+                ],
+                "geoms": [
+                  {
+                    "name": "left_foot",
+                    "body_name": "left_foot",
+                    "type": "box",
+                    "pos": [
+                      0.045,
+                      0.0,
+                      -0.0225
+                    ],
+                    "size": [
+                      0.0885,
+                      0.045,
+                      0.0275
+                    ],
+                    "fromto": [],
+                    "density": 1141.0
+                  }
+                ],
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "flat_bodies": [
+    {
+      "name": "pelvis",
+      "parent": "",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "joint_count": 1,
+      "geom_count": 2
+    },
+    {
+      "name": "torso",
+      "parent": "pelvis",
+      "pos": [
+        0.0,
+        0.0,
+        0.236151
+      ],
+      "joint_count": 3,
+      "geom_count": 3
+    },
+    {
+      "name": "head",
+      "parent": "torso",
+      "pos": [
+        0.0,
+        0.0,
+        0.223894
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "right_upper_arm",
+      "parent": "torso",
+      "pos": [
+        -0.02405,
+        -0.18311,
+        0.2435
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "right_lower_arm",
+      "parent": "right_upper_arm",
+      "pos": [
+        0.0,
+        -0.274788,
+        0.0
+      ],
+      "joint_count": 1,
+      "geom_count": 1
+    },
+    {
+      "name": "right_hand",
+      "parent": "right_lower_arm",
+      "pos": [
+        0.0,
+        -0.258947,
+        0.0
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "sword",
+      "parent": "right_hand",
+      "pos": [
+        0.74,
+        0.0,
+        0.0
+      ],
+      "joint_count": 0,
+      "geom_count": 2
+    },
+    {
+      "name": "left_upper_arm",
+      "parent": "torso",
+      "pos": [
+        -0.02405,
+        0.18311,
+        0.2435
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "left_lower_arm",
+      "parent": "left_upper_arm",
+      "pos": [
+        0.0,
+        0.274788,
+        0.0
+      ],
+      "joint_count": 1,
+      "geom_count": 1
+    },
+    {
+      "name": "shield",
+      "parent": "left_lower_arm",
+      "pos": [
+        0.0,
+        0.12,
+        0.07
+      ],
+      "joint_count": 0,
+      "geom_count": 1
+    },
+    {
+      "name": "left_hand",
+      "parent": "left_lower_arm",
+      "pos": [
+        0.0,
+        0.258947,
+        0.0
+      ],
+      "joint_count": 0,
+      "geom_count": 1
+    },
+    {
+      "name": "right_thigh",
+      "parent": "pelvis",
+      "pos": [
+        0.0,
+        -0.084887,
+        0.0
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "right_shin",
+      "parent": "right_thigh",
+      "pos": [
+        0.0,
+        0.0,
+        -0.421546
+      ],
+      "joint_count": 1,
+      "geom_count": 1
+    },
+    {
+      "name": "right_foot",
+      "parent": "right_shin",
+      "pos": [
+        0.0,
+        0.0,
+        -0.40987
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "left_thigh",
+      "parent": "pelvis",
+      "pos": [
+        0.0,
+        0.084887,
+        0.0
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    },
+    {
+      "name": "left_shin",
+      "parent": "left_thigh",
+      "pos": [
+        0.0,
+        0.0,
+        -0.421546
+      ],
+      "joint_count": 1,
+      "geom_count": 1
+    },
+    {
+      "name": "left_foot",
+      "parent": "left_shin",
+      "pos": [
+        0.0,
+        0.0,
+        -0.40987
+      ],
+      "joint_count": 3,
+      "geom_count": 1
+    }
+  ],
+  "geoms": [
+    {
+      "name": "pelvis",
+      "body_name": "pelvis",
+      "type": "sphere",
+      "pos": [
+        0.0,
+        0.0,
+        0.07
+      ],
+      "size": [
+        0.09
+      ],
+      "fromto": [],
+      "density": 2226.0
+    },
+    {
+      "name": "upper_waist",
+      "body_name": "pelvis",
+      "type": "sphere",
+      "pos": [
+        0.0,
+        0.0,
+        0.205
+      ],
+      "size": [
+        0.07
+      ],
+      "fromto": [],
+      "density": 2226.0
+    },
+    {
+      "name": "torso",
+      "body_name": "torso",
+      "type": "sphere",
+      "pos": [
+        0.0,
+        0.0,
+        0.12
+      ],
+      "size": [
+        0.11
+      ],
+      "fromto": [],
+      "density": 1623.0
+    },
+    {
+      "name": "right_clavicle",
+      "body_name": "torso",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.045
+      ],
+      "fromto": [
+        -0.0060125,
+        -0.0457775,
+        0.2287955,
+        -0.016835,
+        -0.128177,
+        0.2376182
+      ],
+      "density": 1623.0
+    },
+    {
+      "name": "left_clavicle",
+      "body_name": "torso",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.045
+      ],
+      "fromto": [
+        -0.0060125,
+        0.0457775,
+        0.2287955,
+        -0.016835,
+        0.128177,
+        0.2376182
+      ],
+      "density": 1623.0
+    },
+    {
+      "name": "head",
+      "body_name": "head",
+      "type": "sphere",
+      "pos": [
+        0.0,
+        0.0,
+        0.175
+      ],
+      "size": [
+        0.095
+      ],
+      "fromto": [],
+      "density": 1081.0
+    },
+    {
+      "name": "right_upper_arm",
+      "body_name": "right_upper_arm",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.045
+      ],
+      "fromto": [
+        0.0,
+        -0.23,
+        0.0,
+        0.0,
+        -0.03,
+        0.0
+      ],
+      "density": 982.0
+    },
+    {
+      "name": "right_lower_arm",
+      "body_name": "right_lower_arm",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.04
+      ],
+      "fromto": [
+        0.0,
+        -0.1875,
+        0.0,
+        0.0,
+        -0.035,
+        0.0
+      ],
+      "density": 1056.0
+    },
+    {
+      "name": "right_hand",
+      "body_name": "right_hand",
+      "type": "sphere",
+      "pos": [],
+      "size": [
+        0.04
+      ],
+      "fromto": [],
+      "density": 1865.0
+    },
+    {
+      "name": "sword_hilt",
+      "body_name": "sword",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.023
+      ],
+      "fromto": [
+        -0.87,
+        0.0,
+        0.0,
+        -0.64,
+        0.0,
+        0.0
+      ],
+      "density": 600.0
+    },
+    {
+      "name": "sword_blade",
+      "body_name": "sword",
+      "type": "box",
+      "pos": [
+        -0.34,
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.34,
+        0.035,
+        0.01
+      ],
+      "fromto": [],
+      "density": 600.0
+    },
+    {
+      "name": "left_upper_arm",
+      "body_name": "left_upper_arm",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.045
+      ],
+      "fromto": [
+        0.0,
+        0.03,
+        0.0,
+        0.0,
+        0.23,
+        0.0
+      ],
+      "density": 982.0
+    },
+    {
+      "name": "left_lower_arm",
+      "body_name": "left_lower_arm",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.04
+      ],
+      "fromto": [
+        0.0,
+        0.035,
+        0.0,
+        0.0,
+        0.1875,
+        0.0
+      ],
+      "density": 1056.0
+    },
+    {
+      "name": "shield",
+      "body_name": "shield",
+      "type": "cylinder",
+      "pos": [],
+      "size": [
+        0.3
+      ],
+      "fromto": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.03
+      ],
+      "density": 250.0
+    },
+    {
+      "name": "left_hand",
+      "body_name": "left_hand",
+      "type": "sphere",
+      "pos": [],
+      "size": [
+        0.04
+      ],
+      "fromto": [],
+      "density": 1865.0
+    },
+    {
+      "name": "right_thigh",
+      "body_name": "right_thigh",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.055
+      ],
+      "fromto": [
+        0.0,
+        0.0,
+        -0.04,
+        0.0,
+        0.0,
+        -0.36
+      ],
+      "density": 1269.0
+    },
+    {
+      "name": "right_shin",
+      "body_name": "right_shin",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.05
+      ],
+      "fromto": [
+        0.0,
+        0.0,
+        -0.03,
+        0.0,
+        0.0,
+        -0.355
+      ],
+      "density": 1014.0
+    },
+    {
+      "name": "right_foot",
+      "body_name": "right_foot",
+      "type": "box",
+      "pos": [
+        0.045,
+        0.0,
+        -0.0225
+      ],
+      "size": [
+        0.0885,
+        0.045,
+        0.0275
+      ],
+      "fromto": [],
+      "density": 1141.0
+    },
+    {
+      "name": "left_thigh",
+      "body_name": "left_thigh",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.055
+      ],
+      "fromto": [
+        0.0,
+        0.0,
+        -0.04,
+        0.0,
+        0.0,
+        -0.36
+      ],
+      "density": 1269.0
+    },
+    {
+      "name": "left_shin",
+      "body_name": "left_shin",
+      "type": "capsule",
+      "pos": [],
+      "size": [
+        0.05
+      ],
+      "fromto": [
+        0.0,
+        0.0,
+        -0.03,
+        0.0,
+        0.0,
+        -0.355
+      ],
+      "density": 1014.0
+    },
+    {
+      "name": "left_foot",
+      "body_name": "left_foot",
+      "type": "box",
+      "pos": [
+        0.045,
+        0.0,
+        -0.0225
+      ],
+      "size": [
+        0.0885,
+        0.045,
+        0.0275
+      ],
+      "fromto": [],
+      "density": 1141.0
+    }
+  ],
+  "joints": [
+    {
+      "name": "root",
+      "body_name": "pelvis",
+      "type": "freejoint",
+      "axis": [],
+      "range_degrees": [],
+      "actuator_force_range": [],
+      "stiffness": 0.0,
+      "damping": 0.0,
+      "armature": 0.0,
+      "limited": ""
+    },
+    {
+      "name": "abdomen_x",
+      "body_name": "torso",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -60.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 1000.0,
+      "damping": 100.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "abdomen_y",
+      "body_name": "torso",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -60.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 1000.0,
+      "damping": 100.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "abdomen_z",
+      "body_name": "torso",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -70.0,
+        70.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 1000.0,
+      "damping": 100.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "neck_x",
+      "body_name": "head",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -50.0,
+        50.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "neck_y",
+      "body_name": "head",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -40.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "neck_z",
+      "body_name": "head",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -45.0,
+        45.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_shoulder_x",
+      "body_name": "right_upper_arm",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -110.0,
+        140.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_shoulder_y",
+      "body_name": "right_upper_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -90.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_shoulder_z",
+      "body_name": "right_upper_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -60.0,
+        160.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_elbow",
+      "body_name": "right_lower_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        0.0,
+        160.0
+      ],
+      "actuator_force_range": [
+        -70.0,
+        70.0
+      ],
+      "stiffness": 300.0,
+      "damping": 30.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_hand_x",
+      "body_name": "right_hand",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -90.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_hand_y",
+      "body_name": "right_hand",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -90.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.003,
+      "limited": ""
+    },
+    {
+      "name": "right_hand_z",
+      "body_name": "right_hand",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -90.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -50.0,
+        50.0
+      ],
+      "stiffness": 100.0,
+      "damping": 10.0,
+      "armature": 0.003,
+      "limited": ""
+    },
+    {
+      "name": "left_shoulder_x",
+      "body_name": "left_upper_arm",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -140.0,
+        110.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_shoulder_y",
+      "body_name": "left_upper_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -90.0,
+        90.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_shoulder_z",
+      "body_name": "left_upper_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -160.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -100.0,
+        100.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_elbow",
+      "body_name": "left_lower_arm",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -160.0,
+        0.0
+      ],
+      "actuator_force_range": [
+        -70.0,
+        70.0
+      ],
+      "stiffness": 300.0,
+      "damping": 30.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_hip_x",
+      "body_name": "right_thigh",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -60.0,
+        30.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_hip_y",
+      "body_name": "right_thigh",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -140.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_hip_z",
+      "body_name": "right_thigh",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -60.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_knee",
+      "body_name": "right_shin",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        0.0,
+        160.0
+      ],
+      "actuator_force_range": [
+        -150.0,
+        150.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "right_ankle_x",
+      "body_name": "right_foot",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -30.0,
+        30.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_ankle_y",
+      "body_name": "right_foot",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -55.0,
+        55.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "right_ankle_z",
+      "body_name": "right_foot",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -40.0,
+        40.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "left_hip_x",
+      "body_name": "left_thigh",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -30.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_hip_y",
+      "body_name": "left_thigh",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -140.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_hip_z",
+      "body_name": "left_thigh",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -60.0,
+        60.0
+      ],
+      "actuator_force_range": [
+        -200.0,
+        200.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_knee",
+      "body_name": "left_shin",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        0.0,
+        160.0
+      ],
+      "actuator_force_range": [
+        -150.0,
+        150.0
+      ],
+      "stiffness": 500.0,
+      "damping": 50.0,
+      "armature": 0.02,
+      "limited": ""
+    },
+    {
+      "name": "left_ankle_x",
+      "body_name": "left_foot",
+      "type": "hinge",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "range_degrees": [
+        -30.0,
+        30.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "left_ankle_y",
+      "body_name": "left_foot",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "range_degrees": [
+        -55.0,
+        55.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    },
+    {
+      "name": "left_ankle_z",
+      "body_name": "left_foot",
+      "type": "hinge",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "range_degrees": [
+        -40.0,
+        40.0
+      ],
+      "actuator_force_range": [
+        -90.0,
+        90.0
+      ],
+      "stiffness": 400.0,
+      "damping": 40.0,
+      "armature": 0.01,
+      "limited": ""
+    }
+  ],
+  "actuators": [
+    {
+      "name": "abdomen_x",
+      "joint": "abdomen_x",
+      "gear": 200.0
+    },
+    {
+      "name": "abdomen_y",
+      "joint": "abdomen_y",
+      "gear": 200.0
+    },
+    {
+      "name": "abdomen_z",
+      "joint": "abdomen_z",
+      "gear": 200.0
+    },
+    {
+      "name": "neck_x",
+      "joint": "neck_x",
+      "gear": 50.0
+    },
+    {
+      "name": "neck_y",
+      "joint": "neck_y",
+      "gear": 50.0
+    },
+    {
+      "name": "neck_z",
+      "joint": "neck_z",
+      "gear": 50.0
+    },
+    {
+      "name": "right_shoulder_x",
+      "joint": "right_shoulder_x",
+      "gear": 100.0
+    },
+    {
+      "name": "right_shoulder_y",
+      "joint": "right_shoulder_y",
+      "gear": 100.0
+    },
+    {
+      "name": "right_shoulder_z",
+      "joint": "right_shoulder_z",
+      "gear": 100.0
+    },
+    {
+      "name": "right_elbow",
+      "joint": "right_elbow",
+      "gear": 70.0
+    },
+    {
+      "name": "right_hand_x",
+      "joint": "right_hand_x",
+      "gear": 50.0
+    },
+    {
+      "name": "right_hand_y",
+      "joint": "right_hand_y",
+      "gear": 50.0
+    },
+    {
+      "name": "right_hand_z",
+      "joint": "right_hand_z",
+      "gear": 50.0
+    },
+    {
+      "name": "left_shoulder_x",
+      "joint": "left_shoulder_x",
+      "gear": 100.0
+    },
+    {
+      "name": "left_shoulder_y",
+      "joint": "left_shoulder_y",
+      "gear": 100.0
+    },
+    {
+      "name": "left_shoulder_z",
+      "joint": "left_shoulder_z",
+      "gear": 100.0
+    },
+    {
+      "name": "left_elbow",
+      "joint": "left_elbow",
+      "gear": 70.0
+    },
+    {
+      "name": "right_hip_x",
+      "joint": "right_hip_x",
+      "gear": 200.0
+    },
+    {
+      "name": "right_hip_z",
+      "joint": "right_hip_z",
+      "gear": 200.0
+    },
+    {
+      "name": "right_hip_y",
+      "joint": "right_hip_y",
+      "gear": 200.0
+    },
+    {
+      "name": "right_knee",
+      "joint": "right_knee",
+      "gear": 150.0
+    },
+    {
+      "name": "right_ankle_x",
+      "joint": "right_ankle_x",
+      "gear": 90.0
+    },
+    {
+      "name": "right_ankle_y",
+      "joint": "right_ankle_y",
+      "gear": 90.0
+    },
+    {
+      "name": "right_ankle_z",
+      "joint": "right_ankle_z",
+      "gear": 90.0
+    },
+    {
+      "name": "left_hip_x",
+      "joint": "left_hip_x",
+      "gear": 200.0
+    },
+    {
+      "name": "left_hip_z",
+      "joint": "left_hip_z",
+      "gear": 200.0
+    },
+    {
+      "name": "left_hip_y",
+      "joint": "left_hip_y",
+      "gear": 200.0
+    },
+    {
+      "name": "left_knee",
+      "joint": "left_knee",
+      "gear": 150.0
+    },
+    {
+      "name": "left_ankle_x",
+      "joint": "left_ankle_x",
+      "gear": 90.0
+    },
+    {
+      "name": "left_ankle_y",
+      "joint": "left_ankle_y",
+      "gear": 90.0
+    },
+    {
+      "name": "left_ankle_z",
+      "joint": "left_ankle_z",
+      "gear": 90.0
+    }
+  ],
+  "validation": {
+    "joint_order_body_count": 17,
+    "source_body_count": 17,
+    "missing_joint_order_bodies_in_source": [],
+    "dof_size": 31,
+    "actuator_count": 31,
+    "actuator_count_matches_dof_size": true,
+    "required_contact_bodies": [
+      "right_foot",
+      "left_foot"
+    ],
+    "contact_bodies_present": true,
+    "sword_attachment_present": true,
+    "shield_attachment_present": true,
+    "actuator_joints": [
+      "abdomen_x",
+      "abdomen_y",
+      "abdomen_z",
+      "neck_x",
+      "neck_y",
+      "neck_z",
+      "right_shoulder_x",
+      "right_shoulder_y",
+      "right_shoulder_z",
+      "right_elbow",
+      "right_hand_x",
+      "right_hand_y",
+      "right_hand_z",
+      "left_shoulder_x",
+      "left_shoulder_y",
+      "left_shoulder_z",
+      "left_elbow",
+      "right_hip_x",
+      "right_hip_z",
+      "right_hip_y",
+      "right_knee",
+      "right_ankle_x",
+      "right_ankle_y",
+      "right_ankle_z",
+      "left_hip_x",
+      "left_hip_z",
+      "left_hip_y",
+      "left_knee",
+      "left_ankle_x",
+      "left_ankle_y",
+      "left_ankle_z"
+    ]
+  },
+  "spec_hash": "6ad8cd79a3a99d55c921b51ffbc5699bb14d09f768473fa48744d50ae1b464d6"
+}

@@ -1,0 +1,28 @@
+{
+  "source": {
+    "arg_file": "D:\\MimicKitNative\\workspace\\MimicKit\\args\\view_motion_humanoid_sword_shield_args.txt",
+    "env_config": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\generated_envs\\RL_Avatar_Atk_2xCombo01_Motion.yaml",
+    "engine_config": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+    "agent_config": "",
+    "model_file": ""
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "frames": 300,
+    "seed": 7,
+    "episodes_recorded": 4,
+    "policy_kind": "dummy_constant_action"
+  },
+  "shape": {
+    "obs_dim": 158,
+    "act_dim": 31,
+    "count": 300
+  },
+  "files": {
+    "obs_fixture": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\obs_fixture.jsonl",
+    "ref_actions": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\ref_actions.jsonl",
+    "visual_replay": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\visual_replay\\pose_dof_replay.jsonl",
+    "body_world_replay": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\visual_replay\\body_world_replay.jsonl",
+    "visual_replay_meta": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\visual_replay\\pose_dof_meta.json"
+  }
+}

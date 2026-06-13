@@ -1,0 +1,12 @@
+[2026-04-30 23:22:50] watcher_start root=/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637
+[2026-05-01 05:41:42] long_train completion detected; auto-finish pipeline starting
+[2026-05-01 05:41:42] build_best_by_case: start attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/scripts/build_amp_best_by_case_from_keepalive.py --root-out amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637
+[2026-05-01 05:41:43] build_best_by_case: completed attempt=1 rc=0
+[2026-05-01 05:41:43] post_train_test: start attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_location_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode test --visualize false --devices cuda:0 --num_envs 1 --test_episodes 10 --model_file /root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt
+[2026-05-01 05:43:20] post_train_test: completed attempt=1 rc=0
+[2026-05-01 05:43:20] post_train_visualize: start attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/mimickit/run.py --arg_file args/amp_location_humanoid_sword_shield_args.txt --engine_config data/engines/newton_engine.yaml --mode test --visualize true --devices cuda:0 --num_envs 1 --test_episodes 1 --model_file /root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt
+[2026-05-01 05:43:59] post_train_visualize: completed attempt=1 rc=0
+[2026-05-01 05:43:59] post_train_render: start attempt=1 cmd=/root/miniconda3/envs/mimickit/bin/python /root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py --roots amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637 --cases amp_location_humanoid_sword_shield_args --frames 300 --frame-stride 5 --device cuda:0 --num-envs 1
+[2026-05-01 05:44:32] post_train_render: completed attempt=1 rc=0
+[2026-05-01 05:44:33] post_train_render: mp4_count=1
+[2026-05-01 05:44:33] auto-finish completed

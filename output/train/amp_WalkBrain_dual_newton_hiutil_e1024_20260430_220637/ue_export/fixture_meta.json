@@ -1,0 +1,27 @@
+{
+  "source": {
+    "arg_file": "/root/Project/MimicKit/args/amp_location_humanoid_sword_shield_args.txt",
+    "model_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt",
+    "env_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/env_config.yaml",
+    "engine_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/engine_config.yaml",
+    "agent_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/agent_config.yaml"
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "frames": 300,
+    "seed": 7,
+    "episodes_recorded": 1
+  },
+  "shape": {
+    "obs_dim": 160,
+    "act_dim": 31,
+    "ref_action_dim": 31,
+    "ref_root_pos_dim": 3,
+    "ref_root_rot_dim": 4,
+    "count": 300
+  },
+  "files": {
+    "obs_fixture": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export/obs_fixture.jsonl",
+    "ref_actions": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export/ref_actions.jsonl"
+  }
+}

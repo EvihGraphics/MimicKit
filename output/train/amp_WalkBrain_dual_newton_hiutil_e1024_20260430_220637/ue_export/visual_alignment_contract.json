@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-05-24T14:29:53.254144+00:00",
+  "brain_name": "WalkBrain",
+  "package_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/ue_export",
+  "character": {
+    "declared_char_file": "data/assets/sword_shield/humanoid_sword_shield.xml",
+    "resolved_char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml",
+    "char_file_exists": true,
+    "char_file_sha256": "ab5f71953fe8d423e9419cfffa5bd38b5967ec53de1347dc77882a9849d1ebf7",
+    "visual_kind": "geom",
+    "mesh_detected_in_declared_asset": false,
+    "preferred_visual_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+    "preferred_visual_asset_exists": true,
+    "preferred_visual_asset_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+    "key_bodies": [
+      "head",
+      "right_hand",
+      "left_hand",
+      "right_foot",
+      "left_foot",
+      "sword"
+    ],
+    "contact_bodies": [
+      "right_foot",
+      "left_foot"
+    ],
+    "joint_order_file": "joint_order.json",
+    "dof_size": 31
+  },
+  "scene": {
+    "mimickit_env_config": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/env_config.yaml",
+    "camera_mode": "track",
+    "ground": "mimickit_engine_default_flat_ground",
+    "episode_length_seconds": 20.0,
+    "ref_char_offset_m": [
+      2.0,
+      0.0,
+      0.0
+    ],
+    "init_pose": [
+      0,
+      0,
+      0.703,
+      -0.033,
+      0.084,
+      -0.857,
+      -0.033,
+      0.719,
+      -0.048,
+      -0.271,
+      -0.487,
+      0.792,
+      0.836,
+      -0.401,
+      0.6781,
+      1.092,
+      -0.208,
+      0.195,
+      0.024,
+      -0.497,
+      -0.201,
+      -0.332,
+      -1.726,
+      -0.436,
+      -0.573,
+      -0.192,
+      1.085,
+      0.46,
+      -0.46,
+      0.028,
+      0.57,
+      -0.906,
+      0.413,
+      1.056,
+      -0.292,
+      -0.11,
+      -0.037
+    ],
+    "motion_file": "data/datasets/dataset_humanoid_sword_shield_locomotion.yaml",
+    "golden_render_refs": {
+      "render_root": "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+      "exists": true,
+      "mp4_files": [
+        "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render.mp4"
+      ],
+      "render_meta_files": [
+        "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/render_meta.json"
+      ],
+      "frames_dirs": [
+        "/root/Project/MimicKit/output/img/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/render/frames"
+      ]
+    }
+  },
+  "coordinate_contract": {
+    "coordinate_basis": "training_basis_pending_explicit_contract",
+    "unit_scale": "meters_to_ue_cm",
+    "rotation_convention": "quat_xyzw",
+    "root_pos_units": "meters",
+    "ue_units": "centimeters",
+    "status": "blocked_until_explicit_basis_mapping"
+  },
+  "ue_capture_requirements": {
+    "required_outputs": [
+      "png_frame_sequence",
+      "mp4",
+      "capture_meta.json",
+      "visual_diff_report.json"
+    ],
+    "debug_geometry_is_smoke_only": true,
+    "full_visual_parity_requires_skeletal_pose": true,
+    "must_log_to": "docs/memory/20260521_amp_ue_visual_diff_log.md"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source": {
+    "arg_file": "D:\\MimicKitNative\\workspace\\MimicKit\\args\\view_motion_humanoid_sword_shield_args.txt",
+    "env_config": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\generated_envs\\RL_Avatar_Atk_2xCombo01_Motion.yaml",
+    "engine_config": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+    "agent_config": "",
+    "model_file": ""
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "frames": 300,
+    "seed": 7,
+    "episodes_recorded": 4,
+    "policy_kind": "dummy_constant_action"
+  },
+  "shape": {
+    "count": 300,
+    "dof_pos_dim": 31,
+    "dof_vel_dim": 31,
+    "root_pos_dim": 3,
+    "root_rot_dim": 4,
+    "root_vel_dim": 3,
+    "root_ang_vel_dim": 3,
+    "body_count": 17,
+    "policy_action_dim": 31
+  },
+  "timing": {
+    "policy_hz": 30,
+    "physics_hz": 120,
+    "dt_seconds": 0.03333333333333333
+  },
+  "conventions": {
+    "root_pos_unit": "meters",
+    "root_rot_order": "xyzw",
+    "dof_pos_unit": "radians",
+    "body_world_source": "kin_char_model_fk"
+  },
+  "files": {
+    "pose_dof_replay": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\visual_replay\\pose_dof_replay.jsonl",
+    "body_world_replay": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference\\visual_replay\\body_world_replay.jsonl"
+  }
+}

@@ -1,0 +1,104 @@
+schema_version: 1
+brain_name: StopBrain
+observation:
+  input_name: obs
+  dim: 163
+  layout_token: '[root_h?] + root_rot_obs + root_vel_obs + root_ang_vel_obs + joint_rot_obs
+    + dof_vel + key_pos_flat?'
+  global_obs: false
+  root_height_obs: true
+  enable_tar_obs: false
+  tar_obs_steps: []
+  fixture_file: obs_fixture.jsonl
+  normalization_ref: normalization_stats.json#observation
+action:
+  output_name: action
+  dim: 31
+  space_type: Box
+  low:
+  - -1.8849557638168335
+  - -1.8849557638168335
+  - -1.8849557638168335
+  - -1.2566370964050293
+  - -1.2566370964050293
+  - -1.2566370964050293
+  - -3.351032257080078
+  - -3.351032257080078
+  - -3.351032257080078
+  - -0.5585052967071533
+  - -1.8849557638168335
+  - -1.8849557638168335
+  - -1.8849557638168335
+  - -3.351032257080078
+  - -3.351032257080078
+  - -3.351032257080078
+  - -3.351032018661499
+  - -2.9321532249450684
+  - -2.9321532249450684
+  - -2.9321532249450684
+  - -0.5585052967071533
+  - -1.1519173383712769
+  - -1.1519173383712769
+  - -1.1519173383712769
+  - -2.9321532249450684
+  - -2.9321532249450684
+  - -2.9321532249450684
+  - -0.5585052967071533
+  - -1.1519173383712769
+  - -1.1519173383712769
+  - -1.1519173383712769
+  high:
+  - 1.8849557638168335
+  - 1.8849557638168335
+  - 1.8849557638168335
+  - 1.2566370964050293
+  - 1.2566370964050293
+  - 1.2566370964050293
+  - 3.351032257080078
+  - 3.351032257080078
+  - 3.351032257080078
+  - 3.351032018661499
+  - 1.8849557638168335
+  - 1.8849557638168335
+  - 1.8849557638168335
+  - 3.351032257080078
+  - 3.351032257080078
+  - 3.351032257080078
+  - 0.5585052967071533
+  - 2.9321532249450684
+  - 2.9321532249450684
+  - 2.9321532249450684
+  - 3.351032018661499
+  - 1.1519173383712769
+  - 1.1519173383712769
+  - 1.1519173383712769
+  - 2.9321532249450684
+  - 2.9321532249450684
+  - 2.9321532249450684
+  - 3.351032018661499
+  - 1.1519173383712769
+  - 1.1519173383712769
+  - 1.1519173383712769
+  reference_action_file: ref_actions.jsonl
+  normalization_ref: normalization_stats.json#action
+control:
+  policy_hz: 30
+  physics_hz: 240
+  control_mode: pos
+reference_payload:
+  fixture_frames: 300
+  ref_action_dim: 31
+  dof_pos_dim: 31
+  dof_vel_dim: 31
+  ref_root_pos_dim: 3
+  ref_root_rot_dim: 4
+  root_vel_dim: 3
+  root_ang_vel_dim: 3
+  visual_replay_file: visual_replay/pose_dof_replay.jsonl
+  visual_replay_meta_file: visual_replay/pose_dof_meta.json
+files:
+  schema: schema.json
+  joint_order: joint_order.json
+  brain_manifest: brain_manifest.json
+  visual_replay: visual_replay/pose_dof_replay.jsonl
+  visual_replay_meta: visual_replay/pose_dof_meta.json

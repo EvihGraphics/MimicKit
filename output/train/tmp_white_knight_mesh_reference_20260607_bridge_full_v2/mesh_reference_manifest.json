@@ -1,0 +1,2821 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-10T03:22:18Z",
+  "root_name": "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+  "train_root_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+  "img_root_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+  "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+  "case": "view_motion_humanoid_sword_shield_args",
+  "base_env_config": "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+  "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+  "usd_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+  "xml_kinematic_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml",
+  "frames": 300,
+  "frame_stride": 5,
+  "expected_image_count": 60,
+  "expected_frame_ids": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90,
+    95,
+    100,
+    105,
+    110,
+    115,
+    120,
+    125,
+    130,
+    135,
+    140,
+    145,
+    150,
+    155,
+    160,
+    165,
+    170,
+    175,
+    180,
+    185,
+    190,
+    195,
+    200,
+    205,
+    210,
+    215,
+    220,
+    225,
+    230,
+    235,
+    240,
+    245,
+    250,
+    255,
+    260,
+    265,
+    270,
+    275,
+    280,
+    285,
+    290,
+    295
+  ],
+  "frame_ids": [
+    0,
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90,
+    95,
+    100,
+    105,
+    110,
+    115,
+    120,
+    125,
+    130,
+    135,
+    140,
+    145,
+    150,
+    155,
+    160,
+    165,
+    170,
+    175,
+    180,
+    185,
+    190,
+    195,
+    200,
+    205,
+    210,
+    215,
+    220,
+    225,
+    230,
+    235,
+    240,
+    245,
+    250,
+    255,
+    260,
+    265,
+    270,
+    275,
+    280,
+    285,
+    290,
+    295
+  ],
+  "png_count": 60,
+  "mp4_ok": true,
+  "source_was_ppm_only": false,
+  "scene_contract": {
+    "schema_version": 3,
+    "root_name": "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+    "camera_mode": "track",
+    "ground": "mimickit_engine_default_flat_ground",
+    "width": 960,
+    "height": 540,
+    "frames": 300,
+    "frame_stride": 5,
+    "mp4_fps": 12,
+    "expected_frame_ids": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200,
+      205,
+      210,
+      215,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      255,
+      260,
+      265,
+      270,
+      275,
+      280,
+      285,
+      290,
+      295
+    ],
+    "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+    "case": "view_motion_humanoid_sword_shield_args",
+    "base_env_config": "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+    "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+    "debug_overlays": false,
+    "fov_degrees": 45.0,
+    "seed": 7
+  },
+  "conda_env": "mimickit-isaaclab",
+  "render_python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+  "asset_export": {
+    "ok": true,
+    "skipped": false,
+    "source_usd_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+    "source_usd_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+    "format": "glb",
+    "glb_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/assets/humanoid_sword_shield.glb",
+    "gltf_file": "",
+    "output_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/assets/humanoid_sword_shield.glb",
+    "output_sha256": "7124cb0336f841f80ac133cc013a89378379354aedbdc42aeadfe1d9f05635d8",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py",
+        "--input-usd",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+        "--output-asset",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\assets\\humanoid_sword_shield.glb",
+        "--manifest",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\assets\\asset_export_manifest.json",
+        "--headless"
+      ],
+      "returncode": 0,
+      "stdout_tail": "[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.\n[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)\nLoading user config located at: 'd:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'\n[Info] [carb] Logging to file: d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260610_112309.log\n2026-06-10 03:23:09 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.\n2026-06-10 03:23:09 [50ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes' or 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes/config'\n2026-06-10 03:23:09 [425ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX\n2026-06-10 03:23:10 [1,004ms] [Warning] [omni.datastore] OmniHub is inaccessible\n2026-06-10 03:23:10 [1,139ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.\n\n|---------------------------------------------------------------------------------------------|\n| Driver Version: 591.86        | Graphics API: D3D12\n|=============================================================================================|\n| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |\n|     |                                  |        |     |            | Device-ID | UUID       |\n|     |                                  |        |     |            | Bus-ID    |            |\n|---------------------------------------------------------------------------------------------|\n| 0   | NVIDIA GeForce RTX 4090          | Yes: 0 |     | 24142   MB | 10de      | 3a1f0100.. |\n|     |                                  |        |     |            | 2684      | 0          |\n|     |                                  |        |     |            | 5         |            |\n|---------------------------------------------------------------------------------------------|\n| 1   | NVIDIA GeForce RTX 4090          | Yes: 1 |     | 24142   MB | 10de      | 31f80000.. |\n|     |                                  |        |     |            | 2684      | 0          |\n|     |                                  |        |     |            | 1         |            |\n|=============================================================================================|\n| OS: Windows 11 Pro, Version: 10.0 (25H2), Build: 26200, Kernel: 10.0.26100.8457\n| Processor: AMD Ryzen 9 7950X 16-Core Processor            \n| Cores: 16 | Logical Cores: 32\n|---------------------------------------------------------------------------------------------|\n| Total Memory (MB): 65240 | Free Memory: 38954\n| Total Page/Swap (MB): 159822 | Free Page/Swap: 116832\n|---------------------------------------------------------------------------------------------|\n",
+      "stderr_tail": "2026-06-10 03:23:12 [3,629ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-10 03:23:12 [3,629ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-10 03:23:12 [3,630ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-10 03:23:12 [3,630ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-10 03:23:12 [3,631ms] [Error] [carb.scripting-python.plugin] RuntimeError: Failed to acquire interface: omni::physx::IPhysxFabric (pluginName: nullptr)\n\nAt:\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(7): _get_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(11): get_physx_fabric_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/scripts/extension.py(12): on_startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(166): _startup_ext\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(224): startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(328): startup_extension\n  PythonExtension.cpp::startup()(2): <module>\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\isaacsim\\exts\\isaacsim.simulation_app\\isaacsim\\simulation_app\\simulation_app.py(427): _start_app\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\isaacsim\\exts\\isaacsim.simulation_app\\isaacsim\\simulation_app\\simulation_app.py(212): __init__\n  D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\app_launcher.py(811): _create_app\n  D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\app_launcher.py(127): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py(223): main\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py(274): <module>\n\n2026-06-10 03:23:12 [3,631ms] [Error] [omni.ext.plugin] [ext: omni.physx.fabric-106.3.2] Failed to startup python extension.\n",
+      "ok": true
+    },
+    "schema_version": 1,
+    "created_at_utc": "2026-06-10T03:23:15Z",
+    "error": "",
+    "export_method": "usd_stage_rigid_primitive_tessellation",
+    "asset_converter_structure": {
+      "schema_version": 1,
+      "asset_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/assets/humanoid_sword_shield.glb",
+      "asset_sha256": "a11d807d003b8444a4164063a1a670e136c10d7c00e87ac287bde560a6f8f9b1",
+      "asset_size_bytes": 380,
+      "ok": false,
+      "blocker": "mesh_asset_structure_invalid",
+      "node_count": 0,
+      "mesh_count": 0,
+      "primitive_count": 0,
+      "vertex_count": 0,
+      "buffer_count": 0,
+      "skin_count": 0,
+      "material_count": 1,
+      "renderable_node_count": 0,
+      "node_names": [],
+      "required_named_nodes": {
+        "sword": false,
+        "shield": false
+      },
+      "mesh_mode": ""
+    },
+    "usd_stage_export": {
+      "method": "usd_stage_rigid_primitive_tessellation",
+      "body_count": 17,
+      "body_names": [
+        "head",
+        "left_foot",
+        "left_hand",
+        "left_lower_arm",
+        "left_shin",
+        "left_thigh",
+        "left_upper_arm",
+        "pelvis",
+        "right_foot",
+        "right_hand",
+        "right_lower_arm",
+        "right_shin",
+        "right_thigh",
+        "right_upper_arm",
+        "shield",
+        "sword",
+        "torso"
+      ],
+      "converted_primitive_count": 42,
+      "geometry_prim_count": 42
+    },
+    "asset_structure": {
+      "schema_version": 1,
+      "asset_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/assets/humanoid_sword_shield.glb",
+      "asset_sha256": "7124cb0336f841f80ac133cc013a89378379354aedbdc42aeadfe1d9f05635d8",
+      "asset_size_bytes": 150396,
+      "ok": true,
+      "blocker": "",
+      "node_count": 18,
+      "mesh_count": 17,
+      "primitive_count": 17,
+      "vertex_count": 7416,
+      "buffer_count": 1,
+      "skin_count": 0,
+      "material_count": 0,
+      "renderable_node_count": 17,
+      "node_names": [
+        "world",
+        "pelvis",
+        "torso",
+        "head",
+        "right_upper_arm",
+        "right_lower_arm",
+        "right_hand",
+        "sword",
+        "left_upper_arm",
+        "left_lower_arm",
+        "shield",
+        "left_hand",
+        "right_thigh",
+        "right_shin",
+        "right_foot",
+        "left_thigh",
+        "left_shin",
+        "left_foot"
+      ],
+      "required_named_nodes": {
+        "sword": true,
+        "shield": true
+      },
+      "mesh_mode": "rigid_node"
+    },
+    "asset_structure_manifest": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/assets/asset_structure_manifest.json"
+  },
+  "package_export": {
+    "ok": true,
+    "package_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference",
+    "arg_file": "/root/Project/MimicKit/args/view_motion_humanoid_sword_shield_args.txt",
+    "env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+    "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\run_mimic_visual_case.py",
+        "--case-id",
+        "view_motion_humanoid_sword_shield_args",
+        "--brain-name",
+        "WhiteKnightMeshReference",
+        "--case-kind",
+        "dummy",
+        "--arg-file",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\args\\view_motion_humanoid_sword_shield_args.txt",
+        "--env-config",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\generated_envs\\RL_Avatar_Atk_2xCombo01_Motion.yaml",
+        "--engine-config",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+        "--out-dir",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\ue_export_mesh_reference",
+        "--device",
+        "cuda:0",
+        "--num-envs",
+        "1",
+        "--frames",
+        "300",
+        "--seed",
+        "7",
+        "--skip-test"
+      ],
+      "returncode": 0,
+      "stdout_tail": "\\mimic_action_heatmap.ppm\", \"package_ok\": true, \"joint_order\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\joint_order.json\", \"brain_manifest\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\brain_manifest.json\", \"package_manifest\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\export_package_manifest.json\", \"visual_alignment_contract\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\visual_alignment_contract.json\", \"skeletal_mapping_contract\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\skeletal_mapping_contract.json\"}\nning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,440ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,440ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,440ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,440ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,440ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,441ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,441ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,441ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:46 [7,441ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\\g\\122538378\\USD\\pxr\\usd\\usdShade\\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.\n\n2026-06-10 03:23:49 [10,446ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown\n2026-06-10 03:23:49 [10,563ms] [Warning] [carb] Recursive unloadAllPlugins() detected!\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "files": {
+      "pose_dof_replay": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/visual_replay/pose_dof_replay.jsonl",
+      "pose_dof_meta": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/visual_replay/pose_dof_meta.json",
+      "joint_order": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/joint_order.json",
+      "source_rig_asset_spec": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/mimickit_source_rig_asset_spec.json",
+      "visual_alignment_contract": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/visual_alignment_contract.json",
+      "scene_contract_v3": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/scene_contract_v3.json",
+      "mesh_binding_contract": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/ue_export_mesh_reference/mesh_binding_contract.json"
+    },
+    "error": "",
+    "source_rig": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_source_rig_asset_spec.py",
+        "--package-dir",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\ue_export_mesh_reference",
+        "--char-xml",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.xml",
+        "--char-usd",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+        "--out",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\ue_export_mesh_reference\\mimickit_source_rig_asset_spec.json"
+      ],
+      "returncode": 0,
+      "stdout_tail": "{\"ok\": true, \"spec\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\mimickit_source_rig_asset_spec.json\", \"runtime_contract\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\runtime_control_contract.json\", \"mesh_binding_contract\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\\\ue_export_mesh_reference\\\\mesh_binding_contract.json\", \"spec_hash\": \"6ad8cd79a3a99d55c921b51ffbc5699bb14d09f768473fa48744d50ae1b464d6\"}\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "missing": []
+  },
+  "native_windows": {
+    "requested_run": true,
+    "requested_ingest": false,
+    "workspace_root": "D:\\MimicKitNative",
+    "workspace_wsl": "/mnt/d/MimicKitNative/workspace/MimicKit",
+    "conda_env": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win",
+    "script_sync": {
+      "ok": true,
+      "workspace": "/mnt/d/MimicKitNative/workspace/MimicKit",
+      "copied": [
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_mesh_reference.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_mesh_reference.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_exact_mesh_reference.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_exact_mesh_reference.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/_bridge_common.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/export_dummy_fixture.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/export_dummy_fixture.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/run_mimic_visual_case.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/run_mimic_visual_case.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/visual_bridge_validation.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/visual_bridge_validation.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_source_rig_asset_spec.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_source_rig_asset_spec.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_ase_reallusion_motion_render_root.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_ase_reallusion_motion_render_root.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/mimickit/engines/engine.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/mimickit/engines/engine.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/mimickit/engines/newton_engine.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/mimickit/engines/newton_engine.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/omni/metrics/assembler/core.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/omni/metrics/assembler/core.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/mimickit/engines/isaac_lab_engine.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/mimickit/engines/isaac_lab_engine.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/mimickit/envs/char_env.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/mimickit/envs/char_env.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/export_usd_to_gltf_asset.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/export_usd_to_gltf_asset.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/build_exact_mesh_reference_native.ps1",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/build_exact_mesh_reference_native.ps1"
+        }
+      ],
+      "missing": []
+    },
+    "run": {
+      "cmd": [
+        "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "/root/Project/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1",
+        "-WorkspaceRoot",
+        "D:\\MimicKitNative",
+        "-CondaEnvName",
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win",
+        "-RootName",
+        "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+        "-Frames",
+        "300",
+        "-FrameStride",
+        "5",
+        "-Mp4Fps",
+        "12",
+        "-Device",
+        "cuda:0",
+        "-AssetExportFormat",
+        "glb",
+        "-ForceRoot"
+      ],
+      "returncode": 0,
+      "stdout_tail": "       ],\n        \"target\": [\n          1.3283823728561452,\n          -4.129885995863464,\n          2.6286093662001964\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 240,\n        \"eye\": [\n          1.6690380573272767,\n          -5.113757453858882,\n          3.00000000000003\n        ],\n        \"target\": [\n          1.6690380573272756,\n          -4.185280745951916,\n          2.6286093662001964\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 245,\n        \"eye\": [\n          1.782752156257636,\n          -5.086552664637595,\n          3.00000000000003\n        ],\n        \"target\": [\n          1.782752156257635,\n          -4.158075956730629,\n          2.628609366200196\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 250,\n        \"eye\": [\n          1.9988334178924632,\n          -5.035894181579381,\n          3.000000000000031\n        ],\n        \"target\": [\n          1.9988334178924618,\n          -4.107417473672415,\n          2.628609366200197\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 255,\n        \"eye\": [\n          2.1633822917938303,\n          -4.996885127853631,\n          3.0000000000000315\n        ],\n        \"target\": [\n          2.163382291793829,\n          -4.068408419946665,\n          2.6286093662001973\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 260,\n        \"eye\": [\n          2.1733469963073806,\n          -4.999078197230145,\n          3.0000000000000324\n        ],\n        \"target\": [\n          2.1733469963073793,\n          -4.070601489323179,\n          2.628609366200198\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 265,\n        \"eye\": [\n          2.1569986343383865,\n          -5.024336252361561,\n          3.000000000000033\n        ],\n        \"target\": [\n          2.156998634338385,\n          -4.095859544454595,\n          2.6286093662001986\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 270,\n        \"eye\": [\n          2.1336903572082604,\n          -5.034748133271958,\n          3.0000000000000324\n        ],\n        \"target\": [\n          2.1336903572082586,\n          -4.106271425364993,\n          2.628609366200198\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 275,\n        \"eye\": [\n          2.113887786865243,\n          -5.0178291890770454,\n          3.0000000000000324\n        ],\n        \"target\": [\n          2.113887786865241,\n          -4.08935248117008,\n          2.628609366200198\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 280,\n        \"eye\": [\n          2.10303783416749,\n          -4.994502517394749,\n          3.0000000000000333\n        ],\n        \"target\": [\n          2.103037834167488,\n          -4.066025809487783,\n          2.628609366200199\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 285,\n        \"eye\": [\n          0.05132010206581184,\n          -4.986282119527487,\n          3.000000000000036\n        ],\n        \"target\": [\n          0.05132010206580994,\n          -4.057805411620521,\n          2.6286093662002017\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 290,\n        \"eye\": [\n          0.0261046923697097,\n          -5.000660686229851,\n          3.000000000000036\n        ],\n        \"target\": [\n          0.0261046923697078,\n          -4.072183978322885,\n          2.6286093662002017\n        ],\n        \"fov_degrees\": 45.0\n      },\n      {\n        \"frame\": 295,\n        \"eye\": [\n          0.03651766479016374,\n          -4.981130709871681,\n          3.0000000000000364\n        ],\n        \"target\": [\n          0.03651766479016184,\n          -4.052654001964715,\n          2.6286093662002026\n        ],\n        \"fov_degrees\": 45.0\n      }\n    ],\n    \"scene_contract_sha256\": \"2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b\"\n  },\n  \"scene_contract_sha256\": \"2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b\"\n}\n\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "ingest": {
+      "ok": true,
+      "windows_workspace_wsl": "/mnt/d/MimicKitNative/workspace/MimicKit",
+      "train": {
+        "ok": true,
+        "src": "/mnt/d/MimicKitNative/workspace/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+        "dst": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2"
+      },
+      "img": {
+        "ok": true,
+        "src": "/mnt/d/MimicKitNative/workspace/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+        "dst": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2"
+      }
+    }
+  },
+  "precheck": {
+    "ok": true,
+    "conda_env": "",
+    "render_python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "-c",
+        "\nimport importlib\nimport json\nimport os\nimport sys\n\nmodules = [\"isaaclab\", \"isaaclab.app\", \"carb\", \"omni\", \"omni.kit.app\", \"torch\"]\nresult = {\n    \"python\": sys.executable,\n    \"imports\": {},\n    \"torch_cuda_available\": False,\n    \"kit_bootstrap\": {\"ok\": False, \"method\": \"from isaaclab.app import AppLauncher\"},\n    \"usd_context_probe\": {\"ok\": False, \"import_name\": \"omni.usd\"},\n}\nok = True\nos.environ.setdefault(\"OMNI_KIT_ACCEPT_EULA\", \"YES\")\ntry:\n    from isaaclab.app import AppLauncher\n    result[\"kit_bootstrap\"][\"ok\"] = True\n    result[\"kit_bootstrap\"][\"AppLauncher\"] = repr(AppLauncher)\nexcept Exception as exc:\n    ok = False\n    result[\"kit_bootstrap\"][\"error\"] = f\"{type(exc).__name__}: {exc}\"\nfor name in modules:\n    try:\n        mod = importlib.import_module(name)\n        result[\"imports\"][name] = {\"ok\": True, \"file\": getattr(mod, \"__file__\", \"\")}\n    except Exception as exc:\n        ok = False\n        result[\"imports\"][name] = {\"ok\": False, \"error\": f\"{type(exc).__name__}: {exc}\"}\ntry:\n    import torch\n    result[\"torch_version\"] = torch.__version__\n    result[\"torch_cuda_available\"] = bool(torch.cuda.is_available())\n    if not result[\"torch_cuda_available\"]:\n        ok = False\nexcept Exception as exc:\n    ok = False\n    result[\"torch_error\"] = f\"{type(exc).__name__}: {exc}\"\ntry:\n    mod = importlib.import_module(\"omni.usd\")\n    result[\"usd_context_probe\"] = {\"ok\": True, \"import_name\": \"omni.usd\", \"file\": getattr(mod, \"__file__\", \"\")}\nexcept Exception as exc:\n    result[\"usd_context_probe\"] = {\n        \"ok\": False,\n        \"import_name\": \"omni.usd\",\n        \"error\": f\"{type(exc).__name__}: {exc}\",\n        \"note\": \"omni.usd may require a launched Kit app; render stage is the authoritative gate.\",\n    }\nprint(\"MIMICKIT_ISAACLAB_PRECHECK_JSON_BEGIN\")\nprint(json.dumps(result, indent=2))\nprint(\"MIMICKIT_ISAACLAB_PRECHECK_JSON_END\")\nraise SystemExit(0 if ok else 3)\n"
+      ],
+      "returncode": 0,
+      "stdout_tail": "MIMICKIT_ISAACLAB_PRECHECK_JSON_BEGIN\n{\n  \"python\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\python.exe\",\n  \"imports\": {\n    \"isaaclab\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\workspace\\\\IsaacLab_full\\\\source\\\\isaaclab\\\\isaaclab\\\\__init__.py\"\n    },\n    \"isaaclab.app\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\workspace\\\\IsaacLab_full\\\\source\\\\isaaclab\\\\isaaclab\\\\app\\\\__init__.py\"\n    },\n    \"carb\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\Lib\\\\site-packages\\\\omni\\\\kernel\\\\py\\\\carb\\\\__init__.py\"\n    },\n    \"omni\": {\n      \"ok\": true,\n      \"file\": null\n    },\n    \"omni.kit.app\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\Lib\\\\site-packages\\\\omni\\\\kernel\\\\py\\\\omni\\\\kit\\\\app\\\\__init__.py\"\n    },\n    \"torch\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\lib\\\\site-packages\\\\torch\\\\__init__.py\"\n    }\n  },\n  \"torch_cuda_available\": true,\n  \"kit_bootstrap\": {\n    \"ok\": true,\n    \"method\": \"from isaaclab.app import AppLauncher\",\n    \"AppLauncher\": \"<class 'isaaclab.app.app_launcher.AppLauncher'>\"\n  },\n  \"usd_context_probe\": {\n    \"ok\": false,\n    \"import_name\": \"omni.usd\",\n    \"error\": \"ModuleNotFoundError: No module named 'omni.usd'\",\n    \"note\": \"omni.usd may require a launched Kit app; render stage is the authoritative gate.\"\n  },\n  \"torch_version\": \"2.7.0+cu128\"\n}\nMIMICKIT_ISAACLAB_PRECHECK_JSON_END\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "details": {
+      "python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "imports": {
+        "isaaclab": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\__init__.py"
+        },
+        "isaaclab.app": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\__init__.py"
+        },
+        "carb": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\carb\\__init__.py"
+        },
+        "omni": {
+          "ok": true,
+          "file": null
+        },
+        "omni.kit.app": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\kit\\app\\__init__.py"
+        },
+        "torch": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\lib\\site-packages\\torch\\__init__.py"
+        }
+      },
+      "torch_cuda_available": true,
+      "kit_bootstrap": {
+        "ok": true,
+        "method": "from isaaclab.app import AppLauncher",
+        "AppLauncher": "<class 'isaaclab.app.app_launcher.AppLauncher'>"
+      },
+      "usd_context_probe": {
+        "ok": false,
+        "import_name": "omni.usd",
+        "error": "ModuleNotFoundError: No module named 'omni.usd'",
+        "note": "omni.usd may require a launched Kit app; render stage is the authoritative gate."
+      },
+      "torch_version": "2.7.0+cu128"
+    }
+  },
+  "build_synthetic_root": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_ase_reallusion_motion_render_root.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--root-name",
+      "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+      "--motion-ids",
+      "RL_Avatar_Atk_2xCombo01_Motion",
+      "--base-env-config",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+      "--engine-config",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+      "--force"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[OK] root=D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\n[OK] generated_rows=1\n[OK] best_by_case=D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\best_by_case.tsv\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "dry_run": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--img-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img",
+      "--roots",
+      "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+      "--cases",
+      "view_motion_humanoid_sword_shield_args",
+      "--frames",
+      "300",
+      "--frame-stride",
+      "5",
+      "--mp4-fps",
+      "12",
+      "--width",
+      "960",
+      "--height",
+      "540",
+      "--device",
+      "cuda:0",
+      "--num-envs",
+      "1",
+      "--seed",
+      "7",
+      "--force",
+      "--dry-run",
+      "--max-cases",
+      "1"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[INFO] jobs_selected=1 root_scope=all dry_run=1\n[CASE 1/1] tmp_white_knight_mesh_reference_20260607_bridge_full_v2 :: view_motion_humanoid_sword_shield_args.txt :: RL_Avatar_Atk_2xCombo01_Motion\n  [RESULT] status=dry_run visual_kind=mesh image_count=0\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\infer_viz_index.tsv rows=1\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\render_all_roots.tsv rows=1\n[DONE] ok=1/1\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "render": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--img-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img",
+      "--roots",
+      "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+      "--cases",
+      "view_motion_humanoid_sword_shield_args",
+      "--frames",
+      "300",
+      "--frame-stride",
+      "5",
+      "--mp4-fps",
+      "12",
+      "--width",
+      "960",
+      "--height",
+      "540",
+      "--device",
+      "cuda:0",
+      "--num-envs",
+      "1",
+      "--seed",
+      "7",
+      "--force"
+    ],
+    "returncode": 0,
+    "stdout_tail": "cing/maxSamplesPerLaunch'\n2026-06-10 03:22:34 [5,813ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults-transient/meshlights/forceDisable'\n2026-06-10 03:22:34 [5,837ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults/post/dlss/execMode'\nBuilding 1/1 envs\n\n\nLoading 1/1 motion files: D:\\MimicKitNative\\workspace\\MimicKit\\data\\motions\\reallusion\\RL_Avatar_Atk_2xCombo01_Motion.pkl\nLoaded motion file: D:\\MimicKitNative\\workspace\\MimicKit\\data\\motions\\reallusion\\RL_Avatar_Atk_2xCombo01_Motion.pkl\nLoaded 1 motions with a total length of 3.167s.\nBuilding Obj:0 in 1/1 envs\n\nInitializing simulation...\n\u001b[33m11:22:40 [articulation.py] WARNING: Spatial tendons are not supported in Isaac Sim < 5.0: patching spatial-tendon getter and setter to use dummy value\u001b[0m\n[BRIDGE] Applied explicit body order mapping: ['pelvis', 'torso', 'head', 'right_upper_arm', 'right_lower_arm', 'right_hand', 'sword', 'left_upper_arm', 'left_lower_arm', 'shield', 'left_hand', 'right_thigh', 'right_shin', 'right_foot', 'left_thigh', 'left_shin', 'left_foot']\nChar 0 properties\n\tDoFs: 31\n\tMass: 53.001 kg\n\nBuilding Dummy agent\nTotal parameter count: 0\n  [RESULT] status=ok visual_kind=mesh image_count=60\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260607_bridge_full_v2\\infer_viz_index.tsv rows=1\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\render_all_roots.tsv rows=1\n[DONE] ok=1/1\n2026-06-10 03:22:43 [15,214ms] [Warning] [omni.hydra.scene_delegate.plugin] Calling getBypassRenderSkelMeshProcessing for prim /World/envs/env_0/obj_0/robot/torso/collisions.proto_left_clavicle_id2 that has not been populated\n2026-06-10 03:22:43 [15,263ms] [Warning] [omni.syntheticdata.plugin] OgnSdPostRenderVarToHost : rendervar copy from texture directly to host buffer is counter-performant. Please use copy from texture to device buffer first.\n2026-06-10 03:23:07 [38,967ms] [Warning] [omni.fabric.plugin] removePath called on non-existent path /Render/OmniverseKit/HydraTextures/Replicator/PostRender/SDGPipeline/Replicator_InstanceMappingPost \n\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-10 03:23:07 [39,214ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Core' for removal\n2026-06-10 03:23:07 [39,319ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown\n2026-06-10 03:23:07 [39,409ms] [Warning] [carb] Recursive unloadAllPlugins() detected!\n",
+    "stderr_tail": "2026-06-10 03:22:38 [10,203ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-10 03:22:38 [10,203ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-10 03:22:38 [10,205ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-10 03:22:38 [10,205ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-10 03:22:38 [10,206ms] [Error] [carb.scripting-python.plugin] RuntimeError: Failed to acquire interface: omni::physx::IPhysxFabric (pluginName: nullptr)\n\nAt:\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(7): _get_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(11): get_physx_fabric_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/scripts/extension.py(12): on_startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(166): _startup_ext\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(224): startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(328): startup_extension\n  PythonExtension.cpp::startup()(2): <module>\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(26): enable_kit_extension\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(752): _build_camera\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(100): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\engine_builder.py(14): build_engine\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\sim_env.py(164): _build_engine\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\sim_env.py(27): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\char_env.py(24): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\view_motion_env.py(15): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\env_builder.py(40): build_env\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\_bridge_common.py(151): build_runtime_context\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(756): run_job\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(1064): main\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(1088): <module>\n\n2026-06-10 03:22:38 [10,206ms] [Error] [omni.ext.plugin] [ext: omni.physx.fabric-106.3.2] Failed to startup python extension.\n",
+    "ok": true
+  },
+  "contact_sheet": {
+    "ok": true,
+    "file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/mesh_reference_contact_sheet.png",
+    "sampled_count": 12
+  },
+  "mesh_reference_pass": true,
+  "blocker": "",
+  "native_windows_fallback": {
+    "script": "/root/Project/MimicKit/tools/windows/run_white_knight_mesh_viewmotion.ps1",
+    "recommended_when": "WSL Isaac Lab precheck/render fails due missing omni.kit.usd, gpu.foundation, Vulkan, or headless renderer startup"
+  },
+  "render_summary": {
+    "render_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render",
+    "render_meta": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render_meta.json",
+    "render_meta_exists": true,
+    "status": "ok",
+    "error": "",
+    "visual_kind": "mesh",
+    "mesh_detected": true,
+    "frames": 300,
+    "frame_stride": 5,
+    "expected_image_count": 60,
+    "image_count": 60,
+    "frame_count_on_disk": 60,
+    "frame_ids": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200,
+      205,
+      210,
+      215,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      255,
+      260,
+      265,
+      270,
+      275,
+      280,
+      285,
+      290,
+      295
+    ],
+    "expected_frame_ids": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200,
+      205,
+      210,
+      215,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      255,
+      260,
+      265,
+      270,
+      275,
+      280,
+      285,
+      290,
+      295
+    ],
+    "legacy_ppm_count": 0,
+    "source_was_ppm_only": false,
+    "mp4_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render.mp4",
+    "mp4_exists": true,
+    "mp4_size_bytes": 417280,
+    "mp4_ok": true,
+    "motion_visible": true,
+    "scene_contract_v3_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/scene_contract_v3.json",
+    "scene_contract_v3": {
+      "schema_version": 3,
+      "root_name": "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+      "camera_mode": "track",
+      "ground": "mimickit_engine_default_flat_ground",
+      "width": 960,
+      "height": 540,
+      "frames": 300,
+      "frame_stride": 5,
+      "mp4_fps": 12,
+      "expected_frame_ids": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90,
+        95,
+        100,
+        105,
+        110,
+        115,
+        120,
+        125,
+        130,
+        135,
+        140,
+        145,
+        150,
+        155,
+        160,
+        165,
+        170,
+        175,
+        180,
+        185,
+        190,
+        195,
+        200,
+        205,
+        210,
+        215,
+        220,
+        225,
+        230,
+        235,
+        240,
+        245,
+        250,
+        255,
+        260,
+        265,
+        270,
+        275,
+        280,
+        285,
+        290,
+        295
+      ],
+      "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+      "case": "view_motion_humanoid_sword_shield_args.txt",
+      "base_env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+      "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+      "debug_overlays": false,
+      "fov_degrees": 45.0,
+      "seed": 7,
+      "camera_samples": [
+        {
+          "frame": 0,
+          "eye": [
+            0.05132010206580163,
+            -4.986282119527461,
+            3.0000000000000013
+          ],
+          "target": [
+            0.05132010206580163,
+            -4.057805411620495,
+            2.628609366200167
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 5,
+          "eye": [
+            0.026104692369699485,
+            -5.000660686229825,
+            3.000000000000003
+          ],
+          "target": [
+            0.026104692369699485,
+            -4.072183978322859,
+            2.628609366200169
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 10,
+          "eye": [
+            0.03651766479015351,
+            -4.981130709871652,
+            3.000000000000004
+          ],
+          "target": [
+            0.03651766479015351,
+            -4.052654001964687,
+            2.6286093662001697
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 15,
+          "eye": [
+            0.10356707870960234,
+            -4.979821180924774,
+            3.000000000000005
+          ],
+          "target": [
+            0.10356707870960234,
+            -4.051344473017808,
+            2.6286093662001706
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 20,
+          "eye": [
+            0.2558883726596832,
+            -5.0526378788054,
+            3.0000000000000067
+          ],
+          "target": [
+            0.2558883726596832,
+            -4.124161170898434,
+            2.6286093662001724
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 25,
+          "eye": [
+            0.44495365023612976,
+            -5.070641890168191,
+            3.000000000000006
+          ],
+          "target": [
+            0.44495365023612976,
+            -4.142165182261225,
+            2.628609366200172
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 30,
+          "eye": [
+            0.716352164745331,
+            -5.107938155531885,
+            3.000000000000006
+          ],
+          "target": [
+            0.716352164745331,
+            -4.179461447624919,
+            2.6286093662001724
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 35,
+          "eye": [
+            0.9494576454162599,
+            -5.177570357918742,
+            3.000000000000006
+          ],
+          "target": [
+            0.9494576454162599,
+            -4.249093650011776,
+            2.628609366200172
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 40,
+          "eye": [
+            1.1085329055786137,
+            -5.170723363757135,
+            3.000000000000006
+          ],
+          "target": [
+            1.1085329055786137,
+            -4.2422466558501695,
+            2.628609366200172
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 45,
+          "eye": [
+            1.328382372856141,
+            -5.058362703770397,
+            3.000000000000007
+          ],
+          "target": [
+            1.3283823728561408,
+            -4.1298859958634315,
+            2.628609366200173
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 50,
+          "eye": [
+            1.669038057327272,
+            -5.1137574538588515,
+            3.000000000000009
+          ],
+          "target": [
+            1.6690380573272718,
+            -4.185280745951886,
+            2.6286093662001746
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 55,
+          "eye": [
+            1.782752156257631,
+            -5.086552664637569,
+            3.000000000000011
+          ],
+          "target": [
+            1.7827521562576307,
+            -4.158075956730603,
+            2.628609366200177
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 60,
+          "eye": [
+            1.998833417892457,
+            -5.035894181579353,
+            3.000000000000011
+          ],
+          "target": [
+            1.9988334178924567,
+            -4.107417473672387,
+            2.628609366200177
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 65,
+          "eye": [
+            2.163382291793825,
+            -4.996885127853608,
+            3.000000000000013
+          ],
+          "target": [
+            2.1633822917938246,
+            -4.068408419946643,
+            2.6286093662001786
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 70,
+          "eye": [
+            2.173346996307375,
+            -4.999078197230127,
+            3.0000000000000138
+          ],
+          "target": [
+            2.1733469963073744,
+            -4.0706014893231615,
+            2.6286093662001795
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 75,
+          "eye": [
+            2.156998634338381,
+            -5.024336252361545,
+            3.0000000000000138
+          ],
+          "target": [
+            2.1569986343383807,
+            -4.095859544454579,
+            2.6286093662001795
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 80,
+          "eye": [
+            2.133690357208254,
+            -5.0347481332719415,
+            3.000000000000013
+          ],
+          "target": [
+            2.1336903572082537,
+            -4.106271425364976,
+            2.6286093662001786
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 85,
+          "eye": [
+            2.113887786865237,
+            -5.0178291890770295,
+            3.0000000000000133
+          ],
+          "target": [
+            2.1138877868652366,
+            -4.089352481170064,
+            2.628609366200179
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 90,
+          "eye": [
+            2.1030378341674845,
+            -4.994502517394734,
+            3.0000000000000155
+          ],
+          "target": [
+            2.1030378341674836,
+            -4.066025809487768,
+            2.6286093662001813
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 95,
+          "eye": [
+            0.051320102065805624,
+            -4.9862821195274725,
+            3.0000000000000164
+          ],
+          "target": [
+            0.05132010206580488,
+            -4.057805411620507,
+            2.628609366200182
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 100,
+          "eye": [
+            0.026104692369703496,
+            -5.000660686229834,
+            3.000000000000016
+          ],
+          "target": [
+            0.02610469236970275,
+            -4.072183978322868,
+            2.6286093662001817
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 105,
+          "eye": [
+            0.03651766479015753,
+            -4.981130709871664,
+            3.0000000000000164
+          ],
+          "target": [
+            0.03651766479015678,
+            -4.052654001964698,
+            2.628609366200182
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 110,
+          "eye": [
+            0.10356707870960641,
+            -4.9798211809247865,
+            3.000000000000016
+          ],
+          "target": [
+            0.10356707870960566,
+            -4.051344473017821,
+            2.6286093662001817
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 115,
+          "eye": [
+            0.25588837265968734,
+            -5.052637878805414,
+            3.000000000000017
+          ],
+          "target": [
+            0.25588837265968656,
+            -4.124161170898448,
+            2.6286093662001826
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 120,
+          "eye": [
+            0.44495365023613387,
+            -5.070641890168203,
+            3.000000000000016
+          ],
+          "target": [
+            0.4449536502361331,
+            -4.1421651822612375,
+            2.6286093662001817
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 125,
+          "eye": [
+            0.7163521647453348,
+            -5.107938155531897,
+            3.000000000000017
+          ],
+          "target": [
+            0.716352164745334,
+            -4.179461447624931,
+            2.6286093662001826
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 130,
+          "eye": [
+            0.949457645416264,
+            -5.177570357918758,
+            3.000000000000018
+          ],
+          "target": [
+            0.9494576454162632,
+            -4.249093650011792,
+            2.628609366200184
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 135,
+          "eye": [
+            1.1085329055786173,
+            -5.170723363757157,
+            3.00000000000002
+          ],
+          "target": [
+            1.1085329055786166,
+            -4.242246655850191,
+            2.6286093662001857
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 140,
+          "eye": [
+            1.3283823728561441,
+            -5.058362703770422,
+            3.00000000000002
+          ],
+          "target": [
+            1.3283823728561435,
+            -4.129885995863456,
+            2.6286093662001857
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 145,
+          "eye": [
+            1.6690380573272754,
+            -5.113757453858877,
+            3.000000000000021
+          ],
+          "target": [
+            1.6690380573272745,
+            -4.1852807459519115,
+            2.6286093662001866
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 150,
+          "eye": [
+            1.7827521562576352,
+            -5.086552664637591,
+            3.000000000000025
+          ],
+          "target": [
+            1.782752156257634,
+            -4.158075956730626,
+            2.6286093662001906
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 155,
+          "eye": [
+            1.9988334178924625,
+            -5.035894181579378,
+            3.000000000000026
+          ],
+          "target": [
+            1.9988334178924614,
+            -4.107417473672412,
+            2.628609366200192
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 160,
+          "eye": [
+            2.1633822917938295,
+            -4.996885127853629,
+            3.0000000000000266
+          ],
+          "target": [
+            2.163382291793828,
+            -4.068408419946663,
+            2.6286093662001924
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 165,
+          "eye": [
+            2.1733469963073793,
+            -4.999078197230146,
+            3.0000000000000266
+          ],
+          "target": [
+            2.173346996307378,
+            -4.07060148932318,
+            2.6286093662001924
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 170,
+          "eye": [
+            2.156998634338385,
+            -5.024336252361564,
+            3.0000000000000266
+          ],
+          "target": [
+            2.156998634338384,
+            -4.095859544454598,
+            2.6286093662001924
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 175,
+          "eye": [
+            2.133690357208258,
+            -5.034748133271961,
+            3.000000000000026
+          ],
+          "target": [
+            2.133690357208257,
+            -4.106271425364995,
+            2.628609366200192
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 180,
+          "eye": [
+            2.11388778686524,
+            -5.017829189077047,
+            3.0000000000000266
+          ],
+          "target": [
+            2.1138877868652393,
+            -4.089352481170081,
+            2.6286093662001924
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 185,
+          "eye": [
+            2.1030378341674862,
+            -4.994502517394752,
+            3.0000000000000258
+          ],
+          "target": [
+            2.1030378341674854,
+            -4.066025809487786,
+            2.628609366200192
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 190,
+          "eye": [
+            0.05132010206580784,
+            -4.986282119527492,
+            3.0000000000000275
+          ],
+          "target": [
+            0.051320102065806686,
+            -4.057805411620526,
+            2.6286093662001933
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 195,
+          "eye": [
+            0.0261046923697057,
+            -5.000660686229857,
+            3.0000000000000293
+          ],
+          "target": [
+            0.026104692369704544,
+            -4.072183978322891,
+            2.628609366200195
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 200,
+          "eye": [
+            0.03651766479015972,
+            -4.981130709871683,
+            3.0000000000000293
+          ],
+          "target": [
+            0.03651766479015856,
+            -4.052654001964717,
+            2.628609366200195
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 205,
+          "eye": [
+            0.1035670787096086,
+            -4.979821180924808,
+            3.0000000000000306
+          ],
+          "target": [
+            0.10356707870960744,
+            -4.051344473017842,
+            2.6286093662001964
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 210,
+          "eye": [
+            0.2558883726596894,
+            -5.052637878805432,
+            3.000000000000032
+          ],
+          "target": [
+            0.2558883726596883,
+            -4.124161170898466,
+            2.6286093662001977
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 215,
+          "eye": [
+            0.4449536502361359,
+            -5.070641890168225,
+            3.0000000000000333
+          ],
+          "target": [
+            0.44495365023613476,
+            -4.142165182261259,
+            2.628609366200199
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 220,
+          "eye": [
+            0.7163521647453371,
+            -5.107938155531919,
+            3.0000000000000324
+          ],
+          "target": [
+            0.7163521647453359,
+            -4.179461447624953,
+            2.628609366200198
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 225,
+          "eye": [
+            0.9494576454162662,
+            -5.177570357918773,
+            3.0000000000000324
+          ],
+          "target": [
+            0.949457645416265,
+            -4.249093650011807,
+            2.628609366200198
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 230,
+          "eye": [
+            1.1085329055786197,
+            -5.170723363757165,
+            3.0000000000000315
+          ],
+          "target": [
+            1.1085329055786186,
+            -4.242246655850199,
+            2.6286093662001973
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 235,
+          "eye": [
+            1.3283823728561464,
+            -5.05836270377043,
+            3.0000000000000306
+          ],
+          "target": [
+            1.3283823728561452,
+            -4.129885995863464,
+            2.6286093662001964
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 240,
+          "eye": [
+            1.6690380573272767,
+            -5.113757453858882,
+            3.00000000000003
+          ],
+          "target": [
+            1.6690380573272756,
+            -4.185280745951916,
+            2.6286093662001964
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 245,
+          "eye": [
+            1.782752156257636,
+            -5.086552664637595,
+            3.00000000000003
+          ],
+          "target": [
+            1.782752156257635,
+            -4.158075956730629,
+            2.628609366200196
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 250,
+          "eye": [
+            1.9988334178924632,
+            -5.035894181579381,
+            3.000000000000031
+          ],
+          "target": [
+            1.9988334178924618,
+            -4.107417473672415,
+            2.628609366200197
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 255,
+          "eye": [
+            2.1633822917938303,
+            -4.996885127853631,
+            3.0000000000000315
+          ],
+          "target": [
+            2.163382291793829,
+            -4.068408419946665,
+            2.6286093662001973
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 260,
+          "eye": [
+            2.1733469963073806,
+            -4.999078197230145,
+            3.0000000000000324
+          ],
+          "target": [
+            2.1733469963073793,
+            -4.070601489323179,
+            2.628609366200198
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 265,
+          "eye": [
+            2.1569986343383865,
+            -5.024336252361561,
+            3.000000000000033
+          ],
+          "target": [
+            2.156998634338385,
+            -4.095859544454595,
+            2.6286093662001986
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 270,
+          "eye": [
+            2.1336903572082604,
+            -5.034748133271958,
+            3.0000000000000324
+          ],
+          "target": [
+            2.1336903572082586,
+            -4.106271425364993,
+            2.628609366200198
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 275,
+          "eye": [
+            2.113887786865243,
+            -5.0178291890770454,
+            3.0000000000000324
+          ],
+          "target": [
+            2.113887786865241,
+            -4.08935248117008,
+            2.628609366200198
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 280,
+          "eye": [
+            2.10303783416749,
+            -4.994502517394749,
+            3.0000000000000333
+          ],
+          "target": [
+            2.103037834167488,
+            -4.066025809487783,
+            2.628609366200199
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 285,
+          "eye": [
+            0.05132010206581184,
+            -4.986282119527487,
+            3.000000000000036
+          ],
+          "target": [
+            0.05132010206580994,
+            -4.057805411620521,
+            2.6286093662002017
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 290,
+          "eye": [
+            0.0261046923697097,
+            -5.000660686229851,
+            3.000000000000036
+          ],
+          "target": [
+            0.0261046923697078,
+            -4.072183978322885,
+            2.6286093662002017
+          ],
+          "fov_degrees": 45.0
+        },
+        {
+          "frame": 295,
+          "eye": [
+            0.03651766479016374,
+            -4.981130709871681,
+            3.0000000000000364
+          ],
+          "target": [
+            0.03651766479016184,
+            -4.052654001964715,
+            2.6286093662002026
+          ],
+          "fov_degrees": 45.0
+        }
+      ],
+      "scene_contract_sha256": "2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b"
+    },
+    "scene_contract_sha256": "2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b",
+    "mesh_reference_pass": true,
+    "raw_render_meta": {
+      "root": "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+      "case": "view_motion_humanoid_sword_shield_args.txt",
+      "variant": "RL_Avatar_Atk_2xCombo01_Motion",
+      "case_type": "nontrainable",
+      "case_kind": "dummy",
+      "visual_kind": "mesh",
+      "char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+      "mesh_detected": 1,
+      "arg_file": "/root/Project/MimicKit/args/view_motion_humanoid_sword_shield_args.txt",
+      "model_file": "",
+      "env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+      "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+      "agent_config": "",
+      "llc_model_file": "",
+      "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+      "motion_file": "data/motions/reallusion/RL_Avatar_Atk_2xCombo01_Motion.pkl",
+      "source_pack": "sword_shield_stunts",
+      "category": "combo",
+      "train_enabled": "true",
+      "view_enabled": "true",
+      "out_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion",
+      "out_dir_rel": "runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion",
+      "render_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render",
+      "frames": 300,
+      "frame_stride": 5,
+      "expected_image_count": 60,
+      "image_count": 60,
+      "resumed": 0,
+      "dry_run": 0,
+      "status": "ok",
+      "width": 960,
+      "height": 540,
+      "motion_visible": 1,
+      "error": "",
+      "render_meta": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render_meta.json",
+      "frame_ids": [
+        0,
+        5,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        40,
+        45,
+        50,
+        55,
+        60,
+        65,
+        70,
+        75,
+        80,
+        85,
+        90,
+        95,
+        100,
+        105,
+        110,
+        115,
+        120,
+        125,
+        130,
+        135,
+        140,
+        145,
+        150,
+        155,
+        160,
+        165,
+        170,
+        175,
+        180,
+        185,
+        190,
+        195,
+        200,
+        205,
+        210,
+        215,
+        220,
+        225,
+        230,
+        235,
+        240,
+        245,
+        250,
+        255,
+        260,
+        265,
+        270,
+        275,
+        280,
+        285,
+        290,
+        295
+      ],
+      "scene_contract_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/scene_contract_v2.json",
+      "scene_contract_sha256": "c9b863a5239cf85f6e56b3c63dd49a782691a23b873baa198ba21e97c13cabf3",
+      "scene_contract_v3_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/scene_contract_v3.json",
+      "scene_contract_v3_sha256": "2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b",
+      "mp4_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render.mp4",
+      "mp4_probe": {
+        "file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render.mp4",
+        "ok": true,
+        "size_bytes": 417280,
+        "probe": {
+          "codec_name": "h264",
+          "width": 960,
+          "height": 540,
+          "avg_frame_rate": "12/1",
+          "duration": "5.000000",
+          "nb_read_frames": "60"
+        },
+        "fps": 12.0,
+        "frame_count": 60
+      },
+      "mp4_ok": 1,
+      "mp4_error": ""
+    }
+  },
+  "scene_contract_v3": {
+    "schema_version": 3,
+    "root_name": "tmp_white_knight_mesh_reference_20260607_bridge_full_v2",
+    "camera_mode": "track",
+    "ground": "mimickit_engine_default_flat_ground",
+    "width": 960,
+    "height": 540,
+    "frames": 300,
+    "frame_stride": 5,
+    "mp4_fps": 12,
+    "expected_frame_ids": [
+      0,
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95,
+      100,
+      105,
+      110,
+      115,
+      120,
+      125,
+      130,
+      135,
+      140,
+      145,
+      150,
+      155,
+      160,
+      165,
+      170,
+      175,
+      180,
+      185,
+      190,
+      195,
+      200,
+      205,
+      210,
+      215,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      255,
+      260,
+      265,
+      270,
+      275,
+      280,
+      285,
+      290,
+      295
+    ],
+    "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+    "case": "view_motion_humanoid_sword_shield_args.txt",
+    "base_env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260607_bridge_full_v2/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+    "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+    "debug_overlays": false,
+    "fov_degrees": 45.0,
+    "seed": 7,
+    "camera_samples": [
+      {
+        "frame": 0,
+        "eye": [
+          0.05132010206580163,
+          -4.986282119527461,
+          3.0000000000000013
+        ],
+        "target": [
+          0.05132010206580163,
+          -4.057805411620495,
+          2.628609366200167
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 5,
+        "eye": [
+          0.026104692369699485,
+          -5.000660686229825,
+          3.000000000000003
+        ],
+        "target": [
+          0.026104692369699485,
+          -4.072183978322859,
+          2.628609366200169
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 10,
+        "eye": [
+          0.03651766479015351,
+          -4.981130709871652,
+          3.000000000000004
+        ],
+        "target": [
+          0.03651766479015351,
+          -4.052654001964687,
+          2.6286093662001697
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 15,
+        "eye": [
+          0.10356707870960234,
+          -4.979821180924774,
+          3.000000000000005
+        ],
+        "target": [
+          0.10356707870960234,
+          -4.051344473017808,
+          2.6286093662001706
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 20,
+        "eye": [
+          0.2558883726596832,
+          -5.0526378788054,
+          3.0000000000000067
+        ],
+        "target": [
+          0.2558883726596832,
+          -4.124161170898434,
+          2.6286093662001724
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 25,
+        "eye": [
+          0.44495365023612976,
+          -5.070641890168191,
+          3.000000000000006
+        ],
+        "target": [
+          0.44495365023612976,
+          -4.142165182261225,
+          2.628609366200172
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 30,
+        "eye": [
+          0.716352164745331,
+          -5.107938155531885,
+          3.000000000000006
+        ],
+        "target": [
+          0.716352164745331,
+          -4.179461447624919,
+          2.6286093662001724
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 35,
+        "eye": [
+          0.9494576454162599,
+          -5.177570357918742,
+          3.000000000000006
+        ],
+        "target": [
+          0.9494576454162599,
+          -4.249093650011776,
+          2.628609366200172
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 40,
+        "eye": [
+          1.1085329055786137,
+          -5.170723363757135,
+          3.000000000000006
+        ],
+        "target": [
+          1.1085329055786137,
+          -4.2422466558501695,
+          2.628609366200172
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 45,
+        "eye": [
+          1.328382372856141,
+          -5.058362703770397,
+          3.000000000000007
+        ],
+        "target": [
+          1.3283823728561408,
+          -4.1298859958634315,
+          2.628609366200173
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 50,
+        "eye": [
+          1.669038057327272,
+          -5.1137574538588515,
+          3.000000000000009
+        ],
+        "target": [
+          1.6690380573272718,
+          -4.185280745951886,
+          2.6286093662001746
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 55,
+        "eye": [
+          1.782752156257631,
+          -5.086552664637569,
+          3.000000000000011
+        ],
+        "target": [
+          1.7827521562576307,
+          -4.158075956730603,
+          2.628609366200177
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 60,
+        "eye": [
+          1.998833417892457,
+          -5.035894181579353,
+          3.000000000000011
+        ],
+        "target": [
+          1.9988334178924567,
+          -4.107417473672387,
+          2.628609366200177
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 65,
+        "eye": [
+          2.163382291793825,
+          -4.996885127853608,
+          3.000000000000013
+        ],
+        "target": [
+          2.1633822917938246,
+          -4.068408419946643,
+          2.6286093662001786
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 70,
+        "eye": [
+          2.173346996307375,
+          -4.999078197230127,
+          3.0000000000000138
+        ],
+        "target": [
+          2.1733469963073744,
+          -4.0706014893231615,
+          2.6286093662001795
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 75,
+        "eye": [
+          2.156998634338381,
+          -5.024336252361545,
+          3.0000000000000138
+        ],
+        "target": [
+          2.1569986343383807,
+          -4.095859544454579,
+          2.6286093662001795
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 80,
+        "eye": [
+          2.133690357208254,
+          -5.0347481332719415,
+          3.000000000000013
+        ],
+        "target": [
+          2.1336903572082537,
+          -4.106271425364976,
+          2.6286093662001786
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 85,
+        "eye": [
+          2.113887786865237,
+          -5.0178291890770295,
+          3.0000000000000133
+        ],
+        "target": [
+          2.1138877868652366,
+          -4.089352481170064,
+          2.628609366200179
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 90,
+        "eye": [
+          2.1030378341674845,
+          -4.994502517394734,
+          3.0000000000000155
+        ],
+        "target": [
+          2.1030378341674836,
+          -4.066025809487768,
+          2.6286093662001813
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 95,
+        "eye": [
+          0.051320102065805624,
+          -4.9862821195274725,
+          3.0000000000000164
+        ],
+        "target": [
+          0.05132010206580488,
+          -4.057805411620507,
+          2.628609366200182
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 100,
+        "eye": [
+          0.026104692369703496,
+          -5.000660686229834,
+          3.000000000000016
+        ],
+        "target": [
+          0.02610469236970275,
+          -4.072183978322868,
+          2.6286093662001817
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 105,
+        "eye": [
+          0.03651766479015753,
+          -4.981130709871664,
+          3.0000000000000164
+        ],
+        "target": [
+          0.03651766479015678,
+          -4.052654001964698,
+          2.628609366200182
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 110,
+        "eye": [
+          0.10356707870960641,
+          -4.9798211809247865,
+          3.000000000000016
+        ],
+        "target": [
+          0.10356707870960566,
+          -4.051344473017821,
+          2.6286093662001817
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 115,
+        "eye": [
+          0.25588837265968734,
+          -5.052637878805414,
+          3.000000000000017
+        ],
+        "target": [
+          0.25588837265968656,
+          -4.124161170898448,
+          2.6286093662001826
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 120,
+        "eye": [
+          0.44495365023613387,
+          -5.070641890168203,
+          3.000000000000016
+        ],
+        "target": [
+          0.4449536502361331,
+          -4.1421651822612375,
+          2.6286093662001817
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 125,
+        "eye": [
+          0.7163521647453348,
+          -5.107938155531897,
+          3.000000000000017
+        ],
+        "target": [
+          0.716352164745334,
+          -4.179461447624931,
+          2.6286093662001826
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 130,
+        "eye": [
+          0.949457645416264,
+          -5.177570357918758,
+          3.000000000000018
+        ],
+        "target": [
+          0.9494576454162632,
+          -4.249093650011792,
+          2.628609366200184
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 135,
+        "eye": [
+          1.1085329055786173,
+          -5.170723363757157,
+          3.00000000000002
+        ],
+        "target": [
+          1.1085329055786166,
+          -4.242246655850191,
+          2.6286093662001857
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 140,
+        "eye": [
+          1.3283823728561441,
+          -5.058362703770422,
+          3.00000000000002
+        ],
+        "target": [
+          1.3283823728561435,
+          -4.129885995863456,
+          2.6286093662001857
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 145,
+        "eye": [
+          1.6690380573272754,
+          -5.113757453858877,
+          3.000000000000021
+        ],
+        "target": [
+          1.6690380573272745,
+          -4.1852807459519115,
+          2.6286093662001866
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 150,
+        "eye": [
+          1.7827521562576352,
+          -5.086552664637591,
+          3.000000000000025
+        ],
+        "target": [
+          1.782752156257634,
+          -4.158075956730626,
+          2.6286093662001906
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 155,
+        "eye": [
+          1.9988334178924625,
+          -5.035894181579378,
+          3.000000000000026
+        ],
+        "target": [
+          1.9988334178924614,
+          -4.107417473672412,
+          2.628609366200192
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 160,
+        "eye": [
+          2.1633822917938295,
+          -4.996885127853629,
+          3.0000000000000266
+        ],
+        "target": [
+          2.163382291793828,
+          -4.068408419946663,
+          2.6286093662001924
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 165,
+        "eye": [
+          2.1733469963073793,
+          -4.999078197230146,
+          3.0000000000000266
+        ],
+        "target": [
+          2.173346996307378,
+          -4.07060148932318,
+          2.6286093662001924
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 170,
+        "eye": [
+          2.156998634338385,
+          -5.024336252361564,
+          3.0000000000000266
+        ],
+        "target": [
+          2.156998634338384,
+          -4.095859544454598,
+          2.6286093662001924
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 175,
+        "eye": [
+          2.133690357208258,
+          -5.034748133271961,
+          3.000000000000026
+        ],
+        "target": [
+          2.133690357208257,
+          -4.106271425364995,
+          2.628609366200192
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 180,
+        "eye": [
+          2.11388778686524,
+          -5.017829189077047,
+          3.0000000000000266
+        ],
+        "target": [
+          2.1138877868652393,
+          -4.089352481170081,
+          2.6286093662001924
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 185,
+        "eye": [
+          2.1030378341674862,
+          -4.994502517394752,
+          3.0000000000000258
+        ],
+        "target": [
+          2.1030378341674854,
+          -4.066025809487786,
+          2.628609366200192
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 190,
+        "eye": [
+          0.05132010206580784,
+          -4.986282119527492,
+          3.0000000000000275
+        ],
+        "target": [
+          0.051320102065806686,
+          -4.057805411620526,
+          2.6286093662001933
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 195,
+        "eye": [
+          0.0261046923697057,
+          -5.000660686229857,
+          3.0000000000000293
+        ],
+        "target": [
+          0.026104692369704544,
+          -4.072183978322891,
+          2.628609366200195
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 200,
+        "eye": [
+          0.03651766479015972,
+          -4.981130709871683,
+          3.0000000000000293
+        ],
+        "target": [
+          0.03651766479015856,
+          -4.052654001964717,
+          2.628609366200195
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 205,
+        "eye": [
+          0.1035670787096086,
+          -4.979821180924808,
+          3.0000000000000306
+        ],
+        "target": [
+          0.10356707870960744,
+          -4.051344473017842,
+          2.6286093662001964
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 210,
+        "eye": [
+          0.2558883726596894,
+          -5.052637878805432,
+          3.000000000000032
+        ],
+        "target": [
+          0.2558883726596883,
+          -4.124161170898466,
+          2.6286093662001977
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 215,
+        "eye": [
+          0.4449536502361359,
+          -5.070641890168225,
+          3.0000000000000333
+        ],
+        "target": [
+          0.44495365023613476,
+          -4.142165182261259,
+          2.628609366200199
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 220,
+        "eye": [
+          0.7163521647453371,
+          -5.107938155531919,
+          3.0000000000000324
+        ],
+        "target": [
+          0.7163521647453359,
+          -4.179461447624953,
+          2.628609366200198
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 225,
+        "eye": [
+          0.9494576454162662,
+          -5.177570357918773,
+          3.0000000000000324
+        ],
+        "target": [
+          0.949457645416265,
+          -4.249093650011807,
+          2.628609366200198
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 230,
+        "eye": [
+          1.1085329055786197,
+          -5.170723363757165,
+          3.0000000000000315
+        ],
+        "target": [
+          1.1085329055786186,
+          -4.242246655850199,
+          2.6286093662001973
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 235,
+        "eye": [
+          1.3283823728561464,
+          -5.05836270377043,
+          3.0000000000000306
+        ],
+        "target": [
+          1.3283823728561452,
+          -4.129885995863464,
+          2.6286093662001964
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 240,
+        "eye": [
+          1.6690380573272767,
+          -5.113757453858882,
+          3.00000000000003
+        ],
+        "target": [
+          1.6690380573272756,
+          -4.185280745951916,
+          2.6286093662001964
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 245,
+        "eye": [
+          1.782752156257636,
+          -5.086552664637595,
+          3.00000000000003
+        ],
+        "target": [
+          1.782752156257635,
+          -4.158075956730629,
+          2.628609366200196
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 250,
+        "eye": [
+          1.9988334178924632,
+          -5.035894181579381,
+          3.000000000000031
+        ],
+        "target": [
+          1.9988334178924618,
+          -4.107417473672415,
+          2.628609366200197
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 255,
+        "eye": [
+          2.1633822917938303,
+          -4.996885127853631,
+          3.0000000000000315
+        ],
+        "target": [
+          2.163382291793829,
+          -4.068408419946665,
+          2.6286093662001973
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 260,
+        "eye": [
+          2.1733469963073806,
+          -4.999078197230145,
+          3.0000000000000324
+        ],
+        "target": [
+          2.1733469963073793,
+          -4.070601489323179,
+          2.628609366200198
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 265,
+        "eye": [
+          2.1569986343383865,
+          -5.024336252361561,
+          3.000000000000033
+        ],
+        "target": [
+          2.156998634338385,
+          -4.095859544454595,
+          2.6286093662001986
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 270,
+        "eye": [
+          2.1336903572082604,
+          -5.034748133271958,
+          3.0000000000000324
+        ],
+        "target": [
+          2.1336903572082586,
+          -4.106271425364993,
+          2.628609366200198
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 275,
+        "eye": [
+          2.113887786865243,
+          -5.0178291890770454,
+          3.0000000000000324
+        ],
+        "target": [
+          2.113887786865241,
+          -4.08935248117008,
+          2.628609366200198
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 280,
+        "eye": [
+          2.10303783416749,
+          -4.994502517394749,
+          3.0000000000000333
+        ],
+        "target": [
+          2.103037834167488,
+          -4.066025809487783,
+          2.628609366200199
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 285,
+        "eye": [
+          0.05132010206581184,
+          -4.986282119527487,
+          3.000000000000036
+        ],
+        "target": [
+          0.05132010206580994,
+          -4.057805411620521,
+          2.6286093662002017
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 290,
+        "eye": [
+          0.0261046923697097,
+          -5.000660686229851,
+          3.000000000000036
+        ],
+        "target": [
+          0.0261046923697078,
+          -4.072183978322885,
+          2.6286093662002017
+        ],
+        "fov_degrees": 45.0
+      },
+      {
+        "frame": 295,
+        "eye": [
+          0.03651766479016374,
+          -4.981130709871681,
+          3.0000000000000364
+        ],
+        "target": [
+          0.03651766479016184,
+          -4.052654001964715,
+          2.6286093662002026
+        ],
+        "fov_degrees": 45.0
+      }
+    ],
+    "scene_contract_sha256": "2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b"
+  },
+  "scene_contract_sha256": "2a1a75d5e59237f88801388650acce1069827911f168b786906a37df8218131b"
+}

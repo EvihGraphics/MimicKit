@@ -1,0 +1,447 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-06-03T07:11:22Z",
+  "root_name": "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+  "train_root_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+  "img_root_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+  "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+  "case": "view_motion_humanoid_sword_shield_args",
+  "base_env_config": "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+  "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+  "usd_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+  "xml_kinematic_asset": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml",
+  "frames": 10,
+  "frame_stride": 5,
+  "expected_image_count": 2,
+  "expected_frame_ids": [
+    0,
+    5
+  ],
+  "frame_ids": [],
+  "png_count": 0,
+  "mp4_ok": false,
+  "source_was_ppm_only": false,
+  "scene_contract": {
+    "schema_version": 1,
+    "root_name": "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+    "camera_mode": "track",
+    "ground": "mimickit_engine_default_flat_ground",
+    "width": 960,
+    "height": 540,
+    "frames": 10,
+    "frame_stride": 5,
+    "mp4_fps": 12,
+    "expected_frame_ids": [
+      0,
+      5
+    ],
+    "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+    "case": "view_motion_humanoid_sword_shield_args",
+    "base_env_config": "/root/Project/MimicKit/data/envs/view_motion_humanoid_sword_shield_mesh_env.yaml",
+    "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml"
+  },
+  "conda_env": "mimickit-isaaclab",
+  "render_python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+  "asset_export": {
+    "ok": true,
+    "skipped": false,
+    "source_usd_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+    "source_usd_sha256": "e516f2570e1707b6ff1d9925776a02df3aa8f4c356962d8f5a18c99a762d337f",
+    "format": "glb",
+    "glb_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/assets/humanoid_sword_shield.glb",
+    "gltf_file": "",
+    "output_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/assets/humanoid_sword_shield.glb",
+    "output_sha256": "a11d807d003b8444a4164063a1a670e136c10d7c00e87ac287bde560a6f8f9b1",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py",
+        "--input-usd",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\assets\\sword_shield\\humanoid_sword_shield.usd",
+        "--output-asset",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\assets\\humanoid_sword_shield.glb",
+        "--manifest",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\assets\\asset_export_manifest.json",
+        "--headless"
+      ],
+      "returncode": 0,
+      "stdout_tail": "[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.\n[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)\nLoading user config located at: 'd:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'\n[Info] [carb] Logging to file: d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260603_151150.log\n2026-06-03 07:11:50 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.\n2026-06-03 07:11:50 [62ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes' or 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes/config'\n2026-06-03 07:11:50 [383ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX\n2026-06-03 07:11:51 [941ms] [Warning] [omni.datastore] OmniHub is inaccessible\n2026-06-03 07:11:51 [1,072ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.\n\n|---------------------------------------------------------------------------------------------|\n| Driver Version: 591.86        | Graphics API: D3D12\n|=============================================================================================|\n| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |\n|     |                                  |        |     |            | Device-ID | UUID       |\n|     |                                  |        |     |            | Bus-ID    |            |\n|---------------------------------------------------------------------------------------------|\n| 0   | NVIDIA GeForce RTX 4090          | Yes: 0 |     | 24142   MB | 10de      | 3a1f0100.. |\n|     |                                  |        |     |            | 2684      | 0          |\n|     |                                  |        |     |            | 5         |            |\n|---------------------------------------------------------------------------------------------|\n| 1   | NVIDIA GeForce RTX 4090          | Yes: 1 |     | 24142   MB | 10de      | 31f80000.. |\n|     |                                  |        |     |            | 2684      | 0          |\n|     |                                  |        |     |            | 1         |            |\n|=============================================================================================|\n| OS: Windows 11 Pro, Version: 10.0 (25H2), Build: 26200, Kernel: 10.0.26100.8457\n| Processor: AMD Ryzen 9 7950X 16-Core Processor            \n| Cores: 16 | Logical Cores: 32\n|---------------------------------------------------------------------------------------------|\n| Total Memory (MB): 65240 | Free Memory: 38162\n| Total Page/Swap (MB): 69336 | Free Page/Swap: 27035\n|---------------------------------------------------------------------------------------------|\n",
+      "stderr_tail": "ions_cfg.py\", line 9, in <module>\n    from isaaclab.managers.action_manager import ActionTerm, ActionTermCfg\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/managers/__init__.py\", line 13, in <module>\n    from .action_manager import ActionManager, ActionTerm\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/managers/action_manager.py\", line 21, in <module>\n    from isaaclab.assets import AssetBase\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/assets/__init__.py\", line 41, in <module>\n    from .articulation import Articulation, ArticulationCfg, ArticulationData\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/assets/articulation/__init__.py\", line 8, in <module>\n    from .articulation import Articulation\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/assets/articulation/articulation.py\", line 22, in <module>\n    import isaaclab.sim as sim_utils\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/__init__.py\", line 29, in <module>\n    from .converters import *  # noqa: F401, F403\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/converters/__init__.py\", line 21, in <module>\n    from .mesh_converter import MeshConverter\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/converters/mesh_converter.py\", line 17, in <module>\n    from isaaclab.sim.converters.mesh_converter_cfg import MeshConverterCfg\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/converters/mesh_converter_cfg.py\", line 7, in <module>\n    from isaaclab.sim.schemas import schemas_cfg\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/schemas/__init__.py\", line 35, in <module>\n    from .schemas import (\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/schemas/schemas.py\", line 16, in <module>\n    from isaaclab.sim.utils.stage import get_current_stage\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/utils/__init__.py\", line 6, in <module>\n    from .utils import *  # noqa: F401, F403\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/utils/utils.py\", line 33, in <module>\n    from .stage import attach_stage_to_usd_context, get_current_stage\n  File \"d:/mimickitnative/workspace/isaaclab_full/source/isaaclab/isaaclab/sim/utils/stage.py\", line 19, in <module>\n    from omni.metrics.assembler.core import get_metrics_assembler_interface\nModuleNotFoundError: No module named 'omni.metrics'\n\n2026-06-03 07:11:54 [4,416ms] [Error] [carb.scripting-python.plugin] Exception: Extension python module: 'isaaclab_tasks' in 'd:\\mimickitnative\\workspace\\isaaclab_full\\source\\isaaclab_tasks' failed to load.\n\nAt:\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(213): startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(328): startup_extension\n  PythonExtension.cpp::startup()(2): <module>\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\isaacsim\\exts\\isaacsim.simulation_app\\isaacsim\\simulation_app\\simulation_app.py(427): _start_app\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\isaacsim\\exts\\isaacsim.simulation_app\\isaacsim\\simulation_app\\simulation_app.py(212): __init__\n  D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\app_launcher.py(811): _create_app\n  D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\app_launcher.py(127): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py(81): main\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\windows\\export_usd_to_gltf_asset.py(120): <module>\n\n2026-06-03 07:11:54 [4,416ms] [Error] [omni.ext.plugin] [ext: isaaclab_tasks-0.11.8] Failed to startup python extension.\n",
+      "ok": true
+    },
+    "schema_version": 1,
+    "created_at_utc": "2026-06-03T07:11:56Z",
+    "error": ""
+  },
+  "package_export": {
+    "ok": false,
+    "package_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference",
+    "arg_file": "/root/Project/MimicKit/args/view_motion_humanoid_sword_shield_args.txt",
+    "env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+    "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\run_mimic_visual_case.py",
+        "--case-id",
+        "view_motion_humanoid_sword_shield_args",
+        "--brain-name",
+        "WhiteKnightMeshReference",
+        "--case-kind",
+        "dummy",
+        "--arg-file",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\args\\view_motion_humanoid_sword_shield_args.txt",
+        "--env-config",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\generated_envs\\RL_Avatar_Atk_2xCombo01_Motion.yaml",
+        "--engine-config",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+        "--out-dir",
+        "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\ue_export_mesh_reference",
+        "--device",
+        "cuda:0",
+        "--num-envs",
+        "1",
+        "--frames",
+        "10",
+        "--seed",
+        "7",
+        "--skip-test"
+      ],
+      "returncode": 0,
+      "stdout_tail": "{\"case_id\": \"view_motion_humanoid_sword_shield_args\", \"case_kind\": \"dummy\", \"brain_name\": \"WhiteKnightMeshReference\", \"amp_root\": \"\", \"arg_file\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\args\\\\view_motion_humanoid_sword_shield_args.txt\", \"engine_config\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\data\\\\engines\\\\isaac_lab_engine.yaml\", \"env_config\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\generated_envs\\\\RL_Avatar_Atk_2xCombo01_Motion.yaml\", \"agent_config\": \"\", \"model_file\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\", \"requested_device\": \"cuda:0\", \"device\": \"cuda:0\", \"mimic_infer_ok\": true, \"mimic_viz_ok\": true, \"fixture_ok\": true, \"test_exit_code\": 0, \"export_exit_code\": 0, \"mimic_test_log\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\mimic_test.log\", \"export_log\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\mimic_export.log\", \"obs_fixture\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\obs_fixture.jsonl\", \"ref_actions\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\ref_actions.jsonl\", \"visual_replay\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\visual_replay\\\\pose_dof_replay.jsonl\", \"visual_replay_meta\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\visual_replay\\\\pose_dof_meta.json\", \"fixture_meta\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\fixture_meta.json\", \"schema\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\schema.json\", \"onnx\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\policy_actor.onnx\", \"mimic_visual_image\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\ue_export_mesh_reference\\\\mimic_action_heatmap.ppm\", \"package_ok\": true}\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "files": {
+      "pose_dof_replay": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference/visual_replay/pose_dof_replay.jsonl",
+      "pose_dof_meta": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference/visual_replay/pose_dof_meta.json",
+      "joint_order": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference/joint_order.json",
+      "source_rig_asset_spec": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference/mimickit_source_rig_asset_spec.json",
+      "visual_alignment_contract": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/ue_export_mesh_reference/visual_alignment_contract.json"
+    },
+    "error": "package export failed or required sidecars are missing",
+    "missing": [
+      "joint_order",
+      "source_rig_asset_spec",
+      "visual_alignment_contract"
+    ]
+  },
+  "native_windows": {
+    "requested_run": true,
+    "requested_ingest": false,
+    "workspace_root": "D:\\MimicKitNative",
+    "workspace_wsl": "/mnt/d/MimicKitNative/workspace/MimicKit",
+    "conda_env": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win",
+    "script_sync": {
+      "ok": true,
+      "workspace": "/mnt/d/MimicKitNative/workspace/MimicKit",
+      "copied": [
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_mesh_reference.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_mesh_reference.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_exact_mesh_reference.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_exact_mesh_reference.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/_bridge_common.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/_bridge_common.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/export_dummy_fixture.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/export_dummy_fixture.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/run_mimic_visual_case.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/run_mimic_visual_case.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/build_ase_reallusion_motion_render_root.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/build_ase_reallusion_motion_render_root.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/ue_bridge/omni/metrics/assembler/core.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/ue_bridge/omni/metrics/assembler/core.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/mimickit/engines/isaac_lab_engine.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/mimickit/engines/isaac_lab_engine.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/export_usd_to_gltf_asset.py",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/export_usd_to_gltf_asset.py"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1"
+        },
+        {
+          "src": "/root/Project/MimicKit/tools/windows/build_exact_mesh_reference_native.ps1",
+          "dst": "/mnt/d/MimicKitNative/workspace/MimicKit/tools/windows/build_exact_mesh_reference_native.ps1"
+        }
+      ],
+      "missing": []
+    },
+    "run": {
+      "cmd": [
+        "/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "/root/Project/MimicKit/tools/windows/build_white_knight_mesh_reference_native.ps1",
+        "-WorkspaceRoot",
+        "D:\\MimicKitNative",
+        "-CondaEnvName",
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win",
+        "-RootName",
+        "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+        "-Frames",
+        "10",
+        "-FrameStride",
+        "5",
+        "-Mp4Fps",
+        "12",
+        "-Device",
+        "cuda:0",
+        "-AssetExportFormat",
+        "glb",
+        "-ForceRoot"
+      ],
+      "returncode": 1,
+      "stdout_tail": "hysx.fabric-106.3.2] Failed to startup python extension.\\n\",\n    \"ok\": true\n  },\n  \"contact_sheet\": {\n    \"ok\": false,\n    \"error\": \"no frames found\"\n  },\n  \"mesh_reference_pass\": false,\n  \"blocker\": \"mesh_render_failed_or_incomplete\",\n  \"native_windows_fallback\": {\n    \"script\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\tools\\\\windows\\\\run_white_knight_mesh_viewmotion.ps1\",\n    \"recommended_when\": \"WSL Isaac Lab precheck/render fails due missing omni.kit.usd, gpu.foundation, Vulkan, or headless renderer startup\"\n  },\n  \"render_summary\": {\n    \"render_dir\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\img\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\\\\render\",\n    \"render_meta\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\img\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\\\\render\\\\render_meta.json\",\n    \"render_meta_exists\": true,\n    \"status\": \"error\",\n    \"error\": \"RuntimeError: viewer not available (render path requires visualize=True)\",\n    \"visual_kind\": \"mesh\",\n    \"mesh_detected\": true,\n    \"frames\": 10,\n    \"frame_stride\": 5,\n    \"expected_image_count\": 2,\n    \"image_count\": 0,\n    \"frame_count_on_disk\": 0,\n    \"frame_ids\": [],\n    \"expected_frame_ids\": [\n      0,\n      5\n    ],\n    \"legacy_ppm_count\": 0,\n    \"source_was_ppm_only\": false,\n    \"mp4_file\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\img\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\\\\render\\\\render.mp4\",\n    \"mp4_exists\": false,\n    \"mp4_size_bytes\": 0,\n    \"mp4_ok\": false,\n    \"mesh_reference_pass\": false,\n    \"raw_render_meta\": {\n      \"root\": \"tmp_white_knight_mesh_reference_20260602_bridge_smoke\",\n      \"case\": \"view_motion_humanoid_sword_shield_args.txt\",\n      \"variant\": \"RL_Avatar_Atk_2xCombo01_Motion\",\n      \"case_type\": \"nontrainable\",\n      \"case_kind\": \"dummy\",\n      \"visual_kind\": \"mesh\",\n      \"char_file\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\data\\\\assets\\\\sword_shield\\\\humanoid_sword_shield.usd\",\n      \"mesh_detected\": 1,\n      \"arg_file\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\args\\\\view_motion_humanoid_sword_shield_args.txt\",\n      \"model_file\": \"\",\n      \"env_config\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\generated_envs\\\\RL_Avatar_Atk_2xCombo01_Motion.yaml\",\n      \"engine_config\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\data\\\\engines\\\\isaac_lab_engine.yaml\",\n      \"agent_config\": \"\",\n      \"llc_model_file\": \"\",\n      \"motion_id\": \"RL_Avatar_Atk_2xCombo01_Motion\",\n      \"motion_file\": \"data/motions/reallusion/RL_Avatar_Atk_2xCombo01_Motion.pkl\",\n      \"source_pack\": \"sword_shield_stunts\",\n      \"category\": \"combo\",\n      \"train_enabled\": \"true\",\n      \"view_enabled\": \"true\",\n      \"out_dir\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\train\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\",\n      \"out_dir_rel\": \"runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion\",\n      \"render_dir\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\img\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\\\\render\",\n      \"frames\": 10,\n      \"frame_stride\": 5,\n      \"expected_image_count\": 2,\n      \"image_count\": 0,\n      \"resumed\": 0,\n      \"dry_run\": 0,\n      \"status\": \"error\",\n      \"error\": \"RuntimeError: viewer not available (render path requires visualize=True)\",\n      \"render_meta\": \"D:\\\\MimicKitNative\\\\workspace\\\\MimicKit\\\\output\\\\img\\\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\\\runs\\\\view_motion_humanoid_sword_shield_args\\\\RL_Avatar_Atk_2xCombo01_Motion\\\\render\\\\render_meta.json\"\n    }\n  }\n}\n\n",
+      "stderr_tail": "ERROR conda.cli.main_run:execute(127): `conda run python D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_mesh_reference.py --root-name tmp_white_knight_mesh_reference_20260602_bridge_smoke --frames 10 --frame-stride 5 --mp4-fps 12 --device cuda:0 --num-envs 1 --asset-export-format glb --render-python D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe --asset-export-python D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe --package-export-python D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe --force-root` failed. (See above for error)\nNative Windows mesh reference builder failed with exit code 4.\n����λ�� \\\\wsl.localhost\\Ubuntu-20.04\\root\\Project\\MimicKit\\tools\\windows\\build_white_knight_mesh_reference_native.ps1:86 ��\n��: 5\n+     throw \"Native Windows mesh reference builder failed with exit cod ...\n+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : OperationStopped: (Native Windows ...th exit code 4.:String) [], RuntimeException\n    + FullyQualifiedErrorId : Native Windows mesh reference builder failed with exit code 4.\n \n",
+      "ok": false
+    },
+    "ingest": {
+      "ok": true,
+      "windows_workspace_wsl": "/mnt/d/MimicKitNative/workspace/MimicKit",
+      "train": {
+        "ok": true,
+        "src": "/mnt/d/MimicKitNative/workspace/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+        "dst": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke"
+      },
+      "img": {
+        "ok": true,
+        "src": "/mnt/d/MimicKitNative/workspace/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+        "dst": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke"
+      }
+    }
+  },
+  "precheck": {
+    "ok": true,
+    "conda_env": "",
+    "render_python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+    "command": {
+      "cmd": [
+        "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+        "-c",
+        "\nimport importlib\nimport json\nimport os\nimport sys\n\nmodules = [\"isaaclab\", \"isaaclab.app\", \"carb\", \"omni\", \"omni.kit.app\", \"torch\"]\nresult = {\n    \"python\": sys.executable,\n    \"imports\": {},\n    \"torch_cuda_available\": False,\n    \"kit_bootstrap\": {\"ok\": False, \"method\": \"from isaaclab.app import AppLauncher\"},\n    \"usd_context_probe\": {\"ok\": False, \"import_name\": \"omni.usd\"},\n}\nok = True\nos.environ.setdefault(\"OMNI_KIT_ACCEPT_EULA\", \"YES\")\ntry:\n    from isaaclab.app import AppLauncher\n    result[\"kit_bootstrap\"][\"ok\"] = True\n    result[\"kit_bootstrap\"][\"AppLauncher\"] = repr(AppLauncher)\nexcept Exception as exc:\n    ok = False\n    result[\"kit_bootstrap\"][\"error\"] = f\"{type(exc).__name__}: {exc}\"\nfor name in modules:\n    try:\n        mod = importlib.import_module(name)\n        result[\"imports\"][name] = {\"ok\": True, \"file\": getattr(mod, \"__file__\", \"\")}\n    except Exception as exc:\n        ok = False\n        result[\"imports\"][name] = {\"ok\": False, \"error\": f\"{type(exc).__name__}: {exc}\"}\ntry:\n    import torch\n    result[\"torch_version\"] = torch.__version__\n    result[\"torch_cuda_available\"] = bool(torch.cuda.is_available())\n    if not result[\"torch_cuda_available\"]:\n        ok = False\nexcept Exception as exc:\n    ok = False\n    result[\"torch_error\"] = f\"{type(exc).__name__}: {exc}\"\ntry:\n    mod = importlib.import_module(\"omni.usd\")\n    result[\"usd_context_probe\"] = {\"ok\": True, \"import_name\": \"omni.usd\", \"file\": getattr(mod, \"__file__\", \"\")}\nexcept Exception as exc:\n    result[\"usd_context_probe\"] = {\n        \"ok\": False,\n        \"import_name\": \"omni.usd\",\n        \"error\": f\"{type(exc).__name__}: {exc}\",\n        \"note\": \"omni.usd may require a launched Kit app; render stage is the authoritative gate.\",\n    }\nprint(\"MIMICKIT_ISAACLAB_PRECHECK_JSON_BEGIN\")\nprint(json.dumps(result, indent=2))\nprint(\"MIMICKIT_ISAACLAB_PRECHECK_JSON_END\")\nraise SystemExit(0 if ok else 3)\n"
+      ],
+      "returncode": 0,
+      "stdout_tail": "MIMICKIT_ISAACLAB_PRECHECK_JSON_BEGIN\n{\n  \"python\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\python.exe\",\n  \"imports\": {\n    \"isaaclab\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\workspace\\\\IsaacLab_full\\\\source\\\\isaaclab\\\\isaaclab\\\\__init__.py\"\n    },\n    \"isaaclab.app\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\workspace\\\\IsaacLab_full\\\\source\\\\isaaclab\\\\isaaclab\\\\app\\\\__init__.py\"\n    },\n    \"carb\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\Lib\\\\site-packages\\\\omni\\\\kernel\\\\py\\\\carb\\\\__init__.py\"\n    },\n    \"omni\": {\n      \"ok\": true,\n      \"file\": null\n    },\n    \"omni.kit.app\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\Lib\\\\site-packages\\\\omni\\\\kernel\\\\py\\\\omni\\\\kit\\\\app\\\\__init__.py\"\n    },\n    \"torch\": {\n      \"ok\": true,\n      \"file\": \"D:\\\\MimicKitNative\\\\conda\\\\mimickit-isaaclab-win\\\\lib\\\\site-packages\\\\torch\\\\__init__.py\"\n    }\n  },\n  \"torch_cuda_available\": true,\n  \"kit_bootstrap\": {\n    \"ok\": true,\n    \"method\": \"from isaaclab.app import AppLauncher\",\n    \"AppLauncher\": \"<class 'isaaclab.app.app_launcher.AppLauncher'>\"\n  },\n  \"usd_context_probe\": {\n    \"ok\": false,\n    \"import_name\": \"omni.usd\",\n    \"error\": \"ModuleNotFoundError: No module named 'omni.usd'\",\n    \"note\": \"omni.usd may require a launched Kit app; render stage is the authoritative gate.\"\n  },\n  \"torch_version\": \"2.7.0+cu128\"\n}\nMIMICKIT_ISAACLAB_PRECHECK_JSON_END\n",
+      "stderr_tail": "",
+      "ok": true
+    },
+    "details": {
+      "python": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "imports": {
+        "isaaclab": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\__init__.py"
+        },
+        "isaaclab.app": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\workspace\\IsaacLab_full\\source\\isaaclab\\isaaclab\\app\\__init__.py"
+        },
+        "carb": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\carb\\__init__.py"
+        },
+        "omni": {
+          "ok": true,
+          "file": null
+        },
+        "omni.kit.app": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\kit\\app\\__init__.py"
+        },
+        "torch": {
+          "ok": true,
+          "file": "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\lib\\site-packages\\torch\\__init__.py"
+        }
+      },
+      "torch_cuda_available": true,
+      "kit_bootstrap": {
+        "ok": true,
+        "method": "from isaaclab.app import AppLauncher",
+        "AppLauncher": "<class 'isaaclab.app.app_launcher.AppLauncher'>"
+      },
+      "usd_context_probe": {
+        "ok": false,
+        "import_name": "omni.usd",
+        "error": "ModuleNotFoundError: No module named 'omni.usd'",
+        "note": "omni.usd may require a launched Kit app; render stage is the authoritative gate."
+      },
+      "torch_version": "2.7.0+cu128"
+    }
+  },
+  "build_synthetic_root": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_ase_reallusion_motion_render_root.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--root-name",
+      "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+      "--motion-ids",
+      "RL_Avatar_Atk_2xCombo01_Motion",
+      "--base-env-config",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+      "--engine-config",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+      "--force"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[OK] root=D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\n[OK] generated_rows=1\n[OK] best_by_case=D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\best_by_case.tsv\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "dry_run": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--img-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img",
+      "--roots",
+      "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+      "--cases",
+      "view_motion_humanoid_sword_shield_args",
+      "--frames",
+      "10",
+      "--frame-stride",
+      "5",
+      "--mp4-fps",
+      "12",
+      "--device",
+      "cuda:0",
+      "--num-envs",
+      "1",
+      "--force",
+      "--dry-run",
+      "--max-cases",
+      "1"
+    ],
+    "returncode": 0,
+    "stdout_tail": "[INFO] jobs_selected=1 root_scope=all dry_run=1\n[CASE 1/1] tmp_white_knight_mesh_reference_20260602_bridge_smoke :: view_motion_humanoid_sword_shield_args.txt :: RL_Avatar_Atk_2xCombo01_Motion\n  [RESULT] status=dry_run visual_kind=mesh image_count=0\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\infer_viz_index.tsv rows=1\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\render_all_roots.tsv rows=1\n[DONE] ok=1/1\n",
+    "stderr_tail": "",
+    "ok": true
+  },
+  "render": {
+    "cmd": [
+      "D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\python.exe",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py",
+      "--train-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train",
+      "--img-root",
+      "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img",
+      "--roots",
+      "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+      "--cases",
+      "view_motion_humanoid_sword_shield_args",
+      "--frames",
+      "10",
+      "--frame-stride",
+      "5",
+      "--mp4-fps",
+      "12",
+      "--device",
+      "cuda:0",
+      "--num-envs",
+      "1",
+      "--force"
+    ],
+    "returncode": 0,
+    "stdout_tail": "gin] SceneDbContext : TLAS limit : valid true, within: false\n2026-06-03 07:11:37 [4,780ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults/directLighting/sampledLighting/samplesPerPixel'\n2026-06-03 07:11:37 [4,780ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults/pathtracing/maxSamplesPerLaunch'\n2026-06-03 07:11:37 [4,780ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults-transient/meshlights/forceDisable'\n2026-06-03 07:11:37 [4,803ms] [Warning] [omni.usd-abi.plugin] No setting was found for '/rtx-defaults/post/dlss/execMode'\nBuilding 1/1 envs\n\n\nLoading 1/1 motion files: D:\\MimicKitNative\\workspace\\MimicKit\\data\\motions\\reallusion\\RL_Avatar_Atk_2xCombo01_Motion.pkl\nLoaded motion file: D:\\MimicKitNative\\workspace\\MimicKit\\data\\motions\\reallusion\\RL_Avatar_Atk_2xCombo01_Motion.pkl\nLoaded 1 motions with a total length of 3.167s.\nBuilding Obj:0 in 1/1 envs\n\nInitializing simulation...\n\u001b[33m15:11:47 [articulation.py] WARNING: Spatial tendons are not supported in Isaac Sim < 5.0: patching spatial-tendon getter and setter to use dummy value\u001b[0m\nChar 0 properties\n\tDoFs: 31\n\tMass: 53.001 kg\n\nBody name mismatch at 2: sim=right_thigh, kin=head\nsim_body_names=['pelvis', 'torso', 'right_thigh', 'left_thigh', 'head', 'right_upper_arm', 'left_upper_arm', 'right_shin', 'left_shin', 'right_lower_arm', 'left_lower_arm', 'right_foot', 'left_foot', 'right_hand', 'shield', 'left_hand', 'sword']\nkin_body_names=['pelvis', 'torso', 'head', 'right_upper_arm', 'right_lower_arm', 'right_hand', 'sword', 'left_upper_arm', 'left_lower_arm', 'shield', 'left_hand', 'right_thigh', 'right_shin', 'right_foot', 'left_thigh', 'left_shin', 'left_foot']\n[WARN] Proceeding despite body name mismatch (compatibility mode).\nBuilding Dummy agent\nTotal parameter count: 0\n  [RESULT] status=error visual_kind=mesh image_count=0\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260602_bridge_smoke\\infer_viz_index.tsv rows=1\n[INDEX] D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\render_all_roots.tsv rows=1\n[DONE] ok=0/1\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Annotators' for removal\n2026-06-03 07:11:49 [16,605ms] [Warning] [omni.graph.core.plugin] Could not find category 'Replicator:Core' for removal\n2026-06-03 07:11:49 [16,715ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown\n2026-06-03 07:11:49 [16,776ms] [Warning] [carb] Recursive unloadAllPlugins() detected!\n",
+    "stderr_tail": "2026-06-03 07:11:42 [9,858ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-03 07:11:42 [9,858ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-03 07:11:42 [9,859ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version\n2026-06-03 07:11:42 [9,859ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.\n2026-06-03 07:11:42 [9,860ms] [Error] [carb.scripting-python.plugin] RuntimeError: Failed to acquire interface: omni::physx::IPhysxFabric (pluginName: nullptr)\n\nAt:\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(7): _get_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(11): get_physx_fabric_interface\n  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/scripts/extension.py(12): on_startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(166): _startup_ext\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(224): startup\n  D:\\MimicKitNative\\conda\\mimickit-isaaclab-win\\Lib\\site-packages\\omni\\kernel\\py\\omni\\ext\\_impl\\_internal.py(328): startup_extension\n  PythonExtension.cpp::startup()(2): <module>\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(25): enable_kit_extension\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(643): _build_camera\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\isaac_lab_engine.py(99): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\engines\\engine_builder.py(14): build_engine\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\sim_env.py(164): _build_engine\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\sim_env.py(27): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\char_env.py(23): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\view_motion_env.py(15): __init__\n  D:\\MimicKitNative\\workspace\\MimicKit\\mimickit\\envs\\env_builder.py(40): build_env\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\_bridge_common.py(151): build_runtime_context\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(714): run_job\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(940): main\n  D:\\MimicKitNative\\workspace\\MimicKit\\tools\\ue_bridge\\build_mimickit_render_sequences.py(964): <module>\n\n2026-06-03 07:11:42 [9,860ms] [Error] [omni.ext.plugin] [ext: omni.physx.fabric-106.3.2] Failed to startup python extension.\n",
+    "ok": true
+  },
+  "contact_sheet": {
+    "ok": false,
+    "error": "no frames found"
+  },
+  "mesh_reference_pass": false,
+  "blocker": "mesh_render_failed_or_incomplete",
+  "native_windows_fallback": {
+    "script": "/root/Project/MimicKit/tools/windows/run_white_knight_mesh_viewmotion.ps1",
+    "recommended_when": "WSL Isaac Lab precheck/render fails due missing omni.kit.usd, gpu.foundation, Vulkan, or headless renderer startup"
+  },
+  "render_summary": {
+    "render_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render",
+    "render_meta": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render_meta.json",
+    "render_meta_exists": true,
+    "status": "error",
+    "error": "RuntimeError: viewer not available (render path requires visualize=True)",
+    "visual_kind": "mesh",
+    "mesh_detected": true,
+    "frames": 10,
+    "frame_stride": 5,
+    "expected_image_count": 2,
+    "image_count": 0,
+    "frame_count_on_disk": 0,
+    "frame_ids": [],
+    "expected_frame_ids": [
+      0,
+      5
+    ],
+    "legacy_ppm_count": 0,
+    "source_was_ppm_only": false,
+    "mp4_file": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render.mp4",
+    "mp4_exists": false,
+    "mp4_size_bytes": 0,
+    "mp4_ok": false,
+    "mesh_reference_pass": false,
+    "raw_render_meta": {
+      "root": "tmp_white_knight_mesh_reference_20260602_bridge_smoke",
+      "case": "view_motion_humanoid_sword_shield_args.txt",
+      "variant": "RL_Avatar_Atk_2xCombo01_Motion",
+      "case_type": "nontrainable",
+      "case_kind": "dummy",
+      "visual_kind": "mesh",
+      "char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.usd",
+      "mesh_detected": 1,
+      "arg_file": "/root/Project/MimicKit/args/view_motion_humanoid_sword_shield_args.txt",
+      "model_file": "",
+      "env_config": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/generated_envs/RL_Avatar_Atk_2xCombo01_Motion.yaml",
+      "engine_config": "/root/Project/MimicKit/data/engines/isaac_lab_engine.yaml",
+      "agent_config": "",
+      "llc_model_file": "",
+      "motion_id": "RL_Avatar_Atk_2xCombo01_Motion",
+      "motion_file": "data/motions/reallusion/RL_Avatar_Atk_2xCombo01_Motion.pkl",
+      "source_pack": "sword_shield_stunts",
+      "category": "combo",
+      "train_enabled": "true",
+      "view_enabled": "true",
+      "out_dir": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion",
+      "out_dir_rel": "runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion",
+      "render_dir": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render",
+      "frames": 10,
+      "frame_stride": 5,
+      "expected_image_count": 2,
+      "image_count": 0,
+      "resumed": 0,
+      "dry_run": 0,
+      "status": "error",
+      "error": "RuntimeError: viewer not available (render path requires visualize=True)",
+      "render_meta": "/root/Project/MimicKit/output/img/tmp_white_knight_mesh_reference_20260602_bridge_smoke/runs/view_motion_humanoid_sword_shield_args/RL_Avatar_Atk_2xCombo01_Motion/render/render_meta.json"
+    }
+  },
+  "outer_blocker": "native_windows_mesh_reference_failed"
+}

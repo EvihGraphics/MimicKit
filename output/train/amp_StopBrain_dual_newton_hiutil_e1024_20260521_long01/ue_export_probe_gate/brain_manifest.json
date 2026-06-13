@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "brain_name": "StopBrain",
+  "brain_role": "arc_locomotion_policy",
+  "model": "StopBrain.onnx",
+  "policy_hz": 30,
+  "physics_hz": 240,
+  "observation_dim": 163,
+  "action_dim": 31,
+  "joint_order_file": "joint_order.json",
+  "normalization_file": "normalization_stats.json",
+  "observation_spec_file": "obs_action_spec.yaml",
+  "schema_file": "schema.json",
+  "fixture_file": "obs_fixture.jsonl",
+  "reference_action_file": "ref_actions.jsonl",
+  "visual_replay_file": "visual_replay/pose_dof_replay.jsonl",
+  "visual_replay_meta_file": "visual_replay/pose_dof_meta.json",
+  "coordinate_basis": "mimickit_training_xyz_to_ue_xyz_cm_v1",
+  "unit_scale": "meters_to_ue_cm",
+  "visual_replay": {
+    "pose_dof_replay": "visual_replay/pose_dof_replay.jsonl",
+    "pose_dof_meta": "visual_replay/pose_dof_meta.json"
+  },
+  "source": {
+    "case_id": "amp_stop_humanoid_sword_shield",
+    "case_kind": "policy",
+    "arg_file": "/root/Project/MimicKit/args/amp_stop_humanoid_sword_shield_args.txt",
+    "model_file": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/model.pt",
+    "engine_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/engine_config.yaml",
+    "env_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/env_config.yaml",
+    "agent_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/agent_config.yaml",
+    "amp_root": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+    "keepalive_status": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/keepalive_status.json"
+  },
+  "visual_alignment_contract_file": "visual_alignment_contract.json",
+  "skeletal_mapping_contract_file": "skeletal_mapping_contract.json",
+  "runtime_control_basis_status": "blocked_until_live_observation_basis_validation",
+  "mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+  "runtime_control_contract_file": "runtime_control_contract.json"
+}

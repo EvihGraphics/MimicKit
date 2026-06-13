@@ -1,0 +1,125 @@
+{
+  "created_at": "2026-05-26T15:29:33+08:00",
+  "brain": "StopBrain",
+  "root": "amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+  "package_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe",
+  "mimic_render_dir": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render",
+  "mimic_mp4": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render.mp4",
+  "ue_capture_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure",
+  "ue_capture_mp4": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture.mp4",
+  "ue_media_manifest": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture_media_manifest.json",
+  "ue_log": "",
+  "contact_sheet": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/contact_sheet.png",
+  "verdict": "pass",
+  "keyframe_pairs": [
+    {
+      "requested_frame": 0,
+      "mimickit_frame": 0,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000000.png",
+      "ue_frame": 0,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000000.png"
+    },
+    {
+      "requested_frame": 75,
+      "mimickit_frame": 75,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000075.png",
+      "ue_frame": 75,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000075.png"
+    },
+    {
+      "requested_frame": 150,
+      "mimickit_frame": 150,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000150.png",
+      "ue_frame": 150,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000150.png"
+    },
+    {
+      "requested_frame": 225,
+      "mimickit_frame": 225,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000225.png",
+      "ue_frame": 225,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000225.png"
+    },
+    {
+      "requested_frame": 295,
+      "mimickit_frame": 295,
+      "mimickit_file": "output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/frames/frame_000295.png",
+      "ue_frame": 295,
+      "ue_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000295.png"
+    }
+  ],
+  "mimic": {
+    "status": "ok",
+    "image_count": 60,
+    "frames": 300,
+    "frame_stride": 5,
+    "visual_kind": "geom",
+    "char_file": "/root/Project/MimicKit/data/assets/sword_shield/humanoid_sword_shield.xml"
+  },
+  "ue": {
+    "capture_mode": "source_character_skeletalmesh_replay",
+    "render_source": "ue_scene_capture_render_target",
+    "capture_frames": 60,
+    "source_rows": 300,
+    "frame_stride": 5,
+    "root_min_m": [
+      -0.16674261540174484,
+      0.5407746732234955
+    ],
+    "root_max_m": [
+      1.8292745351791382,
+      2.0407746732234955
+    ],
+    "mode": "source_character_skeletalmesh_replay",
+    "target_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+    "target_skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+    "fallback_renderer": "",
+    "dof_pos_applied": true,
+    "skeletal_pose_frames": 60,
+    "bone_map_hash": "1d7e3aaf1290193d26ec198ae9cd5c71f831f8dbb567d037dbcc2d75dc4f55c9",
+    "basis_transform_hash": "a1063452ec5e1cece42f55ac93d6a7c264ef6cd31b9d626cb19e7a19622f64d7",
+    "full_character_parity": true,
+    "driver_component": "UPoseableMeshComponent",
+    "loaded_skeletal_mesh": true,
+    "poseable_component_created": true,
+    "mimickit_source_asset_imported_to_ue": true,
+    "source_asset_build_report": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe/mimickit_source_rig_asset_build_report.json",
+    "live_policy_control_pass": false,
+    "chaos_contact_validated": false,
+    "package_dir": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe",
+    "png_frames_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames",
+    "mp4_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture.mp4",
+    "media_manifest": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture_media_manifest.json",
+    "media_status": {
+      "png_ok": true,
+      "mp4_ok": true,
+      "png_count": 60,
+      "fps": 12
+    }
+  },
+  "ue_media": {
+    "png_ok": true,
+    "png_count": 60,
+    "direct_png_count": 60,
+    "legacy_ppm_count": 0,
+    "source_was_ppm_only": false,
+    "mp4_ok": true,
+    "mp4_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture.mp4",
+    "manifest": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture_media_manifest.json"
+  },
+  "capture_mode": "source_character_skeletalmesh_replay",
+  "skeletal_visual_pass": false,
+  "source_character_replay_pass": true,
+  "full_visual_parity": true,
+  "observed_differences": {
+    "scale": "pass: source character capture uses the package basis transform and UE centimeter scene units.",
+    "root_trajectory": "pass: root_pos_m drives the source-character PoseableMeshComponent inside a UE SceneCapture world.",
+    "facing": "pass: root_rot_xyzw is applied to the source-character driver component before render-target capture.",
+    "pose": "pass: dof_pos is applied and captured through UE SceneCapture/RenderTarget, not procedural pixels.",
+    "contact_sliding": "watch: source feet are visible and contact bodies are declared; Chaos contact is validated by the live runtime gate.",
+    "timing": "pass: capture stride and frame IDs are preserved from MimicKit visual_replay.",
+    "jitter": "watch: per-joint jitter is visually exposed in the contact sheet but not numerically scored.",
+    "missing_assets": "pass: UE target is the generated MimicKit source-character SkeletalMesh, not Manny/procedural fallback.",
+    "runtime_physics": "watch: this is offline source-character replay; live policy/Chaos closure is a separate gate."
+  }
+}

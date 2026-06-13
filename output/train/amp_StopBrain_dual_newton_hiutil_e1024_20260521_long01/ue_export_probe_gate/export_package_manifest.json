@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-05-22T00:57:07.883417+00:00",
+  "brain_name": "StopBrain",
+  "source_root": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+  "amp_status_brain": "StopBrain",
+  "artifacts": {
+    "policy_actor": "policy_actor.onnx",
+    "brain_model": "StopBrain.onnx",
+    "schema": "schema.json",
+    "onnx_export_meta": "onnx_export_meta.json",
+    "obs_fixture": "obs_fixture.jsonl",
+    "ref_actions": "ref_actions.jsonl",
+    "visual_replay": "visual_replay/pose_dof_replay.jsonl",
+    "visual_replay_meta": "visual_replay/pose_dof_meta.json",
+    "fixture_meta": "fixture_meta.json",
+    "obs_action_spec": "obs_action_spec.yaml",
+    "normalization_stats": "normalization_stats.json",
+    "joint_order": "joint_order.json",
+    "brain_manifest": "brain_manifest.json",
+    "summary": "mimic_case_summary.json",
+    "mimickit_source_rig_asset_spec": "mimickit_source_rig_asset_spec.json",
+    "runtime_control_contract": "runtime_control_contract.json"
+  },
+  "render_refs": {
+    "render_root": "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01",
+    "exists": true,
+    "mp4_files": [
+      "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render.mp4"
+    ],
+    "render_meta_files": [
+      "/root/Project/MimicKit/output/img/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/render/render_meta.json"
+    ]
+  },
+  "status": {
+    "mimic_infer_ok": true,
+    "fixture_ok": true,
+    "mimic_viz_ok": true,
+    "visual_replay_ok": true,
+    "source_rig_asset_spec_ok": true,
+    "runtime_control_contract_ok": true
+  }
+}

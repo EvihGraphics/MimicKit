@@ -1,0 +1,20 @@
+{
+	"package_dir": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe",
+	"asset_root": "/Game/MimicKit/SwordShield",
+	"skeletal_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+	"skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+	"physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
+	"spec_file": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe/mimickit_source_rig_asset_spec.json",
+	"runtime_contract_file": "D:/UE/COLMM/GASPALS/Saved/MimicKitPackages/StopBrain_long01_probe/runtime_control_contract.json",
+	"usd_has_usdskel": false,
+	"generated_from_mjcf_primitive_spec": true,
+	"body_count": 17,
+	"bone_count": 17,
+	"dof_size": 31,
+	"physics_body_count": 17,
+	"physics_constraint_count": 16,
+	"skeletal_mesh_ok": true,
+	"skeleton_ok": true,
+	"physics_asset_ok": true,
+	"source_assets_built": true
+}

@@ -1,0 +1,381 @@
+{
+  "created_at": "2026-05-26T15:29:21+08:00",
+  "capture_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure",
+  "source_frames_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames",
+  "png_frames_dir": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames",
+  "mp4_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture.mp4",
+  "manifest_file": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/capture_media_manifest.json",
+  "fps": 12,
+  "source_count": 60,
+  "direct_png_count": 60,
+  "legacy_ppm_count": 0,
+  "source_was_ppm_only": false,
+  "png_count": 60,
+  "png_ok": true,
+  "mp4_ok": true,
+  "mp4_error": "",
+  "first_frame": 0,
+  "last_frame": 295,
+  "frames": [
+    {
+      "frame": 0,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000000.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000000.png",
+      "reused": false
+    },
+    {
+      "frame": 5,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000005.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000005.png",
+      "reused": false
+    },
+    {
+      "frame": 10,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000010.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000010.png",
+      "reused": false
+    },
+    {
+      "frame": 15,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000015.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000015.png",
+      "reused": false
+    },
+    {
+      "frame": 20,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000020.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000020.png",
+      "reused": false
+    },
+    {
+      "frame": 25,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000025.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000025.png",
+      "reused": false
+    },
+    {
+      "frame": 30,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000030.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000030.png",
+      "reused": false
+    },
+    {
+      "frame": 35,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000035.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000035.png",
+      "reused": false
+    },
+    {
+      "frame": 40,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000040.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000040.png",
+      "reused": false
+    },
+    {
+      "frame": 45,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000045.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000045.png",
+      "reused": false
+    },
+    {
+      "frame": 50,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000050.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000050.png",
+      "reused": false
+    },
+    {
+      "frame": 55,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000055.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000055.png",
+      "reused": false
+    },
+    {
+      "frame": 60,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000060.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000060.png",
+      "reused": false
+    },
+    {
+      "frame": 65,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000065.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000065.png",
+      "reused": false
+    },
+    {
+      "frame": 70,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000070.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000070.png",
+      "reused": false
+    },
+    {
+      "frame": 75,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000075.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000075.png",
+      "reused": false
+    },
+    {
+      "frame": 80,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000080.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000080.png",
+      "reused": false
+    },
+    {
+      "frame": 85,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000085.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000085.png",
+      "reused": false
+    },
+    {
+      "frame": 90,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000090.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000090.png",
+      "reused": false
+    },
+    {
+      "frame": 95,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000095.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000095.png",
+      "reused": false
+    },
+    {
+      "frame": 100,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000100.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000100.png",
+      "reused": false
+    },
+    {
+      "frame": 105,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000105.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000105.png",
+      "reused": false
+    },
+    {
+      "frame": 110,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000110.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000110.png",
+      "reused": false
+    },
+    {
+      "frame": 115,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000115.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000115.png",
+      "reused": false
+    },
+    {
+      "frame": 120,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000120.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000120.png",
+      "reused": false
+    },
+    {
+      "frame": 125,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000125.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000125.png",
+      "reused": false
+    },
+    {
+      "frame": 130,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000130.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000130.png",
+      "reused": false
+    },
+    {
+      "frame": 135,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000135.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000135.png",
+      "reused": false
+    },
+    {
+      "frame": 140,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000140.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000140.png",
+      "reused": false
+    },
+    {
+      "frame": 145,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000145.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000145.png",
+      "reused": false
+    },
+    {
+      "frame": 150,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000150.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000150.png",
+      "reused": false
+    },
+    {
+      "frame": 155,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000155.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000155.png",
+      "reused": false
+    },
+    {
+      "frame": 160,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000160.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000160.png",
+      "reused": false
+    },
+    {
+      "frame": 165,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000165.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000165.png",
+      "reused": false
+    },
+    {
+      "frame": 170,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000170.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000170.png",
+      "reused": false
+    },
+    {
+      "frame": 175,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000175.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000175.png",
+      "reused": false
+    },
+    {
+      "frame": 180,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000180.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000180.png",
+      "reused": false
+    },
+    {
+      "frame": 185,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000185.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000185.png",
+      "reused": false
+    },
+    {
+      "frame": 190,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000190.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000190.png",
+      "reused": false
+    },
+    {
+      "frame": 195,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000195.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000195.png",
+      "reused": false
+    },
+    {
+      "frame": 200,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000200.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000200.png",
+      "reused": false
+    },
+    {
+      "frame": 205,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000205.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000205.png",
+      "reused": false
+    },
+    {
+      "frame": 210,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000210.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000210.png",
+      "reused": false
+    },
+    {
+      "frame": 215,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000215.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000215.png",
+      "reused": false
+    },
+    {
+      "frame": 220,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000220.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000220.png",
+      "reused": false
+    },
+    {
+      "frame": 225,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000225.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000225.png",
+      "reused": false
+    },
+    {
+      "frame": 230,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000230.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000230.png",
+      "reused": false
+    },
+    {
+      "frame": 235,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000235.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000235.png",
+      "reused": false
+    },
+    {
+      "frame": 240,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000240.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000240.png",
+      "reused": false
+    },
+    {
+      "frame": 245,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000245.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000245.png",
+      "reused": false
+    },
+    {
+      "frame": 250,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000250.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000250.png",
+      "reused": false
+    },
+    {
+      "frame": 255,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000255.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000255.png",
+      "reused": false
+    },
+    {
+      "frame": 260,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000260.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000260.png",
+      "reused": false
+    },
+    {
+      "frame": 265,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000265.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000265.png",
+      "reused": false
+    },
+    {
+      "frame": 270,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000270.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000270.png",
+      "reused": false
+    },
+    {
+      "frame": 275,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000275.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000275.png",
+      "reused": false
+    },
+    {
+      "frame": 280,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000280.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000280.png",
+      "reused": false
+    },
+    {
+      "frame": 285,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000285.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000285.png",
+      "reused": false
+    },
+    {
+      "frame": 290,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000290.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000290.png",
+      "reused": false
+    },
+    {
+      "frame": 295,
+      "source": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/frames/frame_000295.png",
+      "png": "/mnt/d/UE/COLMM/GASPALS/Saved/MimicKitVisualCaptures/StopBrain_long01_probe_source_character_closure/png_frames/frame_000295.png",
+      "reused": false
+    }
+  ]
+}

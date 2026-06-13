@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-05-25T10:43:42.927057+00:00",
+  "contract_role": "mimickit_to_ue_live_policy_chaos_runtime_contract",
+  "brain_name": "StopBrain",
+  "model_file": "StopBrain.onnx",
+  "policy_hz": 30,
+  "physics_hz": 240,
+  "observation_dim": 163,
+  "action_dim": 31,
+  "dof_size": 31,
+  "runtime_backend": "NNERuntimeORT",
+  "backend_status": "ue_nne_runtime_required; deterministic trace/ref-action fallback is not allowed for live closure pass",
+  "observation_source": "ue_physics_actor_state",
+  "contact_measurement_source": "chaos_contact_query",
+  "joint_drive_backend": "FConstraintInstance angular SLERP drive",
+  "proxy_gate_allowed": false,
+  "normalization_stats_file": "normalization_stats.json",
+  "obs_action_spec_file": "obs_action_spec.yaml",
+  "joint_order_file": "joint_order.json",
+  "source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
+  "action_to_joint_mapping": {
+    "source": "joint_order.joints[*].dof_slice",
+    "interpretation": "policy_action values map one-to-one to MJCF actuator/order dof targets"
+  },
+  "coordinate_basis": {
+    "name": "mimickit_training_xyz_to_ue_xyz_cm_v1",
+    "unit_scale": "meters_to_ue_cm",
+    "rotation_convention": "quat_xyzw"
+  },
+  "pd_defaults": {
+    "source": "humanoid_sword_shield.xml actuator/joint stiffness+damping+gear",
+    "action_clamp": [
+      -1.0,
+      1.0
+    ]
+  },
+  "contact": {
+    "contact_bodies": [
+      "right_foot",
+      "left_foot"
+    ],
+    "measurement_source": "chaos_contact_query",
+    "sliding_threshold_mps": 0.25,
+    "record_raw_and_scored_sliding": true,
+    "clamp_raw_sliding_for_pass": false,
+    "min_contact_frames_per_foot": 1
+  },
+  "negative_gates": {
+    "kinematic_contact_proxy_can_write_diagnostics": true,
+    "kinematic_contact_proxy_can_pass_live_closure": false,
+    "trace_backed_joint_pd_targets_can_pass_live_closure": false
+  },
+  "stability": {
+    "runtime_seconds": 10.0,
+    "max_root_drop_m": 0.75,
+    "require_finite_root": true,
+    "require_finite_actions": true
+  },
+  "ue_assets": {
+    "asset_root": "/Game/MimicKit/SwordShield",
+    "skeletal_mesh": "/Game/MimicKit/SwordShield/SK_MimicKit_SwordShield",
+    "skeleton": "/Game/MimicKit/SwordShield/Skeleton_MimicKit_SwordShield",
+    "physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
+    "generation_route": "mjcf_primitive_source_equivalent_skeletal_asset"
+  },
+  "contract_hash": "364abcbb5eeecb6f16e17547047606b8080ad6c223bb724ff0e28be91632f0e0"
+}

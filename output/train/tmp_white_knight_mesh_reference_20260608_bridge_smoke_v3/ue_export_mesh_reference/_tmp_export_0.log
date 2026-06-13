@@ -1,0 +1,89 @@
+Building view_motion env
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: D:\MimicKitNative\workspace\IsaacLab_full\apps\isaacsim_4_5\isaaclab.python.headless.kit
+[INFO] IsaacLab logging to file: C:\Users\l3d\AppData\Local\Temp\isaaclab_2026-06-10_23-39-18.log
+[33m23:39:18 [simulation_context.py] WARNING: Large simulation step size (> 0.0333 seconds) is not recommended without enabling stabilization. Consider setting the `enable_stabilization` flag to True in the PhysxCfg, or reducing the simulation step size if you run into physics issues.[0m
+[33m23:39:18 [stage.py] WARNING: [Compat] Isaac Sim < 5.0 does not support thread-local stage contexts. Skipping use_stage().[0m
+[Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
+[Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
+Loading user config located at: 'd:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
+[Info] [carb] Logging to file: d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260610_233914.log
+2026-06-10 15:39:14 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-06-10 15:39:14 [53ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes' or 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes/config'
+2026-06-10 15:39:14 [453ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-06-10 15:39:15 [1,024ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-06-10 15:39:15 [1,095ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+
+|---------------------------------------------------------------------------------------------|
+| Driver Version: 591.86        | Graphics API: D3D12
+|=============================================================================================|
+| GPU | Name                             | Active | LDA | GPU Memory | Vendor-ID | LUID       |
+|     |                                  |        |     |            | Device-ID | UUID       |
+|     |                                  |        |     |            | Bus-ID    |            |
+|---------------------------------------------------------------------------------------------|
+| 0   | NVIDIA GeForce RTX 4090          | Yes: 0 |     | 24142   MB | 10de      | 3a1f0100.. |
+|     |                                  |        |     |            | 2684      | 0          |
+|     |                                  |        |     |            | 5         |            |
+|---------------------------------------------------------------------------------------------|
+| 1   | NVIDIA GeForce RTX 4090          |        |     | 24142   MB | 10de      | 31f80000.. |
+|     |                                  |        |     |            | 2684      | 0          |
+|     |                                  |        |     |            | 1         |            |
+|=============================================================================================|
+| OS: Windows 11 Pro, Version: 10.0 (25H2), Build: 26200, Kernel: 10.0.26100.8457
+| Processor: AMD Ryzen 9 7950X 16-Core Processor            
+| Cores: 16 | Logical Cores: 32
+|---------------------------------------------------------------------------------------------|
+| Total Memory (MB): 65240 | Free Memory: 32417
+| Total Page/Swap (MB): 159822 | Free Page/Swap: 110739
+|---------------------------------------------------------------------------------------------|
+2026-06-10 15:39:21 [7,059ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,059ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,059ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,060ms] [WarBuilding 1/1 envs
+
+Loading 1/1 motion files: D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
+Loaded motion file: D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
+Loaded 1 motions with a total length of 3.167s.
+Building Obj:0 in 1/1 envs
+Initializing simulation...
+[33m23:39:21 [articulation.py] WARNING: Spatial tendons are not supported in Isaac Sim < 5.0: patching spatial-tendon getter and setter to use dummy value[0m
+Char 0 properties
+	DoFs: 31
+	Mass: 53.001 kg
+
+Body name mismatch at 2: sim=right_thigh, kin=head
+sim_body_names=['pelvis', 'torso', 'right_thigh', 'left_thigh', 'head', 'right_upper_arm', 'left_upper_arm', 'right_shin', 'left_shin', 'right_lower_arm', 'left_lower_arm', 'right_foot', 'left_foot', 'right_hand', 'shield', 'left_hand', 'sword']
+kin_body_names=['pelvis', 'torso', 'head', 'right_upper_arm', 'right_lower_arm', 'right_hand', 'sword', 'left_upper_arm', 'left_lower_arm', 'shield', 'left_hand', 'right_thigh', 'right_shin', 'right_foot', 'left_thigh', 'left_shin', 'left_foot']
+[WARN] Proceeding despite body name mismatch (compatibility mode).
+Building Dummy agent
+Total parameter count: 0
+[OK] dummy schema exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\ue_export_mesh_reference\schema.json
+[OK] dummy fixture exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\ue_export_mesh_reference\obs_fixture.jsonl
+[OK] dummy ref actions exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\ue_export_mesh_reference\ref_actions.jsonl
+[OK] dummy visual replay exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\ue_export_mesh_reference\visual_replay\pose_dof_replay.jsonl
+[OK] dummy onnx exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260608_bridge_smoke_v3\ue_export_mesh_reference\policy_actor.onnx
+ning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,060ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,060ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,060ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,061ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,061ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,061ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,061ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,062ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:21 [7,062ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-10 15:39:25 [11,279ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown
+2026-06-10 15:39:25 [11,406ms] [Warning] [carb] Recursive unloadAllPlugins() detected!

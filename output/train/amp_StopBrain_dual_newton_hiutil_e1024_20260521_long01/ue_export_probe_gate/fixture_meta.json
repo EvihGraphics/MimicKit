@@ -1,0 +1,33 @@
+{
+  "source": {
+    "arg_file": "/root/Project/MimicKit/args/amp_stop_humanoid_sword_shield_args.txt",
+    "model_file": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/model.pt",
+    "env_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/env_config.yaml",
+    "engine_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/engine_config.yaml",
+    "agent_config": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/probe_train/agent_config.yaml"
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "frames": 300,
+    "seed": 7,
+    "episodes_recorded": 2
+  },
+  "shape": {
+    "obs_dim": 163,
+    "act_dim": 31,
+    "ref_action_dim": 31,
+    "dof_pos_dim": 31,
+    "dof_vel_dim": 31,
+    "ref_root_pos_dim": 3,
+    "ref_root_rot_dim": 4,
+    "root_vel_dim": 3,
+    "root_ang_vel_dim": 3,
+    "count": 300
+  },
+  "files": {
+    "obs_fixture": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/ue_export_probe_gate/obs_fixture.jsonl",
+    "ref_actions": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/ue_export_probe_gate/ref_actions.jsonl",
+    "visual_replay": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/ue_export_probe_gate/visual_replay/pose_dof_replay.jsonl",
+    "visual_replay_meta": "/root/Project/MimicKit/output/train/amp_StopBrain_dual_newton_hiutil_e1024_20260521_long01/ue_export_probe_gate/visual_replay/pose_dof_meta.json"
+  }
+}

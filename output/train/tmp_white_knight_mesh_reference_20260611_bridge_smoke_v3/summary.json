@@ -1,0 +1,11 @@
+{
+  "root": "tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3",
+  "generated_count": 1,
+  "manifest": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\motions\\reallusion\\ase_reallusion_sword_shield_manifest.tsv",
+  "base_env_config": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\envs\\view_motion_humanoid_sword_shield_mesh_env.yaml",
+  "engine_config": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
+  "case": "view_motion_humanoid_sword_shield_args.txt",
+  "motion_ids_filter": [
+    "RL_Avatar_Atk_2xCombo01_Motion"
+  ]
+}

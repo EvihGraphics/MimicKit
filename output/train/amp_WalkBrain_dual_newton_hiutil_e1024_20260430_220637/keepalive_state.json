@@ -1,0 +1,121 @@
+{
+  "brain": "WalkBrain",
+  "case_key": "amp_location_humanoid_sword_shield",
+  "current_stage": "complete",
+  "events": [
+    "2026-04-30 22:06:50 | supervisor_start brain=WalkBrain root=/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637",
+    "2026-04-30 22:06:50 | smoke_test: start | no pretrained model found; running smoke without --model_file",
+    "2026-04-30 22:07:35 | smoke_test: completed",
+    "2026-04-30 22:07:35 | smoke_visualize: start | no pretrained model found; running smoke without --model_file",
+    "2026-04-30 22:08:00 | smoke_visualize: completed",
+    "2026-04-30 22:08:00 | smoke_train: attempt=1 out=smoke_train remain=16384",
+    "2026-04-30 22:08:31 | smoke_train: completed after attempt=1",
+    "2026-04-30 22:08:31 | probe_train: attempt=1 out=probe_train remain=50000000",
+    "2026-04-30 22:37:58 | probe_train: completed after attempt=1",
+    "2026-04-30 22:37:58 | long_train: attempt=1 out=long_train remain=949996032",
+    "2026-05-01 05:41:31 | long_train: completed after attempt=1",
+    "2026-05-01 05:41:31 | supervisor_complete"
+  ],
+  "stages": {
+    "smoke_test": {
+      "status": "completed",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "rc": 0,
+          "timed_out": false,
+          "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_test.attempt01.log"
+        }
+      ],
+      "started_at": "2026-04-30 22:06:50",
+      "completed_at": "2026-04-30 22:07:35",
+      "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_test.attempt01.log",
+      "out_dir": "",
+      "notes": "no pretrained model found; running smoke without --model_file"
+    },
+    "smoke_visualize": {
+      "status": "completed",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "rc": 0,
+          "timed_out": false,
+          "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_visualize.attempt01.log"
+        }
+      ],
+      "started_at": "2026-04-30 22:07:35",
+      "completed_at": "2026-04-30 22:08:00",
+      "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_visualize.attempt01.log",
+      "out_dir": "",
+      "notes": "no pretrained model found; running smoke without --model_file"
+    },
+    "smoke_train": {
+      "status": "completed",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "rc": 0,
+          "error_kind": "nccl",
+          "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/smoke_train",
+          "remaining_samples": 16384,
+          "source_model": "",
+          "samples_after": 65536,
+          "latest_model": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/smoke_train/model.pt",
+          "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_train.attempt01.log"
+        }
+      ],
+      "started_at": "2026-04-30 22:08:00",
+      "completed_at": "2026-04-30 22:08:31",
+      "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/smoke_train.attempt01.log",
+      "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/smoke_train",
+      "notes": "remaining_samples=16384"
+    },
+    "probe_train": {
+      "status": "completed",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "rc": 0,
+          "error_kind": "nccl",
+          "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/probe_train",
+          "remaining_samples": 50000000,
+          "source_model": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/smoke_train/model.pt",
+          "samples_after": 50003968,
+          "latest_model": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/probe_train/model.pt",
+          "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/probe_train.attempt01.log"
+        }
+      ],
+      "started_at": "2026-04-30 22:08:31",
+      "completed_at": "2026-04-30 22:37:58",
+      "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/probe_train.attempt01.log",
+      "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/probe_train",
+      "notes": "remaining_samples=50000000"
+    },
+    "long_train": {
+      "status": "completed",
+      "attempt_count": 1,
+      "attempts": [
+        {
+          "attempt": 1,
+          "rc": 0,
+          "error_kind": "nccl",
+          "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train",
+          "remaining_samples": 949996032,
+          "source_model": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/probe_train/model.pt",
+          "samples_after": 950009856,
+          "latest_model": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train/model.pt",
+          "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/long_train.attempt01.log"
+        }
+      ],
+      "started_at": "2026-04-30 22:37:58",
+      "completed_at": "2026-05-01 05:41:31",
+      "log_file": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/session_logs/long_train.attempt01.log",
+      "out_dir": "/root/Project/MimicKit/output/train/amp_WalkBrain_dual_newton_hiutil_e1024_20260430_220637/long_train",
+      "notes": "remaining_samples=949996032"
+    }
+  }
+}
