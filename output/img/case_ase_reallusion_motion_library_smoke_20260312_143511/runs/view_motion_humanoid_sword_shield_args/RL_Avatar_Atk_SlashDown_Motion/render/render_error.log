@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/root/Project/MimicKit/tools/ue_bridge/build_mimickit_render_sequences.py", line 578, in run_job
+    _next_obs, _reward, done, _next_info = ctx.env.step(action)
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 77, in step
+    self._render()
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 102, in _render
+    self._render_scene()
+  File "/root/Project/MimicKit/mimickit/envs/view_motion_env.py", line 81, in _render_scene
+    super()._render_scene()
+  File "/root/Project/MimicKit/mimickit/envs/sim_env.py", line 112, in _render_scene
+    self._engine.render()
+  File "/root/Project/MimicKit/mimickit/engines/newton_engine.py", line 536, in render
+    self._viewer.end_frame()
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 499, in end_frame
+    self._update()
+  File "/root/Project/newton/newton/_src/viewer/viewer_gl.py", line 534, in _update
+    self.renderer.render(self.camera, self.objects, self.lines)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 978, in render
+    self._render_shadow_map(objects)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 1514, in _render_shadow_map
+    self._draw_objects(objects)
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 1566, in _draw_objects
+    o.render()
+  File "/root/Project/newton/newton/_src/viewer/gl/opengl.py", line 791, in render
+    gl.glBindVertexArray(self.vao)
+  File "/root/miniconda3/envs/mimickit/lib/python3.10/site-packages/pyglet/gl/lib.py", line 83, in errcheck
+    raise GLException(msg)
+pyglet.gl.lib.GLException: (0x1282): Invalid operation. The specified operation is not allowed in the current state.
