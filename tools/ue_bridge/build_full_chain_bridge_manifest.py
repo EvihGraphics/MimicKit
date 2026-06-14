@@ -212,6 +212,8 @@ def case_report(spec: dict[str, Path | str]) -> dict[str, Any]:
             "framework_media_ok",
             "framework_renderer_provenance_present",
             "framework_renderer_provenance_valid",
+            "evih_mesh_replay_pass",
+            "evih_blocker_empty",
         ):
             checks.pop(name)
     source_key = f"mimickit-evih-v3:{label}"

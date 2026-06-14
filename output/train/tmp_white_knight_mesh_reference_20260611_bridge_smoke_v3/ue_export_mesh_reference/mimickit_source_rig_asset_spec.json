@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "created_at_utc": "2026-06-12T01:09:49.988874+00:00",
+  "created_at_utc": "2026-06-13T15:16:25.303504+00:00",
   "contract_role": "mimickit_source_equivalent_ue_rig_asset_spec",
   "package_dir": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\ue_export_mesh_reference",
   "source_assets": {
@@ -3393,5 +3393,5 @@
       "left_ankle_z"
     ]
   },
-  "spec_hash": "fed36162dc8c1643e319c0c6a4fbc40e978580afacb6217c9f667975ca334e6b"
+  "spec_hash": "a439666b3182aec56ede46ac1222db2c4fefc9a6a2f2b2cf69a7b1781fb7e30e"
 }

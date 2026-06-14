@@ -22,6 +22,11 @@ from typing import Any
 import gymnasium.spaces as spaces
 import numpy as np
 import torch
+import torch.optim
+try:
+    import torch._dynamo
+except ImportError:
+    pass
 import yaml
 
 from _bridge_common import build_runtime_context
@@ -733,7 +738,7 @@ def run_job(job: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     np.random.seed(int(args.seed))
     torch.manual_seed(int(args.seed))
     os.environ.setdefault("MIMICKIT_VIEWER_HEADLESS", "1")
-    maybe_patch_pyglet_msaa_config()
+    # maybe_patch_pyglet_msaa_config()
 
     overrides = SimpleNamespace(
         env_config=str(job["env_config"]) if job["env_config"] else "",

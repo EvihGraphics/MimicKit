@@ -642,6 +642,7 @@ def main() -> int:
         ]
         render_env = os.environ.copy()
         render_env["MIMICKIT_VIEWER_HEADLESS"] = "1"
+        render_env["MIMICKIT_SKIP_XVFB"] = "1"
         render_env["MIMICKIT_STRICT_BODY_ORDER"] = "1"
         render_env["MIMICKIT_REQUIRED_BODY_ORDER_JSON"] = json.dumps(body_order_from_mjcf(), separators=(",", ":"))
         manifest["render"] = run_command(render_cmd, env=render_env)

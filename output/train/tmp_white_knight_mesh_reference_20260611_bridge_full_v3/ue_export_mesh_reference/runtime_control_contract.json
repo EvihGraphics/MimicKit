@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "created_at_utc": "2026-06-12T02:36:23.694186+00:00",
+  "created_at_utc": "2026-06-13T15:27:57.085614+00:00",
   "contract_role": "mimickit_to_ue_live_policy_chaos_runtime_contract",
   "brain_name": "WhiteKnightMeshReference",
   "model_file": "",
@@ -64,5 +64,5 @@
     "physics_asset": "/Game/MimicKit/SwordShield/PA_MimicKit_SwordShield",
     "generation_route": "mjcf_primitive_source_equivalent_skeletal_asset"
   },
-  "contract_hash": "a91d82bb5a0808c65817a2f6905e98b5755cc97aa06d729d717aee6f73691313"
+  "contract_hash": "c44fc4e9c6384460d27d41cd90e95e8d0a8c43eaf6631c553755baec87836a37"
 }

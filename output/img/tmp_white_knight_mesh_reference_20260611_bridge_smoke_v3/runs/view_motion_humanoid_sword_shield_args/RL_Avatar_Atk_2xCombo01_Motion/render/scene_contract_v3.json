@@ -77,7 +77,7 @@
   "source": {
     "base_env_config": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\generated_envs\\RL_Avatar_Atk_2xCombo01_Motion.yaml",
     "engine_config": "D:\\MimicKitNative\\workspace\\MimicKit\\data\\engines\\isaac_lab_engine.yaml",
-    "capture_index_sha256": "8e5f22d13a4928ec5c96afa45188c59862797808c1ed7cca4ae5dce83453949d"
+    "capture_index_sha256": "63b744f74343bfa342fa8cd66a95622e2bf3ba78c790e42df8d3f105cb68aa0c"
   },
   "coordinate_system": {
     "basis": "mimickit_training_xyz_z_up",
@@ -1581,5 +1581,5 @@
       "capture_settle_updates": 8
     }
   ],
-  "scene_contract_sha256": "6a8caf7bd5282cd3676c9a3c268107855f6437fe583075a03bd098df5adbe65b"
+  "scene_contract_sha256": "937c76f6e2f20abc95c782b8e3ec3a93c774ace6fa9d6d9abf61d3254ac462ca"
 }

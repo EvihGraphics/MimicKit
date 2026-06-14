@@ -101,12 +101,12 @@
   "scene_contract_file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\runs\\view_motion_humanoid_sword_shield_args\\RL_Avatar_Atk_2xCombo01_Motion\\render\\scene_contract_v2.json",
   "scene_contract_sha256": "8a778d33e93d7a4c3ec6f2c678ba11459b0761097e494c1d72c9bcf3cade3d83",
   "scene_contract_v3_file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\runs\\view_motion_humanoid_sword_shield_args\\RL_Avatar_Atk_2xCombo01_Motion\\render\\scene_contract_v3.json",
-  "scene_contract_v3_sha256": "6a8caf7bd5282cd3676c9a3c268107855f6437fe583075a03bd098df5adbe65b",
+  "scene_contract_v3_sha256": "937c76f6e2f20abc95c782b8e3ec3a93c774ace6fa9d6d9abf61d3254ac462ca",
   "mp4_file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\runs\\view_motion_humanoid_sword_shield_args\\RL_Avatar_Atk_2xCombo01_Motion\\render\\render.mp4",
   "mp4_probe": {
     "file": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\img\\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\\runs\\view_motion_humanoid_sword_shield_args\\RL_Avatar_Atk_2xCombo01_Motion\\render\\render.mp4",
     "ok": true,
-    "size_bytes": 296216,
+    "size_bytes": 294584,
     "probe": {
       "codec_name": "h264",
       "width": 960,

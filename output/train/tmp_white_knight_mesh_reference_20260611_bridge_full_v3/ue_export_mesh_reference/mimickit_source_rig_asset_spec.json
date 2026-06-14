@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "created_at_utc": "2026-06-12T02:36:23.681196+00:00",
+  "created_at_utc": "2026-06-13T15:27:57.075534+00:00",
   "contract_role": "mimickit_source_equivalent_ue_rig_asset_spec",
   "package_dir": "D:\\MimicKitNative\\workspace\\MimicKit\\output\\train\\tmp_white_knight_mesh_reference_20260611_bridge_full_v3\\ue_export_mesh_reference",
   "source_assets": {
@@ -3393,5 +3393,5 @@
       "left_ankle_z"
     ]
   },
-  "spec_hash": "a2f0c8c5ea25fe2e2030b62403cf7ffac5b040a5159943e78cc5b4e98c20c09f"
+  "spec_hash": "46ca31b5673aca46deff4bcc970a7289696ca6410cb7173da99ef018a7c93773"
 }

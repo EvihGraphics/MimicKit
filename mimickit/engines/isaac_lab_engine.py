@@ -936,12 +936,22 @@ class IsaacLabEngine(engine.Engine):
             # Explicitly disable multi-GPU so Isaac Sim does not probe all
             # adapters in WSL dual-GPU setups and mis-detect duplicate ICDs.
             "multi_gpu": False,
-            "kit_args": '--/app/extensions/excluded=["omni.physx.fabric"]',
         }
         if headless_render:
             launcher_cfg["experience"] = "isaaclab.python.headless.rendering.kit"
 
+        import typing
+        original_collect = getattr(typing, "_collect_type_vars", None)
+
         self._app_launcher = AppLauncher(launcher_cfg)
+
+        import sys
+        sys.path = [p for p in sys.path if "omni.kit.pip_archive" not in p]
+        if "typing_extensions" in sys.modules:
+            del sys.modules["typing_extensions"]
+        if original_collect is not None:
+            typing._collect_type_vars = original_collect
+        import typing_extensions
 
         import isaaclab.sim as sim_utils
         from isaacsim.core.utils.stage import get_current_stage

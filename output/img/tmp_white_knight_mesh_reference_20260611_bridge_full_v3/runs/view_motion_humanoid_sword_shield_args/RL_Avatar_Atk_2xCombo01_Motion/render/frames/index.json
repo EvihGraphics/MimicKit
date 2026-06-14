@@ -9,7 +9,7 @@
       "file": "frame_000000.png",
       "silhouette_file": "frame_000000.png",
       "ground_mask_file": "frame_000000.png",
-      "sha256": "0e499f5688f349d85a3e9bdbb9ac85f30272c8faa5f0dc0408e3b16023d6da6c",
+      "sha256": "445d4993c0597468ada0d2d6941e63f88d27e46a2b71349d6a6f643a6b9f278f",
       "camera_eye": [
         -0.00014457496581599116,
         -5.000851081626025,
@@ -37,7 +37,7 @@
       "file": "frame_000005.png",
       "silhouette_file": "frame_000005.png",
       "ground_mask_file": "frame_000005.png",
-      "sha256": "0f5eb44a7cb96f47cd937295d225c9564eb4a2e8bab6d59dd2fe98e804ff974b",
+      "sha256": "abba94e61ad5006da6ba3d04fbbca27553ea54e952391ed17b8ecc2df96ceca8",
       "camera_eye": [
         0.032429773360490806,
         -4.998429798753935,
@@ -65,7 +65,7 @@
       "file": "frame_000010.png",
       "silhouette_file": "frame_000010.png",
       "ground_mask_file": "frame_000010.png",
-      "sha256": "4ef771e51c1c3d2ae18d5b70a58d468b61fbe33cf24168c9a69a753a5fd5461a",
+      "sha256": "6969fdd8b3998ffc8dd74a94f0ae5dae0af1670b5be14974a2aae4a7a36c38ad",
       "camera_eye": [
         0.028120208531618125,
         -4.988075605593624,
@@ -93,7 +93,7 @@
       "file": "frame_000015.png",
       "silhouette_file": "frame_000015.png",
       "ground_mask_file": "frame_000015.png",
-      "sha256": "b1c20840c63c58b93d11f0167a467cf55e992c2adc323f0757619e62aaf2f517",
+      "sha256": "90db42085ac22dd214085abf72eb0f347243d5c8968c94149770e0ca09b18744",
       "camera_eye": [
         0.09099581837654111,
         -4.9727784283459195,
@@ -121,7 +121,7 @@
       "file": "frame_000020.png",
       "silhouette_file": "frame_000020.png",
       "ground_mask_file": "frame_000020.png",
-      "sha256": "941eef33d0b9c140ee626a2cf236cf44a078dab6e7033e1acd3e30cbb2ae7746",
+      "sha256": "32a08cb25eee447f11eaca6edb4064f41b409cc17d5aad52a7b7d56c99e88f96",
       "camera_eye": [
         0.1916029006242752,
         -5.035527776926757,
@@ -149,7 +149,7 @@
       "file": "frame_000025.png",
       "silhouette_file": "frame_000025.png",
       "ground_mask_file": "frame_000025.png",
-      "sha256": "60fdfd75fb03f688eb8707e684d5bede7e409784508ffeead01a7c8a9cb251d1",
+      "sha256": "426f0b5cdb2d337abd9bc30ef5afd335a095960d72d54f98b9fd595c9498019c",
       "camera_eye": [
         0.38368484377861023,
         -5.0743159651756296,
@@ -177,7 +177,7 @@
       "file": "frame_000030.png",
       "silhouette_file": "frame_000030.png",
       "ground_mask_file": "frame_000030.png",
-      "sha256": "314114ce096ddcb7b5e212df9a6a619f984fff47b7f56f3ee4a34987fc0f4abb",
+      "sha256": "fcd3e6bcd78efd0b7007896efd01dd3c83a5e77c2a456190fa7e6fa06f5d5690",
       "camera_eye": [
         0.6780927181243899,
         -5.096880726516249,
@@ -205,7 +205,7 @@
       "file": "frame_000035.png",
       "silhouette_file": "frame_000035.png",
       "ground_mask_file": "frame_000035.png",
-      "sha256": "4a5ec0120e02c651dd2137918f851ec62b129d8af24d6e0ea5f90027ffe594c8",
+      "sha256": "bd09e3b5b012ca4bbdb27477d31ab6d7bda0f94203310e00852e9b90f861d040",
       "camera_eye": [
         0.8992035388946533,
         -5.165835678577426,
@@ -233,7 +233,7 @@
       "file": "frame_000040.png",
       "silhouette_file": "frame_000040.png",
       "ground_mask_file": "frame_000040.png",
-      "sha256": "c9d17832c6e9874f4f6475769acca61bce55963774c5a53f2b0c55f2d1a771df",
+      "sha256": "3bf91868558dadfc8d73b596f8e64f63818fd7aad5a709139480c15ed64d265a",
       "camera_eye": [
         1.1041464805603032,
         -5.1762443780899074,
@@ -261,7 +261,7 @@
       "file": "frame_000045.png",
       "silhouette_file": "frame_000045.png",
       "ground_mask_file": "frame_000045.png",
-      "sha256": "33248a06beab691b7c6b0855fca2b58d69d0c462ed7a25905a80cf8660d27891",
+      "sha256": "3a8d6d3ac9eda93a51dd3a682321fea26af7e29b503eaf2423c6e671d5b2326b",
       "camera_eye": [
         1.234060764312745,
         -5.060485858470201,
@@ -289,7 +289,7 @@
       "file": "frame_000050.png",
       "silhouette_file": "frame_000050.png",
       "ground_mask_file": "frame_000050.png",
-      "sha256": "599761959d118d8049ea1c65a0760582fa13578ae423c6e1fc80005524b9a811",
+      "sha256": "5e9583ddd3705ba58391fd923bcecc8eea9ee9a6f9b9fcb45cbd27c7296c4a23",
       "camera_eye": [
         1.6365914344787613,
         -5.108738385140894,
@@ -317,7 +317,7 @@
       "file": "frame_000055.png",
       "silhouette_file": "frame_000055.png",
       "ground_mask_file": "frame_000055.png",
-      "sha256": "daef78cc40f7cee352f8e2d68066ae67a2683336e6a817f59b48aa2d32bf8374",
+      "sha256": "9796717ef1c288a0f332f7d5dd72da03f5762b763a33b8ab7aa0380480cbd2d1",
       "camera_eye": [
         1.7607774734497086,
         -5.096140727400782,
@@ -345,7 +345,7 @@
       "file": "frame_000060.png",
       "silhouette_file": "frame_000060.png",
       "ground_mask_file": "frame_000060.png",
-      "sha256": "fbce6f339e3500d483fa0619e28e42da86c19085320e69ccfb14ae58bee47053",
+      "sha256": "e7baba3bef1163677fd8e8a3ce569e3451185881758fccf679ed066b20bff0f5",
       "camera_eye": [
         1.9554144144058239,
         -5.040637586265804,
@@ -373,7 +373,7 @@
       "file": "frame_000065.png",
       "silhouette_file": "frame_000065.png",
       "ground_mask_file": "frame_000065.png",
-      "sha256": "95022f8d39c478d2283e046560d8b6b97a49354e41e3c5db73ea93a32235c729",
+      "sha256": "adfa482d8e6ad564de433937a7f58f6885e020608e8c9655ed96f146a34fc02c",
       "camera_eye": [
         2.15134906768799,
         -5.005734004545962,
@@ -401,7 +401,7 @@
       "file": "frame_000070.png",
       "silhouette_file": "frame_000070.png",
       "ground_mask_file": "frame_000070.png",
-      "sha256": "12dbf776a96bb10fceb3d54e647ecbf603ba7ef02cba18aff681298cfe56f1b8",
+      "sha256": "74303c5b31473415095fcb542ced0dbc736ac65f41988dac3d959e4ef620b489",
       "camera_eye": [
         2.17453980445862,
         -4.995336389169105,
@@ -429,7 +429,7 @@
       "file": "frame_000075.png",
       "silhouette_file": "frame_000075.png",
       "ground_mask_file": "frame_000075.png",
-      "sha256": "26f178f910258154d28fb9fae09581ffcca233c7f8ab91c1233441485156655f",
+      "sha256": "c36793c6e90ca9bca8c05b06bbcce2cf49528c498c17d2f1bc0439ff0837827c",
       "camera_eye": [
         2.1604824066162136,
         -5.020687540993103,
@@ -457,7 +457,7 @@
       "file": "frame_000080.png",
       "silhouette_file": "frame_000080.png",
       "ground_mask_file": "frame_000080.png",
-      "sha256": "396fc6a2f5564f9267191744ca6bb9b6c84f150805f70de182bb9bc94e8e0072",
+      "sha256": "a528bea9f2187464c0ef355295330ab12bd687b22da356abad799063cc7c0fa5",
       "camera_eye": [
         2.1389162540435813,
         -5.034767132252464,
@@ -485,7 +485,7 @@
       "file": "frame_000085.png",
       "silhouette_file": "frame_000085.png",
       "ground_mask_file": "frame_000085.png",
-      "sha256": "8dbad56075b0e66172adb06ec1d306be9eba0fe698108e7d1fa060fd506a093b",
+      "sha256": "4e226817ed4923479f1e8e1995a77c6b8476fd2d424b4fcec3fb294de26751e9",
       "camera_eye": [
         2.1169641017913845,
         -5.021997248753915,
@@ -513,7 +513,7 @@
       "file": "frame_000090.png",
       "silhouette_file": "frame_000090.png",
       "ground_mask_file": "frame_000090.png",
-      "sha256": "d36d0fe2c4b1207c40bbe3f57d75ae8f6abe706fdbd2ec60d65cbcac1c19b3ab",
+      "sha256": "af41c9b598d1e7ad2e869f1fc9acd26ea7a0fcc3d230dc1120cfd9dc6d0b7540",
       "camera_eye": [
         2.1037912368774454,
         -4.997820949181926,
@@ -541,7 +541,7 @@
       "file": "frame_000095.png",
       "silhouette_file": "frame_000095.png",
       "ground_mask_file": "frame_000095.png",
-      "sha256": "f581b93fb19241ef3063e8c11834946cd5cade3cb711dc1895bc9643f7c14d23",
+      "sha256": "6bdf4b55e3d3e2851936158fb1303a49b5f51f762052f7a41371d641b68f4b70",
       "camera_eye": [
         2.1030802726745645,
         -4.985003795474782,
@@ -569,7 +569,7 @@
       "file": "frame_000100.png",
       "silhouette_file": "frame_000100.png",
       "ground_mask_file": "frame_000100.png",
-      "sha256": "9be0d4f99c4bd1d87b6544e5000e4cf9a82638cc2b12b7e4b48608a498fe4099",
+      "sha256": "1c78fa836ea2ee4bb572d43af379c5ca9bba20f7f6bb4828a99cc7d94907465a",
       "camera_eye": [
         0.03242977336049482,
         -4.9984297987539446,
@@ -597,7 +597,7 @@
       "file": "frame_000105.png",
       "silhouette_file": "frame_000105.png",
       "ground_mask_file": "frame_000105.png",
-      "sha256": "0648aaba98df1716ab7c05c9228163863b6a5fe4373ee6c00d960b96b24d2bae",
+      "sha256": "e54ee86e23c68c0cae35825112a791f732c4755d2ff3f8ad8a7ac31ac87befcc",
       "camera_eye": [
         0.028120208531622136,
         -4.988075605593634,
@@ -625,7 +625,7 @@
       "file": "frame_000110.png",
       "silhouette_file": "frame_000110.png",
       "ground_mask_file": "frame_000110.png",
-      "sha256": "dfd6b10584ee2cdb828449763ba46c09c8f0791c073fdb6d95fcdd07741a2d97",
+      "sha256": "e964130a71c279b93498ddc09a93e91024b93e7a44c9592b1983a466f341aa27",
       "camera_eye": [
         0.09099581837654518,
         -4.972778428345932,
@@ -653,7 +653,7 @@
       "file": "frame_000115.png",
       "silhouette_file": "frame_000115.png",
       "ground_mask_file": "frame_000115.png",
-      "sha256": "7aa5adc3542a49aef61909b415412f79fc6d5a0c24bd86130f9406a13fbe40d7",
+      "sha256": "c12f9d4ed48f48c547b78fb3b2dcbadc06b3470dbb82e4da8899a993393495c6",
       "camera_eye": [
         0.19160290062427934,
         -5.035527776926771,
@@ -681,7 +681,7 @@
       "file": "frame_000120.png",
       "silhouette_file": "frame_000120.png",
       "ground_mask_file": "frame_000120.png",
-      "sha256": "19fc7398b7750a0ac4a5e60733f78c87ede072b2cb8637ab39b772557df8b9af",
+      "sha256": "f43aa5ce215f57d22867a0db4f57a3d29f94dd9ad2f24f81e7532a93580df631",
       "camera_eye": [
         0.38368484377861434,
         -5.074315965175643,
@@ -709,7 +709,7 @@
       "file": "frame_000125.png",
       "silhouette_file": "frame_000125.png",
       "ground_mask_file": "frame_000125.png",
-      "sha256": "7b400ccc6ca4e28ad297ad557898d055dd1a260bb912bde9037f888cbf84694c",
+      "sha256": "fdefffbfc5a020b3e7225c36ad262682d0eb5e8a804539f3e0e1dc9ec8dfd562",
       "camera_eye": [
         0.6780927181243935,
         -5.096880726516261,
@@ -737,7 +737,7 @@
       "file": "frame_000130.png",
       "silhouette_file": "frame_000130.png",
       "ground_mask_file": "frame_000130.png",
-      "sha256": "b57c9a94fa359f34743fab48e7d33efc01302ef3d42bdf53e95d699d255da3ba",
+      "sha256": "f86528b11e555dbbe2fe86d718812de8035237c34472970a7f0eb44022205e9c",
       "camera_eye": [
         0.8992035388946574,
         -5.165835678577441,
@@ -765,7 +765,7 @@
       "file": "frame_000135.png",
       "silhouette_file": "frame_000135.png",
       "ground_mask_file": "frame_000135.png",
-      "sha256": "138e9d13c67e3bf82ef47dfb7be9d8c9737fabee4860c7784e2c77331c62a49b",
+      "sha256": "997bf919650a548f514445a887548028fd1b278e8f44c13040deee6541dd77fe",
       "camera_eye": [
         1.1041464805603067,
         -5.176244378089927,
@@ -793,7 +793,7 @@
       "file": "frame_000140.png",
       "silhouette_file": "frame_000140.png",
       "ground_mask_file": "frame_000140.png",
-      "sha256": "3f4cdd318083682b4919af05139a1e776b9c025aed691bc7ca4943b3e32c15f5",
+      "sha256": "51e51e19c2a39cc1614764f9fde030fde14253017d9df328c23aedfce176487a",
       "camera_eye": [
         1.2340607643127481,
         -5.060485858470225,
@@ -821,7 +821,7 @@
       "file": "frame_000145.png",
       "silhouette_file": "frame_000145.png",
       "ground_mask_file": "frame_000145.png",
-      "sha256": "3c52cf37e97dfc99654bb1456d716620cfd2d3ffee65e51587804286d8d6163e",
+      "sha256": "5394b0ef66f65e1b7ca1e8529eaba5149bcf68aca93e77d83c1fc1dcd9c76dcf",
       "camera_eye": [
         1.6365914344787644,
         -5.10873838514092,
@@ -849,7 +849,7 @@
       "file": "frame_000150.png",
       "silhouette_file": "frame_000150.png",
       "ground_mask_file": "frame_000150.png",
-      "sha256": "9d5bb1ec0ea69e9372d380e4aec0d36acd8411460a7c37a84562c890628596e8",
+      "sha256": "ec70458f67b4c41e2f44c57767a1eae3d86adfd729a2027ad384be623906235a",
       "camera_eye": [
         1.7607774734497124,
         -5.0961407274008055,
@@ -877,7 +877,7 @@
       "file": "frame_000155.png",
       "silhouette_file": "frame_000155.png",
       "ground_mask_file": "frame_000155.png",
-      "sha256": "eb75a505cef340f64ade6a7a560e910d1169e11a62f2e87d325e16a3015b6d7b",
+      "sha256": "b05f745bad49d17b26b7981b5ef53762e97c408ea2a42917eb25c5c0c65a9609",
       "camera_eye": [
         1.955414414405829,
         -5.040637586265829,
@@ -905,7 +905,7 @@
       "file": "frame_000160.png",
       "silhouette_file": "frame_000160.png",
       "ground_mask_file": "frame_000160.png",
-      "sha256": "084e08099198ee6f043af0d3974f4d2cc6b7e25dda40e389a1eb7ac08e9824ac",
+      "sha256": "efd6e7ead5c06586776f6c75aeb8a18b398a3bffe1aae5fabec7338c3f39e962",
       "camera_eye": [
         2.1513490676879945,
         -5.0057340045459835,
@@ -933,7 +933,7 @@
       "file": "frame_000165.png",
       "silhouette_file": "frame_000165.png",
       "ground_mask_file": "frame_000165.png",
-      "sha256": "de6051443a1c64a73a2bb9d9f49755827bd61bcdde14354be6767baad74cb56c",
+      "sha256": "8953b300ce68154d4c6ad0dfe6b530022e65353e6f3e466f8596c60193ed333a",
       "camera_eye": [
         2.1745398044586244,
         -4.995336389169124,
@@ -961,7 +961,7 @@
       "file": "frame_000170.png",
       "silhouette_file": "frame_000170.png",
       "ground_mask_file": "frame_000170.png",
-      "sha256": "ac5497f4a9d57b32da4ec8e0015a3e7a0cfa4621722e0879d480496bdc6261fa",
+      "sha256": "de272821fbd0f91006e0203c6857f3ddf989793d8bf61ea09230894392d535e4",
       "camera_eye": [
         2.160482406616217,
         -5.020687540993122,
@@ -989,7 +989,7 @@
       "file": "frame_000175.png",
       "silhouette_file": "frame_000175.png",
       "ground_mask_file": "frame_000175.png",
-      "sha256": "7fad8f6952580d36294630ed87e8cc26439ad7877f71eed68a8cd8abf4472b3c",
+      "sha256": "8a638c2175bf985b0ca4f25b50d68157626853c450545020b5f3497ecd927815",
       "camera_eye": [
         2.1389162540435853,
         -5.034767132252483,
@@ -1017,7 +1017,7 @@
       "file": "frame_000180.png",
       "silhouette_file": "frame_000180.png",
       "ground_mask_file": "frame_000180.png",
-      "sha256": "a9dc69b507e54d4a28b3ac64904f25dacaa2ddf2fa0ce1ef396f25e4d0f3b5f0",
+      "sha256": "57734a586588b8f2a8cc65b09aae733a4e118f9c532fcc6eb9ef55d0992416e0",
       "camera_eye": [
         2.1169641017913876,
         -5.021997248753933,
@@ -1045,7 +1045,7 @@
       "file": "frame_000185.png",
       "silhouette_file": "frame_000185.png",
       "ground_mask_file": "frame_000185.png",
-      "sha256": "1c4a4394843e71620cfabed09ae249034d806affbcdc36f30cf33ed69236927a",
+      "sha256": "d66b62d33772f2720dde007f8d18c353733195ece71523722373dbfb3dc1f716",
       "camera_eye": [
         2.103791236877447,
         -4.997820949181944,
@@ -1073,7 +1073,7 @@
       "file": "frame_000190.png",
       "silhouette_file": "frame_000190.png",
       "ground_mask_file": "frame_000190.png",
-      "sha256": "6c7940e6a2fa7884769482ee3b7503e88babea6105c9e42db9a631f9f933edc0",
+      "sha256": "a3c8375a699ed0ff2e182b907b1a06d587cd3816d47d615e6628c59340af19a5",
       "camera_eye": [
         2.1030802726745668,
         -4.9850037954748,
@@ -1101,7 +1101,7 @@
       "file": "frame_000195.png",
       "silhouette_file": "frame_000195.png",
       "ground_mask_file": "frame_000195.png",
-      "sha256": "5fadc570365b4a7bc05adc7856928fcfb1f92298c776abf2d37dbe872260eafb",
+      "sha256": "872a2b1f74a30677d211a13f2d68e0f2f0580e3e8d760c4835ca47763e931cab",
       "camera_eye": [
         0.032429773360497016,
         -4.998429798753966,
@@ -1129,7 +1129,7 @@
       "file": "frame_000200.png",
       "silhouette_file": "frame_000200.png",
       "ground_mask_file": "frame_000200.png",
-      "sha256": "a164d14fab8432bf920146805dc879be9310b2781253b0a6c7c035aaf7c307a5",
+      "sha256": "603deff9e6fbbb15cdc91b903c2ab5c0cdb51a209768abb1632ceb1e30f02c8e",
       "camera_eye": [
         0.028120208531624336,
         -4.9880756055936555,
@@ -1157,7 +1157,7 @@
       "file": "frame_000205.png",
       "silhouette_file": "frame_000205.png",
       "ground_mask_file": "frame_000205.png",
-      "sha256": "60ecbbc533e694dedc8f55a606a587ba318aea489d36a51c97ad2dc8ce0773f7",
+      "sha256": "767955e991976bab2346c0d38efdabf4302ebc9b75438b6de6203256ad4c8c1d",
       "camera_eye": [
         0.09099581837654737,
         -4.972778428345953,
@@ -1185,7 +1185,7 @@
       "file": "frame_000210.png",
       "silhouette_file": "frame_000210.png",
       "ground_mask_file": "frame_000210.png",
-      "sha256": "e5ccd54aeeed0db35bfc98060f977390de71742d1f14a2fda924c313cd47208f",
+      "sha256": "ac51c0d301ead701f179df41fea4f894773b7de845facab19ad8cc15a61ddcea",
       "camera_eye": [
         0.19160290062428137,
         -5.035527776926789,
@@ -1213,7 +1213,7 @@
       "file": "frame_000215.png",
       "silhouette_file": "frame_000215.png",
       "ground_mask_file": "frame_000215.png",
-      "sha256": "1778f5688a83c654da7dc91ca457626fe2249056ae0d7916023466eca850b485",
+      "sha256": "b246e61ab5078944eeb974d6131802ed1c68aa9b577e7145383328143542541a",
       "camera_eye": [
         0.38368484377861645,
         -5.074315965175663,
@@ -1241,7 +1241,7 @@
       "file": "frame_000220.png",
       "silhouette_file": "frame_000220.png",
       "ground_mask_file": "frame_000220.png",
-      "sha256": "9d880686e6c225cca48ea1d7e0ef1a280e1918152d96f91e3cfcf3a48f151935",
+      "sha256": "ce2f38a8dda2734e0c8ad85d56b9eb06783d01f543176f53ef6263b41c886c49",
       "camera_eye": [
         0.678092718124396,
         -5.096880726516283,
@@ -1269,7 +1269,7 @@
       "file": "frame_000225.png",
       "silhouette_file": "frame_000225.png",
       "ground_mask_file": "frame_000225.png",
-      "sha256": "6069759fdd1f3b0ce41e8fcf3b7ca9c87e1fbab83d5e492ee16a18e8c6a4055a",
+      "sha256": "84ec2df2f351ccaa7fca46b1b9ba8dbb9c25c3d67d3ed0f90231e92705d7af55",
       "camera_eye": [
         0.8992035388946599,
         -5.165835678577459,
@@ -1297,7 +1297,7 @@
       "file": "frame_000230.png",
       "silhouette_file": "frame_000230.png",
       "ground_mask_file": "frame_000230.png",
-      "sha256": "1255cb80aa0aeea36aacc9878acc214d4910d3e0d102132501016340eabaf367",
+      "sha256": "09e2c95e790d1b72f1a41f44674f15669848d66e81ab934fca8a21882485ab74",
       "camera_eye": [
         1.1041464805603092,
         -5.176244378089937,
@@ -1325,7 +1325,7 @@
       "file": "frame_000235.png",
       "silhouette_file": "frame_000235.png",
       "ground_mask_file": "frame_000235.png",
-      "sha256": "1395267ff249fd0ad1f9e3086a5b98fdeeedf20130cfbd22e405884518c4bac0",
+      "sha256": "8606de7eba7ff3a06c9b838df13e806c6b1d1412eb5a13148a808ffbac062303",
       "camera_eye": [
         1.2340607643127506,
         -5.060485858470232,
@@ -1353,7 +1353,7 @@
       "file": "frame_000240.png",
       "silhouette_file": "frame_000240.png",
       "ground_mask_file": "frame_000240.png",
-      "sha256": "acbf7b0408729e426dba25f300217f8da4b5188802122d70b9ac9a8c871ab86a",
+      "sha256": "edaa9333f91ff80c77b0294afe552acbc1a1775ccbc20ed42108b8359dc24c97",
       "camera_eye": [
         1.6365914344787662,
         -5.108738385140925,
@@ -1381,7 +1381,7 @@
       "file": "frame_000245.png",
       "silhouette_file": "frame_000245.png",
       "ground_mask_file": "frame_000245.png",
-      "sha256": "9fd65e00719aba53656258ead81ca49bce3cf584abe0523a9b594c2c79b175e4",
+      "sha256": "4f14d093afef158eaaf2933e441072f15536db33d235bb610bb11a225b2142b1",
       "camera_eye": [
         1.7607774734497132,
         -5.096140727400809,
@@ -1409,7 +1409,7 @@
       "file": "frame_000250.png",
       "silhouette_file": "frame_000250.png",
       "ground_mask_file": "frame_000250.png",
-      "sha256": "4c46d90b022a3198f04d1f5918fb3f9bbd8fa34b264e455ea83689baac019873",
+      "sha256": "f83ed923004902bcde8f3d8e7165bf805357d19fb2678c91a5603aae54381fdf",
       "camera_eye": [
         1.95541441440583,
         -5.040637586265833,
@@ -1437,7 +1437,7 @@
       "file": "frame_000255.png",
       "silhouette_file": "frame_000255.png",
       "ground_mask_file": "frame_000255.png",
-      "sha256": "d0d0972297218455f4f7ebf98e33e167a443e267571a9a55299fe986c20406e6",
+      "sha256": "d8a2b8086af654e0dd4f735ac9508738e444450217bd3b74b63d931bcbb3574d",
       "camera_eye": [
         2.1513490676879954,
         -5.005734004545985,
@@ -1465,7 +1465,7 @@
       "file": "frame_000260.png",
       "silhouette_file": "frame_000260.png",
       "ground_mask_file": "frame_000260.png",
-      "sha256": "5d566bc208ade679e1f26ff934b7179a1c368ff81118139089fe6d909b4d7736",
+      "sha256": "cb60662576b812347855d1aebbee4cc62e4533c5673536f66e645d0036627117",
       "camera_eye": [
         2.1745398044586257,
         -4.995336389169124,
@@ -1493,7 +1493,7 @@
       "file": "frame_000265.png",
       "silhouette_file": "frame_000265.png",
       "ground_mask_file": "frame_000265.png",
-      "sha256": "f438ad86f3e544f775989235fe4d37c0bf3b8e2e4793052f2ef5298a080e3c11",
+      "sha256": "00cc55a4fbb5b1420642d2fce68f6dd5cea768dc7d2f13049d1f483224cc1c4c",
       "camera_eye": [
         2.1604824066162185,
         -5.02068754099312,
@@ -1521,7 +1521,7 @@
       "file": "frame_000270.png",
       "silhouette_file": "frame_000270.png",
       "ground_mask_file": "frame_000270.png",
-      "sha256": "4fe64d8ac607d9d10ea10c5fe3777318a0888d2f995a87edc17d07387c530453",
+      "sha256": "9c213410a65e1927625d7f97c187a8cf604bae53951bc87b2a413f6db7bb7a31",
       "camera_eye": [
         2.1389162540435875,
         -5.0347671322524805,
@@ -1549,7 +1549,7 @@
       "file": "frame_000275.png",
       "silhouette_file": "frame_000275.png",
       "ground_mask_file": "frame_000275.png",
-      "sha256": "93da4ebac78753b697471dc7af6570d7b7de91a49509601c062f84acee0b3c70",
+      "sha256": "405d31b3432d75d736c3e8b44848248f85594134d3526bfac9e41073904745b3",
       "camera_eye": [
         2.1169641017913903,
         -5.021997248753931,
@@ -1577,7 +1577,7 @@
       "file": "frame_000280.png",
       "silhouette_file": "frame_000280.png",
       "ground_mask_file": "frame_000280.png",
-      "sha256": "776e9ece84d9ebc46e27e0a0a36eb3687738d0a4cf7576371d5c1a93d6df9659",
+      "sha256": "2f690ce0b930ec8a1cfeefdeca8fa7a8d28f3d5af7541a8716b5c1e3784185fd",
       "camera_eye": [
         2.1037912368774503,
         -4.997820949181942,
@@ -1605,7 +1605,7 @@
       "file": "frame_000285.png",
       "silhouette_file": "frame_000285.png",
       "ground_mask_file": "frame_000285.png",
-      "sha256": "fb83d5bd89c94586d0ab80087089510432b4d313ae6b057147466603e058f725",
+      "sha256": "7ab003db4ff958715a27fe25e220547408a555942dc37a83848dc068b759f19a",
       "camera_eye": [
         2.1030802726745708,
         -4.985003795474796,
@@ -1633,7 +1633,7 @@
       "file": "frame_000290.png",
       "silhouette_file": "frame_000290.png",
       "ground_mask_file": "frame_000290.png",
-      "sha256": "608d233a47d54abed17fbfe14f4bffee1af84063992506d07147d3c62cd72139",
+      "sha256": "249ba444387850cbb8878cb375e1690b62194e9a87d7420dcdee981876bfb580",
       "camera_eye": [
         0.03242977336050102,
         -4.998429798753961,
@@ -1661,7 +1661,7 @@
       "file": "frame_000295.png",
       "silhouette_file": "frame_000295.png",
       "ground_mask_file": "frame_000295.png",
-      "sha256": "55bd0bbd4a48c1cf4e1beb0e016408a24a82b911c6d7038394f1e3e084632744",
+      "sha256": "ade7a6b55f62323c52244a90044ba081cff620dcfc7c75ec9855a1ab97ad2630",
       "camera_eye": [
         0.028120208531628343,
         -4.988075605593652,

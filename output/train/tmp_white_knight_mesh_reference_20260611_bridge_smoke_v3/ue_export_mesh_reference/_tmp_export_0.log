@@ -1,18 +1,49 @@
-Building view_motion env
-[INFO][AppLauncher]: Using device: cuda:0
-[INFO][AppLauncher]: Loading experience file: D:\MimicKitNative\workspace\IsaacLab_full\apps\isaacsim_4_5\isaaclab.python.headless.kit
-[INFO] IsaacLab logging to file: C:\Users\l3d\AppData\Local\Temp\isaaclab_2026-06-12_09-09-24.log
-[33m09:09:24 [simulation_context.py] WARNING: Large simulation step size (> 0.0333 seconds) is not recommended without enabling stabilization. Consider setting the `enable_stabilization` flag to True in the PhysxCfg, or reducing the simulation step size if you run into physics issues.[0m
-[33m09:09:24 [stage.py] WARNING: [Compat] Isaac Sim < 5.0 does not support thread-local stage contexts. Skipping use_stage().[0m
 [Warning] [simulation_app.simulation_app] Modules: ['omni.kit_app'] were loaded before SimulationApp was started and might not be loaded correctly.
 [Warning] [simulation_app.simulation_app] Please check to make sure no extra omniverse or pxr modules are imported before the call to SimulationApp(...)
 Loading user config located at: 'd:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/Kit/Isaac-Sim/4.5/user.config.json'
-[Info] [carb] Logging to file: d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260612_090920.log
-2026-06-12 01:09:20 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
-2026-06-12 01:09:20 [28ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes' or 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes/config'
-2026-06-12 01:09:20 [278ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
-2026-06-12 01:09:20 [772ms] [Warning] [omni.datastore] OmniHub is inaccessible
-2026-06-12 01:09:20 [818ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+[Info] [carb] Logging to file: d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/logs/Kit/Isaac-Sim/4.5/kit_20260613_231552.log
+2026-06-13 15:15:52 [0ms] [Warning] [omni.kit.app.plugin] No crash reporter present, dumps uploading isn't available.
+2026-06-13 15:15:52 [24ms] [Warning] [omni.ext.plugin] [ext: rendering_modes] Extensions config 'extension.toml' doesn't exist 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes' or 'd:/mimickitnative/workspace/isaaclab_full/apps/isaacsim_4_5/rendering_modes/config'
+2026-06-13 15:15:52 [310ms] [Warning] [omni.usd_config.extension] Enable omni.materialx.libs extension to use MaterialX
+2026-06-13 15:15:53 [904ms] [Warning] [omni.datastore] OmniHub is inaccessible
+2026-06-13 15:15:53 [968ms] [Warning] [omni.isaac.dynamic_control] omni.isaac.dynamic_control is deprecated as of Isaac Sim 4.5. No action is needed from end-users.
+2026-06-13 15:15:54 [1,613ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version
+2026-06-13 15:15:54 [1,613ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.
+2026-06-13 15:15:54 [1,613ms] [Error] [carb] Interface: [omni::physx::IPhysxPrivate v0.2] requested but default plugin [omni::physx::IPhysxPrivate v1.2] cannot provide requested version
+2026-06-13 15:15:54 [1,613ms] [Error] [carb] [Plugin: omni.physx.fabric.plugin] Dependency: [omni::physx::IPhysxPrivate v0.2] failed to be resolved.
+2026-06-13 15:15:54 [1,614ms] [Error] [carb.scripting-python.plugin] RuntimeError: Failed to acquire interface: omni::physx::IPhysxFabric (pluginName: nullptr)
+
+At:
+  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(7): _get_interface
+  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/__init__.py(11): get_physx_fabric_interface
+  d:/mimickitnative/conda/mimickit-isaaclab-win/lib/site-packages/omni/data/kit/isaac-sim/4.5/exts/3/omni.physx.fabric-106.3.2+106.3.0.wx64.r.cp310.ub3f/omni/physxfabric/scripts/extension.py(12): on_startup
+  D:\MimicKitNative\conda\mimickit-isaaclab-win\Lib\site-packages\omni\kernel\py\omni\ext\_impl\_internal.py(166): _startup_ext
+  D:\MimicKitNative\conda\mimickit-isaaclab-win\Lib\site-packages\omni\kernel\py\omni\ext\_impl\_internal.py(224): startup
+  D:\MimicKitNative\conda\mimickit-isaaclab-win\Lib\site-packages\omni\kernel\py\omni\ext\_impl\_internal.py(328): startup_extension
+  PythonExtension.cpp::startup()(2): <module>
+  D:\MimicKitNative\conda\mimickit-isaaclab-win\Lib\site-packages\isaacsim\exts\isaacsim.simulation_app\isaacsim\simulation_app\simulation_app.py(427): _start_app
+  D:\MimicKitNative\conda\mimickit-isaaclab-win\Lib\site-packages\isaacsim\exts\isaacsim.simulation_app\isaacsim\simulation_app\simulation_app.py(212): __init__
+  D:\MimicKitNative\workspace\IsaacLab_full\source\isaaclab\isaaclab\app\app_launcher.py(811): _create_app
+  D:\MimicKitNative\workspace\IsaacLab_full\source\isaaclab\isaaclab\app\app_launcher.py(127): __init__
+  D:\MimicKitNative\workspace\MimicKit\mimickit\engines\isaac_lab_engine.py(946): _create_simulator
+  D:\MimicKitNative\workspace\MimicKit\mimickit\engines\isaac_lab_engine.py(83): __init__
+  D:\MimicKitNative\workspace\MimicKit\mimickit\engines\engine_builder.py(14): build_engine
+  D:\MimicKitNative\workspace\MimicKit\mimickit\envs\sim_env.py(164): _build_engine
+  D:\MimicKitNative\workspace\MimicKit\mimickit\envs\sim_env.py(27): __init__
+  D:\MimicKitNative\workspace\MimicKit\mimickit\envs\char_env.py(24): __init__
+  D:\MimicKitNative\workspace\MimicKit\mimickit\envs\view_motion_env.py(15): __init__
+  D:\MimicKitNative\workspace\MimicKit\mimickit\envs\env_builder.py(40): build_env
+  D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\_bridge_common.py(151): build_runtime_context
+  D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\export_dummy_fixture.py(187): main
+  D:\MimicKitNative\workspace\MimicKit\tools\ue_bridge\export_dummy_fixture.py(438): <module>
+
+2026-06-13 15:15:54 [1,614ms] [Error] [omni.ext.plugin] [ext: omni.physx.fabric-106.3.2] Failed to startup python extension.
+Building view_motion env
+[INFO][AppLauncher]: Using device: cuda:0
+[INFO][AppLauncher]: Loading experience file: D:\MimicKitNative\workspace\IsaacLab_full\apps\isaacsim_4_5\isaaclab.python.headless.kit
+[INFO] IsaacLab logging to file: C:\Users\l3d\AppData\Local\Temp\isaaclab_2026-06-13_23-15-57.log
+[33m23:15:57 [simulation_context.py] WARNING: Large simulation step size (> 0.0333 seconds) is not recommended without enabling stabilization. Consider setting the `enable_stabilization` flag to True in the PhysxCfg, or reducing the simulation step size if you run into physics issues.[0m
+[33m23:15:57 [stage.py] WARNING: [Compat] Isaac Sim < 5.0 does not support thread-local stage contexts. Skipping use_stage().[0m
 
 |---------------------------------------------------------------------------------------------|
 | Driver Version: 591.86        | Graphics API: D3D12
@@ -33,23 +64,33 @@ Loading user config located at: 'd:/mimickitnative/conda/mimickit-isaaclab-win/l
 | Processor: AMD Ryzen 9 7950X 16-Core Processor            
 | Cores: 16 | Logical Cores: 32
 |---------------------------------------------------------------------------------------------|
-| Total Memory (MB): 65240 | Free Memory: 43766
-| Total Page/Swap (MB): 69336 | Free Page/Swap: 34894
+| Total Memory (MB): 65240 | Free Memory: 38133
+| Total Page/Swap (MB): 69336 | Free Page/Swap: 18748
 |---------------------------------------------------------------------------------------------|
-2026-06-12 01:09:26 [6,103ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,262ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPreviewSurface.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,103ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,262ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdUVTexture.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,103ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,262ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,103ms] [Warning] Building 1/1 envs
+2026-06-13 15:15:59 [7,263ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-13 15:15:59 [7,263ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-13 15:15:59 [7,263ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-13 15:15:59 [7,264ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-13 15:15:59 [7,264ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+
+2026-06-1Building 1/1 envs
 
 Loading 1/1 motion files: D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
 Loaded motion file: D:\MimicKitNative\workspace\MimicKit\data\motions\reallusion\RL_Avatar_Atk_2xCombo01_Motion.pkl
 Loaded 1 motions with a total length of 3.167s.
 Building Obj:0 in 1/1 envs
 Initializing simulation...
-[33m09:09:26 [articulation.py] WARNING: Spatial tendons are not supported in Isaac Sim < 5.0: patching spatial-tendon getter and setter to use dummy value[0m
+[33m23:16:00 [articulation.py] WARNING: Spatial tendons are not supported in Isaac Sim < 5.0: patching spatial-tendon getter and setter to use dummy value[0m
 Char 0 properties
 	DoFs: 31
 	Mass: 53.001 kg
@@ -65,25 +106,15 @@ Total parameter count: 0
 [OK] dummy ref actions exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\ue_export_mesh_reference\ref_actions.jsonl
 [OK] dummy visual replay exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\ue_export_mesh_reference\visual_replay\pose_dof_replay.jsonl
 [OK] dummy onnx exported: D:\MimicKitNative\workspace\MimicKit\output\train\tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3\ue_export_mesh_reference\policy_actor.onnx
-[omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float2.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+3 15:15:59 [7,264ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,104ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float3.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,264ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,104ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_float4.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,265ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,104ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_int.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,265ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,104ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_string.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
+2026-06-13 15:15:59 [7,265ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
 
-2026-06-12 01:09:26 [6,105ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_normal.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
-
-2026-06-12 01:09:26 [6,105ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_point.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
-
-2026-06-12 01:09:26 [6,105ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_vector.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
-
-2026-06-12 01:09:26 [6,105ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdPrimvarReader_matrix.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
-
-2026-06-12 01:09:26 [6,105ms] [Warning] [omni.usd] Warning: in GetNodeDiscoveryResults at line 136 of C:\g\122538378\USD\pxr\usd\usdShade\shaderDefUtils.cpp -- Unable to resolve info:sourceAsset </UsdTransform2d.info:mdl:sourceAsset> with value @UsdPreviewSurface.mdl@.
-
-2026-06-12 01:09:39 [19,747ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown
-2026-06-12 01:09:40 [19,905ms] [Warning] [carb] Recursive unloadAllPlugins() detected!
+2026-06-13 15:16:12 [20,177ms] [Warning] [omni.fabric.plugin] gFabricState->gUsdStageToSimStageWithHistoryMap had 1 outstanding SimStageWithHistory(s) at shutdown
+2026-06-13 15:16:12 [20,317ms] [Warning] [carb] Recursive unloadAllPlugins() detected!

@@ -15,7 +15,7 @@
     "mimickit_source_asset_imported_to_ue": false,
     "mimickit_source_asset_import_status": "pending_ue_editor_asset_build",
     "mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
-    "mimickit_source_rig_asset_spec_hash": "fed36162dc8c1643e319c0c6a4fbc40e978580afacb6217c9f667975ca334e6b"
+    "mimickit_source_rig_asset_spec_hash": "a439666b3182aec56ede46ac1222db2c4fefc9a6a2f2b2cf69a7b1781fb7e30e"
   },
   "basis_transform": {
     "name": "mimickit_training_xyz_to_ue_xyz_cm_v1",
@@ -255,6 +255,6 @@
   },
   "source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
   "runtime_control_contract_file": "runtime_control_contract.json",
-  "source_rig_asset_spec_hash": "fed36162dc8c1643e319c0c6a4fbc40e978580afacb6217c9f667975ca334e6b",
-  "contract_hash": "c006e1cd6f60e7549164fd8905920904e3b84afb1c1c3d9f3131078e84dbbc9f"
+  "source_rig_asset_spec_hash": "a439666b3182aec56ede46ac1222db2c4fefc9a6a2f2b2cf69a7b1781fb7e30e",
+  "contract_hash": "9103650a431d1cc79ced24550119ed2dcd0503d3b95ed88958fa3c9be8f6720a"
 }

@@ -271,13 +271,13 @@ def source_build_command(case_name: str, python: Path) -> list[str]:
             "--run-native-windows", "--root-name", case["mimic_root"],
             "--frames", "300", "--frame-stride", "5", "--mp4-fps", "12",
             "--width", "960", "--height", "540", "--device", "cuda:0", "--num-envs", "1",
-            "--seed", "7", "--force-root",
+            "--seed", "7", "--force-root"
         ]
     return common + [
         "--run-native-windows", "--source-root", case["source_root"], "--stage", case["source_stage"],
         "--root-name", case["mimic_root"], "--frames", "300", "--frame-stride", "5", "--mp4-fps", "12",
         "--width", "960", "--height", "540", "--device", "cuda:0", "--num-envs", "1",
-        "--seed", "7", "--force-root",
+        "--seed", "7", "--force-root"
     ]
 
 

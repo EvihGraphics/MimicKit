@@ -1,11 +1,13 @@
 {
   "schema_version": 1,
-  "created_at_utc": "2026-06-13T02:49:42.055113+00:00",
+  "created_at_utc": "2026-06-13T15:26:04.913841+00:00",
   "label": "white-knight-smoke",
   "bridge_case_id": "e316bd46b73680da9867",
   "case_acceptance_pass": true,
-  "blocker": "",
-  "blockers": [],
+  "blocker": "evih_framework_api_not_used",
+  "blockers": [
+    "evih_framework_api_not_used"
+  ],
   "report": {
     "label": "white-knight-smoke",
     "bridge_case_id": "e316bd46b73680da9867",
@@ -22,7 +24,6 @@
       "mimic_dynamic_sequence_ok": true,
       "mimic_source_not_ppm_only": true,
       "evih_manifest_exists": true,
-      "evih_mesh_replay_pass": true,
       "evih_data_binding_ok": true,
       "mesh_binding_pass": true,
       "fk_compare_pass": true,
@@ -32,7 +33,6 @@
       "evih_dynamic_sequence_pass": true,
       "comparison_mp4_pass": true,
       "media_ok": true,
-      "evih_blocker_empty": true,
       "visual_review_exists": true,
       "visual_review_checks_pass": true,
       "visual_review_reviewer_present": true,
@@ -44,11 +44,13 @@
       "visual_review_pass": true
     },
     "mimic_manifest": "/root/Project/MimicKit/output/train/tmp_white_knight_mesh_reference_20260611_bridge_smoke_v3/mesh_reference_manifest.json",
-    "mimic_manifest_sha256": "02c5ef1fff1a4ae199df7c0ca356a5f20cc62c7c9a17a7a58f655a350738854d",
+    "mimic_manifest_sha256": "5e1feef74f5e154af719b3681d13c8d9be8b842a2808174d3d0b2204ee6054aa",
     "evih_manifest": "/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results/white_knight_mesh_replay_v3_smoke/visual_result_manifest.json",
-    "evih_manifest_sha256": "608aef4646f16f85870884436bd32d1544df26965c4cc371eb2109661a96abae",
+    "evih_manifest_sha256": "c0712e51c9c086a1a0072515459730712fb6e416f68316d701de0a4289656d97",
     "visual_review": "/mnt/d/AnimationTech-learning/EvihAnimation-mimickit-bridge-v3/Demos/MimicKitReplay/results/white_knight_mesh_replay_v3_smoke/evih_mesh_replay/visual_review.json",
-    "visual_review_sha256": "e9790ca08f87411e9757f4925999ff7d75ea23c48a5c8a65541613f30d1a092d",
-    "blockers": []
+    "visual_review_sha256": "2646846358fad435f8daa44eccf5fe91c5782931cb31bccc9b4df0f8b4a9fa47",
+    "blockers": [
+      "evih_framework_api_not_used"
+    ]
   }
 }

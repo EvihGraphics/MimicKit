@@ -1,6 +1,6 @@
 {
   "schema_version": 3,
-  "created_at_utc": "2026-06-12T02:36:22.751545+00:00",
+  "created_at_utc": "2026-06-13T15:27:56.124861+00:00",
   "brain_name": "WhiteKnightMeshReference",
   "package_role": "mimickit_to_ue_visual_alignment_contract",
   "character": {
@@ -63,7 +63,7 @@
       "mimickit_source_asset_imported_to_ue": false,
       "mimickit_source_asset_import_status": "pending_ue_editor_asset_build",
       "mimickit_source_rig_asset_spec_file": "mimickit_source_rig_asset_spec.json",
-      "mimickit_source_rig_asset_spec_hash": "a2f0c8c5ea25fe2e2030b62403cf7ffac5b040a5159943e78cc5b4e98c20c09f"
+      "mimickit_source_rig_asset_spec_hash": "46ca31b5673aca46deff4bcc970a7289696ca6410cb7173da99ef018a7c93773"
     },
     "basis_transform": {
       "name": "mimickit_training_xyz_to_ue_xyz_cm_v1",
@@ -301,7 +301,7 @@
       "requires_mimickit_source_asset_imported_to_ue": true,
       "ppm_only_allowed": false
     },
-    "source_rig_asset_spec_hash": "a2f0c8c5ea25fe2e2030b62403cf7ffac5b040a5159943e78cc5b4e98c20c09f"
+    "source_rig_asset_spec_hash": "46ca31b5673aca46deff4bcc970a7289696ca6410cb7173da99ef018a7c93773"
   },
   "ue_capture_requirements": {
     "required_outputs": [
